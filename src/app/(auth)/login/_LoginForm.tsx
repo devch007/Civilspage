@@ -27,10 +27,13 @@ export default function LoginForm() {
         const result = await loginAction({ error: '' }, formData);
         if (result?.error) {
           setError(result.error);
+        } else if (result?.redirectTo) {
+          // Full page reload so middleware sees the new session cookie
+          window.location.href = result.redirectTo;
         }
-        // If no error, redirect is handled by the server action
       } catch (err) {
-        setError(`Client error: ${err instanceof Error ? err.message : String(err)}`);
+        const msg = err instanceof Error ? err.message : String(err);
+        setError(`Error: ${msg}`);
       }
     });
   };

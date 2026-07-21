@@ -1,11 +1,10 @@
 'use server';
 
-import { redirect } from 'next/navigation';
 import { getSupabaseServerClient } from '@/lib/supabase/server';
 
 export interface LoginState {
   error?: string;
-  message?: string;
+  redirectTo?: string;
 }
 
 export async function loginAction(
@@ -45,10 +44,6 @@ export async function loginAction(
     return { error: `Unexpected error: ${err instanceof Error ? err.message : String(err)}` };
   }
 
-  // redirect() must be called OUTSIDE try/catch
-  if (redirectTo) {
-    redirect(redirectTo);
-  }
-
-  return { error: 'Redirect failed — please try again.' };
+  // Return the URL — client will navigate (avoids NEXT_REDIRECT being caught)
+  return { redirectTo: next };
 }
