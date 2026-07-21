@@ -1,20 +1,39 @@
 'use client';
 
-import { useActionState } from 'react';
+import { useState, useTransition } from 'react';
 import { useSearchParams } from 'next/navigation';
 import { loginAction } from '@/actions/auth.actions';
 import { Lock, Loader2, Eye, EyeOff } from 'lucide-react';
-import { useState } from 'react';
 import Link from 'next/link';
-
-const initialState = { error: '' };
 
 export default function LoginForm() {
   const searchParams = useSearchParams();
   const next = searchParams.get('next') || '/admin/dashboard';
-  const [showPassword, setShowPassword] = useState(false);
 
-  const [state, formAction, isPending] = useActionState(loginAction, initialState);
+  const [showPassword, setShowPassword] = useState(false);
+  const [error, setError] = useState('');
+  const [isPending, startTransition] = useTransition();
+
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    setError('');
+
+    const form = e.currentTarget;
+    const formData = new FormData(form);
+    formData.set('next', next);
+
+    startTransition(async () => {
+      try {
+        const result = await loginAction({ error: '' }, formData);
+        if (result?.error) {
+          setError(result.error);
+        }
+        // If no error, redirect is handled by the server action
+      } catch (err) {
+        setError(`Client error: ${err instanceof Error ? err.message : String(err)}`);
+      }
+    });
+  };
 
   return (
     <div className="relative w-full max-w-md">
@@ -32,17 +51,22 @@ export default function LoginForm() {
         </div>
 
         {/* Error */}
-        {state.error && (
-          <div className="p-3 bg-red-500/10 border border-red-500/20 rounded-xl text-red-400 text-sm font-medium">
-            {state.error}
+        {error && (
+          <div className="p-3 bg-red-500/10 border border-red-500/20 rounded-xl text-red-400 text-sm font-medium break-all">
+            {error}
           </div>
         )}
 
-        {/* Form — server action, no client fetch */}
-        <form action={formAction} className="space-y-4">
-          {/* Pass "next" as hidden field so server action can redirect correctly */}
-          <input type="hidden" name="next" value={next} />
+        {/* Pending */}
+        {isPending && !error && (
+          <div className="p-3 bg-indigo-500/10 border border-indigo-500/20 rounded-xl text-indigo-400 text-sm font-medium flex items-center gap-2">
+            <Loader2 className="w-4 h-4 animate-spin shrink-0" />
+            Verifying credentials…
+          </div>
+        )}
 
+        {/* Form */}
+        <form onSubmit={handleSubmit} className="space-y-4">
           <div className="space-y-1.5">
             <label className="text-xs font-semibold text-slate-300 uppercase tracking-wider">
               Email Address
@@ -86,7 +110,7 @@ export default function LoginForm() {
             {isPending ? (
               <>
                 <Loader2 className="w-4 h-4 animate-spin" />
-                Signing in...
+                Signing in…
               </>
             ) : (
               'Sign in to Dashboard'
