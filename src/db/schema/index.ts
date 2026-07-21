@@ -7,3 +7,4 @@ export * from './notes';
 export * from './pyqs';
 export * from './quizzes';
 export * from './misc';
+export * from './audit-logs';

@@ -3,7 +3,7 @@ import Link from 'next/link';
 import {
   BarChart3, FileText, Newspaper, FileSpreadsheet,
   BookOpen, HelpCircle, Users, Settings, Layout, BrainCircuit,
-  LogOut, Tag, MessageSquare, Mail, Zap
+  LogOut, Tag, MessageSquare, Mail, Zap, Shield
 } from 'lucide-react';
 
 const navItems = [
@@ -18,6 +18,7 @@ const navItems = [
   { href: '/admin/comments', label: 'Comments', icon: MessageSquare },
   { href: '/admin/newsletter', label: 'Newsletter', icon: Mail },
   { href: '/admin/users', label: 'Users', icon: Users },
+  { href: '/admin/audit-log', label: 'Audit Log', icon: Shield },
   { href: '/admin/settings', label: 'Settings', icon: Settings },
 ];
 
