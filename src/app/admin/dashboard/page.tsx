@@ -1,29 +1,39 @@
-import { getAllBlogs } from '@/services/blog.service';
-import { getAllCurrentAffairs } from '@/services/current-affairs.service';
-import { getCourses } from '@/services/course.service';
-import { getNotes } from '@/services/note.service';
-import { getPyqs } from '@/services/pyq.service';
-import { getAllUsers } from '@/services/user.service';
 import Link from 'next/link';
 import { FileText, Newspaper, BookOpen, FileSpreadsheet, HelpCircle, Users } from 'lucide-react';
 
+async function safeQuery<T>(fn: () => Promise<T>, fallback: T): Promise<T> {
+  try {
+    return await fn();
+  } catch (e) {
+    console.error('[dashboard] query failed:', e);
+    return fallback;
+  }
+}
+
 export default async function DashboardPage() {
+  const { getAllBlogs } = await import('@/services/blog.service');
+  const { getAllCurrentAffairs } = await import('@/services/current-affairs.service');
+  const { getCourses } = await import('@/services/course.service');
+  const { getNotes } = await import('@/services/note.service');
+  const { getPyqs } = await import('@/services/pyq.service');
+  const { getAllUsers } = await import('@/services/user.service');
+
   const [blogs, affairs, courses, notes, pyqs, users] = await Promise.all([
-    getAllBlogs(),
-    getAllCurrentAffairs(),
-    getCourses(),
-    getNotes(),
-    getPyqs(),
-    getAllUsers(),
+    safeQuery(getAllBlogs, []),
+    safeQuery(getAllCurrentAffairs, []),
+    safeQuery(getCourses, []),
+    safeQuery(getNotes, []),
+    safeQuery(getPyqs, []),
+    safeQuery(getAllUsers, []),
   ]);
 
   const stats = [
-    { label: 'Blogs', count: blogs.length, href: '/admin/blogs', icon: FileText, color: 'indigo' },
-    { label: 'Current Affairs', count: affairs.length, href: '/admin/current-affairs', icon: Newspaper, color: 'blue' },
-    { label: 'Courses', count: courses.length, href: '/admin/courses', icon: BookOpen, color: 'emerald' },
-    { label: 'Notes', count: notes.length, href: '/admin/notes', icon: FileSpreadsheet, color: 'amber' },
-    { label: 'PYQs', count: pyqs.length, href: '/admin/pyqs', icon: HelpCircle, color: 'purple' },
-    { label: 'Users', count: users.length, href: '/admin/users', icon: Users, color: 'rose' },
+    { label: 'Blogs', count: blogs.length, href: '/admin/blogs', icon: FileText },
+    { label: 'Current Affairs', count: affairs.length, href: '/admin/current-affairs', icon: Newspaper },
+    { label: 'Courses', count: courses.length, href: '/admin/courses', icon: BookOpen },
+    { label: 'Notes', count: notes.length, href: '/admin/notes', icon: FileSpreadsheet },
+    { label: 'PYQs', count: pyqs.length, href: '/admin/pyqs', icon: HelpCircle },
+    { label: 'Users', count: users.length, href: '/admin/users', icon: Users },
   ];
 
   return (
