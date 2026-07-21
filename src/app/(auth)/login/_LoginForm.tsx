@@ -1,39 +1,20 @@
 'use client';
 
-import { useState } from 'react';
-import { useRouter, useSearchParams } from 'next/navigation';
-import { getSupabaseBrowserClient } from '@/lib/supabase/client';
+import { useActionState } from 'react';
+import { useSearchParams } from 'next/navigation';
+import { loginAction } from '@/actions/auth.actions';
 import { Lock, Loader2, Eye, EyeOff } from 'lucide-react';
+import { useState } from 'react';
 import Link from 'next/link';
 
+const initialState = { error: '' };
+
 export default function LoginForm() {
-  const router = useRouter();
   const searchParams = useSearchParams();
   const next = searchParams.get('next') || '/admin/dashboard';
-
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState('');
 
-  const handleLogin = async (e: React.FormEvent) => {
-    e.preventDefault();
-    setLoading(true);
-    setError('');
-
-    const supabase = getSupabaseBrowserClient();
-    const { error: authError } = await supabase.auth.signInWithPassword({ email, password });
-
-    if (authError) {
-      setError(authError.message);
-      setLoading(false);
-      return;
-    }
-
-    router.push(next);
-    router.refresh();
-  };
+  const [state, formAction, isPending] = useActionState(loginAction, initialState);
 
   return (
     <div className="relative w-full max-w-md">
@@ -51,23 +32,25 @@ export default function LoginForm() {
         </div>
 
         {/* Error */}
-        {error && (
+        {state.error && (
           <div className="p-3 bg-red-500/10 border border-red-500/20 rounded-xl text-red-400 text-sm font-medium">
-            {error}
+            {state.error}
           </div>
         )}
 
-        {/* Form */}
-        <form onSubmit={handleLogin} className="space-y-4">
+        {/* Form — server action, no client fetch */}
+        <form action={formAction} className="space-y-4">
+          {/* Pass "next" as hidden field so server action can redirect correctly */}
+          <input type="hidden" name="next" value={next} />
+
           <div className="space-y-1.5">
             <label className="text-xs font-semibold text-slate-300 uppercase tracking-wider">
               Email Address
             </label>
             <input
               type="email"
+              name="email"
               required
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
               placeholder="educator@civilspage.com"
               className="w-full px-4 py-3 bg-slate-950/60 border border-slate-700 rounded-xl text-white text-sm placeholder-slate-500 focus:border-indigo-500 focus:outline-none focus:ring-1 focus:ring-indigo-500/40 transition-all"
             />
@@ -80,9 +63,8 @@ export default function LoginForm() {
             <div className="relative">
               <input
                 type={showPassword ? 'text' : 'password'}
+                name="password"
                 required
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
                 placeholder="••••••••••••"
                 className="w-full px-4 py-3 pr-12 bg-slate-950/60 border border-slate-700 rounded-xl text-white text-sm placeholder-slate-500 focus:border-indigo-500 focus:outline-none focus:ring-1 focus:ring-indigo-500/40 transition-all"
               />
@@ -98,10 +80,10 @@ export default function LoginForm() {
 
           <button
             type="submit"
-            disabled={loading}
+            disabled={isPending}
             className="w-full py-3 px-4 bg-indigo-600 hover:bg-indigo-700 disabled:opacity-60 text-white font-semibold text-sm rounded-xl transition-all shadow-lg shadow-indigo-600/25 flex items-center justify-center gap-2 mt-2"
           >
-            {loading ? (
+            {isPending ? (
               <>
                 <Loader2 className="w-4 h-4 animate-spin" />
                 Signing in...
