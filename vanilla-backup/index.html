@@ -1,0 +1,841 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Master UPSC Civil Services Examination with expert guidance. Access high-yield UPSC study material, solved previous year questions (PYQs) with subject filters, weekly current affairs, and interactive mock tests.">
+  <title>CivilsPage - Premium UPSC Educator & Learning Portal</title>
+  <link rel="stylesheet" href="style.css?v=1.4">
+</head>
+<body>
+
+  <!-- --- Header / Navigation Bar --- -->
+  <header class="header">
+    <div class="container header-container">
+      <a href="#" class="logo" aria-label="CivilsPage Home">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M12 2L2 7L12 12L22 7L12 2Z" fill="var(--color-primary)"/>
+          <path d="M2 17L12 22L22 17" stroke="var(--color-success)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          <path d="M2 12L12 17L22 12" stroke="var(--color-primary)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+        <span>CivilsPage</span>
+      </a>
+
+      <!-- Desktop Navigation -->
+      <nav class="nav-links" aria-label="Main Navigation">
+        <a href="#hero" class="nav-link active">Home</a>
+        <a href="#about-cse" class="nav-link">About CSE Exam</a>
+        
+        <div class="dropdown">
+          <button class="nav-link dropdown-trigger" aria-expanded="false" aria-haspopup="true">
+            Subject 
+            <svg class="caret" width="10" height="6" viewBox="0 0 10 6" fill="none"><path d="M1 1L5 5L9 1" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </button>
+          <div class="dropdown-menu">
+            <a href="#study-material" class="dropdown-item">Polity and Governance</a>
+            <a href="#study-material" class="dropdown-item">Ethics</a>
+          </div>
+        </div>
+        
+        <div class="dropdown">
+          <button class="nav-link dropdown-trigger" aria-expanded="false" aria-haspopup="true">
+            Current Affairs 
+            <svg class="caret" width="10" height="6" viewBox="0 0 10 6" fill="none"><path d="M1 1L5 5L9 1" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </button>
+          <div class="dropdown-menu">
+            <a href="#current-affairs" class="dropdown-item">Current Updates</a>
+            <a href="#current-affairs" class="dropdown-item">News / Views</a>
+          </div>
+        </div>
+        
+        <div class="dropdown">
+          <button class="nav-link dropdown-trigger" aria-expanded="false" aria-haspopup="true">
+            Practice Test 
+            <svg class="caret" width="10" height="6" viewBox="0 0 10 6" fill="none"><path d="M1 1L5 5L9 1" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </button>
+          <div class="dropdown-menu">
+            <a href="#mock-test" class="dropdown-item">Mock Tests</a>
+            <a href="#pyq-hub" class="dropdown-item">PYQ (Previous Year Questions)</a>
+          </div>
+        </div>
+        
+        <a href="direct-query.html" class="nav-link">Direct Query</a>
+      </nav>
+
+      <!-- CTA & Hamburger -->
+      <div class="header-actions">
+        <a href="#mock-test" class="btn btn-primary" style="padding: 10px 20px; min-height: 40px;">Free Mock Test</a>
+        <button class="hamburger" id="hamburger-menu" aria-label="Toggle Navigation Menu" aria-expanded="false">
+          <span></span>
+          <span></span>
+          <span></span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Mobile Overlay & Drawer Menu -->
+  <div class="mobile-overlay" id="mobile-menu-overlay"></div>
+  <nav class="mobile-nav" id="mobile-menu" aria-label="Mobile Navigation">
+    <a href="#hero" class="mobile-nav-link active">Home</a>
+    <a href="#about-cse" class="mobile-nav-link">About CSE Exam</a>
+    
+    <div class="mobile-dropdown">
+      <button class="mobile-nav-link mobile-dropdown-trigger">
+        <span>Subject</span>
+        <svg class="caret" width="10" height="6" viewBox="0 0 10 6" fill="none"><path d="M1 1L5 5L9 1" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </button>
+      <div class="mobile-dropdown-menu">
+        <a href="#study-material" class="mobile-dropdown-item">Polity and Governance</a>
+        <a href="#study-material" class="mobile-dropdown-item">Ethics</a>
+      </div>
+    </div>
+    
+    <div class="mobile-dropdown">
+      <button class="mobile-nav-link mobile-dropdown-trigger">
+        <span>Current Affairs</span>
+        <svg class="caret" width="10" height="6" viewBox="0 0 10 6" fill="none"><path d="M1 1L5 5L9 1" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </button>
+      <div class="mobile-dropdown-menu">
+        <a href="#current-affairs" class="mobile-dropdown-item">Current Updates</a>
+        <a href="#current-affairs" class="mobile-dropdown-item">News / Views</a>
+      </div>
+    </div>
+    
+    <div class="mobile-dropdown">
+      <button class="mobile-nav-link mobile-dropdown-trigger">
+        <span>Practice Test</span>
+        <svg class="caret" width="10" height="6" viewBox="0 0 10 6" fill="none"><path d="M1 1L5 5L9 1" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </button>
+      <div class="mobile-dropdown-menu">
+        <a href="#mock-test" class="mobile-dropdown-item">Mock Tests</a>
+        <a href="#pyq-hub" class="mobile-dropdown-item">PYQ (Previous Year Questions)</a>
+      </div>
+    </div>
+    
+    <a href="direct-query.html" class="mobile-nav-link">Direct Query</a>
+    <a href="#mock-test" class="btn btn-primary" style="margin-top: 16px;">Start Free Test</a>
+  </nav>
+
+  <main>
+    <!-- ==========================================================================
+       HERO SECTION
+       ========================================================================== -->
+    <section class="hero" id="hero">
+      <div class="hero-glow-1"></div>
+      <div class="hero-glow-2"></div>
+      <div class="container">
+        <div class="hero-grid">
+          <!-- Text Content -->
+          <div class="hero-content reveal active">
+            <span class="badge badge-primary">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+              Premium UPSC Preparation Portal
+            </span>
+            <h1 class="hero-title">
+              Master UPSC with<br><span>Expert Guidance</span>
+            </h1>
+            <p class="hero-subtitle">
+              Accelerate your IAS journey with top-tier syllabus guides, filterable previous year questions, daily high-yield current affairs, and comprehensive interactive mock tests.
+            </p>
+            <div class="hero-ctas">
+              <a href="#mock-test" class="btn btn-primary">Start Free Quiz</a>
+              <a href="#study-material" class="btn btn-secondary">Explore Notes</a>
+            </div>
+          </div>
+
+          <!-- Interactive Floating Visuals -->
+          <div class="hero-visual reveal active">
+            <div class="floating-hero-card">
+              <!-- Inline drawing represent mockup UI of UPSC Dashboard -->
+              <svg class="hero-card-img" viewBox="0 0 500 360" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <rect width="500" height="360" rx="24" fill="#FFFFFF"/>
+                <!-- Header of dashboard -->
+                <rect x="20" y="20" width="120" height="14" rx="7" fill="rgba(15,23,42,0.08)"/>
+                <circle cx="450" cy="27" r="7" fill="var(--color-primary)" opacity="0.6"/>
+                <circle cx="470" cy="27" r="7" fill="var(--color-success)" opacity="0.6"/>
+                
+                <!-- Main dashboard items -->
+                <rect x="20" y="60" width="210" height="110" rx="16" fill="rgba(15,23,42,0.015)" stroke="rgba(15,23,42,0.06)"/>
+                <rect x="36" y="76" width="30" height="30" rx="8" fill="rgba(79,70,229,0.08)"/>
+                <rect x="80" y="76" width="100" height="10" rx="5" fill="rgba(15,23,42,0.12)"/>
+                <rect x="80" y="94" width="60" height="8" rx="4" fill="rgba(15,23,42,0.05)"/>
+                <rect x="36" y="126" width="178" height="6" rx="3" fill="rgba(15,23,42,0.02)"/>
+                <rect x="36" y="126" width="120" height="6" rx="3" fill="var(--color-primary)"/>
+                <rect x="36" y="142" width="60" height="10" rx="5" fill="rgba(5,150,105,0.08)"/>
+                
+                <!-- Circular chart item -->
+                <rect x="250" y="60" width="230" height="110" rx="16" fill="rgba(15,23,42,0.015)" stroke="rgba(15,23,42,0.06)"/>
+                <circle cx="310" cy="115" r="35" stroke="rgba(15,23,42,0.06)" stroke-width="10"/>
+                <circle cx="310" cy="115" r="35" stroke="var(--color-success)" stroke-width="10" stroke-dasharray="220" stroke-dashoffset="60"/>
+                <rect x="366" y="85" width="90" height="12" rx="6" fill="rgba(15,23,42,0.12)"/>
+                <rect x="366" y="107" width="70" height="8" rx="4" fill="rgba(15,23,42,0.05)"/>
+                <rect x="366" y="125" width="50" height="8" rx="4" fill="rgba(15,23,42,0.05)"/>
+                
+                <!-- Bottom item list of syllabus -->
+                <rect x="20" y="190" width="460" height="145" rx="16" fill="rgba(15,23,42,0.01)" stroke="rgba(15,23,42,0.05)"/>
+                <rect x="40" y="215" width="20" height="20" rx="6" fill="rgba(217,119,6,0.08)"/>
+                <rect x="80" y="215" width="240" height="10" rx="5" fill="rgba(15,23,42,0.12)"/>
+                <rect x="80" y="233" width="140" height="8" rx="4" fill="rgba(15,23,42,0.05)"/>
+                <rect x="410" y="215" width="50" height="22" rx="11" fill="rgba(79,70,229,0.12)"/>
+                
+                <line x1="40" y1="265" x2="460" y2="265" stroke="rgba(15,23,42,0.06)" stroke-width="1"/>
+                
+                <rect x="40" y="285" width="20" height="20" rx="6" fill="rgba(79,70,229,0.08)"/>
+                <rect x="80" y="285" width="180" height="10" rx="5" fill="rgba(15,23,42,0.12)"/>
+                <rect x="80" y="303" width="120" height="8" rx="4" fill="rgba(15,23,42,0.05)"/>
+                <rect x="410" y="285" width="50" height="22" rx="11" fill="rgba(5,150,105,0.12)"/>
+              </svg>
+              <!-- Floating stat badges -->
+              <div class="floating-stat-badge badge-1">
+                <div class="floating-stat-icon">★</div>
+                <div class="floating-stat-info">
+                  <h4>AIR 4, 18, 29</h4>
+                  <p>In UPSC CSE 2025</p>
+                </div>
+              </div>
+              <div class="floating-stat-badge badge-2">
+                <div class="floating-stat-icon success">✓</div>
+                <div class="floating-stat-info">
+                  <h4>5,000+ PYQs</h4>
+                  <p>With Subject Filters</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==========================================================================
+       MENTOR BIOGRAPHY SECTION
+       ========================================================================== -->
+    <section id="mentor-profile" class="section-padding" style="border-bottom: 1px solid var(--border-color); background: var(--bg-surface);">
+      <div class="container">
+        <div class="mentor-grid">
+          <!-- Text Biography -->
+          <div class="mentor-content reveal">
+            <span class="badge badge-primary">Lead Educator & Author</span>
+            <h2 class="mentor-title" style="font-size: 2.5rem; margin-top: 12px; margin-bottom: 24px;">Meet Your Mentor:<br><span style="background: linear-gradient(135deg, var(--color-primary), var(--color-success)); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">Rajiv Ranjan Singh</span></h2>
+            <p class="mentor-bio" style="font-size: 1.1rem; color: var(--text-secondary); margin-bottom: 32px; line-height: 1.75;">
+              Rajiv Ranjan Singh is a distinguished UPSC mentor and academic administrator with over 15 years of experience guiding aspirants through the intricate phases of the Civil Services Examination. Having mentored thousands of successful candidates who now serve as IAS, IPS, and IFS officers across the nation, his pedagogy focuses on conceptual clarity, multi-disciplinary syllabus correlation, and scientific answer-writing frameworks.
+            </p>
+            <!-- Stats elements inside profile -->
+            <div class="mentor-stats-row" style="display: flex; gap: 32px; flex-wrap: wrap;">
+              <div class="mentor-stat-item">
+                <h3 style="font-size: 2rem; color: var(--color-primary); font-family: var(--font-heading);">15+ Yrs</h3>
+                <p style="font-size: 0.85rem; color: var(--text-muted); text-transform: uppercase; font-weight: 600; letter-spacing: 0.05em;">Teaching Experience</p>
+              </div>
+              <div class="mentor-stat-item">
+                <h3 style="font-size: 2rem; color: var(--color-success); font-family: var(--font-heading);">1,200+</h3>
+                <p style="font-size: 0.85rem; color: var(--text-muted); text-transform: uppercase; font-weight: 600; letter-spacing: 0.05em;">Selections in CSE</p>
+              </div>
+              <div class="mentor-stat-item">
+                <h3 style="font-size: 2rem; color: var(--color-accent); font-family: var(--font-heading);">100k+</h3>
+                <p style="font-size: 0.85rem; color: var(--text-muted); text-transform: uppercase; font-weight: 600; letter-spacing: 0.05em;">Online Students</p>
+              </div>
+            </div>
+          </div>
+          
+          <!-- Image Biography Side -->
+          <div class="mentor-visual reveal" style="display: flex; justify-content: center; align-items: center;">
+            <div class="mentor-image-frame" style="position: relative; max-width: 420px; width: 100%; border-radius: var(--border-radius-lg); overflow: hidden; box-shadow: var(--shadow-lg); border: 4px solid #FFFFFF;">
+              <img src="mentor_portrait.png" alt="Rajiv Ranjan Singh Portrait" style="width: 100%; height: auto; border-radius: calc(var(--border-radius-lg) - 4px); display: block;" loading="lazy">
+              <!-- Accent glowing shadow overlay -->
+              <div style="position: absolute; bottom: 0; left: 0; width: 100%; height: 50%; background: linear-gradient(to top, rgba(15,23,42,0.4), transparent); pointer-events: none;"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==========================================================================
+       ABOUT CSE EXAM SECTION
+       ========================================================================== -->
+    <section id="about-cse" class="section-padding" style="border-bottom: 1px solid var(--border-color); background: var(--bg-deep);">
+      <div class="container">
+        <div class="section-header reveal">
+          <span class="badge badge-primary">Civil Services Examination</span>
+          <h2>About the UPSC CSE Exam</h2>
+          <p>The Civil Services Examination (CSE) is one of India's most prestigious competitive exams. Understanding its design and scope is your first step towards success.</p>
+        </div>
+
+        <div class="cse-cards-grid">
+          <!-- Card 1: Plan of Examination -->
+          <div class="glass-card cse-card reveal">
+            <div class="cse-card-icon" style="background: rgba(79, 70, 229, 0.06); color: var(--color-primary); margin: 0 auto 24px auto;">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
+            </div>
+            <h3>Plan of Examination</h3>
+            <p class="cse-card-excerpt">
+              The UPSC CSE is structured in three stages: Prelims (objective testing for screening), Mains (written subjective papers evaluating depth of knowledge), and the Personality Test (interview validating candidate traits and decision-making clarity).
+            </p>
+            <a href="about-cse.html#exam-plan" class="btn btn-secondary cse-card-link" style="width: 100%;">Read Exam Plan</a>
+          </div>
+
+          <!-- Card 2: Syllabus Card -->
+          <div class="glass-card cse-card reveal">
+            <div class="cse-card-icon" style="background: rgba(5, 150, 105, 0.06); color: var(--color-success); margin: 0 auto 24px auto;">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path></svg>
+            </div>
+            <h3>Detailed Examination Syllabus</h3>
+            <p class="cse-card-excerpt">
+              Dive deep into the extensive UPSC CSE syllabus parameters. Explore details regarding General Studies (GS I to GS IV), Optionals, Essay, and the qualifying language and CSAT papers to structure your daily academic roadmap.
+            </p>
+            <a href="about-cse.html#detailed-syllabus" class="btn btn-secondary cse-card-link" style="width: 100%;">Read Detailed Syllabus</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==========================================================================
+
+    <!-- ==========================================================================
+       FEATURED CONTENT SECTION
+       ========================================================================== -->
+    <section class="section-padding" style="background: var(--bg-surface);">
+      <div class="container">
+        <div class="section-header reveal">
+          <span class="badge badge-amber">Must-Read High Yields</span>
+          <h2>Featured UPSC Focus Resources</h2>
+          <p>Hand-picked resources, core toppers strategies, and essential files trending among successful candidates this week.</p>
+        </div>
+
+        <div class="featured-grid">
+          <!-- Featured Card 1 -->
+          <div class="glass-card featured-card reveal">
+            <div class="featured-meta">
+              <span class="badge badge-primary">Syllabus Grid</span>
+              <span style="font-size: 0.8rem; color: var(--text-muted); font-weight: 500;">PDF Doc (4.2 MB)</span>
+            </div>
+            <h3>UPSC Micro-Syllabus Breakdowns & Keyword Tracker</h3>
+            <p>Deconstruct the massive UPSC Mains syllabus into bite-sized keywords. Check off concepts as you complete them to track syllabus progression.</p>
+            <a href="#" class="card-link" aria-label="Download UPSC Syllabus Breakdown">
+              Get Document
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+            </a>
+          </div>
+
+          <!-- Featured Card 2 -->
+          <div class="glass-card featured-card accent reveal">
+            <div class="featured-meta">
+              <span class="badge badge-amber">Topper Favorite</span>
+              <span style="font-size: 0.8rem; color: var(--text-muted); font-weight: 500;">Solved PDF (8.7 MB)</span>
+            </div>
+            <h3>Ultimate IAS Mains Answer Writing Frameworks</h3>
+            <p>Learn structural template formulations for GS Paper 1, 2, and 3. Contains introduction templates, visual flow diagrams, and maps to draw in under 3 minutes.</p>
+            <a href="#" class="card-link" aria-label="Download Answer Writing Frameworks">
+              Download PDF 
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==========================================================================
+       UPSC STUDY MATERIAL CATEGORIES
+       ========================================================================== -->
+    <section id="study-material" class="section-padding">
+      <div class="container">
+        <div class="section-header reveal">
+          <span class="badge badge-primary">Study Material Hub</span>
+          <h2>UPSC Core Syllabus Notes</h2>
+          <p>Access high-quality study materials tailored for the Prelims & Mains examination, organized by GS papers.</p>
+        </div>
+
+        <div class="material-grid">
+          <!-- Category Card 1 -->
+          <div class="glass-card material-card reveal">
+            <div class="material-icon">
+              <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path></svg>
+            </div>
+            <h3>Mains GS Notes</h3>
+            <p>Comprehensive subject notes for GS I (History & Geography), GS II (Polity & IR), GS III (Economy & S&T), and GS IV (Ethics).</p>
+            <a href="#" class="btn btn-secondary" style="width: 100%;">Browse GS Topics</a>
+          </div>
+
+          <!-- Category Card 2 -->
+          <div class="glass-card material-card reveal">
+            <div class="material-icon">
+              <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="16" x2="12" y2="12"></line><line x1="12" y1="8" x2="12.01" y2="8"></line></svg>
+            </div>
+            <h3>Prelims Cheat Sheets</h3>
+            <p>High-yield factual pointers for quick revision: National Parks, constitutional bodies, economic indicators, and historical timelines.</p>
+            <a href="#" class="btn btn-secondary" style="width: 100%;">Get Revision Sheets</a>
+          </div>
+
+          <!-- Category Card 3 -->
+          <div class="glass-card material-card reveal">
+            <div class="material-icon">
+              <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>
+            </div>
+            <h3>CSAT Practice Guides</h3>
+            <p>Quantitative aptitude strategies, analytical reasoning tricks, and comprehension techniques designed to easily clear the paper 2 threshold.</p>
+            <a href="#" class="btn btn-secondary" style="width: 100%;">View CSAT Guides</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==========================================================================
+       PREVIOUS YEAR QUESTIONS (PYQ) HUB WITH FILTERS
+       ========================================================================== -->
+    <section id="pyq-hub" class="section-padding" style="background: var(--bg-surface);">
+      <div class="container">
+        <div class="section-header reveal">
+          <span class="badge badge-amber">Interactive PYQ Solver</span>
+          <h2>UPSC Solved Previous Year Questions</h2>
+          <p>Filter UPSC Prelims questions by subject and year. Analyze expert detailed solutions and standard source citations.</p>
+        </div>
+
+        <!-- PYQ Filters Form -->
+        <div class="pyq-filters reveal">
+          <div class="filter-group">
+            <label for="filter-subject" class="filter-label">Subject:</label>
+            <select id="filter-subject" class="filter-select">
+              <option value="all">All Subjects</option>
+              <option value="polity">Polity & Governance</option>
+              <option value="history">History & Culture</option>
+              <option value="economy">Economy</option>
+              <option value="geography">Geography</option>
+              <option value="environment">Environment & Ecology</option>
+            </select>
+          </div>
+
+          <div class="filter-group">
+            <label for="filter-year" class="filter-label">Year:</label>
+            <select id="filter-year" class="filter-select">
+              <option value="all">All Years</option>
+              <option value="2025">2025</option>
+              <option value="2024">2024</option>
+              <option value="2023">2023</option>
+              <option value="2022">2022</option>
+            </select>
+          </div>
+
+          <!-- Dynamic Subject pills selection for desktop/tablet quick filtering -->
+          <div class="filter-pills">
+            <button class="filter-pill active" data-subject="all">All Topics</button>
+            <button class="filter-pill" data-subject="polity">Polity</button>
+            <button class="filter-pill" data-subject="history">History</button>
+            <button class="filter-pill" data-subject="economy">Economy</button>
+            <button class="filter-pill" data-subject="geography">Geography</button>
+            <button class="filter-pill" data-subject="environment">Environment</button>
+          </div>
+        </div>
+
+        <!-- PYQ Items List -->
+        <div class="pyqs-container">
+          <!-- PYQ Item 1 -->
+          <div class="glass-card pyq-item reveal" data-subject="polity" data-year="2025">
+            <div class="pyq-info">
+              <div class="pyq-tags">
+                <span class="badge badge-primary">Polity & Governance</span>
+                <span class="badge badge-amber">UPSC Prelims 2025</span>
+              </div>
+              <h3 class="pyq-title">With reference to the Constitution of India, consider the following statements regarding the Governor’s power to reserve a Bill for the President’s consideration...</h3>
+            </div>
+            <div class="pyq-actions">
+              <button class="btn btn-secondary pyq-solve-btn">Solve & Explain</button>
+            </div>
+          </div>
+
+          <!-- PYQ Item 2 -->
+          <div class="glass-card pyq-item reveal" data-subject="economy" data-year="2025">
+            <div class="pyq-info">
+              <div class="pyq-tags">
+                <span class="badge badge-primary">Economy</span>
+                <span class="badge badge-amber">UPSC Prelims 2025</span>
+              </div>
+              <h3 class="pyq-title">Which of the following statements best describes the term 'Sterilization' conducted by the Reserve Bank of India (RBI) in open market operations?</h3>
+            </div>
+            <div class="pyq-actions">
+              <button class="btn btn-secondary pyq-solve-btn">Solve & Explain</button>
+            </div>
+          </div>
+
+          <!-- PYQ Item 3 -->
+          <div class="glass-card pyq-item reveal" data-subject="history" data-year="2024">
+            <div class="pyq-info">
+              <div class="pyq-tags">
+                <span class="badge badge-primary">History & Culture</span>
+                <span class="badge badge-amber">UPSC Prelims 2024</span>
+              </div>
+              <h3 class="pyq-title">With reference to ancient India, the terms 'Dinaras', 'Kshanikas' and 'Gadyanas' refer to:</h3>
+            </div>
+            <div class="pyq-actions">
+              <button class="btn btn-secondary pyq-solve-btn">Solve & Explain</button>
+            </div>
+          </div>
+
+          <!-- PYQ Item 4 -->
+          <div class="glass-card pyq-item reveal" data-subject="environment" data-year="2023">
+            <div class="pyq-info">
+              <div class="pyq-tags">
+                <span class="badge badge-primary">Environment & Ecology</span>
+                <span class="badge badge-amber">UPSC Prelims 2023</span>
+              </div>
+              <h3 class="pyq-title">Consider the following statements regarding 'Invasive Species Specialist Group (ISSG)' of the International Union for Conservation of Nature (IUCN)...</h3>
+            </div>
+            <div class="pyq-actions">
+              <button class="btn btn-secondary pyq-solve-btn">Solve & Explain</button>
+            </div>
+          </div>
+
+          <!-- PYQ Item 5 -->
+          <div class="glass-card pyq-item reveal" data-subject="geography" data-year="2022">
+            <div class="pyq-info">
+              <div class="pyq-tags">
+                <span class="badge badge-primary">Geography</span>
+                <span class="badge badge-amber">UPSC Prelims 2022</span>
+              </div>
+              <h3 class="pyq-title">Consider the following pairs: Reservoirs vs States. Which of the pairs given above are correctly matched? (e.g. Ghataprabha, Gandhi Sagar, Indira Sagar...)</h3>
+            </div>
+            <div class="pyq-actions">
+              <button class="btn btn-secondary pyq-solve-btn">Solve & Explain</button>
+            </div>
+          </div>
+
+          <!-- PYQ Empty State -->
+          <div class="pyq-empty-state" id="pyqs-empty">
+            <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="8" x2="12" y2="12"></line><line x1="12" y1="16" x2="12.01" y2="16"></line></svg>
+            <h4>No Questions Found</h4>
+            <p>Try adjustments to your subject or year selection filter.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==========================================================================
+       CURRENT AFFAIRS CENTER (TABS)
+       ========================================================================== -->
+    <section id="current-affairs" class="section-padding">
+      <div class="container">
+        <div class="section-header reveal">
+          <span class="badge badge-primary">Current Affairs Center</span>
+          <h2>UPSC High-Yield News Summaries</h2>
+          <p>Save time with curated, syllabus-mapped briefs. Toggle weekly or monthly digests to download or study.</p>
+        </div>
+
+        <div class="current-affairs-tabs reveal">
+          <button class="tab-btn active" data-tab="weekly">Weekly Updates</button>
+          <button class="tab-btn" data-tab="monthly">Monthly Magazines</button>
+        </div>
+
+        <!-- Weekly Content Panel -->
+        <div class="tab-content active" id="tab-weekly">
+          <div class="affairs-grid">
+            <div class="glass-card affairs-card reveal">
+              <span class="affairs-date">July 18, 2026</span>
+              <h3>Polity: Supreme Court's Landmark Judgment on Cooperative Federalism</h3>
+              <p>An in-depth summary of the seven-judge constitution bench ruling on state taxation powers over minerals, analyzing structural impacts on Center-State relations.</p>
+              <a href="#" class="card-link" aria-label="Read Supreme Court landmark cooperative federalism summary">
+                Read Analysis 
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+              </a>
+            </div>
+
+            <div class="glass-card affairs-card reveal">
+              <span class="affairs-date">July 12, 2026</span>
+              <h3>Economy: Review of the Latest Capital Gain Tax Reforms</h3>
+              <p>Key definitions and conceptual differences regarding the tax bracket revisions, including impacts on real estate indexation and stock market equity holdings.</p>
+              <a href="#" class="card-link" aria-label="Read Capital Gain Tax Reforms summary">
+                Read Analysis 
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+              </a>
+            </div>
+
+            <div class="glass-card affairs-card reveal">
+              <span class="affairs-date">July 05, 2026</span>
+              <h3>Env: Rise in Wildfire Frequency in the Western Ghats</h3>
+              <p>Analyzing key ecological factors, human-wildlife conflicts, and the governmental adaptation mechanisms proposed in the recent committee report.</p>
+              <a href="#" class="card-link" aria-label="Read Wildfire frequency Western Ghats summary">
+                Read Analysis 
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Monthly Content Panel -->
+        <div class="tab-content" id="tab-monthly">
+          <div class="affairs-grid">
+            <div class="glass-card affairs-card affairs-monthly-card">
+              <span class="affairs-date">June 2026</span>
+              <h3>Monthly Focus Magazine: June 2026 Edition</h3>
+              <p>120 pages of high-yield compilations covering polity bills, economic surveys, biodiversity indicators, and international geopolitics. Contains Mains answer writing models.</p>
+              <a href="#" class="btn btn-primary" style="width: 100%;">Download PDF (12MB)</a>
+            </div>
+
+            <div class="glass-card affairs-card affairs-monthly-card">
+              <span class="affairs-date">May 2026</span>
+              <h3>Monthly Focus Magazine: May 2026 Edition</h3>
+              <p>Comprehensive current affairs tracking with specialized sections on Science & Tech advances, ancient history art findings, and internal security challenges.</p>
+              <a href="#" class="btn btn-primary" style="width: 100%;">Download PDF (10MB)</a>
+            </div>
+
+            <div class="glass-card affairs-card affairs-monthly-card">
+              <span class="affairs-date">April 2026</span>
+              <h3>Monthly Focus Magazine: April 2026 Edition</h3>
+              <p>Thorough coverage of international bodies, bilateral military exercises, government schemes launched, and indices compilation.</p>
+              <a href="#" class="btn btn-primary" style="width: 100%;">Download PDF (14MB)</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==========================================================================
+       INTERACTIVE MOCK TEST / QUIZ WIDGET
+       ========================================================================== -->
+    <section id="mock-test" class="section-padding" style="background: var(--bg-surface);">
+      <div class="container">
+        <div class="section-header reveal">
+          <span class="badge badge-primary">Interactive Practice</span>
+          <h2>Instant UPSC Prelims Mini-Quiz</h2>
+          <p>Test your knowledge with 3 exam-standard UPSC multiple choice questions. Receive instant scoring and in-depth explanations.</p>
+        </div>
+
+        <div class="glass-card quiz-widget reveal">
+          <!-- Quiz Play Screen -->
+          <div id="quiz-play-screen">
+            <div class="quiz-header">
+              <div class="quiz-progress-wrapper">
+                <div class="quiz-progress-bar">
+                  <div class="quiz-progress-fill" id="quiz-progress-bar-fill"></div>
+                </div>
+                <span class="quiz-step-text" id="quiz-progress-text">Question 1 of 3</span>
+              </div>
+              <div class="quiz-timer">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+                Time: <span id="quiz-timer-clock">00:00</span>
+              </div>
+            </div>
+
+            <div class="quiz-body">
+              <div class="quiz-question-tag">
+                <span class="badge badge-primary" id="quiz-subject-badge">Indian Polity</span>
+              </div>
+              <p class="quiz-question-text" id="quiz-question-desc">Loading question description...</p>
+              
+              <div class="quiz-options" id="quiz-options-container">
+                <!-- Javascript will insert options here -->
+              </div>
+
+              <!-- Explanation panel -->
+              <div class="quiz-explanation" id="quiz-explanation-box">
+                <div class="explanation-title">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="16" x2="12" y2="12"></line><line x1="12" y1="8" x2="12.01" y2="8"></line></svg>
+                  Detailed Explanation
+                </div>
+                <p id="quiz-explanation-text">Explanation text will display here once you answer.</p>
+              </div>
+            </div>
+
+            <div class="quiz-footer">
+              <button class="btn btn-primary" id="quiz-action-btn" disabled>Submit Answer</button>
+            </div>
+          </div>
+
+          <!-- Quiz Result Screen -->
+          <div class="quiz-result-card" id="quiz-result-screen">
+            <div class="quiz-result-score-ring" id="quiz-result-ring">
+              <div class="quiz-result-score-text" id="quiz-result-text">3/3</div>
+            </div>
+            <h3 id="quiz-result-title">Excellent Performance!</h3>
+            <p id="quiz-result-sub">You have a strong grasp of current UPSC core subjects. Continue practicing to keep the momentum.</p>
+            <button class="btn btn-primary" id="quiz-retry-btn">Try Quiz Again</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==========================================================================
+       SUCCESS TESTIMONIALS CAROUSEL
+       ========================================================================== */
+    <section id="testimonials" class="section-padding">
+      <div class="container">
+        <div class="section-header reveal">
+          <span class="badge badge-amber">UPSC Rankers Strategy</span>
+          <h2>Top Toppers Feedback</h2>
+          <p>Read review feedback and preparation journey strategies from students who successfully cracked the UPSC Civil Services under our guidance.</p>
+        </div>
+
+        <div class="carousel-outer reveal">
+          <div class="carousel-track" id="testimonial-track">
+            
+            <!-- Slide 1 -->
+            <div class="carousel-slide">
+              <div class="glass-card testimonial-card">
+                <div class="testimonial-quote-icon">
+                  <svg width="40" height="40" viewBox="0 0 24 24" fill="currentColor"><path d="M13 14.725c0-5.141 3.892-10.519 10-11.725l.944 2c-3.077 1.183-4.944 3.309-4.944 6.725h5v9h-11v-6zm-13 0c0-5.141 3.892-10.519 10-11.725l.944 2c-3.077 1.183-4.944 3.309-4.944 6.725h5v9h-11v-6z"/></svg>
+                </div>
+                <blockquote class="testimonial-quote">
+                  "The filterable PYQ portal saved me hundreds of hours. Instead of flipping pages in heavy guidebooks, I could practice specific environment questions from the last 5 years in minutes. The mock test explanations are extremely accurate and direct."
+                </blockquote>
+                <div class="testimonial-student">
+                  <!-- Generating visual SVG placeholder avatar representing student -->
+                  <svg class="testimonial-avatar" viewBox="0 0 60 60" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <circle cx="30" cy="30" r="30" fill="#1E293B"/>
+                    <circle cx="30" cy="22" r="10" fill="#818CF8"/>
+                    <path d="M12 48C12 40 20 36 30 36C40 36 48 40 48 48" stroke="#818CF8" stroke-width="4" stroke-linecap="round"/>
+                  </svg>
+                  <h4>Ananya Sharma, IAS</h4>
+                  <span class="testimonial-rank">UPSC CSE 2025 • AIR 4</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Slide 2 -->
+            <div class="carousel-slide">
+              <div class="glass-card testimonial-card">
+                <div class="testimonial-quote-icon">
+                  <svg width="40" height="40" viewBox="0 0 24 24" fill="currentColor"><path d="M13 14.725c0-5.141 3.892-10.519 10-11.725l.944 2c-3.077 1.183-4.944 3.309-4.944 6.725h5v9h-11v-6zm-13 0c0-5.141 3.892-10.519 10-11.725l.944 2c-3.077 1.183-4.944 3.309-4.944 6.725h5v9h-11v-6z"/></svg>
+                </div>
+                <blockquote class="testimonial-quote">
+                  "The GS Mains syllabus keyword sheets and daily cooperative federalism summaries were my exact framework templates during mains. I highly recommend the daily current affairs tab for short, revision-friendly notes."
+                </blockquote>
+                <div class="testimonial-student">
+                  <svg class="testimonial-avatar" viewBox="0 0 60 60" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <circle cx="30" cy="30" r="30" fill="#1E293B"/>
+                    <circle cx="30" cy="22" r="10" fill="#10B981"/>
+                    <path d="M12 48C12 40 20 36 30 36C40 36 48 40 48 48" stroke="#10B981" stroke-width="4" stroke-linecap="round"/>
+                  </svg>
+                  <h4>Rahul Verma, IPS</h4>
+                  <span class="testimonial-rank">UPSC CSE 2025 • AIR 18</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Slide 3 -->
+            <div class="carousel-slide">
+              <div class="glass-card testimonial-card">
+                <div class="testimonial-quote-icon">
+                  <svg width="40" height="40" viewBox="0 0 24 24" fill="currentColor"><path d="M13 14.725c0-5.141 3.892-10.519 10-11.725l.944 2c-3.077 1.183-4.944 3.309-4.944 6.725h5v9h-11v-6zm-13 0c0-5.141 3.892-10.519 10-11.725l.944 2c-3.077 1.183-4.944 3.309-4.944 6.725h5v9h-11v-6z"/></svg>
+                </div>
+                <blockquote class="testimonial-quote">
+                  "Clearing CSAT was a big hurdle for me. The Quantitative aptitude trick sheets on CivilsPage helped me raise my CSAT marks from 54 to 98. An absolute life-saver for non-math backgrounds!"
+                </blockquote>
+                <div class="testimonial-student">
+                  <svg class="testimonial-avatar" viewBox="0 0 60 60" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <circle cx="30" cy="30" r="30" fill="#1E293B"/>
+                    <circle cx="30" cy="22" r="10" fill="#F59E0B"/>
+                    <path d="M12 48C12 40 20 36 30 36C40 36 48 40 48 48" stroke="#F59E0B" stroke-width="4" stroke-linecap="round"/>
+                  </svg>
+                  <h4>Sanjana Iyer, IFS</h4>
+                  <span class="testimonial-rank">UPSC CSE 2024 • AIR 45</span>
+                </div>
+              </div>
+            </div>
+
+          </div>
+
+          <!-- Controls -->
+          <div class="carousel-controls">
+            <button class="carousel-arrow" id="carousel-prev" aria-label="Previous Testimonial">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>
+            </button>
+            <div class="carousel-dots" id="carousel-dots-container">
+              <!-- JS will inject dots dynamically -->
+            </div>
+            <button class="carousel-arrow" id="carousel-next" aria-label="Next Testimonial">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+            </button>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- ==========================================================================
+     FOOTER SECTION
+     ========================================================================== -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-grid">
+        <!-- Brand details -->
+        <div class="footer-brand">
+          <a href="#" class="logo">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M12 2L2 7L12 12L22 7L12 2Z" fill="var(--color-primary)"/>
+              <path d="M2 17L12 22L22 17" stroke="var(--color-success)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+              <path d="M2 12L12 17L22 12" stroke="var(--color-primary)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+            <span>CivilsPage</span>
+          </a>
+          <p>Empowering the next generation of civil servants with structured study materials, direct expert strategies, and responsive learning interfaces.</p>
+          <div class="social-links">
+            <a href="#" class="social-link" aria-label="Twitter Page">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z"></path></svg>
+            </a>
+            <a href="#" class="social-link" aria-label="YouTube Channel">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22.54 6.42a2.78 2.78 0 0 0-1.94-2C18.88 4 12 4 12 4s-6.88 0-8.6.46a2.78 2.78 0 0 0-1.94 2A29 29 0 0 0 1 11.75a29 29 0 0 0 .46 5.33A2.78 2.78 0 0 0 3.4 19c1.72.46 8.6.46 8.6.46s6.88 0 8.6-.46a2.78 2.78 0 0 0 1.94-2 29 29 0 0 0 .46-5.25 29 29 0 0 0-.46-5.33z"></path><polygon points="9.75 15.02 15.5 11.75 9.75 8.48 9.75 15.02"/></svg>
+            </a>
+            <a href="#" class="social-link" aria-label="Telegram Channel">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="22" y1="2" x2="11" y2="13"></line><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+            </a>
+          </div>
+        </div>
+
+        <!-- Links 1 -->
+        <div>
+          <h4 class="footer-title">UPSC Resources</h4>
+          <ul class="footer-links">
+            <li><a href="#study-material" class="footer-link">GS Study Notes</a></li>
+            <li><a href="#pyq-hub" class="footer-link">Prelims PYQ Solver</a></li>
+            <li><a href="#current-affairs" class="footer-link">Daily High-Yield News</a></li>
+            <li><a href="#mock-test" class="footer-link">Daily Prelims Mini-Quiz</a></li>
+          </ul>
+        </div>
+
+        <!-- Contact Info -->
+        <div>
+          <h4 class="footer-title">Contact Us</h4>
+          <div class="contact-info">
+            <div class="contact-item">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
+              <span>support@civilspage.com</span>
+            </div>
+            <div class="contact-item">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path></svg>
+              <span>+91 98765 43210</span>
+            </div>
+            <div class="contact-item">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2a8 8 0 0 0-8 8c0 5.25 8 12 8 12s8-6.75 8-12a8 8 0 0 0-8-8z"></path><circle cx="12" cy="10" r="3"></circle></svg>
+              <span>ORP, Rajinder Nagar,<br>New Delhi, India</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Newsletter subscription -->
+        <div class="footer-newsletter">
+          <h4 class="footer-title">Newsletter</h4>
+          <p>Get high-yield UPSC topics, weekly strategy notes, and exam notifications directly in your inbox.</p>
+          
+          <form class="newsletter-form" id="newsletter-form">
+            <div class="newsletter-input-wrapper">
+              <input type="email" class="newsletter-input" id="newsletter-email" placeholder="Enter your email" required aria-label="Email for Newsletter">
+              <button type="submit" class="newsletter-submit" aria-label="Subscribe to newsletter">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="22" y1="2" x2="11" y2="13"></line><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+              </button>
+            </div>
+            <span class="newsletter-feedback" id="newsletter-feedback"></span>
+          </form>
+        </div>
+      </div>
+
+      <!-- Copyright Bottom footer -->
+      <div class="footer-bottom">
+        <p>&copy; 2026 CivilsPage UPSC Academy. All rights reserved.</p>
+        <div class="footer-bottom-links">
+          <a href="#" class="footer-link">Privacy Policy</a>
+          <a href="#" class="footer-link">Terms of Service</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script src="app.js"></script>
+</body>
+</html>

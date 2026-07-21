@@ -1,0 +1,1145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Complete UPSC Civil Services Examination Info portal. Understand UPSC CSE history, eligibility criteria, age limits, number of attempts, salary, list of posts, exam pattern, and detailed GS syllabus.">
+  <title>Complete UPSC Info Guide - Pattern, Eligibility, Syllabus & Salary | CivilsPage</title>
+  <link rel="stylesheet" href="style.css?v=1.4">
+  <style>
+    /* Premium Modern Page Style Extensions */
+    .about-cse-hero {
+      padding: 140px 0 60px 0;
+      background: linear-gradient(135deg, #0F172A 0%, #1E293B 100%);
+      color: #FFFFFF;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+    .about-cse-hero::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      height: 40px;
+      background: var(--bg-deep);
+      clip-path: polygon(0 100%, 100% 100%, 100% 0);
+    }
+    .about-cse-hero h1 {
+      font-size: 3rem;
+      font-weight: 800;
+      color: #FFFFFF;
+      margin-bottom: 16px;
+      letter-spacing: -0.02em;
+    }
+    .about-cse-hero p {
+      color: rgba(255, 255, 255, 0.7);
+      font-size: 1.25rem;
+      max-width: 700px;
+      margin: 0 auto;
+    }
+
+    .info-nav-tabs {
+      display: flex;
+      justify-content: center;
+      gap: 12px;
+      margin-top: -30px;
+      position: relative;
+      z-index: 10;
+      padding: 0 16px;
+      flex-wrap: wrap;
+    }
+    .tab-btn {
+      padding: 14px 24px;
+      background: var(--bg-surface);
+      border: 1px solid var(--border-color);
+      border-radius: var(--border-radius-md);
+      font-weight: 600;
+      font-size: 0.95rem;
+      color: var(--text-secondary);
+      cursor: pointer;
+      box-shadow: var(--shadow-sm);
+      transition: all var(--transition-fast);
+    }
+    .tab-btn:hover {
+      transform: translateY(-2px);
+      color: var(--color-primary);
+      border-color: var(--color-primary);
+    }
+    .tab-btn.active {
+      background: var(--color-primary);
+      color: #FFFFFF;
+      border-color: var(--color-primary);
+      box-shadow: 0 10px 20px rgba(79, 70, 229, 0.15);
+    }
+
+    .info-section {
+      display: none;
+      animation: fadeIn 0.4s ease-out forwards;
+    }
+    .info-section.active {
+      display: block;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(15px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* Grid layouts */
+    .feature-grid-3 {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 32px;
+      margin-top: 40px;
+      align-items: stretch;
+    }
+    
+    /* Elegant modern info cards */
+    .info-card {
+      background: var(--bg-surface);
+      border: 1px solid var(--border-color);
+      border-radius: var(--border-radius-md);
+      padding: 32px;
+      box-shadow: var(--shadow-sm);
+      transition: all var(--transition-normal);
+      display: flex;
+      flex-direction: column;
+      height: 100%;
+    }
+    .info-card:hover {
+      transform: translateY(-4px);
+      box-shadow: var(--shadow-md);
+      border-color: var(--border-active);
+    }
+    .info-card .topic-list {
+      list-style: none;
+      padding-left: 0;
+      margin: 20px 0 0 0;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      flex-grow: 1;
+    }
+    
+    .info-card .topic-list li {
+      position: relative;
+      padding-left: 24px;
+      font-size: 0.92rem;
+      color: var(--text-secondary);
+      line-height: 1.6;
+    }
+    
+    .info-card .topic-list li::before {
+      content: '';
+      position: absolute;
+      left: 4px;
+      top: 8px;
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--color-primary);
+    }
+    
+    .info-card.success-card .topic-list li::before {
+      background: var(--color-success);
+    }
+    
+    .info-card.accent-card .topic-list li::before {
+      background: var(--color-accent);
+    }
+
+    .info-card-header {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      margin-bottom: 20px;
+    }
+
+    .info-card-icon {
+      width: 48px;
+      height: 48px;
+      border-radius: var(--border-radius-sm);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.25rem;
+      font-weight: 700;
+      flex-shrink: 0;
+    }
+
+    .info-card h3 {
+      font-size: 1.35rem;
+      font-weight: 700;
+      color: var(--text-primary);
+      margin: 0;
+    }
+    .info-card p {
+      font-size: 0.95rem;
+      line-height: 1.65;
+      color: var(--text-secondary);
+      margin: 0;
+    }
+
+    /* Dynamic Widget: Eligibility Calculator */
+    .calculator-widget {
+      background: var(--bg-surface);
+      border: 1px solid var(--color-primary-glow);
+      border-radius: var(--border-radius-lg);
+      padding: 40px;
+      box-shadow: var(--shadow-lg);
+      margin-top: 48px;
+      position: relative;
+      overflow: hidden;
+    }
+    .calculator-widget::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 4px;
+      height: 100%;
+      background: var(--color-primary);
+    }
+
+    .calc-layout {
+      display: grid;
+      grid-template-columns: 1fr 1.2fr;
+      gap: 40px;
+    }
+
+    .calc-controls {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    .calc-select {
+      width: 100%;
+      padding: 14px 16px;
+      border-radius: var(--border-radius-sm);
+      border: 1px solid var(--border-color);
+      background: var(--bg-deep);
+      color: var(--text-primary);
+      font-size: 1rem;
+      font-weight: 500;
+      outline: none;
+      transition: border var(--transition-fast);
+    }
+    .calc-select:focus {
+      border-color: var(--color-primary);
+    }
+
+    .calc-results {
+      background: var(--bg-deep);
+      border: 1px solid var(--border-color);
+      border-radius: var(--border-radius-md);
+      padding: 28px;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+      justify-content: center;
+    }
+
+    .result-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding-bottom: 12px;
+      border-bottom: 1px dashed var(--border-color);
+    }
+    .result-row:last-child {
+      border-bottom: none;
+      padding-bottom: 0;
+    }
+    .result-label {
+      font-size: 0.95rem;
+      color: var(--text-secondary);
+      font-weight: 500;
+    }
+    .result-val {
+      font-size: 1.15rem;
+      color: var(--text-primary);
+      font-weight: 700;
+    }
+
+    /* Accordion FAQ container */
+    .faq-accordion {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      margin-top: 40px;
+    }
+    
+    .faq-item {
+      background: var(--bg-surface);
+      border: 1px solid var(--border-color);
+      border-radius: var(--border-radius-sm);
+      overflow: hidden;
+      transition: border-color var(--transition-fast);
+    }
+
+    .faq-trigger {
+      width: 100%;
+      padding: 20px 24px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: transparent;
+      border: none;
+      outline: none;
+      cursor: pointer;
+      text-align: left;
+      font-family: var(--font-heading);
+      font-size: 1.1rem;
+      font-weight: 600;
+      color: var(--text-primary);
+      transition: color var(--transition-fast);
+    }
+    
+    .faq-trigger:hover {
+      color: var(--color-primary);
+    }
+
+    .faq-icon {
+      transition: transform var(--transition-normal);
+      color: var(--text-muted);
+      flex-shrink: 0;
+    }
+    
+    .faq-item.active {
+      border-color: var(--color-primary);
+    }
+    
+    .faq-item.active .faq-icon {
+      transform: rotate(180deg);
+      color: var(--color-primary);
+    }
+
+    .faq-content {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height var(--transition-normal) cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .faq-content-inner {
+      padding: 0 24px 20px 24px;
+      color: var(--text-secondary);
+      font-size: 0.95rem;
+      line-height: 1.65;
+    }
+
+    @media (max-width: 991px) {
+      .calc-layout {
+        grid-template-columns: 1fr;
+        gap: 28px;
+      }
+    }
+
+    /* --- UPSC Mains Exam Pattern Dashboard (Dark Contrast Style) --- */
+    .mains-pattern-dashboard {
+      background: #0F172A; /* Dark slate */
+      border-radius: var(--border-radius-lg);
+      padding: 36px 32px;
+      margin: 48px 0;
+      color: #FFFFFF;
+      box-shadow: var(--shadow-lg);
+      border: 1px solid rgba(255, 255, 255, 0.05);
+    }
+    
+    .dashboard-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 24px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+      padding-bottom: 16px;
+    }
+    
+    .dashboard-title {
+      font-size: 1.4rem;
+      font-weight: 800;
+      color: #38BDF8; /* Sky Blue */
+      letter-spacing: 0.02em;
+    }
+    
+    .dashboard-badge {
+      background: #10B981; /* Emerald Green */
+      color: #FFFFFF;
+      padding: 6px 16px;
+      border-radius: 9999px;
+      font-size: 0.85rem;
+      font-weight: 700;
+      letter-spacing: 0.05em;
+    }
+    
+    .dashboard-segment {
+      margin-bottom: 32px;
+    }
+    
+    .dashboard-segment:last-child {
+      margin-bottom: 0;
+    }
+    
+    .segment-bar {
+      background: #334155; /* Slate Grey */
+      padding: 14px 20px;
+      border-radius: var(--border-radius-sm);
+      text-align: center;
+      font-weight: 700;
+      font-size: 1rem;
+      color: #FFFFFF;
+      margin-bottom: 16px;
+      letter-spacing: 0.02em;
+    }
+    
+    .dashboard-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 16px;
+    }
+    
+    .dashboard-card {
+      background: #FFFFFF;
+      border-radius: var(--border-radius-sm);
+      padding: 24px 16px;
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      color: #0F172A;
+      box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+      transition: transform var(--transition-fast);
+    }
+    
+    .dashboard-card:hover {
+      transform: translateY(-2px);
+    }
+    
+    .card-icon-box {
+      height: 48px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 12px;
+    }
+    
+    .card-label {
+      font-size: 0.75rem;
+      font-weight: 800;
+      color: #0284C7; /* Sky Dark Blue */
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+    
+    .card-line {
+      width: 100%;
+      height: 1px;
+      background: #E2E8F0;
+      margin: 8px 0 12px 0;
+    }
+    
+    .card-content-desc {
+      font-size: 0.85rem;
+      font-weight: 700;
+      color: #334155;
+      line-height: 1.45;
+    }
+    
+    .card-content-desc.accent-text {
+      color: #059669; /* Emerald Green Text */
+    }
+
+    @media (max-width: 991px) {
+      .dashboard-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 12px;
+      }
+    }
+    @media (max-width: 576px) {
+      .dashboard-grid {
+        grid-template-columns: 1fr;
+        gap: 12px;
+      }
+      .mains-pattern-dashboard {
+        padding: 24px 16px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- --- Header / Navigation Bar --- -->
+  <header class="header">
+    <div class="container header-container">
+      <a href="index.html" class="logo" aria-label="CivilsPage Home">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M12 2L2 7L12 12L22 7L12 2Z" fill="var(--color-primary)"/>
+          <path d="M2 17L12 22L22 17" stroke="var(--color-success)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          <path d="M2 12L12 17L22 12" stroke="var(--color-primary)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+        <span>CivilsPage</span>
+      </a>
+
+      <!-- Quick nav back -->
+      <nav class="nav-links" aria-label="Main Navigation">
+        <a href="index.html" class="nav-link">← Home Page</a>
+        <a href="#overview" class="nav-link scroll-btn" onclick="switchSection('overview')">Overview</a>
+        <a href="#eligibility" class="nav-link scroll-btn" onclick="switchSection('eligibility')">Eligibility</a>
+        <a href="#syllabus" class="nav-link scroll-btn" onclick="switchSection('syllabus')">Syllabus</a>
+        <a href="#salary" class="nav-link scroll-btn" onclick="switchSection('salary')">Salary & Posts</a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- --- Hero Banner Section --- -->
+  <section class="about-cse-hero">
+    <div class="container">
+      <span class="badge badge-amber" style="background: rgba(245, 158, 11, 0.15); color: #F59E0B; border: none; margin-bottom: 12px;">UPSC Master Information</span>
+      <h1>Complete Guide to UPSC CSE</h1>
+      <p>Everything you need to know about the Civil Services Examination—history, eligibility parameters, stages, GS syllabus breakdowns, and administrative post structures.</p>
+    </div>
+  </section>
+
+  <!-- --- Tab Switcher Header --- -->
+  <div class="info-nav-tabs container">
+    <button class="tab-btn active" onclick="switchTab(event, 'overview')">Overview & History</button>
+    <button class="tab-btn" onclick="switchTab(event, 'eligibility')">Eligibility & Attempts</button>
+    <button class="tab-btn" onclick="switchTab(event, 'syllabus')">Exam Pattern & Syllabus</button>
+    <button class="tab-btn" onclick="switchTab(event, 'salary')">Salary, Posts & Functions</button>
+  </div>
+
+  <!-- --- Main Body Container --- -->
+  <main class="section-padding" style="background: var(--bg-deep);">
+    <div class="container">
+
+      <!-- ==========================================
+           TAB 1: OVERVIEW & HISTORY
+           ========================================== -->
+      <section id="overview" class="info-section active">
+        <div class="section-header" style="text-align: left; margin-bottom: 32px;">
+          <span class="badge badge-primary">Genesis & Development</span>
+          <h2>The Journey of the Commission</h2>
+          <p>The Union Public Service Commission (UPSC) is India's premier central recruiting agency, established under Article 315 of the Constitution. Discover its roots.</p>
+        </div>
+
+        <div class="info-card" style="margin-bottom: 40px; border-left: 4px solid var(--color-primary);">
+          <h3>Constitutional Status</h3>
+          <p style="margin-top: 12px;">
+            The Union Public Service Commission was granted constitutional status on <strong>26th January 1950</strong>. It serves as an independent body to ensure that recruitment to All India Services and Group A & B Central Services is fair, merit-based, and completely free from political interference.
+          </p>
+        </div>
+
+        <div class="section-header" style="text-align: left; margin-bottom: 24px;">
+          <h3>Key Historic Milestones</h3>
+        </div>
+
+        <div class="feature-grid-3">
+          <div class="info-card">
+            <div class="info-card-header">
+              <div class="info-card-icon" style="background: rgba(79,70,229,0.06); color: var(--color-primary);">1923</div>
+              <h3>Lee Commission</h3>
+            </div>
+            <p>
+              Under the chairmanship of Lord Lee of Fareham, the Royal Commission on Superior Civil Services was set up in British India to address the representation of Indians in higher administration.
+            </p>
+          </div>
+
+          <div class="info-card">
+            <div class="info-card-header">
+              <div class="info-card-icon" style="background: rgba(5,150,105,0.06); color: var(--color-success);">1926</div>
+              <h3>Ross Barker Board</h3>
+            </div>
+            <p>
+              The first Public Service Commission was set up in October 1926 under Sir Ross Barker. It possessed purely advisory roles and faced substantial pressure during the freedom struggle.
+            </p>
+          </div>
+
+          <div class="info-card">
+            <div class="info-card-header">
+              <div class="info-card-icon" style="background: rgba(217,119,6,0.06); color: var(--color-accent);">1935</div>
+              <h3>Federal PSC</h3>
+            </div>
+            <p>
+              The Government of India Act 1935 transformed the board into the Federal Public Service Commission, expanding recruitment capabilities and establishing provincial-level services.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <!-- ==========================================
+           TAB 2: ELIGIBILITY & ATTEMPTS
+           ========================================== -->
+      <section id="eligibility" class="info-section">
+        <div class="section-header" style="text-align: left; margin-bottom: 32px;">
+          <span class="badge badge-success">Candidate Requirements</span>
+          <h2>UPSC CSE Eligibility Criteria</h2>
+          <p>To apply for the Civil Services Examination, aspirants must satisfy core nationality, educational qualifications, age limits, and maximum attempt counts.</p>
+        </div>
+
+        <div class="feature-grid-3">
+          <div class="info-card">
+            <div class="info-card-header">
+              <div class="info-card-icon" style="background: rgba(79,70,229,0.06); color: var(--color-primary);">🎓</div>
+              <h3>Education</h3>
+            </div>
+            <p style="margin-top: 8px;">
+              Candidates must hold a Bachelor's Degree in any discipline from a university incorporated by an Act of Central or State Legislature, or other educational institutions established by an Act of Parliament.
+            </p>
+            <p style="margin-top: 12px; font-weight: 600; font-size: 0.85rem; color: var(--color-primary);">* Final year students can apply for Prelims.</p>
+          </div>
+
+          <div class="info-card">
+            <div class="info-card-header">
+              <div class="info-card-icon" style="background: rgba(5,150,105,0.06); color: var(--color-success);">🇮🇳</div>
+              <h3>Nationality</h3>
+            </div>
+            <p style="margin-top: 8px;">
+              For the Indian Administrative Service (IAS) and the Indian Police Service (IPS), a candidate must be a <strong>Citizen of India</strong>. For other services, candidates can be subjects of Nepal, Bhutan, or Tibetan refugees.
+            </p>
+          </div>
+
+          <div class="info-card">
+            <div class="info-card-header">
+              <div class="info-card-icon" style="background: rgba(217,119,6,0.06); color: var(--color-accent);">📅</div>
+              <h3>Age Base</h3>
+            </div>
+            <p style="margin-top: 8px;">
+              A candidate must have attained the age of <strong>21 years</strong> and must not have attained the age of <strong>32 years</strong> on the 1st of August of the examination year. Age relaxations apply per category.
+            </p>
+          </div>
+        </div>
+
+        <!-- Interactive Dynamic Widget: Eligibility Checker -->
+        <div class="calculator-widget">
+          <div class="calc-layout">
+            <div>
+              <h3 style="font-size: 1.5rem; margin-bottom: 12px;">Interactive Eligibility Checker</h3>
+              <p style="font-size: 0.95rem; color: var(--text-secondary); line-height: 1.6; margin-bottom: 24px;">
+                Select your category and handicap criteria to instantly check your maximum age limit, relaxations, and number of allowed attempts.
+              </p>
+              
+              <div class="calc-controls">
+                <div>
+                  <label style="display: block; font-size: 0.85rem; font-weight: 600; text-transform: uppercase; margin-bottom: 8px; color: var(--text-secondary);">Select Category</label>
+                  <select class="calc-select" id="cat-select" onchange="calculateEligibility()">
+                    <option value="general">General / EWS</option>
+                    <option value="obc">OBC (Non-Creamy Layer)</option>
+                    <option value="scst">SC / ST</option>
+                  </select>
+                </div>
+
+                <div>
+                  <label style="display: block; font-size: 0.85rem; font-weight: 600; text-transform: uppercase; margin-bottom: 8px; color: var(--text-secondary);">Benchmark Disability (PwBD)</label>
+                  <select class="calc-select" id="dis-select" onchange="calculateEligibility()">
+                    <option value="no">No Disability</option>
+                    <option value="yes">Yes (PwBD)</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+
+            <div class="calc-results">
+              <div class="result-row">
+                <span class="result-label">Minimum Age Limit</span>
+                <span class="result-val" style="color: var(--color-primary);">21 Years</span>
+              </div>
+              <div class="result-row">
+                <span class="result-label">Maximum Age Limit</span>
+                <span class="result-val" id="max-age-val">32 Years</span>
+              </div>
+              <div class="result-row">
+                <span class="result-label">Age Relaxation</span>
+                <span class="result-val" id="relaxation-val" style="color: var(--color-success);">None</span>
+              </div>
+              <div class="result-row">
+                <span class="result-label">Max Attempts Allowed</span>
+                <span class="result-val" id="attempts-val">6 Attempts</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ==========================================
+           TAB 3: EXAM PATTERN & SYLLABUS
+           ========================================== -->
+      <section id="syllabus" class="info-section">
+        <div class="section-header" style="text-align: left; margin-bottom: 32px;">
+          <span class="badge badge-amber">Stages & Parameters</span>
+          <h2>Selection Scheme & Exam Pattern</h2>
+          <p>The UPSC Civil Services Selection spans over 3 core phases. Read the specific details, parameters, scoring criteria, and syllabus breakdown.</p>
+        </div>
+
+        <div class="feature-grid-3">
+          <!-- Card 1: Prelims -->
+          <div class="glass-card info-card primary-card" style="border-top: 4px solid var(--color-primary);">
+            <div class="info-card-icon" style="background: rgba(79, 70, 229, 0.06); color: var(--color-primary);">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>
+            </div>
+            <h3 style="margin-top: 12px; margin-bottom: 12px;">Phase 1: Prelims</h3>
+            <p style="color: var(--text-secondary); margin-bottom: 16px;">Objective screening exam comprising two papers held on a single day. Offline pen-and-paper mode:</p>
+            <ul class="topic-list" style="margin-bottom: 0;">
+              <li><strong>GS Paper 1 (200 Marks)</strong>: 100 questions. Focuses on Current Affairs, History, Geography, Polity, Science. Counts for Merit cutoff.</li>
+              <li><strong>GS Paper 2 CSAT (200 Marks)</strong>: 80 questions. Qualifying aptitude test. Requires minimum <strong>33% (66 Marks)</strong> to qualify.</li>
+              <li><strong>Negative Marking</strong>: Penalty of <strong>-1/3rd marks</strong> for each incorrect answer.</li>
+            </ul>
+          </div>
+
+          <!-- Card 2: Mains -->
+          <div class="glass-card info-card success-card" style="border-top: 4px solid var(--color-success);">
+            <div class="info-card-icon" style="background: rgba(5, 150, 105, 0.06); color: var(--color-success);">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"></path><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"></path></svg>
+            </div>
+            <h3 style="margin-top: 12px; margin-bottom: 12px;">Phase 2: Mains</h3>
+            <p style="color: var(--text-secondary); margin-bottom: 16px;">Written descriptive examination evaluating comprehensive skills. Consists of 9 papers:</p>
+            <ul class="topic-list" style="margin-bottom: 0;">
+              <li><strong>Qualifying Papers</strong>: Paper A (Indian Language - 300 Marks) & Paper B (English - 300 Marks). Require 25% to qualify.</li>
+              <li><strong>Merit Papers (250 Marks each)</strong>: Paper I (Essay), Papers II-V (General Studies GS I to IV), and Papers VI-VII (Optional Subject Paper 1 & 2).</li>
+              <li><strong>Total Merit Score</strong>: Written merit total is compiled out of <strong>1,750 Marks</strong>.</li>
+            </ul>
+          </div>
+
+          <!-- Card 3: Interview -->
+          <div class="glass-card info-card accent-card" style="border-top: 4px solid var(--color-accent);">
+            <div class="info-card-icon" style="background: rgba(217, 119, 6, 0.06); color: var(--color-accent);">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg>
+            </div>
+            <h3 style="margin-top: 12px; margin-bottom: 12px;">Phase 3: Personality Test</h3>
+            <p style="color: var(--text-secondary); margin-bottom: 16px;">The final stage held at UPSC headquarters in New Delhi to assess candidate administrative suitability:</p>
+            <ul class="topic-list" style="margin-bottom: 0;">
+              <li>Conducted by a board of unbiased observers evaluating personality traits.</li>
+              <li>Evaluates mental capacity, integrity, clarity of thought, decision-making, and leadership potential.</li>
+              <li><strong>Interview Score</strong>: Scored out of <strong>275 Marks</strong>.</li>
+              <li><strong>Grand Total Score</strong>: Final merit list is formulated out of <strong>2,025 Marks</strong> (Mains + Interview).</li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- UPSC Mains Exam Pattern Dashboard (Responsive CSS representation of image) -->
+        <div class="mains-pattern-dashboard">
+          <div class="dashboard-header">
+            <div class="dashboard-title">UPSC : Exam Pattern</div>
+            <div class="dashboard-badge">MAINS</div>
+          </div>
+
+          <!-- Qualifying Papers Segment -->
+          <div class="dashboard-segment">
+            <div class="segment-bar">Qualifying Papers : Language (Paper A + Paper B)</div>
+            <div class="dashboard-grid">
+              <!-- Card 1 -->
+              <div class="dashboard-card">
+                <div class="card-icon-box">
+                  <span style="font-size: 2.2rem; color: #EF4444; font-weight: bold; font-family: monospace;">?</span>
+                </div>
+                <div class="card-label">Questions</div>
+                <div class="card-line"></div>
+                <div class="card-content-desc accent-text">Descriptive Type</div>
+              </div>
+              <!-- Card 2 -->
+              <div class="dashboard-card">
+                <div class="card-icon-box">
+                  <span style="font-size: 1.8rem; color: #10B981;">✅</span>
+                  <span style="font-size: 1.8rem; color: #EF4444; margin-left: 6px;">❌</span>
+                </div>
+                <div class="card-label">Marking</div>
+                <div class="card-line"></div>
+                <div class="card-content-desc">300 <span style="font-weight:500; font-size:0.8rem; color:var(--text-muted)">for each paper</span><br><span style="color:#EF4444; font-size:0.8rem;">No Negative Marking</span></div>
+              </div>
+              <!-- Card 3 -->
+              <div class="dashboard-card">
+                <div class="card-icon-box">
+                  <span style="font-size: 2rem;">🏆</span>
+                </div>
+                <div class="card-label">Qualifying Marks</div>
+                <div class="card-line"></div>
+                <div class="card-content-desc accent-text">25% of 300<br><span style="font-size:0.8rem; font-weight:500; color:var(--text-muted)">for each paper</span></div>
+              </div>
+              <!-- Card 4 -->
+              <div class="dashboard-card">
+                <div class="card-icon-box">
+                  <span style="font-size: 2rem;">⏳</span>
+                </div>
+                <div class="card-label">Duration of Exam</div>
+                <div class="card-line"></div>
+                <div class="card-content-desc accent-text">180 mins.<br><span style="font-size:0.8rem; font-weight:500; color:var(--text-muted)">for each paper</span></div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Merit Papers Segment -->
+          <div class="dashboard-segment">
+            <div class="segment-bar">Merit Papers : Essay, 4 Gen.Study & 2 Optional</div>
+            <div class="dashboard-grid">
+              <!-- Card 1 -->
+              <div class="dashboard-card">
+                <div class="card-icon-box">
+                  <span style="font-size: 2.2rem; color: #EF4444; font-weight: bold; font-family: monospace;">?</span>
+                </div>
+                <div class="card-label">Questions</div>
+                <div class="card-line"></div>
+                <div class="card-content-desc accent-text">Descriptive Type</div>
+              </div>
+              <!-- Card 2 -->
+              <div class="dashboard-card">
+                <div class="card-icon-box">
+                  <span style="font-size: 1.8rem; color: #10B981;">✅</span>
+                  <span style="font-size: 1.8rem; color: #EF4444; margin-left: 6px;">❌</span>
+                </div>
+                <div class="card-label">Marking</div>
+                <div class="card-line"></div>
+                <div class="card-content-desc">250 <span style="font-weight:500; font-size:0.8rem; color:var(--text-muted)">for each paper</span><br><span style="color:#EF4444; font-size:0.8rem;">No Negative Marking</span></div>
+              </div>
+              <!-- Card 3 -->
+              <div class="dashboard-card">
+                <div class="card-icon-box">
+                  <span style="font-size: 2rem;">🏆</span>
+                </div>
+                <div class="card-label">Qualifying Marks</div>
+                <div class="card-line"></div>
+                <div class="card-content-desc accent-text">Cut-off List</div>
+              </div>
+              <!-- Card 4 -->
+              <div class="dashboard-card">
+                <div class="card-icon-box">
+                  <span style="font-size: 2rem;">⏳</span>
+                </div>
+                <div class="card-label">Duration of Exam</div>
+                <div class="card-line"></div>
+                <div class="card-content-desc accent-text">180 mins.<br><span style="font-size:0.8rem; font-weight:500; color:var(--text-muted)">for each paper</span></div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="section-header" style="text-align: left; margin-top: 48px; margin-bottom: 24px;">
+          <h3>General Studies Papers Syllabus Highlights</h3>
+        </div>
+
+        <div class="info-card" style="margin-bottom: 24px;">
+          <h4 style="font-size: 1.2rem; color: var(--color-primary); margin-bottom: 8px;">GS Paper I: Heritage, Culture, History & Geography</h4>
+          <p>Indian Culture, Ancient to Modern History, Indian National Movement, World History (industrial revolutions, world wars), Indian Society and its diversity, and Physical & Economic Geography of the World.</p>
+        </div>
+
+        <div class="info-card" style="margin-bottom: 24px;">
+          <h4 style="font-size: 1.2rem; color: var(--color-primary); margin-bottom: 8px;">GS Paper II: Constitution, Polity, Governance & International Relations</h4>
+          <p>Constitutional provisions, Parliament structure and functions, separation of powers, executive and judicial branches, representation of People's Act, welfare schemes, e-governance, and India's bilateral/global groupings.</p>
+        </div>
+
+        <div class="info-card" style="margin-bottom: 24px;">
+          <h4 style="font-size: 1.2rem; color: var(--color-primary); margin-bottom: 8px;">GS Paper III: Technology, Economic Development, Environment & Security</h4>
+          <p>Indian Economy structure, resource mobilization, agricultural cropping patterns, direct & indirect farm subsidies, food processing industries, S&T developments, environmental degradation, disasters, internal security, and cybersecurity.</p>
+        </div>
+
+        <div class="info-card" style="margin-bottom: 24px;">
+          <h4 style="font-size: 1.2rem; color: var(--color-primary); margin-bottom: 8px;">GS Paper IV: Ethics, Integrity & Aptitude</h4>
+          <p>Human values, attitude (content, structure, relation to behavior), emotional intelligence, moral thinkers, ethical dilemmas in administration, public service values, and comprehensive real-world administrative Case Studies.</p>
+        </div>
+      </section>
+
+      <!-- ==========================================
+           TAB 4: SALARY, POSTS & FUNCTIONS
+           ========================================== -->
+      <section id="salary" class="info-section">
+        <div class="section-header" style="text-align: left; margin-bottom: 32px;">
+          <span class="badge badge-primary">Administrative Career</span>
+          <h2>Salary Structure & Recruiting Posts</h2>
+          <p>Understand the monetary benefits, promotions structure, pay matrix levels, and the complete directory of services filled by the UPSC CSE.</p>
+        </div>
+
+        <div class="info-card" style="margin-bottom: 40px;">
+          <h3 style="margin-bottom: 16px;">IAS/IPS Salary Breakdown (7th Pay Commission)</h3>
+          <p style="margin-bottom: 20px;">
+            The entry-level basic pay for an IAS officer is <strong>₹56,100 per month</strong> (Pay Level 10). Officers are entitled to substantial allowances and rise through the promotion matrix up to Cabinet Secretary level.
+          </p>
+          <table class="paper-table">
+            <thead>
+              <tr>
+                <th>Designation / Post</th>
+                <th>Pay Level</th>
+                <th>Basic Pay Scale (Monthly)</th>
+                <th>Typical Experience Required</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Sub-Divisional Magistrate (SDM) / Entry</td>
+                <td>Level 10</td>
+                <td>₹56,100</td>
+                <td>1 - 4 Years</td>
+              </tr>
+              <tr>
+                <td>Additional District Magistrate (ADM)</td>
+                <td>Level 11</td>
+                <td>₹67,700</td>
+                <td>5 - 8 Years</td>
+              </tr>
+              <tr>
+                <td>District Magistrate (DM) / Collector</td>
+                <td>Level 12</td>
+                <td>₹78,800</td>
+                <td>9 - 12 Years</td>
+              </tr>
+              <tr>
+                <td>District Collector (Selection Grade)</td>
+                <td>Level 13</td>
+                <td>₹1,18,500</td>
+                <td>13 - 16 Years</td>
+              </tr>
+              <tr>
+                <td>Divisional Commissioner / Secretary</td>
+                <td>Level 14</td>
+                <td>₹1,44,200</td>
+                <td>17 - 24 Years</td>
+              </tr>
+              <tr>
+                <td>Principal Secretary</td>
+                <td>Level 15</td>
+                <td>₹1,82,200</td>
+                <td>25 - 28 Years</td>
+              </tr>
+              <tr>
+                <td>Chief Secretary of State / Union Secretary</td>
+                <td>Level 17</td>
+                <td>₹2,25,000</td>
+                <td>30+ Years</td>
+              </tr>
+              <tr>
+                <td>Cabinet Secretary of India (Highest Post)</td>
+                <td>Level 18</td>
+                <td>₹2,50,000</td>
+                <td>Senior-most Service</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="section-header" style="text-align: left; margin-bottom: 24px;">
+          <h3>Directory of Recruiting Services (UPSC Posts)</h3>
+          <p>The Civil Services Examination recruits for three main categories of administrative services.</p>
+        </div>
+
+        <div class="feature-grid-3" style="margin-bottom: 40px;">
+          <div class="info-card">
+            <h4 style="color: var(--color-primary); margin-bottom: 12px;">1. All India Services (AIS)</h4>
+            <ul class="topic-list" style="margin-bottom: 0;">
+              <li><strong>IAS</strong>: Indian Administrative Service</li>
+              <li><strong>IPS</strong>: Indian Police Service</li>
+              <li><strong>IFoS</strong>: Indian Forest Service (recruited via separate Mains)</li>
+            </ul>
+          </div>
+
+          <div class="info-card">
+            <h4 style="color: var(--color-success); margin-bottom: 12px;">2. Group 'A' Central Services</h4>
+            <ul class="topic-list" style="margin-bottom: 0;">
+              <li><strong>IFS</strong>: Indian Foreign Service</li>
+              <li><strong>IRS (IT & C)</strong>: Indian Revenue Service</li>
+              <li><strong>IAAS</strong>: Indian Audit & Accounts Service</li>
+              <li><strong>IDAS</strong>: Indian Defence Accounts Service</li>
+              <li><strong>IPoS</strong>: Indian Postal Service</li>
+            </ul>
+          </div>
+
+          <div class="info-card">
+            <h4 style="color: var(--color-accent); margin-bottom: 12px;">3. Group 'B' Central Services</h4>
+            <ul class="topic-list" style="margin-bottom: 0;">
+              <li><strong>DANICS</strong>: Delhi, Andaman & Nicobar, Lakshadweep Civil Service</li>
+              <li><strong>DANIPS</strong>: Delhi, Andaman & Nicobar, Lakshadweep Police Service</li>
+              <li><strong>AFHQCS</strong>: Armed Forces Headquarters Civil Service</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <!-- ==========================================
+           FAQ ACCORDION SECTION (Common to all tabs)
+           ========================================== -->
+      <section style="margin-top: 60px; padding-top: 48px; border-top: 1px solid var(--border-color);">
+        <div class="section-header" style="text-align: left; margin-bottom: 12px;">
+          <span class="badge badge-amber">UPSC FAQ Box</span>
+          <h2>Frequently Asked Questions</h2>
+          <p>Quick answers to common queries regarding calculators, question papers, and historical commissions.</p>
+        </div>
+
+        <div class="faq-accordion">
+          <!-- FAQ 1 -->
+          <div class="faq-item">
+            <button class="faq-trigger" onclick="toggleFaq(this)">
+              Can candidates use calculators in UPSC Civil Services Exam?
+              <svg class="faq-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
+            </button>
+            <div class="faq-content">
+              <div class="faq-content-inner">
+                No, candidates are <strong>not allowed</strong> to use calculators in the UPSC CSE Prelims or standard Mains GS papers. However, calculators are permitted in specific optional papers containing intensive numerical formulations (e.g., Mathematics, Statistics, Engineering, or Management options).
+              </div>
+            </div>
+          </div>
+
+          <!-- FAQ 2 -->
+          <div class="faq-item">
+            <button class="faq-trigger" onclick="toggleFaq(this)">
+              What is the qualifying criteria for CSAT Paper II in Prelims?
+              <svg class="faq-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
+            </button>
+            <div class="faq-content">
+              <div class="faq-content-inner">
+                CSAT Paper II is strictly <strong>qualifying in nature</strong>. Candidates are required to score a minimum of <strong>33%</strong> (equivalent to <strong>66 Marks</strong> out of the 200 maximum score). If a candidate fails to score 66 marks in CSAT, their Paper I (General Studies) will not be evaluated, regardless of their performance.
+              </div>
+            </div>
+          </div>
+
+          <!-- FAQ 3 -->
+          <div class="faq-item">
+            <button class="faq-trigger" onclick="toggleFaq(this)">
+              When and by whom was the Royal Commission on Superior Civil Services established?
+              <svg class="faq-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
+            </button>
+            <div class="faq-content">
+              <div class="faq-content-inner">
+                The Royal Commission on Superior Civil Services in India (also known as the <strong>Lee Commission</strong>) was established in <strong>1923</strong> under the chairmanship of <strong>Lord Lee of Fareham</strong>. The commission recommended establishing a Public Service Commission, which led to the creation of India's first PSC in 1926.
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+    </div>
+  </main>
+
+  <!-- --- Clean Minimal Footer --- -->
+  <footer class="footer">
+    <div class="container" style="text-align: center;">
+      <p style="margin-bottom: 16px;">&copy; 2026 CivilsPage UPSC Academy. All rights reserved.</p>
+      <a href="index.html" class="btn btn-secondary" style="border-radius: var(--border-radius-sm);">← Return to Homepage</a>
+    </div>
+  </footer>
+
+  <!-- --- Page Logic Script --- -->
+  <script>
+    // Tab switching logic
+    function switchTab(evt, tabId) {
+      // Get all tab content elements
+      const sections = document.querySelectorAll('.info-section');
+      sections.forEach(sec => sec.classList.remove('active'));
+
+      // Get all tab buttons
+      const tabButtons = document.querySelectorAll('.tab-btn');
+      tabButtons.forEach(btn => btn.classList.remove('active'));
+
+      // Show the selected section and add active class to button
+      document.getElementById(tabId).classList.add('active');
+      evt.currentTarget.classList.add('active');
+      
+      // Smooth scroll slightly below hero
+      window.scrollTo({
+        top: document.querySelector('.info-nav-tabs').offsetTop - 90,
+        behavior: 'smooth'
+      });
+    }
+
+    // Scroll buttons from header
+    function switchSection(sectionId) {
+      const tabButtons = document.querySelectorAll('.tab-btn');
+      const sections = document.querySelectorAll('.info-section');
+      
+      sections.forEach(sec => sec.classList.remove('active'));
+      tabButtons.forEach(btn => btn.classList.remove('active'));
+
+      // Find matching button
+      tabButtons.forEach(btn => {
+        if (btn.getAttribute('onclick').includes(sectionId)) {
+          btn.classList.add('active');
+        }
+      });
+
+      document.getElementById(sectionId).classList.add('active');
+      
+      window.scrollTo({
+        top: document.querySelector('.info-nav-tabs').offsetTop - 90,
+        behavior: 'smooth'
+      });
+    }
+
+    // FAQ Accordion Toggle
+    function toggleFaq(btn) {
+      const item = btn.parentElement;
+      const content = btn.nextElementSibling;
+      const isActive = item.classList.contains('active');
+
+      // Close all other FAQs
+      const allItems = document.querySelectorAll('.faq-item');
+      allItems.forEach(i => {
+        i.classList.remove('active');
+        i.querySelector('.faq-content').style.maxHeight = '0';
+      });
+
+      if (!isActive) {
+        item.classList.add('active');
+        content.style.maxHeight = content.scrollHeight + 'px';
+      }
+    }
+
+    // Interactive Eligibility Calculator
+    function calculateEligibility() {
+      const category = document.getElementById('cat-select').value;
+      const disability = document.getElementById('dis-select').value;
+
+      let maxAge = 32;
+      let attempts = 6;
+      let relaxation = 'None';
+
+      if (category === 'general') {
+        if (disability === 'yes') {
+          maxAge = 42;
+          attempts = 9;
+          relaxation = '+10 Years (PwBD)';
+        } else {
+          maxAge = 32;
+          attempts = 6;
+          relaxation = 'None';
+        }
+      } else if (category === 'obc') {
+        if (disability === 'yes') {
+          maxAge = 45;
+          attempts = 9;
+          relaxation = '+13 Years (OBC + PwBD)';
+        } else {
+          maxAge = 35;
+          attempts = 9;
+          relaxation = '+3 Years (OBC)';
+        }
+      } else if (category === 'scst') {
+        if (disability === 'yes') {
+          maxAge = 47;
+          attempts = 'Unlimited';
+          relaxation = '+15 Years (SC/ST + PwBD)';
+        } else {
+          maxAge = 37;
+          attempts = 'Unlimited';
+          relaxation = '+5 Years (SC/ST)';
+        }
+      }
+
+      // Render outputs
+      document.getElementById('max-age-val').innerText = maxAge + ' Years';
+      document.getElementById('relaxation-val').innerText = relaxation;
+      document.getElementById('attempts-val').innerText = typeof attempts === 'number' ? attempts + ' Attempts' : attempts;
+    }
+
+    // Run initial calculator status
+    window.addEventListener('DOMContentLoaded', () => {
+      calculateEligibility();
+      
+      // Handle direct hash navigation on page load
+      const hash = window.location.hash;
+      if (hash === '#exam-plan') {
+        switchSection('syllabus');
+      } else if (hash === '#detailed-syllabus') {
+        switchSection('syllabus');
+      }
+    });
+  </script>
+</body>
+</html>
