@@ -119,6 +119,7 @@ export default function Footer() {
         <div className="footer-bottom">
           <p>&copy; 2026 CivilsPage UPSC Academy. All rights reserved.</p>
           <div className="footer-bottom-links">
+            <Link href="/admin" className="footer-link">Admin Dashboard</Link>
             <Link href="#" className="footer-link">Privacy Policy</Link>
             <Link href="#" className="footer-link">Terms of Service</Link>
           </div>
