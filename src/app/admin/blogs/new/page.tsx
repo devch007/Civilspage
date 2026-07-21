@@ -4,13 +4,14 @@ import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { createBlogAction } from '@/actions/blog.actions';
 import { generateSlug } from '@/lib/validations/blog';
+import R2Upload from '@/components/admin/R2Upload';
 import { Loader2, ArrowLeft } from 'lucide-react';
 import Link from 'next/link';
 
 export default function NewBlogPage() {
   const router = useRouter();
   const [loading, setLoading] = useState(false);
-  const [error, setError] = useState<string>('');
+  const [error, setError] = useState('');
   const [form, setForm] = useState({
     title: '',
     slug: '',
@@ -22,6 +23,9 @@ export default function NewBlogPage() {
     seoDescription: '',
     published: false,
   });
+
+  const set = (k: keyof typeof form, v: string | boolean) =>
+    setForm((prev) => ({ ...prev, [k]: v }));
 
   const handleTitleChange = (title: string) => {
     setForm((prev) => ({
@@ -35,14 +39,12 @@ export default function NewBlogPage() {
     e.preventDefault();
     setLoading(true);
     setError('');
-
     const result = await createBlogAction(form);
     if ('error' in result && result.error) {
       setError(JSON.stringify(result.error));
       setLoading(false);
       return;
     }
-
     router.push('/admin/blogs');
   };
 
@@ -58,124 +60,88 @@ export default function NewBlogPage() {
         </div>
       </div>
 
-      {error && (
-        <div className="p-4 bg-red-50 border border-red-200 rounded-xl text-red-600 text-sm">{error}</div>
-      )}
+      {error && <div className="p-4 bg-red-50 border border-red-200 rounded-xl text-red-600 text-sm">{error}</div>}
 
       <form onSubmit={handleSubmit} className="space-y-5">
+        {/* Content */}
         <div className="bg-white border border-slate-100 rounded-xl p-6 space-y-5">
-          <h2 className="font-semibold text-slate-800 text-sm uppercase tracking-wider">Content</h2>
+          <h2 className="font-semibold text-slate-800 text-xs uppercase tracking-wider">Content</h2>
 
           <div>
             <label className="block text-sm font-medium text-slate-700 mb-1.5">Title *</label>
-            <input
-              type="text" required
-              value={form.title}
-              onChange={(e) => handleTitleChange(e.target.value)}
+            <input type="text" required value={form.title} onChange={(e) => handleTitleChange(e.target.value)}
               className="w-full px-4 py-3 border border-slate-200 rounded-xl text-sm focus:border-indigo-400 focus:outline-none"
-              placeholder="e.g. Understanding Directive Principles of State Policy"
-            />
+              placeholder="e.g. Understanding Directive Principles of State Policy" />
           </div>
 
           <div>
-            <label className="block text-sm font-medium text-slate-700 mb-1.5">Slug</label>
-            <input
-              type="text"
-              value={form.slug}
-              onChange={(e) => setForm({ ...form, slug: e.target.value })}
-              className="w-full px-4 py-3 border border-slate-200 rounded-xl text-sm focus:border-indigo-400 focus:outline-none font-mono text-slate-500"
-            />
+            <label className="block text-sm font-medium text-slate-700 mb-1.5">Slug (auto-generated)</label>
+            <input type="text" value={form.slug} onChange={(e) => set('slug', e.target.value)}
+              className="w-full px-4 py-3 border border-slate-200 rounded-xl text-sm font-mono text-slate-500 focus:border-indigo-400 focus:outline-none" />
           </div>
 
           <div>
             <label className="block text-sm font-medium text-slate-700 mb-1.5">Excerpt</label>
-            <textarea
-              value={form.excerpt}
-              onChange={(e) => setForm({ ...form, excerpt: e.target.value })}
-              rows={2}
+            <textarea value={form.excerpt} onChange={(e) => set('excerpt', e.target.value)} rows={2}
               className="w-full px-4 py-3 border border-slate-200 rounded-xl text-sm focus:border-indigo-400 focus:outline-none resize-none"
-              placeholder="Short summary of the blog post..."
-            />
+              placeholder="Short summary shown in listings..." />
           </div>
 
           <div>
             <label className="block text-sm font-medium text-slate-700 mb-1.5">Content</label>
-            <textarea
-              value={form.content}
-              onChange={(e) => setForm({ ...form, content: e.target.value })}
-              rows={12}
-              className="w-full px-4 py-3 border border-slate-200 rounded-xl text-sm focus:border-indigo-400 focus:outline-none resize-none font-mono"
-              placeholder="Full article content (Markdown supported)..."
-            />
+            <textarea value={form.content} onChange={(e) => set('content', e.target.value)} rows={14}
+              className="w-full px-4 py-3 border border-slate-200 rounded-xl text-sm font-mono focus:border-indigo-400 focus:outline-none resize-none"
+              placeholder="Full article content (Markdown supported)..." />
           </div>
         </div>
 
+        {/* Media — R2 Upload */}
         <div className="bg-white border border-slate-100 rounded-xl p-6 space-y-5">
-          <h2 className="font-semibold text-slate-800 text-sm uppercase tracking-wider">Media (Cloudflare R2 URLs)</h2>
+          <h2 className="font-semibold text-slate-800 text-xs uppercase tracking-wider">Media</h2>
 
-          <div>
-            <label className="block text-sm font-medium text-slate-700 mb-1.5">Featured Image URL</label>
-            <input
-              type="url"
-              value={form.featuredImage}
-              onChange={(e) => setForm({ ...form, featuredImage: e.target.value })}
-              className="w-full px-4 py-3 border border-slate-200 rounded-xl text-sm focus:border-indigo-400 focus:outline-none"
-              placeholder="https://your-r2.cloudflare.com/image.jpg"
-            />
-          </div>
+          <R2Upload
+            label="Featured Image"
+            value={form.featuredImage}
+            onChange={(url) => set('featuredImage', url)}
+            folder="blogs"
+            accept="image"
+            previewImage
+          />
 
-          <div>
-            <label className="block text-sm font-medium text-slate-700 mb-1.5">PDF URL</label>
-            <input
-              type="url"
-              value={form.pdfUrl}
-              onChange={(e) => setForm({ ...form, pdfUrl: e.target.value })}
-              className="w-full px-4 py-3 border border-slate-200 rounded-xl text-sm focus:border-indigo-400 focus:outline-none"
-              placeholder="https://your-r2.cloudflare.com/file.pdf"
-            />
-          </div>
+          <R2Upload
+            label="Attached PDF"
+            value={form.pdfUrl}
+            onChange={(url) => set('pdfUrl', url)}
+            folder="blogs"
+            accept="pdf"
+            previewImage={false}
+          />
         </div>
 
+        {/* SEO */}
         <div className="bg-white border border-slate-100 rounded-xl p-6 space-y-5">
-          <h2 className="font-semibold text-slate-800 text-sm uppercase tracking-wider">SEO</h2>
-
+          <h2 className="font-semibold text-slate-800 text-xs uppercase tracking-wider">SEO</h2>
           <div>
-            <label className="block text-sm font-medium text-slate-700 mb-1.5">SEO Title (max 70 chars)</label>
-            <input
-              type="text" maxLength={70}
-              value={form.seoTitle}
-              onChange={(e) => setForm({ ...form, seoTitle: e.target.value })}
-              className="w-full px-4 py-3 border border-slate-200 rounded-xl text-sm focus:border-indigo-400 focus:outline-none"
-            />
+            <label className="block text-sm font-medium text-slate-700 mb-1.5">SEO Title <span className="text-slate-400 font-normal">(max 70 chars)</span></label>
+            <input maxLength={70} value={form.seoTitle} onChange={(e) => set('seoTitle', e.target.value)}
+              className="w-full px-4 py-3 border border-slate-200 rounded-xl text-sm focus:border-indigo-400 focus:outline-none" />
+            <p className="text-xs text-slate-400 mt-1 text-right">{form.seoTitle.length}/70</p>
           </div>
-
           <div>
-            <label className="block text-sm font-medium text-slate-700 mb-1.5">SEO Description (max 160 chars)</label>
-            <textarea
-              maxLength={160} rows={2}
-              value={form.seoDescription}
-              onChange={(e) => setForm({ ...form, seoDescription: e.target.value })}
-              className="w-full px-4 py-3 border border-slate-200 rounded-xl text-sm focus:border-indigo-400 focus:outline-none resize-none"
-            />
+            <label className="block text-sm font-medium text-slate-700 mb-1.5">SEO Description <span className="text-slate-400 font-normal">(max 160 chars)</span></label>
+            <textarea maxLength={160} rows={2} value={form.seoDescription} onChange={(e) => set('seoDescription', e.target.value)}
+              className="w-full px-4 py-3 border border-slate-200 rounded-xl text-sm focus:border-indigo-400 focus:outline-none resize-none" />
+            <p className="text-xs text-slate-400 mt-1 text-right">{form.seoDescription.length}/160</p>
           </div>
         </div>
 
         <div className="flex items-center justify-between pt-2">
           <label className="flex items-center gap-2 cursor-pointer">
-            <input
-              type="checkbox"
-              checked={form.published}
-              onChange={(e) => setForm({ ...form, published: e.target.checked })}
-              className="w-4 h-4 accent-indigo-600 rounded"
-            />
+            <input type="checkbox" checked={form.published} onChange={(e) => set('published', e.target.checked)} className="w-4 h-4 accent-indigo-600 rounded" />
             <span className="text-sm font-medium text-slate-700">Publish immediately</span>
           </label>
-
-          <button
-            type="submit"
-            disabled={loading}
-            className="px-6 py-2.5 bg-indigo-600 text-white text-sm font-semibold rounded-xl hover:bg-indigo-700 disabled:opacity-60 flex items-center gap-2 transition-all"
-          >
+          <button type="submit" disabled={loading}
+            className="px-6 py-2.5 bg-indigo-600 text-white text-sm font-semibold rounded-xl hover:bg-indigo-700 disabled:opacity-60 flex items-center gap-2 transition-all">
             {loading && <Loader2 className="w-4 h-4 animate-spin" />}
             {loading ? 'Creating...' : 'Create Blog Post'}
           </button>
