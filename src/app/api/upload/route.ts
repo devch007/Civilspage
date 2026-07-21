@@ -48,7 +48,4 @@ export async function POST(request: NextRequest) {
   }
 }
 
-// Max body size: 50 MB
-export const config = {
-  api: { bodyParser: false },
-};
+// File size limit handled by next.config.ts serverActions.bodySizeLimit

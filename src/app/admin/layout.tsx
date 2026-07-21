@@ -1,5 +1,11 @@
 import { requireAdmin, getUserProfile } from '@/lib/auth';
 import Link from 'next/link';
+
+// Force all /admin/* pages to be server-rendered at request time.
+// This prevents Vercel build from failing when DB env vars aren't available
+// at build time (they're runtime secrets, not build-time vars).
+export const dynamic = 'force-dynamic';
+
 import {
   BarChart3, FileText, Newspaper, FileSpreadsheet,
   BookOpen, HelpCircle, Users, Settings, Layout, BrainCircuit,
