@@ -2,19 +2,25 @@ import { requireAdmin, getUserProfile } from '@/lib/auth';
 import Link from 'next/link';
 import {
   BarChart3, FileText, Newspaper, FileSpreadsheet,
-  BookOpen, HelpCircle, Users, Settings, Layout, BrainCircuit, LogOut
+  BookOpen, HelpCircle, Users, Settings, Layout, BrainCircuit,
+  LogOut, Tag, MessageSquare, Mail, Zap
 } from 'lucide-react';
 
 const navItems = [
   { href: '/admin/dashboard', label: 'Dashboard', icon: BarChart3 },
   { href: '/admin/blogs', label: 'Blogs', icon: FileText },
+  { href: '/admin/categories', label: 'Categories & Tags', icon: Tag },
   { href: '/admin/current-affairs', label: 'Current Affairs', icon: Newspaper },
   { href: '/admin/notes', label: 'Notes', icon: FileSpreadsheet },
   { href: '/admin/courses', label: 'Courses', icon: BookOpen },
   { href: '/admin/pyqs', label: 'PYQs', icon: HelpCircle },
+  { href: '/admin/quizzes', label: 'Mock Quizzes', icon: Zap },
+  { href: '/admin/comments', label: 'Comments', icon: MessageSquare },
+  { href: '/admin/newsletter', label: 'Newsletter', icon: Mail },
   { href: '/admin/users', label: 'Users', icon: Users },
   { href: '/admin/settings', label: 'Settings', icon: Settings },
 ];
+
 
 export default async function AdminLayout({ children }: { children: React.ReactNode }) {
   await requireAdmin();
