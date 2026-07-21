@@ -77,6 +77,15 @@ export interface Order {
   status: string;
 }
 
+export interface QuizQuestion {
+  id: number;
+  subject: string;
+  question: string;
+  options: string[];
+  correctAnswer: number;
+  explanation: string;
+}
+
 // ==========================================================================
 // LOCAL STORAGE MOCK DATABASE (Browser Fallback)
 // ==========================================================================
@@ -118,6 +127,48 @@ const defaultOrders: Order[] = [
   { id: 'TXN10248', student: 'Aditya Sharma', course: 'IAS Foundation Integrated Program 2027', amount: '₹45,000', date: '2026-07-18', status: 'Completed' },
   { id: 'TXN10249', student: 'Priya Patel', course: 'GS Paper IV Ethics & Integrity Mastery Batch', amount: '₹12,500', date: '2026-07-17', status: 'Completed' },
   { id: 'TXN10250', student: 'Rohan Sen', course: 'CSAT Quantitative Aptitude Course', amount: '₹7,500', date: '2026-07-16', status: 'Completed' }
+];
+
+const defaultQuizQuestions: QuizQuestion[] = [
+  {
+    id: 1,
+    subject: 'Indian Polity',
+    question: 'Which of the following statements best describes the concept of "Basic Structure" of the Constitution of India?',
+    options: [
+      'It is a doctrine explicitly defined in Article 368 of the Constitution regarding amendments.',
+      'It refers to constitutional provisions that can only be amended with a two-thirds majority in Parliament and ratification by all States.',
+      'It is a doctrine stating that certain features of the Constitution are fundamental and cannot be altered or destroyed by Parliament.',
+      'It refers strictly to the Fundamental Rights enumerated in Part III of the Constitution.'
+    ],
+    correctAnswer: 2,
+    explanation: 'The "Basic Structure" doctrine is a judicial innovation introduced by the Supreme Court in the Kesavananda Bharati judgment (1973). It does not appear in the text of the Constitution, but dictates that Parliament cannot amend the core features (like democracy, rule of law, federalism, judicial review) under Article 368.'
+  },
+  {
+    id: 2,
+    subject: 'Indian Economy',
+    question: 'Which of the following measures by the RBI would help control rising inflation in the economy?',
+    options: [
+      'Reducing the Cash Reserve Ratio (CRR) and lowering the Repo Rate.',
+      'Selling government securities in open market operations and increasing the Bank Rate.',
+      'Buying government bonds to pump liquidity and reducing Margin Requirements.',
+      'Lending more money to commercial banks under the Marginal Standing Facility.'
+    ],
+    correctAnswer: 1,
+    explanation: 'To control inflation, the RBI seeks to reduce money supply. Selling government securities sucks liquidity out of the banking system. Increasing key policy rates (Bank Rate/Repo Rate) makes credit expensive, thereby slowing down aggregate demand and price growth.'
+  },
+  {
+    id: 3,
+    subject: 'History & Culture',
+    question: 'Regarding the Ryotwari settlement implemented during the British Raj, consider the following statements: (1) Rent was paid directly by peasants, (2) Land revenue assessment was permanent, (3) The government gave pattas to ryots. Which of these are correct?',
+    options: [
+      '1 and 2 only',
+      '2 and 3 only',
+      '1 and 3 only',
+      '1, 2 and 3'
+    ],
+    correctAnswer: 2,
+    explanation: 'Under the Ryotwari System (introduced by Munro and Reed), the revenue was paid directly by the peasants (Ryots) to the government (Statement 1) and pattas were issued (Statement 3). However, the land assessment was NOT permanent; it was revised periodically (usually every 20-30 years). Thus statement 2 is incorrect.'
+  }
 ];
 
 // Helper to get/set browser localStorage items safely
@@ -275,6 +326,50 @@ export async function addPyq(pyq: Omit<Pyq, 'id'>): Promise<Pyq> {
   const { data, error } = await supabase.from('pyqs').insert([pyq]).select().single();
   if (error) throw error;
   return data;
+}
+
+export async function deletePyq(id: number): Promise<boolean> {
+  if (isMockMode) {
+    const list = getMockStorage<Pyq[]>('pyqs', defaultPyqs);
+    setMockStorage('pyqs', list.filter(p => p.id !== id));
+    return true;
+  }
+  const { error } = await supabase.from('pyqs').delete().eq('id', id);
+  if (error) throw error;
+  return true;
+}
+
+/* --- MOCK QUIZ --- */
+export async function getQuizQuestions(): Promise<QuizQuestion[]> {
+  if (isMockMode) {
+    return getMockStorage<QuizQuestion[]>('quiz_questions', defaultQuizQuestions);
+  }
+  const { data, error } = await supabase.from('quiz_questions').select('*').order('id', { ascending: true });
+  if (error) throw error;
+  return data || [];
+}
+
+export async function addQuizQuestion(q: Omit<QuizQuestion, 'id'>): Promise<QuizQuestion> {
+  if (isMockMode) {
+    const list = getMockStorage<QuizQuestion[]>('quiz_questions', defaultQuizQuestions);
+    const newQ: QuizQuestion = { ...q, id: Date.now() };
+    setMockStorage('quiz_questions', [...list, newQ]);
+    return newQ;
+  }
+  const { data, error } = await supabase.from('quiz_questions').insert([q]).select().single();
+  if (error) throw error;
+  return data;
+}
+
+export async function deleteQuizQuestion(id: number): Promise<boolean> {
+  if (isMockMode) {
+    const list = getMockStorage<QuizQuestion[]>('quiz_questions', defaultQuizQuestions);
+    setMockStorage('quiz_questions', list.filter(q => q.id !== id));
+    return true;
+  }
+  const { error } = await supabase.from('quiz_questions').delete().eq('id', id);
+  if (error) throw error;
+  return true;
 }
 
 /* --- DIRECT QUERY & REGISTRATIONS --- */

@@ -23,7 +23,9 @@ import {
   Menu,
   X,
   Upload,
-  Loader2
+  Loader2,
+  Lock,
+  BrainCircuit
 } from 'lucide-react';
 import {
   getBlogs,
@@ -37,6 +39,10 @@ import {
   getCourses,
   getPyqs,
   addPyq,
+  deletePyq,
+  getQuizQuestions,
+  addQuizQuestion,
+  deleteQuizQuestion,
   getDirectQueries,
   replyDirectQuery,
   getOrders,
@@ -46,6 +52,7 @@ import {
   type Note,
   type Course,
   type Pyq,
+  type QuizQuestion,
   type DirectQuery,
   type Order
 } from '@/lib/supabase';
@@ -55,12 +62,21 @@ export default function AdminDashboard() {
   const [sidebarOpen, setSidebarOpen] = useState<boolean>(false);
   const [loadingData, setLoadingData] = useState<boolean>(true);
 
+  // Authentication States
+  const [isAuthenticated, setIsAuthenticated] = useState<boolean>(false);
+  const [authChecking, setAuthChecking] = useState<boolean>(true);
+  const [loginEmail, setLoginEmail] = useState<string>('');
+  const [loginPassword, setLoginPassword] = useState<string>('');
+  const [authError, setAuthError] = useState<string>('');
+  const [loginLoading, setLoginLoading] = useState<boolean>(false);
+
   // Core Data States
   const [blogs, setBlogs] = useState<Blog[]>([]);
   const [affairs, setAffairs] = useState<Affair[]>([]);
   const [notes, setNotes] = useState<Note[]>([]);
   const [courses, setCourses] = useState<Course[]>([]);
   const [pyqs, setPyqs] = useState<Pyq[]>([]);
+  const [quizzes, setQuizzes] = useState<QuizQuestion[]>([]);
   const [students, setStudents] = useState<DirectQuery[]>([]);
   const [orders, setOrders] = useState<Order[]>([]);
   const [settings, setSettings] = useState({
@@ -80,6 +96,13 @@ export default function AdminDashboard() {
   const [uploadingFile, setUploadingFile] = useState(false);
 
   const [newPyq, setNewPyq] = useState({ subject: 'polity', subjectLabel: 'Polity', year: '2025', question: '' });
+  const [newQuiz, setNewQuiz] = useState({
+    subject: 'Indian Polity',
+    question: '',
+    options: ['', '', '', ''],
+    correctAnswer: 0,
+    explanation: ''
+  });
   const [activeQueryStudent, setActiveQueryStudent] = useState<DirectQuery | null>(null);
   const [replyText, setReplyText] = useState('');
 
@@ -88,17 +111,70 @@ export default function AdminDashboard() {
   // ==========================================================================
 
   useEffect(() => {
-    async function loadAllData() {
-      setLoadingData(true);
+    async function checkAuthAndLoad() {
+      setAuthChecking(true);
       try {
-        const [blogsList, affairsList, notesList, coursesList, pyqsList, studentsList, ordersList] = await Promise.all([
+        const authRes = await fetch('/api/admin/check-auth');
+        const authData = await authRes.json();
+        
+        if (authData.authenticated) {
+          setIsAuthenticated(true);
+          setLoadingData(true);
+          const [blogsList, affairsList, notesList, coursesList, pyqsList, studentsList, ordersList, quizzesList] = await Promise.all([
+            getBlogs(),
+            getAffairs(),
+            getNotes(),
+            getCourses(),
+            getPyqs(),
+            getDirectQueries(),
+            getOrders(),
+            getQuizQuestions()
+          ]);
+          setBlogs(blogsList);
+          setAffairs(affairsList);
+          setNotes(notesList);
+          setCourses(coursesList);
+          setPyqs(pyqsList);
+          setStudents(studentsList);
+          setOrders(ordersList);
+          setQuizzes(quizzesList);
+          setLoadingData(false);
+        } else {
+          setIsAuthenticated(false);
+        }
+      } catch (err) {
+        console.error("Authentication/Loading error:", err);
+      } finally {
+        setAuthChecking(false);
+      }
+    }
+    checkAuthAndLoad();
+  }, []);
+
+  const handleLogin = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!loginEmail || !loginPassword) return;
+    setLoginLoading(true);
+    setAuthError('');
+    try {
+      const res = await fetch('/api/admin/login', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email: loginEmail, password: loginPassword })
+      });
+      const data = await res.json();
+      if (data.success) {
+        setIsAuthenticated(true);
+        setLoadingData(true);
+        const [blogsList, affairsList, notesList, coursesList, pyqsList, studentsList, ordersList, quizzesList] = await Promise.all([
           getBlogs(),
           getAffairs(),
           getNotes(),
           getCourses(),
           getPyqs(),
           getDirectQueries(),
-          getOrders()
+          getOrders(),
+          getQuizQuestions()
         ]);
         setBlogs(blogsList);
         setAffairs(affairsList);
@@ -107,14 +183,39 @@ export default function AdminDashboard() {
         setPyqs(pyqsList);
         setStudents(studentsList);
         setOrders(ordersList);
-      } catch (err) {
-        console.error("Error loading data from Supabase:", err);
-      } finally {
+        setQuizzes(quizzesList);
         setLoadingData(false);
+      } else {
+        setAuthError(data.error || 'Invalid credentials');
       }
+    } catch (err) {
+      console.error("Login request failed:", err);
+      setAuthError('Failed to connect to the authentication server');
+    } finally {
+      setLoginLoading(false);
     }
-    loadAllData();
-  }, []);
+  };
+
+  const handleLogout = async () => {
+    if (!confirm("Are you sure you want to log out?")) return;
+    try {
+      const res = await fetch('/api/admin/logout', { method: 'POST' });
+      const data = await res.json();
+      if (data.success) {
+        setIsAuthenticated(false);
+        setBlogs([]);
+        setAffairs([]);
+        setNotes([]);
+        setCourses([]);
+        setPyqs([]);
+        setStudents([]);
+        setOrders([]);
+        setQuizzes([]);
+      }
+    } catch (err) {
+      console.error("Logout request failed:", err);
+    }
+  };
 
   // ==========================================================================
   // ACTION HANDLERS (SUPABASE CRUD & R2 UPLOADS)
@@ -259,6 +360,57 @@ export default function AdminDashboard() {
     }
   };
 
+  const handleDeletePyq = async (id: number) => {
+    if (!confirm("Are you sure you want to delete this PYQ?")) return;
+    try {
+      await deletePyq(id);
+      setPyqs(pyqs.filter(pq => pq.id !== id));
+    } catch (err) {
+      alert("Failed to delete PYQ.");
+      console.error(err);
+    }
+  };
+
+  const handleAddQuiz = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!newQuiz.question || newQuiz.options.some(o => !o) || !newQuiz.explanation) {
+      alert("Please fill in all options, the question, and the explanation.");
+      return;
+    }
+    try {
+      const quizObj = await addQuizQuestion({
+        subject: newQuiz.subject,
+        question: newQuiz.question,
+        options: newQuiz.options,
+        correctAnswer: Number(newQuiz.correctAnswer),
+        explanation: newQuiz.explanation
+      });
+      setQuizzes([...quizzes, quizObj]);
+      setNewQuiz({
+        subject: 'Indian Polity',
+        question: '',
+        options: ['', '', '', ''],
+        correctAnswer: 0,
+        explanation: ''
+      });
+    } catch (err) {
+      alert("Failed to add quiz question.");
+      console.error(err);
+    }
+  };
+
+  const handleDeleteQuiz = async (id: number) => {
+    if (!confirm("Are you sure you want to delete this quiz question?")) return;
+    try {
+      await deleteQuizQuestion(id);
+      setQuizzes(quizzes.filter(q => q.id !== id));
+    } catch (err) {
+      alert("Failed to delete quiz question.");
+      console.error(err);
+    }
+  };
+
+
   const handleSendReply = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!activeQueryStudent || !replyText) return;
@@ -283,6 +435,86 @@ export default function AdminDashboard() {
     e.preventDefault();
     alert('Settings successfully updated!');
   };
+
+  if (authChecking) {
+    return (
+      <div className="flex flex-col items-center justify-center min-h-screen bg-[#0F172A] text-white gap-3">
+        <Loader2 className="w-8 h-8 text-indigo-500 animate-spin" />
+        <span className="text-sm font-bold text-slate-400">Verifying session credentials...</span>
+      </div>
+    );
+  }
+
+  if (!isAuthenticated) {
+    return (
+      <div className="flex items-center justify-center min-h-screen bg-[#0F172A] px-4 font-body">
+        <div className="w-full max-w-md bg-slate-900 border border-slate-800 rounded-2xl shadow-2xl p-8 space-y-6 relative overflow-hidden text-slate-200">
+          <div className="absolute top-0 left-0 w-full h-1.5 bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500"></div>
+          
+          <div className="text-center space-y-2">
+            <div className="inline-flex p-3 bg-indigo-500/10 rounded-xl text-indigo-500 mb-2">
+              <Lock className="w-6 h-6 animate-pulse" />
+            </div>
+            <h2 className="text-2xl font-extrabold text-white tracking-tight">CivilsPage Admin Portal</h2>
+            <p className="text-xs text-slate-400">Please enter your educator credentials to access the console</p>
+          </div>
+
+          <form onSubmit={handleLogin} className="space-y-4">
+            {authError && (
+              <div className="p-3.5 bg-rose-500/10 border border-rose-500/25 rounded-xl text-rose-400 text-xs font-semibold leading-relaxed">
+                {authError}
+              </div>
+            )}
+
+            <div className="form-group space-y-1.5 text-left">
+              <label className="text-xs font-bold text-slate-300 uppercase tracking-wider block">Email Address</label>
+              <input 
+                type="email" 
+                className="w-full px-4 py-3 bg-slate-950 border border-slate-850 rounded-xl text-white text-sm focus:border-indigo-500 focus:outline-none transition-all placeholder-slate-650"
+                placeholder="educator@civilspage.com"
+                value={loginEmail}
+                onChange={(e) => setLoginEmail(e.target.value)}
+                required
+              />
+            </div>
+
+            <div className="form-group space-y-1.5 text-left">
+              <label className="text-xs font-bold text-slate-300 uppercase tracking-wider block">Password</label>
+              <input 
+                type="password" 
+                className="w-full px-4 py-3 bg-slate-950 border border-slate-850 rounded-xl text-white text-sm focus:border-indigo-500 focus:outline-none transition-all placeholder-slate-650"
+                placeholder="••••••••••••"
+                value={loginPassword}
+                onChange={(e) => setLoginPassword(e.target.value)}
+                required
+              />
+            </div>
+
+            <button 
+              type="submit" 
+              className="w-full py-3 px-4 bg-indigo-600 hover:bg-indigo-700 text-white font-bold text-sm rounded-xl transition-all shadow-lg flex items-center justify-center gap-2"
+              disabled={loginLoading}
+            >
+              {loginLoading ? (
+                <>
+                  <Loader2 className="w-4 h-4 animate-spin" />
+                  <span>Verifying Credentials...</span>
+                </>
+              ) : (
+                <span>Sign In to Dashboard</span>
+              )}
+            </button>
+          </form>
+
+          <div className="text-center pt-2">
+            <Link href="/" className="text-xs text-slate-400 hover:text-indigo-400 transition-colors font-medium">
+              &larr; Return to CivilsPage Home
+            </Link>
+          </div>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="admin-container">
@@ -328,7 +560,7 @@ export default function AdminDashboard() {
             onClick={() => { setActiveTab('affairs'); setSidebarOpen(false); }}
           >
             <Newspaper className="w-4.5 h-4.5" />
-            <span>Current Affairs</span>
+            <span>Subject & Current Updates</span>
           </button>
           <button 
             className={`admin-nav-item ${activeTab === 'notes' ? 'active' : ''}`}
@@ -350,6 +582,13 @@ export default function AdminDashboard() {
           >
             <HelpCircle className="w-4.5 h-4.5" />
             <span>PYQs</span>
+          </button>
+          <button 
+            className={`admin-nav-item ${activeTab === 'quizzes' ? 'active' : ''}`}
+            onClick={() => { setActiveTab('quizzes'); setSidebarOpen(false); }}
+          >
+            <BrainCircuit className="w-4.5 h-4.5" />
+            <span>Mock Quizzes</span>
           </button>
           <button 
             className={`admin-nav-item ${activeTab === 'students' ? 'active' : ''}`}
@@ -374,11 +613,18 @@ export default function AdminDashboard() {
           </button>
         </nav>
 
-        <div className="mt-auto pt-6 border-t border-slate-100">
+        <div className="mt-auto pt-6 border-t border-slate-100 space-y-2">
           <Link href="/" className="admin-nav-item">
             <Layout className="w-4.5 h-4.5" />
             <span>View Site Home</span>
           </Link>
+          <button 
+            onClick={handleLogout} 
+            className="admin-nav-item w-full text-left text-red-600 hover:bg-red-50 hover:text-red-750 flex items-center gap-2 border-0 bg-transparent font-medium cursor-pointer"
+          >
+            <Lock className="w-4.5 h-4.5" />
+            <span>Log Out</span>
+          </button>
         </div>
       </aside>
 
@@ -888,12 +1134,21 @@ export default function AdminDashboard() {
                   </div>
                   <div className="space-y-4">
                     {pyqs.map(pq => (
-                      <div key={pq.id} className="p-4 border border-slate-100 rounded-lg hover:border-slate-200 transition-all bg-white">
-                        <div className="flex gap-2 mb-2">
-                          <span className="admin-badge admin-badge-info">{pq.subjectLabel}</span>
-                          <span className="admin-badge admin-badge-warning">UPSC {pq.year}</span>
+                      <div key={pq.id} className="p-4 border border-slate-100 rounded-lg hover:border-slate-200 transition-all bg-white flex justify-between items-start">
+                        <div className="space-y-2 flex-1">
+                          <div className="flex gap-2">
+                            <span className="admin-badge admin-badge-info">{pq.subjectLabel}</span>
+                            <span className="admin-badge admin-badge-warning">UPSC {pq.year}</span>
+                          </div>
+                          <p className="text-sm font-bold text-slate-900 leading-snug">{pq.question}</p>
                         </div>
-                        <p className="text-sm font-bold text-slate-900">{pq.question}</p>
+                        <button 
+                          onClick={() => handleDeletePyq(pq.id)} 
+                          className="text-red-500 hover:text-red-700 transition-colors p-1 ml-2"
+                          title="Delete PYQ"
+                        >
+                          <Trash2 className="w-4 h-4" />
+                        </button>
                       </div>
                     ))}
                   </div>
@@ -942,6 +1197,135 @@ export default function AdminDashboard() {
                     <button type="submit" className="admin-btn admin-btn-primary w-full gap-2">
                       <Plus className="w-4.5 h-4.5" />
                       Add Solved PYQ Card
+                    </button>
+                  </form>
+                </div>
+              </div>
+            )}
+
+            {/* ==========================================================================
+               MOCK QUIZZES TAB
+               ========================================================================== */}
+            {activeTab === 'quizzes' && (
+              <div className="admin-grid-2">
+                <div className="admin-card">
+                  <div className="admin-card-header">
+                    <h3 className="admin-card-title">Practice Quiz Directory</h3>
+                  </div>
+                  <div className="space-y-4">
+                    {quizzes.map(qz => (
+                      <div key={qz.id} className="p-4 border border-slate-100 rounded-lg hover:border-slate-200 transition-all bg-white flex justify-between items-start">
+                        <div className="space-y-2 flex-1">
+                          <div className="flex gap-2">
+                            <span className="admin-badge admin-badge-info">{qz.subject}</span>
+                            <span className="admin-badge admin-badge-success">Correct Option: {String.fromCharCode(65 + qz.correctAnswer)}</span>
+                          </div>
+                          <h4 className="font-bold text-slate-900 text-sm leading-snug">{qz.question}</h4>
+                          <ul className="text-xs text-slate-500 list-disc pl-4 space-y-1 my-2">
+                            {qz.options.map((opt, oIdx) => (
+                              <li key={oIdx} className={oIdx === qz.correctAnswer ? "font-bold text-emerald-600" : ""}>
+                                Option {String.fromCharCode(65 + oIdx)}: {opt}
+                              </li>
+                            ))}
+                          </ul>
+                          <div className="bg-slate-50 p-2.5 rounded border border-slate-100 text-xs text-slate-550 italic">
+                            <strong>Explanation:</strong> {qz.explanation}
+                          </div>
+                        </div>
+                        <button 
+                          onClick={() => handleDeleteQuiz(qz.id)} 
+                          className="text-red-500 hover:text-red-700 transition-colors p-1 ml-2"
+                          title="Delete Quiz Question"
+                        >
+                          <Trash2 className="w-4 h-4" />
+                        </button>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+
+                <div className="admin-card">
+                  <div className="admin-card-header">
+                    <h3 className="admin-card-title">Publish Practice Question</h3>
+                  </div>
+                  <form onSubmit={handleAddQuiz} className="space-y-4">
+                    <div className="form-group">
+                      <label className="form-label">Subject Domain</label>
+                      <select 
+                        className="calc-select w-full text-slate-800 bg-white"
+                        value={newQuiz.subject}
+                        onChange={(e) => setNewQuiz({...newQuiz, subject: e.target.value})}
+                        required
+                      >
+                        <option value="Indian Polity">Indian Polity</option>
+                        <option value="Indian Economy">Indian Economy</option>
+                        <option value="History & Culture">History & Culture</option>
+                        <option value="Geography">Geography</option>
+                        <option value="Environment & Ecology">Environment & Ecology</option>
+                        <option value="Science & Technology">Science & Technology</option>
+                      </select>
+                    </div>
+                    <div className="form-group">
+                      <label className="form-label">Question Text</label>
+                      <textarea 
+                        className="form-textarea" 
+                        placeholder="UPSC style conceptual question..."
+                        value={newQuiz.question}
+                        onChange={(e) => setNewQuiz({...newQuiz, question: e.target.value})}
+                        required
+                      ></textarea>
+                    </div>
+                    
+                    <div className="space-y-3 p-3 bg-slate-50 rounded-lg border border-slate-100">
+                      <span className="text-xs font-bold text-slate-500 uppercase tracking-wider block">Question Options</span>
+                      {newQuiz.options.map((opt, oIdx) => (
+                        <div key={oIdx} className="flex gap-2 items-center">
+                          <span className="text-sm font-bold text-slate-400 shrink-0 w-16 text-left">Option {String.fromCharCode(65 + oIdx)}</span>
+                          <input 
+                            type="text" 
+                            className="form-input flex-1" 
+                            placeholder={`Text for option ${String.fromCharCode(65 + oIdx)}`}
+                            value={opt}
+                            onChange={(e) => {
+                              const opts = [...newQuiz.options];
+                              opts[oIdx] = e.target.value;
+                              setNewQuiz({...newQuiz, options: opts});
+                            }}
+                            required
+                          />
+                        </div>
+                      ))}
+                    </div>
+
+                    <div className="form-group">
+                      <label className="form-label">Correct Answer Option</label>
+                      <select 
+                        className="calc-select w-full text-slate-800 bg-white"
+                        value={newQuiz.correctAnswer}
+                        onChange={(e) => setNewQuiz({...newQuiz, correctAnswer: Number(e.target.value)})}
+                        required
+                      >
+                        <option value={0}>Option A</option>
+                        <option value={1}>Option B</option>
+                        <option value={2}>Option C</option>
+                        <option value={3}>Option D</option>
+                      </select>
+                    </div>
+
+                    <div className="form-group">
+                      <label className="form-label">Detailed Solution Explanation</label>
+                      <textarea 
+                        className="form-textarea" 
+                        placeholder="Detailed academic reference logic..."
+                        value={newQuiz.explanation}
+                        onChange={(e) => setNewQuiz({...newQuiz, explanation: e.target.value})}
+                        required
+                      ></textarea>
+                    </div>
+                    
+                    <button type="submit" className="admin-btn admin-btn-primary w-full gap-2">
+                      <Plus className="w-4.5 h-4.5" />
+                      Publish Quiz Question
                     </button>
                   </form>
                 </div>

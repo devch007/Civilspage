@@ -2,7 +2,8 @@
 
 import React, { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Timer, Info, RotateCcw } from 'lucide-react';
+import { Timer, Info, RotateCcw, Loader2 } from 'lucide-react';
+import { getQuizQuestions, type QuizQuestion } from '@/lib/supabase';
 
 interface Question {
   subject: string;
@@ -12,7 +13,7 @@ interface Question {
   explanation: string;
 }
 
-const quizQuestions: Question[] = [
+const staticQuizQuestions: Question[] = [
   {
     subject: 'Indian Polity',
     question: 'Which of the following statements best describes the concept of "Basic Structure" of the Constitution of India?',
@@ -52,6 +53,8 @@ const quizQuestions: Question[] = [
 ];
 
 export default function MockQuiz() {
+  const [quizQuestions, setQuizQuestions] = useState<QuizQuestion[]>([]);
+  const [loading, setLoading] = useState<boolean>(true);
   const [currentIdx, setCurrentIdx] = useState(0);
   const [selectedOpt, setSelectedOpt] = useState<number | null>(null);
   const [answerSubmitted, setAnswerSubmitted] = useState(false);
@@ -60,6 +63,27 @@ export default function MockQuiz() {
   const [quizFinished, setQuizFinished] = useState(false);
   
   const timerRef = useRef<NodeJS.Timeout | null>(null);
+
+  // Load questions dynamically on mount
+  useEffect(() => {
+    async function loadQuiz() {
+      try {
+        const list = await getQuizQuestions();
+        if (list && list.length > 0) {
+          setQuizQuestions(list);
+        } else {
+          // Cast as QuizQuestion[] and load static fallback
+          setQuizQuestions(staticQuizQuestions.map((q, idx) => ({ ...q, id: idx })));
+        }
+      } catch (err) {
+        console.error("Failed to load dynamic quiz questions:", err);
+        setQuizQuestions(staticQuizQuestions.map((q, idx) => ({ ...q, id: idx })));
+      } finally {
+        setLoading(false);
+      }
+    }
+    loadQuiz();
+  }, []);
 
   // Timer logic
   useEffect(() => {
@@ -116,19 +140,21 @@ export default function MockQuiz() {
   };
 
   const currentQ = quizQuestions[currentIdx];
-  const progressPercent = ((currentIdx + 1) / quizQuestions.length) * 100;
-  const scoreDeg = (score / quizQuestions.length) * 360;
+  const progressPercent = quizQuestions.length > 0 ? ((currentIdx + 1) / quizQuestions.length) * 100 : 0;
+  const scoreDeg = quizQuestions.length > 0 ? (score / quizQuestions.length) * 360 : 0;
 
   // Determine feedback text
   const getResultTitle = () => {
-    if (score === 3) return 'Excellent Performance!';
-    if (score === 2) return 'Good Job!';
+    if (quizQuestions.length === 0) return 'Practice Quiz';
+    if (score === quizQuestions.length) return 'Excellent Performance!';
+    if (score >= Math.round(quizQuestions.length / 2)) return 'Good Job!';
     return 'Keep Practicing!';
   };
 
   const getResultSub = () => {
-    if (score === 3) return 'You have a strong grasp of current UPSC core subjects. Continue practicing to keep the momentum.';
-    if (score === 2) return 'Very close! A minor revision of basic principles will help you reach full marks.';
+    if (quizQuestions.length === 0) return 'Try practicing core UPSC subjects.';
+    if (score === quizQuestions.length) return 'You have a strong grasp of current UPSC core subjects. Continue practicing to keep the momentum.';
+    if (score >= Math.round(quizQuestions.length / 2)) return 'Very close! A minor revision of basic principles will help you reach full marks.';
     return 'Syllabus alignment is essential. Read the core notes and syllabus keyword breakdowns to improve.';
   };
 
@@ -148,119 +174,130 @@ export default function MockQuiz() {
         </motion.div>
 
         <div className="glass-card quiz-widget">
-          <AnimatePresence mode="wait">
-            {!quizFinished ? (
-              <motion.div 
-                key={`quiz-active-${currentIdx}`}
-                initial={{ opacity: 0, y: 15 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: -15 }}
-                transition={{ duration: 0.3 }}
-              >
-                {/* Header */}
-                <div className="quiz-header">
-                  <div className="quiz-progress-wrapper">
-                    <div className="quiz-progress-bar">
-                      <div 
-                        className="quiz-progress-fill" 
-                        style={{ width: `${progressPercent}%` }}
-                      ></div>
+          {loading ? (
+            <div className="flex flex-col items-center justify-center py-20 gap-3">
+              <Loader2 className="w-8 h-8 text-indigo-600 animate-spin" />
+              <span className="text-sm font-bold text-slate-400">Loading daily practice quiz...</span>
+            </div>
+          ) : quizQuestions.length > 0 ? (
+            <AnimatePresence mode="wait">
+              {!quizFinished ? (
+                <motion.div 
+                  key={`quiz-active-${currentIdx}`}
+                  initial={{ opacity: 0, y: 15 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: -15 }}
+                  transition={{ duration: 0.3 }}
+                >
+                  {/* Header */}
+                  <div className="quiz-header">
+                    <div className="quiz-progress-wrapper">
+                      <div className="quiz-progress-bar">
+                        <div 
+                          className="quiz-progress-fill" 
+                          style={{ width: `${progressPercent}%` }}
+                        ></div>
+                      </div>
+                      <span className="quiz-step-text">Question {currentIdx + 1} of {quizQuestions.length}</span>
                     </div>
-                    <span className="quiz-step-text">Question {currentIdx + 1} of {quizQuestions.length}</span>
+                    <div className="quiz-timer">
+                      <Timer className="w-3.5 h-3.5" />
+                      Time: <span>{formatTime(seconds)}</span>
+                    </div>
                   </div>
-                  <div className="quiz-timer">
-                    <Timer className="w-3.5 h-3.5" />
-                    Time: <span>{formatTime(seconds)}</span>
-                  </div>
-                </div>
 
-                {/* Question body */}
-                <div className="quiz-body">
-                  <div className="quiz-question-tag">
-                    <span className="badge badge-primary">{currentQ.subject}</span>
-                  </div>
-                  <p className="quiz-question-text">{currentQ.question}</p>
-                  
-                  <div className="quiz-options">
-                    {currentQ.options.map((option, oIdx) => {
-                      // Styling indicators
-                      let optionClass = '';
-                      if (answerSubmitted) {
-                        if (oIdx === currentQ.correctAnswer) {
-                          optionClass = 'correct';
+                  {/* Question body */}
+                  <div className="quiz-body">
+                    <div className="quiz-question-tag">
+                      <span className="badge badge-primary">{currentQ.subject}</span>
+                    </div>
+                    <p className="quiz-question-text">{currentQ.question}</p>
+                    
+                    <div className="quiz-options">
+                      {currentQ.options.map((option, oIdx) => {
+                        // Styling indicators
+                        let optionClass = '';
+                        if (answerSubmitted) {
+                          if (oIdx === currentQ.correctAnswer) {
+                            optionClass = 'correct';
+                          } else if (selectedOpt === oIdx) {
+                            optionClass = 'incorrect';
+                          } else {
+                            optionClass = 'disabled';
+                          }
                         } else if (selectedOpt === oIdx) {
-                          optionClass = 'incorrect';
-                        } else {
-                          optionClass = 'disabled';
+                          optionClass = 'selected';
                         }
-                      } else if (selectedOpt === oIdx) {
-                        optionClass = 'selected';
-                      }
 
-                      return (
-                        <button
-                          key={oIdx}
-                          onClick={() => handleOptionClick(oIdx)}
-                          className={`quiz-option ${optionClass}`}
-                          disabled={answerSubmitted}
-                        >
-                          <span className="quiz-option-letter">
-                            {String.fromCharCode(65 + oIdx)}
-                          </span>
-                          <span>{option}</span>
-                        </button>
-                      );
-                    })}
-                  </div>
-
-                  {/* Explanation Section */}
-                  <div className={`quiz-explanation ${answerSubmitted ? 'show' : ''}`}>
-                    <div className="explanation-title">
-                      <Info className="w-4.5 h-4.5" />
-                      Detailed Explanation
+                        return (
+                          <button
+                            key={oIdx}
+                            onClick={() => handleOptionClick(oIdx)}
+                            className={`quiz-option ${optionClass}`}
+                            disabled={answerSubmitted}
+                          >
+                            <span className="quiz-option-letter">
+                              {String.fromCharCode(65 + oIdx)}
+                            </span>
+                            <span>{option}</span>
+                          </button>
+                        );
+                      })}
                     </div>
-                    <p>{currentQ.explanation}</p>
-                  </div>
-                </div>
 
-                {/* Footer action btn */}
-                <div className="quiz-footer">
-                  <button 
-                    className="btn btn-primary"
-                    disabled={selectedOpt === null}
-                    onClick={handleSubmitOrNext}
+                    {/* Explanation Section */}
+                    <div className={`quiz-explanation ${answerSubmitted ? 'show' : ''}`}>
+                      <div className="explanation-title">
+                        <Info className="w-4.5 h-4.5" />
+                        Detailed Explanation
+                      </div>
+                      <p>{currentQ.explanation}</p>
+                    </div>
+                  </div>
+
+                  {/* Footer action btn */}
+                  <div className="quiz-footer">
+                    <button 
+                      className="btn btn-primary"
+                      disabled={selectedOpt === null}
+                      onClick={handleSubmitOrNext}
+                    >
+                      {!answerSubmitted ? 'Submit Answer' : (currentIdx < quizQuestions.length - 1 ? 'Next Question' : 'Finish Quiz')}
+                    </button>
+                  </div>
+                </motion.div>
+              ) : (
+                <motion.div 
+                  key="quiz-results"
+                  initial={{ opacity: 0, scale: 0.95 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  className="quiz-result-card show"
+                >
+                  <div 
+                    className="quiz-result-score-ring"
+                    style={{
+                      background: `radial-gradient(circle, var(--bg-surface) 60%, transparent 61%), conic-gradient(var(--color-success) ${scoreDeg}deg, rgba(15, 23, 42, 0.06) 0deg)`
+                    }}
                   >
-                    {!answerSubmitted ? 'Submit Answer' : (currentIdx < quizQuestions.length - 1 ? 'Next Question' : 'Finish Quiz')}
+                    <div className="quiz-result-score-text">{score}/{quizQuestions.length}</div>
+                  </div>
+                  <h3>{getResultTitle()}</h3>
+                  <p>{getResultSub()}</p>
+                  <button 
+                    className="btn btn-primary flex items-center gap-2 mx-auto" 
+                    onClick={handleRetry}
+                  >
+                    <RotateCcw className="w-4 h-4" />
+                    Try Quiz Again
                   </button>
-                </div>
-              </motion.div>
-            ) : (
-              <motion.div 
-                key="quiz-results"
-                initial={{ opacity: 0, scale: 0.95 }}
-                animate={{ opacity: 1, scale: 1 }}
-                className="quiz-result-card show"
-              >
-                <div 
-                  className="quiz-result-score-ring"
-                  style={{
-                    background: `radial-gradient(circle, var(--bg-surface) 60%, transparent 61%), conic-gradient(var(--color-success) ${scoreDeg}deg, rgba(15, 23, 42, 0.06) 0deg)`
-                  }}
-                >
-                  <div className="quiz-result-score-text">{score}/{quizQuestions.length}</div>
-                </div>
-                <h3>{getResultTitle()}</h3>
-                <p>{getResultSub()}</p>
-                <button 
-                  className="btn btn-primary flex items-center gap-2 mx-auto" 
-                  onClick={handleRetry}
-                >
-                  <RotateCcw className="w-4 h-4" />
-                  Try Quiz Again
-                </button>
-              </motion.div>
-            )}
-          </AnimatePresence>
+                </motion.div>
+              )}
+            </AnimatePresence>
+          ) : (
+            <div className="text-center py-20">
+              <p className="text-slate-450 font-semibold text-sm">Practice questions are currently being loaded...</p>
+            </div>
+          )}
         </div>
       </div>
     </section>
