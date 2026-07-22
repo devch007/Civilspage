@@ -21,7 +21,7 @@ export async function createPyqAction(formData: unknown) {
     metadata: { year: pyq.year, subject: pyq.subject, difficulty: pyq.difficulty },
   });
 
-  revalidatePath('/admin/pyqs');
+  revalidatePath('/login/pyqs');
   return { data: pyq };
 }
 
@@ -39,7 +39,7 @@ export async function updatePyqAction(formData: unknown) {
     resourceTitle: pyq.question.substring(0, 80),
   });
 
-  revalidatePath('/admin/pyqs');
+  revalidatePath('/login/pyqs');
   return { data: pyq };
 }
 
@@ -53,6 +53,6 @@ export async function deletePyqAction(id: string) {
     resourceId: id,
   });
 
-  revalidatePath('/admin/pyqs');
+  revalidatePath('/login/pyqs');
   return { success: true };
 }

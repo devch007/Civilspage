@@ -37,7 +37,7 @@ export async function createLessonAction(input: unknown) {
     metadata: { courseId: lesson.courseId },
   });
 
-  revalidatePath('/admin/courses');
+  revalidatePath('/login/courses');
   return { data: lesson };
 }
 
@@ -52,6 +52,6 @@ export async function deleteLessonAction(id: string, courseId: string) {
     metadata: { courseId },
   });
 
-  revalidatePath(`/admin/courses/${courseId}`);
+  revalidatePath(`/login/courses/${courseId}`);
   return { success: true };
 }

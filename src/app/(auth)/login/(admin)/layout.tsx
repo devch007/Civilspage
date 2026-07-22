@@ -1,9 +1,7 @@
 import { requireAdmin, getUserProfile } from '@/lib/auth';
 import Link from 'next/link';
 
-// Force all /admin/* pages to be server-rendered at request time.
-// This prevents Vercel build from failing when DB env vars aren't available
-// at build time (they're runtime secrets, not build-time vars).
+// Force all /login/(admin)/* pages to be server-rendered at request time.
 export const dynamic = 'force-dynamic';
 
 import {
@@ -13,19 +11,19 @@ import {
 } from 'lucide-react';
 
 const navItems = [
-  { href: '/admin/dashboard', label: 'Dashboard', icon: BarChart3 },
-  { href: '/admin/blogs', label: 'Blogs', icon: FileText },
-  { href: '/admin/categories', label: 'Categories & Tags', icon: Tag },
-  { href: '/admin/current-affairs', label: 'Current Affairs', icon: Newspaper },
-  { href: '/admin/notes', label: 'Notes', icon: FileSpreadsheet },
-  { href: '/admin/courses', label: 'Courses', icon: BookOpen },
-  { href: '/admin/pyqs', label: 'PYQs', icon: HelpCircle },
-  { href: '/admin/quizzes', label: 'Mock Quizzes', icon: Zap },
-  { href: '/admin/comments', label: 'Comments', icon: MessageSquare },
-  { href: '/admin/newsletter', label: 'Newsletter', icon: Mail },
-  { href: '/admin/users', label: 'Users', icon: Users },
-  { href: '/admin/audit-log', label: 'Audit Log', icon: Shield },
-  { href: '/admin/settings', label: 'Settings', icon: Settings },
+  { href: '/login/dashboard', label: 'Dashboard', icon: BarChart3 },
+  { href: '/login/blogs', label: 'Blogs', icon: FileText },
+  { href: '/login/categories', label: 'Categories & Tags', icon: Tag },
+  { href: '/login/current-affairs', label: 'Current Affairs', icon: Newspaper },
+  { href: '/login/notes', label: 'Notes', icon: FileSpreadsheet },
+  { href: '/login/courses', label: 'Courses', icon: BookOpen },
+  { href: '/login/pyqs', label: 'PYQs', icon: HelpCircle },
+  { href: '/login/quizzes', label: 'Mock Quizzes', icon: Zap },
+  { href: '/login/comments', label: 'Comments', icon: MessageSquare },
+  { href: '/login/newsletter', label: 'Newsletter', icon: Mail },
+  { href: '/login/users', label: 'Users', icon: Users },
+  { href: '/login/audit-log', label: 'Audit Log', icon: Shield },
+  { href: '/login/settings', label: 'Settings', icon: Settings },
 ];
 
 

@@ -33,7 +33,7 @@ export async function createQuizAction(input: unknown) {
     metadata: { subject: quiz.subject, active: quiz.active },
   });
 
-  revalidatePath('/admin/quizzes');
+  revalidatePath('/login/quizzes');
   return { data: quiz };
 }
 
@@ -47,7 +47,7 @@ export async function deleteQuizAction(id: string) {
     resourceId: id,
   });
 
-  revalidatePath('/admin/quizzes');
+  revalidatePath('/login/quizzes');
   return { success: true };
 }
 
@@ -62,6 +62,6 @@ export async function toggleQuizAction(id: string, active: boolean) {
     resourceTitle: quiz.question.substring(0, 80),
   });
 
-  revalidatePath('/admin/quizzes');
+  revalidatePath('/login/quizzes');
   return { data: quiz };
 }

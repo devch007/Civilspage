@@ -9,7 +9,7 @@ export async function approveCommentAction(id: string) {
   await requireAdmin();
   await commentService.approveComment(id);
   await logAudit({ action: 'comment.approved', resourceType: 'comment', resourceId: id });
-  revalidatePath('/admin/comments');
+  revalidatePath('/login/comments');
   return { success: true };
 }
 
@@ -17,6 +17,6 @@ export async function rejectCommentAction(id: string) {
   await requireAdmin();
   await commentService.rejectComment(id);
   await logAudit({ action: 'comment.rejected', resourceType: 'comment', resourceId: id });
-  revalidatePath('/admin/comments');
+  revalidatePath('/login/comments');
   return { success: true };
 }

@@ -34,20 +34,27 @@ export async function middleware(request: NextRequest) {
 
   const { pathname } = request.nextUrl;
 
-  // Protect all /admin/* routes
+  // Redirect /admin/* → /login/* permanently
   if (pathname.startsWith('/admin')) {
-    if (!user) {
-      const loginUrl = request.nextUrl.clone();
-      loginUrl.pathname = '/login';
-      loginUrl.searchParams.set('next', pathname);
-      return NextResponse.redirect(loginUrl);
-    }
+    const newUrl = request.nextUrl.clone();
+    newUrl.pathname = pathname.replace('/admin', '/login');
+    return NextResponse.redirect(newUrl, 308);
   }
 
-  // Redirect authenticated users away from /login
+  // Protect all /login/* sub-routes (except /login itself which shows the form)
+  const isAdminSubRoute =
+    pathname.startsWith('/login/') && pathname !== '/login';
+  if (isAdminSubRoute && !user) {
+    const loginUrl = request.nextUrl.clone();
+    loginUrl.pathname = '/login';
+    loginUrl.searchParams.set('next', pathname);
+    return NextResponse.redirect(loginUrl);
+  }
+
+  // Redirect authenticated users from /login → /login/dashboard
   if (pathname === '/login' && user) {
     const dashboardUrl = request.nextUrl.clone();
-    dashboardUrl.pathname = '/admin/dashboard';
+    dashboardUrl.pathname = '/login/dashboard';
     return NextResponse.redirect(dashboardUrl);
   }
 

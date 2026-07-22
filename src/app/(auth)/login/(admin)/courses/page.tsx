@@ -44,7 +44,7 @@ export default async function CoursesPage() {
                 </div>
                 <div className="flex flex-col gap-1.5 shrink-0">
                   <Link
-                    href={`/admin/courses/${c.id}`}
+                    href={`/login/courses/${c.id}`}
                     className="flex items-center gap-1 px-3 py-1.5 bg-indigo-50 text-indigo-700 text-xs font-semibold rounded-lg hover:bg-indigo-100 transition-colors"
                   >
                     Lessons <ChevronRight className="w-3 h-3" />

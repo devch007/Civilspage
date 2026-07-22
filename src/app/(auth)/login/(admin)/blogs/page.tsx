@@ -15,7 +15,7 @@ export default async function BlogsPage() {
           <p className="text-slate-500 text-sm mt-1">{blogs.length} total posts</p>
         </div>
         <Link
-          href="/admin/blogs/new"
+          href="/login/blogs/new"
           className="flex items-center gap-2 px-4 py-2.5 bg-indigo-600 text-white text-sm font-semibold rounded-xl hover:bg-indigo-700 transition-colors"
         >
           <Plus className="w-4 h-4" />
@@ -55,7 +55,7 @@ export default async function BlogsPage() {
                 </td>
                 <td className="px-5 py-4">
                   <div className="flex items-center justify-end gap-2">
-                    <Link href={`/admin/blogs/${blog.id}/edit`} className="p-1.5 text-slate-400 hover:text-indigo-600 hover:bg-indigo-50 rounded-lg transition-all">
+                    <Link href={`/login/blogs/${blog.id}/edit`} className="p-1.5 text-slate-400 hover:text-indigo-600 hover:bg-indigo-50 rounded-lg transition-all">
                       <Edit className="w-4 h-4" />
                     </Link>
                     <form action={async () => { 'use server'; await deleteBlogAction(blog.id); }}>

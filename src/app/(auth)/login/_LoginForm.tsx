@@ -8,7 +8,7 @@ import Link from 'next/link';
 
 export default function LoginForm() {
   const searchParams = useSearchParams();
-  const next = searchParams.get('next') || '/admin/dashboard';
+  const next = searchParams.get('next') || '/login/dashboard';
 
   const [showPassword, setShowPassword] = useState(false);
   const [error, setError] = useState('');

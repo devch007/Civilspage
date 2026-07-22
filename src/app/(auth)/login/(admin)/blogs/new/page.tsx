@@ -45,13 +45,13 @@ export default function NewBlogPage() {
       setLoading(false);
       return;
     }
-    router.push('/admin/blogs');
+    router.push('/login/blogs');
   };
 
   return (
     <div className="max-w-3xl space-y-6">
       <div className="flex items-center gap-3">
-        <Link href="/admin/blogs" className="p-2 text-slate-400 hover:text-slate-600 hover:bg-slate-100 rounded-lg transition-all">
+        <Link href="/login/blogs" className="p-2 text-slate-400 hover:text-slate-600 hover:bg-slate-100 rounded-lg transition-all">
           <ArrowLeft className="w-4 h-4" />
         </Link>
         <div>

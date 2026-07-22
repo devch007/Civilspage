@@ -21,7 +21,7 @@ export async function createCurrentAffairAction(formData: unknown) {
     metadata: { date: affair.date, category: affair.category },
   });
 
-  revalidatePath('/admin/current-affairs');
+  revalidatePath('/login/current-affairs');
   revalidatePath('/updates');
   return { data: affair };
 }
@@ -40,7 +40,7 @@ export async function updateCurrentAffairAction(formData: unknown) {
     resourceTitle: affair.title,
   });
 
-  revalidatePath('/admin/current-affairs');
+  revalidatePath('/login/current-affairs');
   return { data: affair };
 }
 
@@ -54,6 +54,6 @@ export async function deleteCurrentAffairAction(id: string) {
     resourceId: id,
   });
 
-  revalidatePath('/admin/current-affairs');
+  revalidatePath('/login/current-affairs');
   return { success: true };
 }

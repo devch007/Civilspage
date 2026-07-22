@@ -1,8 +1,6 @@
 import type { Metadata } from 'next';
 import { Plus_Jakarta_Sans, Inter } from 'next/font/google';
 import './globals.css';
-import Header from '@/components/layout/Header';
-import Footer from '@/components/layout/Footer';
 
 // Load Google Fonts using optimized Next.js variables
 const jakarta = Plus_Jakarta_Sans({
@@ -35,9 +33,7 @@ export default function RootLayout({
       style={{ scrollBehavior: 'smooth' }}
     >
       <body className="min-h-full flex flex-col text-[#0F172A] selection:bg-[#4F46E5] selection:text-white">
-        <Header />
         {children}
-        <Footer />
       </body>
     </html>
   );

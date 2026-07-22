@@ -28,12 +28,12 @@ export default async function DashboardPage() {
   ]);
 
   const stats = [
-    { label: 'Blogs', count: blogs.length, href: '/admin/blogs', icon: FileText },
-    { label: 'Current Affairs', count: affairs.length, href: '/admin/current-affairs', icon: Newspaper },
-    { label: 'Courses', count: courses.length, href: '/admin/courses', icon: BookOpen },
-    { label: 'Notes', count: notes.length, href: '/admin/notes', icon: FileSpreadsheet },
-    { label: 'PYQs', count: pyqs.length, href: '/admin/pyqs', icon: HelpCircle },
-    { label: 'Users', count: users.length, href: '/admin/users', icon: Users },
+    { label: 'Blogs', count: blogs.length, href: '/login/blogs', icon: FileText },
+    { label: 'Current Affairs', count: affairs.length, href: '/login/current-affairs', icon: Newspaper },
+    { label: 'Courses', count: courses.length, href: '/login/courses', icon: BookOpen },
+    { label: 'Notes', count: notes.length, href: '/login/notes', icon: FileSpreadsheet },
+    { label: 'PYQs', count: pyqs.length, href: '/login/pyqs', icon: HelpCircle },
+    { label: 'Users', count: users.length, href: '/login/users', icon: Users },
   ];
 
   return (
@@ -64,16 +64,16 @@ export default async function DashboardPage() {
       <div className="bg-white border border-slate-100 rounded-xl p-6">
         <h2 className="font-semibold text-slate-900 mb-4">Quick Actions</h2>
         <div className="flex flex-wrap gap-3">
-          <Link href="/admin/blogs/new" className="px-4 py-2 bg-indigo-600 text-white text-sm font-medium rounded-lg hover:bg-indigo-700 transition-colors">
+          <Link href="/login/blogs/new" className="px-4 py-2 bg-indigo-600 text-white text-sm font-medium rounded-lg hover:bg-indigo-700 transition-colors">
             + New Blog Post
           </Link>
-          <Link href="/admin/current-affairs" className="px-4 py-2 bg-slate-800 text-white text-sm font-medium rounded-lg hover:bg-slate-900 transition-colors">
+          <Link href="/login/current-affairs" className="px-4 py-2 bg-slate-800 text-white text-sm font-medium rounded-lg hover:bg-slate-900 transition-colors">
             + Add Current Affair
           </Link>
-          <Link href="/admin/pyqs" className="px-4 py-2 bg-purple-600 text-white text-sm font-medium rounded-lg hover:bg-purple-700 transition-colors">
+          <Link href="/login/pyqs" className="px-4 py-2 bg-purple-600 text-white text-sm font-medium rounded-lg hover:bg-purple-700 transition-colors">
             + Add PYQ
           </Link>
-          <Link href="/admin/notes" className="px-4 py-2 bg-amber-500 text-white text-sm font-medium rounded-lg hover:bg-amber-600 transition-colors">
+          <Link href="/login/notes" className="px-4 py-2 bg-amber-500 text-white text-sm font-medium rounded-lg hover:bg-amber-600 transition-colors">
             + Upload Note
           </Link>
         </div>

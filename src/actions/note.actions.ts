@@ -22,7 +22,7 @@ export async function uploadMetadataAction(formData: unknown) {
     metadata: { subject: note.subject, category: note.category, pdfUrl: note.pdfUrl },
   });
 
-  revalidatePath('/admin/notes');
+  revalidatePath('/login/notes');
   return { data: note };
 }
 
@@ -36,6 +36,6 @@ export async function deleteNoteAction(id: string) {
     resourceId: id,
   });
 
-  revalidatePath('/admin/notes');
+  revalidatePath('/login/notes');
   return { success: true };
 }

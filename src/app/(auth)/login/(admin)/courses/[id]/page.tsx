@@ -13,7 +13,7 @@ export default async function CourseLessonsPage({ params }: { params: Promise<{ 
   return (
     <div className="max-w-4xl space-y-6">
       <div className="flex items-center gap-3">
-        <Link href="/admin/courses" className="p-2 text-slate-400 hover:text-slate-600 hover:bg-slate-100 rounded-lg transition-all">
+        <Link href="/login/courses" className="p-2 text-slate-400 hover:text-slate-600 hover:bg-slate-100 rounded-lg transition-all">
           <ArrowLeft className="w-4 h-4" />
         </Link>
         <div>

@@ -1,4 +1,5 @@
 import { redirect } from 'next/navigation';
+import { cache } from 'react';
 import { getSupabaseServerClient } from './supabase/server';
 import { db } from '@/db';
 import { users } from '@/db/schema';
@@ -7,7 +8,9 @@ import type { User } from '@/db/schema';
 
 export type UserRole = 'super_admin' | 'educator' | 'editor' | 'student';
 
-export async function getAuthUser() {
+// cache() memoizes per request — Supabase is only called once no matter
+// how many times getAuthUser() is invoked in layouts, pages, and helpers.
+export const getAuthUser = cache(async () => {
   try {
     const supabase = await getSupabaseServerClient();
     const { data: { user }, error } = await supabase.auth.getUser();
@@ -16,9 +19,11 @@ export async function getAuthUser() {
   } catch {
     return null;
   }
-}
+});
 
-export async function getUserProfile(): Promise<User | null> {
+// cache() memoizes per request — DB is only queried once even though
+// getUserProfile() is called from both requireRole() and the layout.
+export const getUserProfile = cache(async (): Promise<User | null> => {
   const authUser = await getAuthUser();
   if (!authUser) return null;
 
@@ -38,7 +43,7 @@ export async function getUserProfile(): Promise<User | null> {
             authId: authUser.id,
             email: authUser.email ?? '',
             name: authUser.user_metadata?.full_name ?? authUser.email?.split('@')[0] ?? 'Admin',
-            role: 'super_admin', // First user is super admin
+            role: 'super_admin',
           })
           .returning();
         return created ?? null;
@@ -60,7 +65,7 @@ export async function getUserProfile(): Promise<User | null> {
       updatedAt: new Date(),
     } as User;
   }
-}
+});
 
 export async function getUserRole(): Promise<UserRole | null> {
   const profile = await getUserProfile();

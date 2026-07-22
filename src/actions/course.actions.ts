@@ -21,7 +21,7 @@ export async function createCourseAction(formData: unknown) {
     metadata: { level: course.level, price: course.price },
   });
 
-  revalidatePath('/admin/courses');
+  revalidatePath('/login/courses');
   return { data: course };
 }
 
@@ -39,7 +39,7 @@ export async function updateCourseAction(formData: unknown) {
     resourceTitle: course.title,
   });
 
-  revalidatePath('/admin/courses');
+  revalidatePath('/login/courses');
   return { data: course };
 }
 
@@ -53,6 +53,6 @@ export async function deleteCourseAction(id: string) {
     resourceId: id,
   });
 
-  revalidatePath('/admin/courses');
+  revalidatePath('/login/courses');
   return { success: true };
 }

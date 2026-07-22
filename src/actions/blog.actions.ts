@@ -25,7 +25,7 @@ export async function createBlogAction(formData: unknown) {
     metadata: { slug: blog.slug, published: blog.published },
   });
 
-  revalidatePath('/admin/blogs');
+  revalidatePath('/login/blogs');
   revalidatePath('/');
   return { data: blog };
 }
@@ -45,7 +45,7 @@ export async function updateBlogAction(formData: unknown) {
     resourceTitle: blog.title,
   });
 
-  revalidatePath('/admin/blogs');
+  revalidatePath('/login/blogs');
   revalidatePath(`/blogs/${blog.slug}`);
   return { data: blog };
 }
@@ -62,7 +62,7 @@ export async function deleteBlogAction(id: string) {
     resourceTitle: blog?.title ?? id,
   });
 
-  revalidatePath('/admin/blogs');
+  revalidatePath('/login/blogs');
   return { success: true };
 }
 
