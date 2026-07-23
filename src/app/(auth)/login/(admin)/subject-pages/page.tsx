@@ -4,14 +4,8 @@ import React, { useState, useEffect, useRef } from 'react';
 import { Plus, Trash2, Loader2, CheckCircle, X, Image, FileText } from 'lucide-react';
 
 const SUBJECTS = [
-  { value: 'polity',      label: 'Polity & Governance' },
-  { value: 'ethics',      label: 'Ethics & Integrity' },
-  { value: 'economy',     label: 'Indian Economy' },
-  { value: 'history',     label: 'History & Culture' },
-  { value: 'geography',   label: 'Geography' },
-  { value: 'environment', label: 'Environment & Ecology' },
-  { value: 'science',     label: 'Science & Technology' },
-  { value: 'security',    label: 'Internal Security' },
+  { value: 'polity', label: 'Polity & Governance' },
+  { value: 'ethics', label: 'Ethics & Integrity' },
 ];
 
 interface SubjectPost {
