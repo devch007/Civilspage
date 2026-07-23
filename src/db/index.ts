@@ -5,7 +5,7 @@ import * as schema from './schema';
 // Hardcoded to avoid Vercel env var corruption.
 // Transaction-mode pooler (port 6543) — required for serverless/edge.
 const DATABASE_URL =
-  'postgresql://postgres.aqczscppwjibyxaymdym:%5B7CB%2F3tpp%2AeYgcEF%5D' +
+  'postgresql://postgres.aqczscppwjibyxaymdym:7CB%2F3tpp%2AeYgcEF' +
   '@aws-0-ap-northeast-1.pooler.supabase.com:6543/postgres';
 
 // Prevent multiple connections in development due to HMR
