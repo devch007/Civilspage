@@ -11,7 +11,7 @@ function withTimeout<T>(p: Promise<T>, ms: number, fallback: T) {
 
 import {
   BarChart3, FileText, Newspaper, FileSpreadsheet,
-  BookOpen, HelpCircle, Users, Settings,
+  BookOpen, HelpCircle, Users, Settings, Layout,
   LogOut, Tag, MessageSquare, Shield
 } from 'lucide-react';
 
