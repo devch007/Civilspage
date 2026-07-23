@@ -362,7 +362,9 @@ export default function EthicsSubjectPage() {
                           </span>
                         </div>
                         <h3 className="text-base font-bold text-slate-900 mb-2 leading-snug">{item.title}</h3>
-                        <p className="text-xs text-slate-500 leading-relaxed mb-4">{item.summary}</p>
+                        <p className="text-xs text-slate-500 leading-relaxed mb-4">
+                          {item.content ? item.content.slice(0, 160).replace(/<[^>]*>/g, '') + '…' : 'Read more →'}
+                        </p>
                       </div>
                       <Link href={`/updates/${item.id}`} className="text-xs font-bold text-indigo-600 hover:text-indigo-800 flex items-center gap-0.5 mt-auto">
                         <span>Read Analysis</span>
