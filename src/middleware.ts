@@ -63,6 +63,14 @@ export async function middleware(request: NextRequest) {
 
 export const config = {
   matcher: [
-    '/((?!_next/static|_next/image|favicon.ico|.*\\.(?:svg|png|jpg|jpeg|gif|webp)$).*)',
+    /*
+     * Match all paths EXCEPT:
+     * - _next/static, _next/image (Next.js internals)
+     * - favicon and static assets
+     * - /api/* routes (they handle auth themselves and must NOT have Supabase
+     *   session refresh run on them — the JWT forwarded as Authorization header
+     *   contains characters that Node.js rejects as invalid HTTP headers)
+     */
+    '/((?!_next/static|_next/image|favicon.ico|api/|.*\\.(?:svg|png|jpg|jpeg|gif|webp)$).*)',
   ],
 };
