@@ -6,6 +6,11 @@ import { users } from '@/db/schema';
 import { eq } from 'drizzle-orm';
 import type { User } from '@/db/schema';
 
+// Hard timeout for any DB call — prevents 504 on Vercel Hobby (10s limit)
+function withDbTimeout<T>(p: Promise<T>, fallback: T, ms = 4000): Promise<T> {
+  return Promise.race([p, new Promise<T>((r) => setTimeout(() => r(fallback), ms))]);
+}
+
 export type UserRole = 'super_admin' | 'educator' | 'editor' | 'student';
 
 // cache() memoizes per request — Supabase is only called once no matter
@@ -21,23 +26,24 @@ export const getAuthUser = cache(async () => {
   }
 });
 
-// cache() memoizes per request — DB is only queried once even though
-// getUserProfile() is called from both requireRole() and the layout.
 export const getUserProfile = cache(async (): Promise<User | null> => {
   const authUser = await getAuthUser();
   if (!authUser) return null;
 
   try {
-    const [profile] = await db
+    const queryPromise = db
       .select()
       .from(users)
       .where(eq(users.authId, authUser.id))
-      .limit(1);
+      .limit(1)
+      .then(([p]) => p ?? null);
 
-    // Auto-provision super_admin row on first login
+    const profile = await withDbTimeout(queryPromise, null);
+
+    // Auto-provision super_admin row on first login (with timeout)
     if (!profile) {
       try {
-        const [created] = await db
+        const insertPromise = db
           .insert(users)
           .values({
             authId: authUser.id,
@@ -45,14 +51,15 @@ export const getUserProfile = cache(async (): Promise<User | null> => {
             name: authUser.user_metadata?.full_name ?? authUser.email?.split('@')[0] ?? 'Admin',
             role: 'super_admin',
           })
-          .returning();
-        return created ?? null;
+          .returning()
+          .then(([c]) => c ?? null);
+        return await withDbTimeout(insertPromise, null);
       } catch {
         return null;
       }
     }
 
-    return profile ?? null;
+    return profile;
   } catch {
     // DB unavailable — return a synthetic profile so admin still works
     return {

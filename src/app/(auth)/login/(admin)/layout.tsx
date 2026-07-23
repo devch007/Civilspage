@@ -4,6 +4,11 @@ import Link from 'next/link';
 // Force all /login/(admin)/* pages to be server-rendered at request time.
 export const dynamic = 'force-dynamic';
 
+// Safety timeout — prevents 504 if DB is slow
+function withTimeout<T>(p: Promise<T>, ms: number, fallback: T) {
+  return Promise.race([p, new Promise<T>((r) => setTimeout(() => r(fallback), ms))]);
+}
+
 import {
   BarChart3, FileText, Newspaper, FileSpreadsheet,
   BookOpen, HelpCircle, Users, Settings, Layout, BrainCircuit,
@@ -29,7 +34,8 @@ const navItems = [
 
 export default async function AdminLayout({ children }: { children: React.ReactNode }) {
   await requireAdmin();
-  const user = await getUserProfile();
+  // 4s timeout — never block the page if DB is slow
+  const user = await withTimeout(getUserProfile(), 4000, null);
 
   return (
     <div className="flex min-h-screen bg-slate-50">
