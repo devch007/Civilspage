@@ -3,22 +3,23 @@
 import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { ArrowRight } from 'lucide-react';
-import { getNotes, type Note } from '@/lib/supabase';
+
+interface Note {
+  id: string;
+  title: string;
+  category: string;
+  pdfUrl: string;
+  subject: string;
+}
 
 export default function FeaturedResources() {
   const [resources, setResources] = useState<Note[]>([]);
 
   useEffect(() => {
-    async function loadResources() {
-      try {
-        const list = await getNotes();
-        // Take the first 2 guides to show as featured
-        setResources(list.slice(0, 2));
-      } catch (err) {
-        console.error("Failed to load featured resources on homepage:", err);
-      }
-    }
-    loadResources();
+    fetch('/api/content/notes')
+      .then((r) => r.json())
+      .then((data) => setResources(Array.isArray(data) ? data.slice(0, 2) : []))
+      .catch(() => {});
   }, []);
 
   return (
@@ -52,14 +53,14 @@ export default function FeaturedResources() {
                     {item.category}
                   </span>
                   <span style={{ fontSize: '0.8rem', color: 'var(--text-muted)', fontWeight: 500 }}>
-                    PDF Doc ({item.size})
+                    {item.subject}
                   </span>
                 </div>
                 <h3>{item.title}</h3>
                 <p>
                   Explore high-yield study materials carefully designed to assist your preparation. Detailed guidelines, diagrams, and syllabus tracking.
                 </p>
-                <a href="#" className="card-link" aria-label={`Get study guide for ${item.title}`}>
+                <a href={item.pdfUrl} target="_blank" rel="noopener noreferrer" className="card-link" aria-label={`Get study guide for ${item.title}`}>
                   Get Document
                   <ArrowRight className="w-4 h-4 ml-1" />
                 </a>

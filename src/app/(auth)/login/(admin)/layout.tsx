@@ -11,8 +11,8 @@ function withTimeout<T>(p: Promise<T>, ms: number, fallback: T) {
 
 import {
   BarChart3, FileText, Newspaper, FileSpreadsheet,
-  BookOpen, HelpCircle, Users, Settings, Layout, BrainCircuit,
-  LogOut, Tag, MessageSquare, Mail, Zap, Shield
+  BookOpen, HelpCircle, Users, Settings,
+  LogOut, Tag, MessageSquare, Shield
 } from 'lucide-react';
 
 const navItems = [
@@ -23,9 +23,7 @@ const navItems = [
   { href: '/login/notes', label: 'Notes', icon: FileSpreadsheet },
   { href: '/login/courses', label: 'Courses', icon: BookOpen },
   { href: '/login/pyqs', label: 'PYQs', icon: HelpCircle },
-  { href: '/login/quizzes', label: 'Mock Quizzes', icon: Zap },
   { href: '/login/comments', label: 'Comments', icon: MessageSquare },
-  { href: '/login/newsletter', label: 'Newsletter', icon: Mail },
   { href: '/login/users', label: 'Users', icon: Users },
   { href: '/login/audit-log', label: 'Audit Log', icon: Shield },
   { href: '/login/settings', label: 'Settings', icon: Settings },

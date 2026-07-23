@@ -2,25 +2,15 @@
 
 import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
-import { 
-  BookOpen, 
-  HelpCircle, 
-  Scale, 
-  Shield, 
-  Award, 
-  FileText, 
-  ChevronRight, 
-  Bookmark,
-  Users,
-  Compass,
-  ArrowUpRight,
-  Sparkles,
-  Calendar,
-  Loader2,
-  BrainCircuit,
-  MessageSquare
-} from 'lucide-react';
-import { getAffairs, type Affair } from '@/lib/supabase';
+import { BookOpen, HelpCircle, Scale, Shield, Award, FileText, ChevronRight, Bookmark, Users, Compass, ArrowUpRight, Sparkles, Calendar, Loader2, BrainCircuit, MessageSquare } from 'lucide-react';
+
+interface Affair {
+  id: string;
+  date: string;
+  title: string;
+  category: string;
+  content?: string | null;
+}
 
 export default function EthicsSubjectPage() {
   const [activeSection, setActiveSection] = useState('intro');
@@ -28,20 +18,11 @@ export default function EthicsSubjectPage() {
   const [loadingUpdates, setLoadingUpdates] = useState<boolean>(true);
 
   useEffect(() => {
-    async function loadUpdates() {
-      try {
-        const list = await getAffairs();
-        const filtered = list.filter(item => 
-          item.category.toLowerCase().includes('ethics')
-        );
-        setUpdates(filtered);
-      } catch (err) {
-        console.error("Error fetching ethics updates:", err);
-      } finally {
-        setLoadingUpdates(false);
-      }
-    }
-    loadUpdates();
+    fetch('/api/content/affairs?category=ethics')
+      .then((r) => r.json())
+      .then((data) => setUpdates(Array.isArray(data) ? data : []))
+      .catch((err) => console.error('Error fetching ethics updates:', err))
+      .finally(() => setLoadingUpdates(false));
   }, []);
 
   useEffect(() => {

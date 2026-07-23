@@ -2,23 +2,26 @@
 
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { ArrowRight, Download, BookOpen, User } from 'lucide-react';
-import { getAffairs, type Affair } from '@/lib/supabase';
+import { ArrowRight, Download, BookOpen } from 'lucide-react';
+import Link from 'next/link';
+
+interface Affair {
+  id: string;
+  date: string;
+  title: string;
+  category: string;
+  content?: string | null;
+}
 
 export default function CurrentAffairs() {
   const [activeTab, setActiveTab] = useState<'weekly' | 'monthly'>('weekly');
   const [weeklyAffairs, setWeeklyAffairs] = useState<Affair[]>([]);
 
   useEffect(() => {
-    async function loadAffairs() {
-      try {
-        const list = await getAffairs();
-        setWeeklyAffairs(list);
-      } catch (err) {
-        console.error("Failed to load current affairs on homepage:", err);
-      }
-    }
-    loadAffairs();
+    fetch('/api/content/affairs')
+      .then((r) => r.json())
+      .then((data) => setWeeklyAffairs(Array.isArray(data) ? data.slice(0, 6) : []))
+      .catch(() => {});
   }, []);
 
   return (
@@ -75,32 +78,28 @@ export default function CurrentAffairs() {
                           </span>
                           <span className="text-[10px] text-slate-300 font-bold">•</span>
                           <span className="text-[10px] font-bold text-slate-400 flex items-center gap-0.5">
-                            <BookOpen className="w-3 h-3 text-slate-400" /> 4 min read
+                            <BookOpen className="w-3 h-3 text-slate-400" /> {af.content ? `${Math.max(1, Math.ceil(af.content.split(' ').length / 200))} min` : '1 min'}
                           </span>
                         </div>
                         <h3 className="text-base font-bold text-slate-900 leading-snug mb-2">
                           {af.title}
                         </h3>
                         <p className="text-xs text-slate-500 leading-relaxed">
-                          {af.summary}
+                          {af.content ? af.content.slice(0, 120).replace(/<[^>]*>/g, '') + '…' : 'Read the full update →'}
                         </p>
                       </div>
-
-                      {/* Author Profile Footer */}
                       <div className="flex items-center justify-between border-t border-slate-100/60 pt-4 mt-6">
                         <div className="flex items-center gap-2">
-                          <div className="w-6.5 h-6.5 rounded-full bg-emerald-600 text-white flex items-center justify-center font-bold text-[9px]">
-                            RR
-                          </div>
+                          <div className="w-6 h-6 rounded-full bg-emerald-600 text-white flex items-center justify-center font-bold text-[9px]">RR</div>
                           <div className="text-left">
                             <span className="block text-[10px] font-bold text-slate-800">Dr. Rajiv Ranjan</span>
                             <span className="block text-[8px] text-slate-400 font-medium">UPSC Core Mentor</span>
                           </div>
                         </div>
-                        <a href="#" className="card-link text-xs font-bold text-indigo-600 flex items-center gap-0.5" aria-label={`Read analysis for ${af.title}`}>
+                        <Link href={`/updates/${af.id}`} className="card-link text-xs font-bold text-indigo-600 flex items-center gap-0.5" aria-label={`Read analysis for ${af.title}`}>
                           <span>Read</span>
                           <ArrowRight className="w-3.5 h-3.5" />
-                        </a>
+                        </Link>
                       </div>
                     </div>
                   ))

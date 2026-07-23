@@ -3,16 +3,23 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { AlertCircle, HelpCircle, ChevronDown, ChevronUp, BookOpen } from 'lucide-react';
-import { getPyqs, type Pyq } from '@/lib/supabase';
+
+interface Pyq {
+  id: string;
+  subject: string;
+  subjectLabel?: string;
+  year: string;
+  question: string;
+}
 
 // Hardcoded expert explanations corresponding to standard mock PYQs
-const expertExplanations: { [key: number]: { correctOption: string; explanation: string; source: string } } = {
-  1: {
+const expertExplanations: { [key: string]: { correctOption: string; explanation: string; source: string } } = {
+  '1': {
     correctOption: 'Option C (Both 1 and 2)',
     explanation: 'Under Article 200, the Governor of a State has the discretionary power to reserve certain Bills passed by the state legislature for the consideration of the President. When a Bill is so reserved, Article 201 dictates that the President may either declare assent or withhold it. If returned, the legislature must reconsider within six months.',
     source: 'M. Laxmikanth, Indian Polity - Chapter 30: Governor & Article 200/201'
   },
-  2: {
+  '2': {
     correctOption: 'Option A (Open Market Operations)',
     explanation: 'Sterilization refers to the monetary policy operations RBI conducts to neutralize the liquidity effects arising from foreign exchange inflows or outflows. This is primarily done by selling or buying government securities in Open Market Operations (OMO) to stabilize the domestic currency value.',
     source: 'Ramesh Singh, Indian Economy - Chapter on Monetary Systems / RBI Core FAQs'
@@ -23,18 +30,13 @@ export default function PyqHub() {
   const [pyqsList, setPyqsList] = useState<Pyq[]>([]);
   const [selectedSubject, setSelectedSubject] = useState('all');
   const [selectedYear, setSelectedYear] = useState('all');
-  const [expandedPyqId, setExpandedPyqId] = useState<number | null>(null);
+  const [expandedPyqId, setExpandedPyqId] = useState<string | null>(null);
 
   useEffect(() => {
-    async function loadPyqs() {
-      try {
-        const list = await getPyqs();
-        setPyqsList(list);
-      } catch (err) {
-        console.error("Failed to load PYQs on homepage:", err);
-      }
-    }
-    loadPyqs();
+    fetch('/api/content/pyqs')
+      .then((r) => r.json())
+      .then((data) => setPyqsList(Array.isArray(data) ? data : []))
+      .catch(() => {});
   }, []);
 
   const handlePillClick = (subject: string) => {
