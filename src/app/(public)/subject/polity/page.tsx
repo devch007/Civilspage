@@ -76,7 +76,7 @@ export default function PolitySubjectPage() {
       <section className="subject-hero">
         <div className="container" style={{ position: 'relative', zIndex: 2 }}>
           <span className="badge badge-amber uppercase mb-3">Civil Services Core Syllabus</span>
-          <h1 className="text-4xl md:text-5xl font-extrabold tracking-tight mb-4 font-heading">
+          <h1 className="text-4xl md:text-5xl font-extrabold tracking-tight mb-4 font-heading text-white">
             Polity and Governance
           </h1>
           <p className="text-slate-300 max-w-2xl mx-auto text-base md:text-lg leading-relaxed">
