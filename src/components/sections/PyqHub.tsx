@@ -43,7 +43,7 @@ export default function PyqHub() {
     setSelectedSubject(subject);
   };
 
-  const toggleSolution = (id: number) => {
+  const toggleSolution = (id: string) => {
     if (expandedPyqId === id) {
       setExpandedPyqId(null);
     } else {
