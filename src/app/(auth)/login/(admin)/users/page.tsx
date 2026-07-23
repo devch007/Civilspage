@@ -2,7 +2,11 @@ import { getAllUsers } from '@/services/user.service';
 import { format } from 'date-fns';
 
 export default async function UsersPage() {
-  const users = await getAllUsers();
+  async function safeQuery<T>(fn: () => Promise<T>, fb: T): Promise<T> {
+    try { return await Promise.race([fn(), new Promise<T>((r) => setTimeout(() => r(fb), 5000))]); }
+    catch { return fb; }
+  }
+  const users = await safeQuery(getAllUsers, []);
 
   const roleColors: Record<string, string> = {
     super_admin: 'bg-red-50 text-red-700',

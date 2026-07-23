@@ -1,9 +1,20 @@
-import { getAllCurrentAffairs } from '@/services/current-affairs.service';
-import { deleteCurrentAffairAction, createCurrentAffairAction } from '@/actions/current-affairs.actions';
 import { Plus, Trash2 } from 'lucide-react';
+import { deleteCurrentAffairAction, createCurrentAffairAction } from '@/actions/current-affairs.actions';
+
+async function safeGetAffairs() {
+  try {
+    const { getAllCurrentAffairs } = await import('@/services/current-affairs.service');
+    return await Promise.race([
+      getAllCurrentAffairs(),
+      new Promise<never>((_, reject) => setTimeout(() => reject(new Error('timeout')), 5000)),
+    ]);
+  } catch {
+    return [];
+  }
+}
 
 export default async function CurrentAffairsPage() {
-  const affairs = await getAllCurrentAffairs();
+  const affairs = await safeGetAffairs();
 
   return (
     <div className="space-y-6">
@@ -20,7 +31,7 @@ export default async function CurrentAffairsPage() {
           </div>
           <div className="divide-y divide-slate-50">
             {affairs.length === 0 && (
-              <p className="text-center py-10 text-slate-400 text-sm">No current affairs yet.</p>
+              <p className="text-center py-10 text-slate-400 text-sm">No current affairs yet. Add one using the form →</p>
             )}
             {affairs.map((a) => (
               <div key={a.id} className="px-5 py-4 flex items-start justify-between gap-4">
@@ -74,7 +85,7 @@ export default async function CurrentAffairsPage() {
                 <option>Polity</option>
                 <option>Economy</option>
                 <option>International</option>
-                <option>Science & Tech</option>
+                <option>Science &amp; Tech</option>
                 <option>Environment</option>
                 <option>Ethics</option>
               </select>
@@ -84,17 +95,17 @@ export default async function CurrentAffairsPage() {
               <textarea name="content" rows={4} className="w-full px-3 py-2.5 border border-slate-200 rounded-lg text-sm focus:border-indigo-400 focus:outline-none resize-none" placeholder="Summary of the update..." />
             </div>
             <div>
-              <label className="block text-xs font-semibold text-slate-600 mb-1">Featured Image URL (R2)</label>
+              <label className="block text-xs font-semibold text-slate-600 mb-1">Featured Image URL (optional)</label>
               <input name="featuredImage" type="url" className="w-full px-3 py-2.5 border border-slate-200 rounded-lg text-sm focus:border-indigo-400 focus:outline-none" placeholder="https://..." />
             </div>
             <div>
-              <label className="block text-xs font-semibold text-slate-600 mb-1">PDF URL (R2)</label>
+              <label className="block text-xs font-semibold text-slate-600 mb-1">PDF URL (optional)</label>
               <input name="pdfUrl" type="url" className="w-full px-3 py-2.5 border border-slate-200 rounded-lg text-sm focus:border-indigo-400 focus:outline-none" placeholder="https://..." />
             </div>
             <div className="flex items-center justify-between pt-1">
               <label className="flex items-center gap-2 text-sm font-medium text-slate-600 cursor-pointer">
                 <input type="checkbox" name="published" value="true" className="accent-indigo-600" />
-                Publish immediately
+                Publish immediately (visible on site)
               </label>
               <button type="submit" className="flex items-center gap-1.5 px-4 py-2 bg-indigo-600 text-white text-sm font-semibold rounded-xl hover:bg-indigo-700 transition-colors">
                 <Plus className="w-4 h-4" /> Publish

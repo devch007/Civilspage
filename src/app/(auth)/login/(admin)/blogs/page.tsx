@@ -5,7 +5,11 @@ import { Plus, Trash2, Edit, Eye } from 'lucide-react';
 import { format } from 'date-fns';
 
 export default async function BlogsPage() {
-  const blogs = await getAllBlogs();
+  async function safeQuery<T>(fn: () => Promise<T>, fb: T): Promise<T> {
+    try { return await Promise.race([fn(), new Promise<T>((r) => setTimeout(() => r(fb), 5000))]); }
+    catch { return fb; }
+  }
+  const blogs = await safeQuery(getAllBlogs, []);
 
   return (
     <div className="space-y-6">

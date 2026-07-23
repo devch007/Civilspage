@@ -4,7 +4,11 @@ import { CheckCircle, XCircle, Clock } from 'lucide-react';
 import { format } from 'date-fns';
 
 export default async function CommentsPage() {
-  const all = await getComments();
+  async function safeQuery<T>(fn: () => Promise<T>, fb: T): Promise<T> {
+    try { return await Promise.race([fn(), new Promise<T>((r) => setTimeout(() => r(fb), 5000))]); }
+    catch { return fb; }
+  }
+  const all = await safeQuery(getComments, []);
   const pending = all.filter(c => !c.approved);
   const approved = all.filter(c => c.approved);
 

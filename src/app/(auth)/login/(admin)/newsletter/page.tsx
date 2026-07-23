@@ -3,7 +3,11 @@ import { format } from 'date-fns';
 import { Mail, UserCheck, UserX } from 'lucide-react';
 
 export default async function NewsletterPage() {
-  const subscribers = await getSubscribers();
+  async function safeQuery<T>(fn: () => Promise<T>, fb: T): Promise<T> {
+    try { return await Promise.race([fn(), new Promise<T>((r) => setTimeout(() => r(fb), 5000))]); }
+    catch { return fb; }
+  }
+  const subscribers = await safeQuery(getSubscribers, []);
   const active = subscribers.filter(s => s.active);
   const inactive = subscribers.filter(s => !s.active);
 

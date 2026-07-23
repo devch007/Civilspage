@@ -3,7 +3,11 @@ import { createCategoryAction, deleteCategoryAction, createTagAction, deleteTagA
 import { Plus, Trash2, Tag, Folder } from 'lucide-react';
 
 export default async function CategoriesPage() {
-  const [cats, tags] = await Promise.all([getCategories(), getTags()]);
+  async function sq<T>(fn: () => Promise<T>, fb: T) {
+    try { return await Promise.race([fn(), new Promise<T>((r) => setTimeout(() => r(fb), 5000))]); }
+    catch { return fb; }
+  }
+  const [cats, tags] = await Promise.all([sq(getCategories, []), sq(getTags, [])]);
 
   return (
     <div className="space-y-6">

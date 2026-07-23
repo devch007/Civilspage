@@ -5,7 +5,11 @@ import { Plus, Trash2, ToggleLeft, ToggleRight } from 'lucide-react';
 const SUBJECTS = ['Indian Polity', 'Indian Economy', 'History & Culture', 'Geography', 'Environment & Ecology', 'Science & Technology', 'Ethics', 'General Studies'];
 
 export default async function QuizzesPage() {
-  const quizzes = await getQuizzes();
+  async function safeQuery<T>(fn: () => Promise<T>, fb: T): Promise<T> {
+    try { return await Promise.race([fn(), new Promise<T>((r) => setTimeout(() => r(fb), 5000))]); }
+    catch { return fb; }
+  }
+  const quizzes = await safeQuery(getQuizzes, []);
   const active = quizzes.filter(q => q.active).length;
 
   return (

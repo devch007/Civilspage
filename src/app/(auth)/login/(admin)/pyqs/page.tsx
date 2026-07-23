@@ -3,7 +3,11 @@ import { createPyqAction, deletePyqAction } from '@/actions/pyq.actions';
 import { Plus, Trash2 } from 'lucide-react';
 
 export default async function PyqsPage() {
-  const pyqs = await getPyqs();
+  async function safeQuery<T>(fn: () => Promise<T>, fb: T): Promise<T> {
+    try { return await Promise.race([fn(), new Promise<T>((r) => setTimeout(() => r(fb), 5000))]); }
+    catch { return fb; }
+  }
+  const pyqs = await safeQuery(getPyqs, []);
 
   return (
     <div className="space-y-6">
