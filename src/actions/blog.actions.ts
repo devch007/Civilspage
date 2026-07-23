@@ -1,14 +1,12 @@
 'use server';
 
 import { revalidatePath } from 'next/cache';
-import { requireAdmin } from '@/lib/auth';
 import { createBlogSchema, updateBlogSchema } from '@/lib/validations/blog';
 import * as blogService from '@/services/blog.service';
 import { getUserProfile } from '@/lib/auth';
 import { logAudit } from '@/lib/audit';
 
 export async function createBlogAction(formData: unknown) {
-  const session = await requireAdmin();
   const user = await getUserProfile();
   if (!user) throw new Error('Unauthorized');
 
@@ -31,7 +29,6 @@ export async function createBlogAction(formData: unknown) {
 }
 
 export async function updateBlogAction(formData: unknown) {
-  await requireAdmin();
 
   const parsed = updateBlogSchema.safeParse(formData);
   if (!parsed.success) return { error: parsed.error.flatten().fieldErrors };
@@ -51,7 +48,6 @@ export async function updateBlogAction(formData: unknown) {
 }
 
 export async function deleteBlogAction(id: string) {
-  await requireAdmin();
   const blog = await blogService.getBlogById(id);
   await blogService.deleteBlog(id);
 

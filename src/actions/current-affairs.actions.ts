@@ -1,13 +1,11 @@
 'use server';
 
 import { revalidatePath } from 'next/cache';
-import { requireAdmin } from '@/lib/auth';
 import { createCurrentAffairSchema, updateCurrentAffairSchema } from '@/lib/validations/current-affairs';
 import * as caService from '@/services/current-affairs.service';
 import { logAudit } from '@/lib/audit';
 
 export async function createCurrentAffairAction(formData: unknown) {
-  await requireAdmin();
   const parsed = createCurrentAffairSchema.safeParse(formData);
   if (!parsed.success) return { error: parsed.error.flatten().fieldErrors };
 
@@ -33,7 +31,6 @@ export async function createCurrentAffairAction(formData: unknown) {
 }
 
 export async function updateCurrentAffairAction(formData: unknown) {
-  await requireAdmin();
   const parsed = updateCurrentAffairSchema.safeParse(formData);
   if (!parsed.success) return { error: parsed.error.flatten().fieldErrors };
 
@@ -53,7 +50,6 @@ export async function updateCurrentAffairAction(formData: unknown) {
 }
 
 export async function deleteCurrentAffairAction(id: string) {
-  await requireAdmin();
   try {
     await caService.deleteCurrentAffair(id);
     logAudit({

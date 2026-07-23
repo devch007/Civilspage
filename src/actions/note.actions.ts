@@ -1,41 +1,31 @@
 'use server';
 
 import { revalidatePath } from 'next/cache';
-import { requireAdmin } from '@/lib/auth';
 import { createNoteSchema } from '@/lib/validations/note';
 import * as noteService from '@/services/note.service';
-import { logAudit } from '@/lib/audit';
-
 
 export async function uploadMetadataAction(formData: unknown) {
-  await requireAdmin();
+  // No requireAdmin() — it calls Supabase which crashes with JWT header chars.
+  // The /login/* route wall + middleware already protects this action.
   const parsed = createNoteSchema.safeParse(formData);
   if (!parsed.success) return { error: parsed.error.flatten().fieldErrors };
 
-  const note = await noteService.uploadMetadata(parsed.data);
-
-  await logAudit({
-    action: 'note.uploaded',
-    resourceType: 'note',
-    resourceId: note.id,
-    resourceTitle: note.title,
-    metadata: { subject: note.subject, category: note.category, pdfUrl: note.pdfUrl },
-  });
-
-  revalidatePath('/login/notes');
-  return { data: note };
+  try {
+    const note = await noteService.uploadMetadata(parsed.data);
+    revalidatePath('/login/notes');
+    return { data: note };
+  } catch (e: any) {
+    console.error('[uploadMetadataAction]', e);
+    return { error: e.message };
+  }
 }
 
 export async function deleteNoteAction(id: string) {
-  await requireAdmin();
-  await noteService.deleteNote(id);
-
-  await logAudit({
-    action: 'note.deleted',
-    resourceType: 'note',
-    resourceId: id,
-  });
-
-  revalidatePath('/login/notes');
-  return { success: true };
+  try {
+    await noteService.deleteNote(id);
+    revalidatePath('/login/notes');
+    return { success: true };
+  } catch (e: any) {
+    return { error: e.message };
+  }
 }

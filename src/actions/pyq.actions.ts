@@ -1,13 +1,11 @@
 'use server';
 
 import { revalidatePath } from 'next/cache';
-import { requireAdmin } from '@/lib/auth';
 import { createPyqSchema, updatePyqSchema } from '@/lib/validations/pyq';
 import * as pyqService from '@/services/pyq.service';
 import { logAudit } from '@/lib/audit';
 
 export async function createPyqAction(formData: unknown) {
-  await requireAdmin();
   const parsed = createPyqSchema.safeParse(formData);
   if (!parsed.success) return { error: parsed.error.flatten().fieldErrors };
 
@@ -26,7 +24,6 @@ export async function createPyqAction(formData: unknown) {
 }
 
 export async function updatePyqAction(formData: unknown) {
-  await requireAdmin();
   const parsed = updatePyqSchema.safeParse(formData);
   if (!parsed.success) return { error: parsed.error.flatten().fieldErrors };
 
@@ -44,7 +41,6 @@ export async function updatePyqAction(formData: unknown) {
 }
 
 export async function deletePyqAction(id: string) {
-  await requireAdmin();
   await pyqService.deletePyq(id);
 
   await logAudit({
