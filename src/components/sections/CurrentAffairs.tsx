@@ -92,7 +92,7 @@ export default function CurrentAffairs() {
                         <div className="flex items-center gap-2">
                           <div className="w-6 h-6 rounded-full bg-emerald-600 text-white flex items-center justify-center font-bold text-[9px]">RR</div>
                           <div className="text-left">
-                            <span className="block text-[10px] font-bold text-slate-800">Dr. Rajiv Ranjan</span>
+                            <span className="block text-[10px] font-bold text-slate-800">Rajiv Ranjan Singh</span>
                             <span className="block text-[8px] text-slate-400 font-medium">UPSC Core Mentor</span>
                           </div>
                         </div>

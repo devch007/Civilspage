@@ -41,7 +41,7 @@ export default function CurrentUpdates() {
             Current Updates & Announcements
           </h1>
           <p style={{ color: 'var(--text-secondary)', fontSize: '1.05rem', maxWidth: '600px', margin: '0 auto', lineHeight: 1.6 }}>
-            Stay informed with the latest notifications, syllabus updates, exam results briefings, and official updates posted regularly by Dr. Rajiv Ranjan Sir.
+            Stay informed with the latest notifications, syllabus updates, exam results briefings, and official updates posted regularly by Rajiv Ranjan Singh Sir.
           </p>
         </div>
 
@@ -116,7 +116,7 @@ export default function CurrentUpdates() {
                           RR
                         </div>
                         <div className="text-left">
-                          <span className="block text-[11px] font-bold text-slate-800 leading-tight">Dr. Rajiv Ranjan</span>
+                          <span className="block text-[11px] font-bold text-slate-800 leading-tight">Rajiv Ranjan Singh</span>
                           <span className="block text-[9px] text-slate-400 font-semibold leading-none">UPSC Lead Mentor</span>
                         </div>
                       </div>

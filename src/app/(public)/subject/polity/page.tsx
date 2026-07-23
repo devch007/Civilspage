@@ -628,7 +628,7 @@ export default function PolitySubjectPage() {
                 <div>
                   <h2 className="subject-section-title">
                     <Sparkles className="w-6 h-6 text-amber-500" />
-                    Notes & Content by Dr. Rajiv Ranjan
+                    Notes & Content by Rajiv Ranjan Singh
                   </h2>
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                     {subjectPosts.map(post => (

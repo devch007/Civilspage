@@ -160,7 +160,7 @@ export default function CseOverview() {
                 </div>
               </div>
               <p className="text-sm text-slate-500 mb-6 leading-relaxed">
-                Connect and consult with Dr. Rajiv Ranjan Sir directly. Ask questions regarding GS Answer framing templates, optional selection advice, or syllabus priorities, and get direct expert email responses.
+                Connect and consult with Rajiv Ranjan Singh Sir directly. Ask questions regarding GS Answer framing templates, optional selection advice, or syllabus priorities, and get direct expert email responses.
               </p>
             </div>
 

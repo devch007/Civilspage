@@ -356,7 +356,7 @@ export default function EthicsSubjectPage() {
                 Live Ethics Updates & Case Analysis
               </h2>
               <p className="text-slate-500 mb-6">
-                Stay updated with the latest moral-ethical debates, code of conduct revisions, global anti-corruption developments, and analysis posted by Dr. Rajiv Ranjan Singh.
+                Stay updated with the latest moral-ethical debates, code of conduct revisions, global anti-corruption developments, and analysis posted by Rajiv Ranjan Singh.
               </p>
 
               {loadingUpdates ? (

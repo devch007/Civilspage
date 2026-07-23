@@ -128,7 +128,7 @@ export default function PyqHub() {
               filteredPyqs.map((item) => {
                 const hasEx = expertExplanations[item.id] || {
                   correctOption: 'Option A',
-                  explanation: 'Detailed conceptual resolution steps compiled by Dr. Rajiv Ranjan Sir.',
+                  explanation: 'Detailed conceptual resolution steps compiled by Rajiv Ranjan Singh Sir.',
                   source: 'UPSC CSE Syllabus Reference'
                 };
                 const isExpanded = expandedPyqId === item.id;

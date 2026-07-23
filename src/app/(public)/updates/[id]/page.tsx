@@ -139,7 +139,7 @@ export default function UpdateDetail({ params }: PageProps) {
                   &ldquo;A successful civil services candidate bridges theoretical foundation models from textbooks with live, high-yield announcements and judicial updates.&rdquo;
                 </blockquote>
                 <cite className="block text-[10px] font-bold text-slate-400 uppercase mt-2 tracking-wider">
-                  — Dr. Rajiv Ranjan Singh, Lead Academic Advisor
+                  — Rajiv Ranjan Singh, Lead Academic Advisor
                 </cite>
               </div>
 
@@ -159,7 +159,7 @@ export default function UpdateDetail({ params }: PageProps) {
                 <div className="flex items-center gap-3">
                   <div className="w-10 h-10 rounded-full bg-emerald-600 text-white flex items-center justify-center font-bold text-sm">RR</div>
                   <div>
-                    <span className="block text-sm font-bold text-slate-900 leading-tight">Dr. Rajiv Ranjan Singh</span>
+                    <span className="block text-sm font-bold text-slate-900 leading-tight">Rajiv Ranjan Singh</span>
                     <span className="block text-[10px] text-slate-400 font-semibold uppercase tracking-wider">UPSC IAS Core Mentor</span>
                   </div>
                 </div>
