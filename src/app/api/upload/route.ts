@@ -1,16 +1,16 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { getSupabaseServerClient } from '@/lib/supabase/server';
 import { uploadToR2 } from '@/lib/r2';
+import { requireAdmin } from '@/lib/auth';
 
 // Folder routing based on query param
 type UploadFolder = 'blogs' | 'current-affairs' | 'notes' | 'courses' | 'pyqs' | 'avatars' | 'misc';
 const VALID_FOLDERS: UploadFolder[] = ['blogs', 'current-affairs', 'notes', 'courses', 'pyqs', 'avatars', 'misc'];
 
 export async function POST(request: NextRequest) {
-  // ── Auth check ──────────────────────────────────────────────────────────────
-  const supabase = await getSupabaseServerClient();
-  const { data: { user } } = await supabase.auth.getUser();
-  if (!user) {
+  // ── Auth check — uses cookie-based session, no bad headers ──────────────────
+  try {
+    await requireAdmin();
+  } catch {
     return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
   }
 
