@@ -80,7 +80,7 @@ export default function PolitySubjectPage() {
             Polity and Governance
           </h1>
           <p className="text-slate-300 max-w-2xl mx-auto text-base md:text-lg leading-relaxed">
-            A comprehensive reference database covering constitutional frameworks, legislative bills, administrative reform commissions, landmark Supreme Court rulings, and national development policies.
+            Master Indian Polity &amp; Governance for UPSC CSE — constitutional frameworks, parliamentary procedures, federal structure, fundamental rights, and live current affairs updates.
           </p>
         </div>
       </section>

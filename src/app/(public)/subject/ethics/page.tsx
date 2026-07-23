@@ -81,7 +81,7 @@ export default function EthicsSubjectPage() {
             Ethics, Integrity & Aptitude
           </h1>
           <p className="text-slate-300 max-w-2xl mx-auto text-base md:text-lg leading-relaxed">
-            A comprehensive reference database covering moral philosophy, emotional intelligence, public service values, structural framework case studies, and live contemporary updates.
+            Master Ethics, Integrity &amp; Aptitude for UPSC GS Paper IV — moral philosophy, public service values, emotional intelligence, and live current affairs on governance &amp; ethics.
           </p>
         </div>
       </section>
