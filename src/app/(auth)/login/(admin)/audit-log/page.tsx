@@ -5,12 +5,20 @@ import { actionLabel, actionColor } from '@/lib/audit';
 import { format } from 'date-fns';
 import { Shield, User, Clock, Globe, Monitor } from 'lucide-react';
 
+async function safeGetLogs() {
+  try {
+    return await Promise.race([
+      db.select().from(auditLogs).orderBy(desc(auditLogs.createdAt)).limit(200),
+      new Promise<never>((_, reject) => setTimeout(() => reject(new Error('timeout')), 5000)),
+    ]);
+  } catch {
+    return [];
+  }
+}
+
 export default async function AuditLogPage() {
-  const logs = await db
-    .select()
-    .from(auditLogs)
-    .orderBy(desc(auditLogs.createdAt))
-    .limit(200);
+  const logs = await safeGetLogs();
+
 
   const resourceTypes = [...new Set(logs.map((l) => l.resourceType))];
 
