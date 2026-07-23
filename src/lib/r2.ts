@@ -7,18 +7,28 @@ import {
 import { getSignedUrl } from '@aws-sdk/s3-request-presigner';
 import { randomUUID } from 'crypto';
 
-// ── Client ───────────────────────────────────────────────────────────────────
+// ── Client ─────────────────────────────────────────────────────────────────
+// Hardcoded to bypass Vercel env var corruption (invisible unicode/newline chars
+// get injected into the AWS Authorization header → Node throws ERR_INVALID_CHAR).
+// Same fix applied to the Supabase URL/key.
+const R2_ENDPOINT = 'https://891059bc2edd0482cf2cfade94a501e5.r2.cloudflarestorage.com';
+const R2_ACCESS_KEY = '903e380188653f9d059cc12f774d4869';
+const R2_SECRET_KEY = '0830e8d1c42438f722b49d2cd354d82b3cfb1bdda4d5489c0e8d0f93b75d489a';
+const R2_BUCKET = 'civilspagebucket';
+const R2_PUBLIC_URL = 'https://pub-9c3572c4a825401b8917e1fae30f7d98.r2.dev';
+
 export const r2 = new S3Client({
   region: 'auto',
-  endpoint: process.env.CLOUDFLARE_R2_ENDPOINT!,
+  endpoint: R2_ENDPOINT,
   credentials: {
-    accessKeyId: process.env.CLOUDFLARE_R2_ACCESS_KEY_ID!,
-    secretAccessKey: process.env.CLOUDFLARE_R2_SECRET_ACCESS_KEY!,
+    accessKeyId: R2_ACCESS_KEY,
+    secretAccessKey: R2_SECRET_KEY,
   },
 });
 
-const BUCKET = process.env.CLOUDFLARE_R2_BUCKET_NAME!;
-const PUBLIC_URL = process.env.CLOUDFLARE_R2_PUBLIC_URL!;
+const BUCKET = R2_BUCKET;
+const PUBLIC_URL = R2_PUBLIC_URL;
+
 
 // ── Allowed file types ────────────────────────────────────────────────────────
 const ALLOWED_IMAGE_TYPES = ['image/jpeg', 'image/png', 'image/webp', 'image/gif', 'image/avif'];
