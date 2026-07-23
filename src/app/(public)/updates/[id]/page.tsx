@@ -32,16 +32,14 @@ export default function UpdateDetail({ params }: PageProps) {
     async function load() {
       try {
         const { id } = await params;
-        // Fetch all published affairs and find by UUID id
-        const res = await fetch('/api/content/affairs');
-        if (!res.ok) throw new Error('Failed to fetch');
-        const list: Affair[] = await res.json();
-        const found = list.find((item) => item.id === id);
-        if (found) {
-          setUpdate(found);
-        } else {
+        const res = await fetch(`/api/content/affairs/${id}`);
+        if (res.status === 404) {
           setErrorMsg('The requested announcement could not be found.');
+          return;
         }
+        if (!res.ok) throw new Error(`HTTP ${res.status}`);
+        const affair: Affair = await res.json();
+        setUpdate(affair);
       } catch (err) {
         console.error('Failed to load update details:', err);
         setErrorMsg('Error loading this update. Please try again.');
