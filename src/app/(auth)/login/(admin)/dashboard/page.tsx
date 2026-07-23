@@ -1,9 +1,17 @@
 import Link from 'next/link';
 import { FileText, Newspaper, BookOpen, FileSpreadsheet, HelpCircle, Users } from 'lucide-react';
 
+// Hard 5-second timeout per query — prevents 504 on Vercel Hobby (10s limit)
+function withTimeout<T>(promise: Promise<T>, ms: number, fallback: T): Promise<T> {
+  return Promise.race([
+    promise,
+    new Promise<T>((resolve) => setTimeout(() => resolve(fallback), ms)),
+  ]);
+}
+
 async function safeQuery<T>(fn: () => Promise<T>, fallback: T): Promise<T> {
   try {
-    return await fn();
+    return await withTimeout(fn(), 5000, fallback);
   } catch (e) {
     console.error('[dashboard] query failed:', e);
     return fallback;

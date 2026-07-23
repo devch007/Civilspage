@@ -1,8 +1,7 @@
 'use client';
 
-import { useState, useTransition } from 'react';
+import { useState } from 'react';
 import { useSearchParams } from 'next/navigation';
-import { loginAction } from '@/actions/auth.actions';
 import { Lock, Loader2, Eye, EyeOff } from 'lucide-react';
 import Link from 'next/link';
 
@@ -12,30 +11,48 @@ export default function LoginForm() {
 
   const [showPassword, setShowPassword] = useState(false);
   const [error, setError] = useState('');
-  const [isPending, startTransition] = useTransition();
+  const [isPending, setIsPending] = useState(false);
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setError('');
+    setIsPending(true);
 
     const form = e.currentTarget;
-    const formData = new FormData(form);
-    formData.set('next', next);
+    const email = (form.elements.namedItem('email') as HTMLInputElement).value.trim();
+    const password = (form.elements.namedItem('password') as HTMLInputElement).value;
 
-    startTransition(async () => {
-      try {
-        const result = await loginAction({ error: '' }, formData);
-        if (result?.error) {
-          setError(result.error);
-        } else if (result?.redirectTo) {
-          // Full page reload so middleware sees the new session cookie
-          window.location.href = result.redirectTo;
-        }
-      } catch (err) {
-        const msg = err instanceof Error ? err.message : String(err);
-        setError(`Error: ${msg}`);
+    // 15-second client-side timeout so the user ALWAYS gets feedback
+    const controller = new AbortController();
+    const timeoutId = setTimeout(() => controller.abort(), 15000);
+
+    try {
+      const res = await fetch('/api/auth/login', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email, password, next }),
+        signal: controller.signal,
+      });
+
+      clearTimeout(timeoutId);
+      const data = await res.json();
+
+      if (!res.ok || data.error) {
+        setError(data.error ?? 'Login failed. Please try again.');
+      } else if (data.redirectTo) {
+        // Full page reload so middleware picks up the new session cookie
+        window.location.href = data.redirectTo;
       }
-    });
+    } catch (err: any) {
+      clearTimeout(timeoutId);
+      if (err?.name === 'AbortError') {
+        setError('Request timed out. The server is taking too long. Please try again.');
+      } else {
+        setError(`Unexpected error: ${err?.message ?? String(err)}`);
+      }
+    } finally {
+      setIsPending(false);
+    }
   };
 
   return (
@@ -60,14 +77,6 @@ export default function LoginForm() {
           </div>
         )}
 
-        {/* Pending */}
-        {isPending && !error && (
-          <div className="p-3 bg-indigo-500/10 border border-indigo-500/20 rounded-xl text-indigo-400 text-sm font-medium flex items-center gap-2">
-            <Loader2 className="w-4 h-4 animate-spin shrink-0" />
-            Verifying credentials…
-          </div>
-        )}
-
         {/* Form */}
         <form onSubmit={handleSubmit} className="space-y-4">
           <div className="space-y-1.5">
@@ -78,6 +87,7 @@ export default function LoginForm() {
               type="email"
               name="email"
               required
+              autoComplete="email"
               placeholder="educator@civilspage.com"
               className="w-full px-4 py-3 bg-slate-950/60 border border-slate-700 rounded-xl text-white text-sm placeholder-slate-500 focus:border-indigo-500 focus:outline-none focus:ring-1 focus:ring-indigo-500/40 transition-all"
             />
@@ -92,6 +102,7 @@ export default function LoginForm() {
                 type={showPassword ? 'text' : 'password'}
                 name="password"
                 required
+                autoComplete="current-password"
                 placeholder="••••••••••••"
                 className="w-full px-4 py-3 pr-12 bg-slate-950/60 border border-slate-700 rounded-xl text-white text-sm placeholder-slate-500 focus:border-indigo-500 focus:outline-none focus:ring-1 focus:ring-indigo-500/40 transition-all"
               />
