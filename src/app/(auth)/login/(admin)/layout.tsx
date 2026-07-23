@@ -1,4 +1,4 @@
-import { requireAdmin, getUserProfile } from '@/lib/auth';
+import { getUserProfile } from '@/lib/auth';
 import Link from 'next/link';
 
 // Force all /login/(admin)/* pages to be server-rendered at request time.
@@ -29,7 +29,7 @@ const navItems = [
 
 
 export default async function AdminLayout({ children }: { children: React.ReactNode }) {
-  await requireAdmin();
+
   // 4s timeout — never block the page if DB is slow
   const user = await withTimeout(getUserProfile(), 4000, null);
 
@@ -51,6 +51,7 @@ export default async function AdminLayout({ children }: { children: React.ReactN
             <Link
               key={href}
               href={href}
+              prefetch={true}
               className="flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium text-slate-600 hover:bg-indigo-50 hover:text-indigo-700 transition-all group"
             >
               <Icon className="w-4 h-4 group-hover:text-indigo-600" />

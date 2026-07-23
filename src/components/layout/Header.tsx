@@ -92,7 +92,7 @@ export default function Header() {
               </button>
               <div className="dropdown-menu">
                 <Link href={getHomeLink('#mock-test')} className="dropdown-item">Mock Tests</Link>
-                <Link href={getHomeLink('#pyq-hub')} className="dropdown-item">PYQ (Previous Year Questions)</Link>
+                <Link href="/pyqs" className="dropdown-item">PYQ (Previous Year Questions)</Link>
               </div>
             </div>
             
@@ -161,7 +161,7 @@ export default function Header() {
           </button>
           <div className="mobile-dropdown-menu">
             <Link href={getHomeLink('#mock-test')} className="mobile-dropdown-item" onClick={() => setMobileMenuOpen(false)}>Mock Tests</Link>
-            <Link href={getHomeLink('#pyq-hub')} className="mobile-dropdown-item" onClick={() => setMobileMenuOpen(false)}>PYQ (Previous Year Questions)</Link>
+            <Link href="/pyqs" className="mobile-dropdown-item" onClick={() => setMobileMenuOpen(false)}>PYQ (Previous Year Questions)</Link>
           </div>
         </div>
         

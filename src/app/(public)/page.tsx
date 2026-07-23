@@ -4,7 +4,6 @@ import Mentor from '@/components/sections/Mentor';
 import CseOverview from '@/components/sections/CseOverview';
 import FeaturedResources from '@/components/sections/FeaturedResources';
 import StudyMaterial from '@/components/sections/StudyMaterial';
-import PyqHub from '@/components/sections/PyqHub';
 import CurrentAffairs from '@/components/sections/CurrentAffairs';
 import MockQuiz from '@/components/sections/MockQuiz';
 import Testimonials from '@/components/sections/Testimonials';
@@ -27,8 +26,6 @@ export default function Home() {
       {/* Study Material Hub Section */}
       <StudyMaterial />
 
-      {/* Solved Previous Year Questions hub */}
-      <PyqHub />
 
       {/* Curated Daily/Weekly Current Affairs tabs */}
       <CurrentAffairs />
