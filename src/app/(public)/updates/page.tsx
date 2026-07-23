@@ -4,26 +4,28 @@ import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { motion } from 'framer-motion';
 import { Calendar, Tag, Sparkles, BookOpen, Loader2 } from 'lucide-react';
-import { getAffairs, type Affair } from '@/lib/supabase';
+
+interface Affair {
+  id: string;
+  date: string;
+  title: string;
+  category: string;
+  content?: string;
+  featuredImage?: string | null;
+}
 
 export default function CurrentUpdates() {
   const [updates, setUpdates] = useState<Affair[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
 
-  // Load all updates on mount
   useEffect(() => {
-    async function loadData() {
-      try {
-        const data = await getAffairs();
-        setUpdates(data);
-      } catch (err) {
-        console.error("Failed to load updates:", err);
-      } finally {
-        setLoading(false);
-      }
-    }
-    loadData();
+    fetch('/api/content/affairs')
+      .then((r) => r.json())
+      .then((data) => setUpdates(data))
+      .catch((err) => console.error('Failed to load updates:', err))
+      .finally(() => setLoading(false));
   }, []);
+
 
   return (
     <main style={{ minHeight: '100vh', background: 'var(--bg-deep)', padding: '140px 0 80px 0' }}>
@@ -64,10 +66,10 @@ export default function CurrentUpdates() {
                   >
                     <div>
                       {/* Optional Card Image Banner */}
-                      {item.imageUrl ? (
+                      {item.featuredImage ? (
                         <div className="relative w-full h-44 overflow-hidden rounded-t-xl bg-slate-100 border-b border-slate-100">
                           <img
-                            src={item.imageUrl}
+                            src={item.featuredImage}
                             alt={item.title}
                             className="object-cover w-full h-full group-hover:scale-105 transition-transform duration-500"
                             loading="lazy"
@@ -100,9 +102,9 @@ export default function CurrentUpdates() {
                           {item.title}
                         </h3>
 
-                        {/* Content: 16px, line-height 1.6 */}
+                        {/* Content excerpt */}
                         <p style={{ fontSize: '0.95rem', color: 'var(--text-secondary)', lineHeight: 1.6, margin: 0 }}>
-                          {item.summary}
+                          {item.content ? item.content.slice(0, 160).replace(/<[^>]*>/g, '') + '…' : 'Read more →'}
                         </p>
                       </div>
                     </div>

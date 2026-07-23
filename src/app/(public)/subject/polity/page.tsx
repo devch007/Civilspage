@@ -2,24 +2,15 @@
 
 import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
-import { 
-  BookOpen, 
-  HelpCircle, 
-  Scale, 
-  Shield, 
-  Award, 
-  FileText, 
-  ChevronRight, 
-  BookOpenCheck,
-  Bookmark,
-  Users,
-  Compass,
-  ArrowUpRight,
-  Sparkles,
-  Calendar,
-  Loader2
-} from 'lucide-react';
-import { getAffairs, type Affair } from '@/lib/supabase';
+import { BookOpen, HelpCircle, Scale, Shield, Award, FileText, ChevronRight, BookOpenCheck, Bookmark, Users, Compass, ArrowUpRight, Sparkles, Calendar, Loader2 } from 'lucide-react';
+
+interface Affair {
+  id: string;
+  date: string;
+  title: string;
+  category: string;
+  content?: string;
+}
 
 export default function PolitySubjectPage() {
   const [activeSection, setActiveSection] = useState('intro');
@@ -27,20 +18,11 @@ export default function PolitySubjectPage() {
   const [loadingUpdates, setLoadingUpdates] = useState<boolean>(true);
 
   useEffect(() => {
-    async function loadUpdates() {
-      try {
-        const list = await getAffairs();
-        const filtered = list.filter(item => 
-          item.category.toLowerCase().includes('polity')
-        );
-        setUpdates(filtered);
-      } catch (err) {
-        console.error("Error fetching polity updates:", err);
-      } finally {
-        setLoadingUpdates(false);
-      }
-    }
-    loadUpdates();
+    fetch('/api/content/affairs?category=polity')
+      .then((r) => r.json())
+      .then((data) => setUpdates(data))
+      .catch((err) => console.error('Error fetching polity updates:', err))
+      .finally(() => setLoadingUpdates(false));
   }, []);
 
   useEffect(() => {
@@ -650,7 +632,9 @@ export default function PolitySubjectPage() {
                           </span>
                         </div>
                         <h3 className="text-base font-bold text-slate-900 mb-2 leading-snug">{item.title}</h3>
-                        <p className="text-xs text-slate-500 leading-relaxed mb-4">{item.summary}</p>
+                        <p className="text-xs text-slate-500 leading-relaxed mb-4">
+                          {item.content ? item.content.slice(0, 160).replace(/<[^>]*>/g, '') + '…' : 'Read more →'}
+                        </p>
                       </div>
                       <Link href={`/updates/${item.id}`} className="text-xs font-bold text-indigo-600 hover:text-indigo-800 flex items-center gap-0.5 mt-auto">
                         <span>Read Analysis</span>
