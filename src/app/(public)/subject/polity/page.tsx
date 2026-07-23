@@ -42,7 +42,7 @@ export default function PolitySubjectPage() {
 
   useEffect(() => {
     const handleScroll = () => {
-      const sections = ['intro', 'topics', 'material', 'committees', 'bills', 'judgments', 'policies', 'updates'];
+      const sections = ['intro', 'topics', 'material', 'updates'];
       const scrollPosition = window.scrollY + 200;
 
       for (const section of sections) {
@@ -112,34 +112,6 @@ export default function PolitySubjectPage() {
               >
                 <BookOpen className="w-4 h-4" />
                 <span>Study Material</span>
-              </button>
-              <button 
-                className={`subject-nav-link ${activeSection === 'committees' ? 'active' : ''}`}
-                onClick={() => scrollToSection('committees')}
-              >
-                <Users className="w-4 h-4" />
-                <span>Commissions</span>
-              </button>
-              <button 
-                className={`subject-nav-link ${activeSection === 'bills' ? 'active' : ''}`}
-                onClick={() => scrollToSection('bills')}
-              >
-                <FileText className="w-4 h-4" />
-                <span>Bills & Acts</span>
-              </button>
-              <button 
-                className={`subject-nav-link ${activeSection === 'judgments' ? 'active' : ''}`}
-                onClick={() => scrollToSection('judgments')}
-              >
-                <Scale className="w-4 h-4" />
-                <span>Court Judgments</span>
-              </button>
-              <button 
-                className={`subject-nav-link ${activeSection === 'policies' ? 'active' : ''}`}
-                onClick={() => scrollToSection('policies')}
-              >
-                <Award className="w-4 h-4" />
-                <span>Policies</span>
               </button>
               <button 
                 className={`subject-nav-link ${activeSection === 'updates' ? 'active' : ''}`}

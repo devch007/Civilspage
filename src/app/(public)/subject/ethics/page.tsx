@@ -41,7 +41,7 @@ export default function EthicsSubjectPage() {
 
   useEffect(() => {
     const handleScroll = () => {
-      const sections = ['intro', 'topics', 'thinkers', 'casestudies', 'material', 'updates'];
+      const sections = ['intro', 'topics', 'updates'];
       const scrollPosition = window.scrollY + 200;
 
       for (const section of sections) {
@@ -106,27 +106,6 @@ export default function EthicsSubjectPage() {
               >
                 <Shield className="w-4 h-4" />
                 <span>Core Syllabus</span>
-              </button>
-              <button 
-                className={`subject-nav-link ${activeSection === 'thinkers' ? 'active' : ''}`}
-                onClick={() => scrollToSection('thinkers')}
-              >
-                <Users className="w-4 h-4" />
-                <span>Moral Thinkers</span>
-              </button>
-              <button 
-                className={`subject-nav-link ${activeSection === 'casestudies' ? 'active' : ''}`}
-                onClick={() => scrollToSection('casestudies')}
-              >
-                <Scale className="w-4 h-4" />
-                <span>Case Studies</span>
-              </button>
-              <button 
-                className={`subject-nav-link ${activeSection === 'material' ? 'active' : ''}`}
-                onClick={() => scrollToSection('material')}
-              >
-                <BookOpen className="w-4 h-4" />
-                <span>Study Notes</span>
               </button>
               <button 
                 className={`subject-nav-link ${activeSection === 'updates' ? 'active' : ''}`}
