@@ -12,9 +12,19 @@ interface Affair {
   content?: string;
 }
 
+interface SubjectPost {
+  id: string;
+  title: string;
+  content?: string;
+  image_url?: string;
+  pdf_url?: string;
+  created_at: string;
+}
+
 export default function PolitySubjectPage() {
   const [activeSection, setActiveSection] = useState('intro');
   const [updates, setUpdates] = useState<Affair[]>([]);
+  const [subjectPosts, setSubjectPosts] = useState<SubjectPost[]>([]);
   const [loadingUpdates, setLoadingUpdates] = useState<boolean>(true);
 
   useEffect(() => {
@@ -23,6 +33,11 @@ export default function PolitySubjectPage() {
       .then((data) => setUpdates(data))
       .catch((err) => console.error('Error fetching polity updates:', err))
       .finally(() => setLoadingUpdates(false));
+    // Load educator-written subject content
+    fetch('/api/content/subject?subject=polity')
+      .then(r => r.json())
+      .then(d => setSubjectPosts(Array.isArray(d) ? d : []))
+      .catch(() => {});
   }, []);
 
   useEffect(() => {
@@ -605,49 +620,85 @@ export default function PolitySubjectPage() {
               </div>
             </section>
 
-            {/* 7. LIVE UPDATES */}
-            <section id="updates" className="subject-section">
-              <h2 className="subject-section-title">
-                <Sparkles className="w-6 h-6 text-indigo-600 animate-pulse" />
-                Live Polity Updates & Analysis
-              </h2>
-              <p className="text-slate-500 mb-6">
-                Stay updated with the latest constitutional amendments, supreme court decisions, policy changes, and analysis posted by Dr. Rajiv Ranjan Singh.
-              </p>
-
-              {loadingUpdates ? (
-                <div className="flex flex-col items-center justify-center py-10 gap-2 bg-white rounded-xl border border-slate-100">
-                  <Loader2 className="w-6 h-6 text-indigo-600 animate-spin" />
-                  <span className="text-xs font-bold text-slate-400">Loading subject updates...</span>
-                </div>
-              ) : updates.length > 0 ? (
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                  {updates.map(item => (
-                    <div key={item.id} className="subject-card flex flex-col justify-between hover:border-indigo-200 transition-all bg-white p-5 rounded-xl border border-slate-100">
-                      <div>
-                        <div className="flex items-center gap-2 mb-2 text-[10px] font-bold text-slate-450">
-                          <span className="flex items-center gap-1">
-                            <Calendar className="w-3.5 h-3.5 text-indigo-500" />
-                            {item.date}
-                          </span>
+            {/* 7. EDUCATOR CONTENT + LIVE UPDATES */}
+            <section id="updates" className="subject-section space-y-8">
+              
+              {/* Educator-written content */}
+              {subjectPosts.length > 0 && (
+                <div>
+                  <h2 className="subject-section-title">
+                    <Sparkles className="w-6 h-6 text-amber-500" />
+                    Notes & Content by Dr. Rajiv Ranjan
+                  </h2>
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    {subjectPosts.map(post => (
+                      <div key={post.id} className="bg-white border border-amber-100 rounded-xl overflow-hidden shadow-sm">
+                        {post.image_url && (
+                          <img src={post.image_url} alt={post.title} className="w-full h-36 object-cover"/>
+                        )}
+                        <div className="p-5">
+                          <h3 className="text-base font-bold text-slate-900 mb-2 leading-snug">{post.title}</h3>
+                          {post.content && (
+                            <p className="text-xs text-slate-500 leading-relaxed mb-3">
+                              {post.content.slice(0, 200)}{post.content.length > 200 ? '…' : ''}
+                            </p>
+                          )}
+                          {post.pdf_url && (
+                            <a href={post.pdf_url} target="_blank" rel="noreferrer"
+                              className="inline-flex items-center gap-1.5 text-xs font-semibold text-indigo-600 hover:text-indigo-800">
+                              📄 Download PDF
+                            </a>
+                          )}
                         </div>
-                        <h3 className="text-base font-bold text-slate-900 mb-2 leading-snug">{item.title}</h3>
-                        <p className="text-xs text-slate-500 leading-relaxed mb-4">
-                          {item.content ? item.content.slice(0, 160).replace(/<[^>]*>/g, '') + '…' : 'Read more →'}
-                        </p>
                       </div>
-                      <Link href={`/updates/${item.id}`} className="text-xs font-bold text-indigo-600 hover:text-indigo-800 flex items-center gap-0.5 mt-auto">
-                        <span>Read Analysis</span>
-                        <ArrowUpRight className="w-3.5 h-3.5" />
-                      </Link>
-                    </div>
-                  ))}
-                </div>
-              ) : (
-                <div className="text-center py-10 bg-white rounded-xl border border-slate-100">
-                  <p className="text-sm text-slate-405 font-semibold">No recent Polity updates. Updates posted by the mentor will appear here.</p>
+                    ))}
+                  </div>
                 </div>
               )}
+
+              {/* Live current affairs updates */}
+              <div>
+                <h2 className="subject-section-title">
+                  <Sparkles className="w-6 h-6 text-indigo-600 animate-pulse" />
+                  Live Polity Updates &amp; Analysis
+                </h2>
+                <p className="text-slate-500 mb-6">
+                  Stay updated with the latest constitutional amendments, supreme court decisions, and policy changes.
+                </p>
+                {loadingUpdates ? (
+                  <div className="flex flex-col items-center justify-center py-10 gap-2 bg-white rounded-xl border border-slate-100">
+                    <Loader2 className="w-6 h-6 text-indigo-600 animate-spin" />
+                    <span className="text-xs font-bold text-slate-400">Loading subject updates...</span>
+                  </div>
+                ) : updates.length > 0 ? (
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    {updates.map(item => (
+                      <div key={item.id} className="subject-card flex flex-col justify-between hover:border-indigo-200 transition-all bg-white p-5 rounded-xl border border-slate-100">
+                        <div>
+                          <div className="flex items-center gap-2 mb-2 text-[10px] font-bold text-slate-450">
+                            <span className="flex items-center gap-1">
+                              <Calendar className="w-3.5 h-3.5 text-indigo-500" />
+                              {item.date}
+                            </span>
+                          </div>
+                          <h3 className="text-base font-bold text-slate-900 mb-2 leading-snug">{item.title}</h3>
+                          <p className="text-xs text-slate-500 leading-relaxed mb-4">
+                            {item.content ? item.content.slice(0, 160).replace(/<[^>]*>/g, '') + '…' : 'Read more →'}
+                          </p>
+                        </div>
+                        <Link href={`/updates/${item.id}`} className="text-xs font-bold text-indigo-600 hover:text-indigo-800 flex items-center gap-0.5 mt-auto">
+                          <span>Read Analysis</span>
+                          <ArrowUpRight className="w-3.5 h-3.5" />
+                        </Link>
+                      </div>
+                    ))}
+                  </div>
+                ) : (
+                  <div className="text-center py-10 bg-white rounded-xl border border-slate-100">
+                    <p className="text-sm text-slate-500 font-semibold">No recent Polity updates yet. Content posted by the mentor will appear here.</p>
+                  </div>
+                )}
+              </div>
             </section>
 
           </div>

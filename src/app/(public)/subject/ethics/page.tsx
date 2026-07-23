@@ -12,9 +12,19 @@ interface Affair {
   content?: string | null;
 }
 
+interface SubjectPost {
+  id: string;
+  title: string;
+  content?: string;
+  image_url?: string;
+  pdf_url?: string;
+  created_at: string;
+}
+
 export default function EthicsSubjectPage() {
   const [activeSection, setActiveSection] = useState('intro');
   const [updates, setUpdates] = useState<Affair[]>([]);
+  const [subjectPosts, setSubjectPosts] = useState<SubjectPost[]>([]);
   const [loadingUpdates, setLoadingUpdates] = useState<boolean>(true);
 
   useEffect(() => {
@@ -23,6 +33,10 @@ export default function EthicsSubjectPage() {
       .then((data) => setUpdates(Array.isArray(data) ? data : []))
       .catch((err) => console.error('Error fetching ethics updates:', err))
       .finally(() => setLoadingUpdates(false));
+    fetch('/api/content/subject?subject=ethics')
+      .then(r => r.json())
+      .then(d => setSubjectPosts(Array.isArray(d) ? d : []))
+      .catch(() => {});
   }, []);
 
   useEffect(() => {
