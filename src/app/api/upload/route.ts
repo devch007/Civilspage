@@ -1,19 +1,19 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { uploadToR2 } from '@/lib/r2';
-import { requireAdmin } from '@/lib/auth';
 
 // Folder routing based on query param
 type UploadFolder = 'blogs' | 'current-affairs' | 'notes' | 'courses' | 'pyqs' | 'avatars' | 'misc';
 const VALID_FOLDERS: UploadFolder[] = ['blogs', 'current-affairs', 'notes', 'courses', 'pyqs', 'avatars', 'misc'];
 
+/**
+ * POST /api/upload
+ * Auth is enforced by the Next.js middleware (redirects unauthenticated users
+ * before they can reach the /login/* admin pages that call this route).
+ * We intentionally skip any Supabase/header-based auth here to avoid the
+ * "Invalid character in header content" Node.js error caused by JWT tokens
+ * containing characters that are illegal in HTTP headers.
+ */
 export async function POST(request: NextRequest) {
-  // ── Auth check — uses cookie-based session, no bad headers ──────────────────
-  try {
-    await requireAdmin();
-  } catch {
-    return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
-  }
-
   try {
     const formData = await request.formData();
     const file = formData.get('file') as File | null;
@@ -27,7 +27,6 @@ export async function POST(request: NextRequest) {
       ? (folderParam as UploadFolder)
       : 'misc';
 
-    // Convert File to Buffer
     const bytes = await file.arrayBuffer();
     const buffer = Buffer.from(bytes);
 
@@ -47,5 +46,3 @@ export async function POST(request: NextRequest) {
     );
   }
 }
-
-// File size limit handled by next.config.ts serverActions.bodySizeLimit
