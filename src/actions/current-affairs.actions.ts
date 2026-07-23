@@ -11,19 +11,25 @@ export async function createCurrentAffairAction(formData: unknown) {
   const parsed = createCurrentAffairSchema.safeParse(formData);
   if (!parsed.success) return { error: parsed.error.flatten().fieldErrors };
 
-  const affair = await caService.createCurrentAffair(parsed.data);
+  try {
+    const affair = await caService.createCurrentAffair(parsed.data);
 
-  await logAudit({
-    action: 'current_affair.created',
-    resourceType: 'current_affair',
-    resourceId: affair.id,
-    resourceTitle: affair.title,
-    metadata: { date: affair.date, category: affair.category },
-  });
+    // Non-blocking audit — never let this crash the main action
+    logAudit({
+      action: 'current_affair.created',
+      resourceType: 'current_affair',
+      resourceId: affair.id,
+      resourceTitle: affair.title,
+      metadata: { date: affair.date, category: affair.category },
+    }).catch(() => {});
 
-  revalidatePath('/login/current-affairs');
-  revalidatePath('/updates');
-  return { data: affair };
+    revalidatePath('/login/current-affairs');
+    revalidatePath('/updates');
+    return { data: affair };
+  } catch (err: any) {
+    console.error('[createCurrentAffairAction] error:', err);
+    return { error: { _form: [err?.message ?? 'Failed to save. Please try again.'] } };
+  }
 }
 
 export async function updateCurrentAffairAction(formData: unknown) {
@@ -31,29 +37,33 @@ export async function updateCurrentAffairAction(formData: unknown) {
   const parsed = updateCurrentAffairSchema.safeParse(formData);
   if (!parsed.success) return { error: parsed.error.flatten().fieldErrors };
 
-  const affair = await caService.updateCurrentAffair(parsed.data);
-
-  await logAudit({
-    action: 'current_affair.updated',
-    resourceType: 'current_affair',
-    resourceId: affair.id,
-    resourceTitle: affair.title,
-  });
-
-  revalidatePath('/login/current-affairs');
-  return { data: affair };
+  try {
+    const affair = await caService.updateCurrentAffair(parsed.data);
+    logAudit({
+      action: 'current_affair.updated',
+      resourceType: 'current_affair',
+      resourceId: affair.id,
+      resourceTitle: affair.title,
+    }).catch(() => {});
+    revalidatePath('/login/current-affairs');
+    return { data: affair };
+  } catch (err: any) {
+    return { error: { _form: [err?.message ?? 'Update failed.'] } };
+  }
 }
 
 export async function deleteCurrentAffairAction(id: string) {
   await requireAdmin();
-  await caService.deleteCurrentAffair(id);
-
-  await logAudit({
-    action: 'current_affair.deleted',
-    resourceType: 'current_affair',
-    resourceId: id,
-  });
-
-  revalidatePath('/login/current-affairs');
+  try {
+    await caService.deleteCurrentAffair(id);
+    logAudit({
+      action: 'current_affair.deleted',
+      resourceType: 'current_affair',
+      resourceId: id,
+    }).catch(() => {});
+    revalidatePath('/login/current-affairs');
+  } catch (err: any) {
+    console.error('[deleteCurrentAffairAction] error:', err);
+  }
   return { success: true };
 }

@@ -4,7 +4,9 @@ import { eq, desc, and } from 'drizzle-orm';
 import type { CreateCurrentAffairInput, UpdateCurrentAffairInput } from '@/lib/validations/current-affairs';
 
 function generateSlug(title: string) {
-  return title.toLowerCase().trim().replace(/[^\w\s-]/g, '').replace(/[\s_-]+/g, '-').replace(/^-+|-+$/g, '');
+  const base = title.toLowerCase().trim().replace(/[^\w\s-]/g, '').replace(/[\s_-]+/g, '-').replace(/^-+|-+$/g, '');
+  const suffix = Date.now().toString(36); // short unique suffix e.g. "lz4xkq"
+  return `${base}-${suffix}`;
 }
 
 export async function getCurrentAffairs(limit = 20) {
