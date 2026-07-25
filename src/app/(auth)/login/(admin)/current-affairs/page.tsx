@@ -1,13 +1,16 @@
 'use client';
 
 import React, { useState, useEffect, useRef } from 'react';
-import { Plus, Trash2, Upload, Image, FileText, X, Loader2, CheckCircle } from 'lucide-react';
+import { Plus, Trash2, Upload, Image, FileText, X, Loader2, CheckCircle, Pencil } from 'lucide-react';
 
 interface Affair {
   id: string;
   date: string;
   title: string;
   category: string;
+  content?: string;
+  featuredImage?: string;
+  pdfUrl?: string;
   published: boolean;
 }
 
@@ -25,10 +28,20 @@ function FileUpload({
   onUploaded: (url: string) => void;
   current?: string;
 }) {
-  const [state, setState] = useState<'idle' | 'uploading' | 'done' | 'error'>('idle');
+  const [state, setState] = useState<'idle' | 'uploading' | 'done' | 'error'>(current ? 'done' : 'idle');
   const [preview, setPreview] = useState(current || '');
   const [errMsg, setErrMsg] = useState('');
   const inputRef = useRef<HTMLInputElement>(null);
+
+  useEffect(() => {
+    if (current) {
+      setPreview(current);
+      setState('done');
+    } else {
+      setPreview('');
+      setState('idle');
+    }
+  }, [current]);
 
   async function handleFile(file: File) {
     setState('uploading');
@@ -129,6 +142,7 @@ export default function CurrentAffairsPage() {
   const [loading, setLoading] = useState(true);
   const [submitting, setSubmitting] = useState(false);
   const [success, setSuccess] = useState(false);
+  const [editingId, setEditingId] = useState<string | null>(null);
 
   // Form state
   const [title, setTitle] = useState('');
@@ -147,20 +161,43 @@ export default function CurrentAffairsPage() {
       .finally(() => setLoading(false));
   }, [success]);
 
+  function resetForm() {
+    setTitle('');
+    setContent('');
+    setFeaturedImage('');
+    setPdfUrl('');
+    setPublished(false);
+    setDate(new Date().toISOString().split('T')[0]);
+    setCategory('General');
+    setEditingId(null);
+  }
+
+  function handleEdit(a: Affair) {
+    setEditingId(a.id);
+    setTitle(a.title);
+    setDate(a.date ? new Date(a.date).toISOString().split('T')[0] : new Date().toISOString().split('T')[0]);
+    setCategory(a.category || 'General');
+    setContent(a.content || '');
+    setFeaturedImage(a.featuredImage || '');
+    setPdfUrl(a.pdfUrl || '');
+    setPublished(a.published);
+  }
+
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
     if (!title.trim()) return;
     setSubmitting(true);
     try {
-      const res = await fetch('/api/admin/affairs', {
-        method: 'POST',
+      const url = editingId ? `/api/admin/affairs/${editingId}` : '/api/admin/affairs';
+      const method = editingId ? 'PUT' : 'POST';
+
+      const res = await fetch(url, {
+        method,
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ title, date, category, content, featuredImage: featuredImage || null, pdfUrl: pdfUrl || null, published }),
       });
       if (!res.ok) throw new Error((await res.json()).error || 'Failed');
-      // Reset form
-      setTitle(''); setContent(''); setFeaturedImage(''); setPdfUrl(''); setPublished(false);
-      setDate(new Date().toISOString().split('T')[0]);
+      resetForm();
       setSuccess((s) => !s); // trigger reload
     } catch (e: any) {
       alert(e.message);
@@ -172,6 +209,7 @@ export default function CurrentAffairsPage() {
   async function handleDelete(id: string) {
     if (!confirm('Delete this entry?')) return;
     await fetch(`/api/admin/affairs/${id}`, { method: 'DELETE' });
+    if (editingId === id) resetForm();
     setSuccess((s) => !s);
   }
 
@@ -205,20 +243,39 @@ export default function CurrentAffairsPage() {
                     </span>
                   </div>
                 </div>
-                <button
-                  onClick={() => handleDelete(a.id)}
-                  className="p-1.5 text-slate-300 hover:text-red-500 hover:bg-red-50 rounded-lg transition-all flex-shrink-0"
-                >
-                  <Trash2 className="w-4 h-4" />
-                </button>
+                <div className="flex items-center gap-1 flex-shrink-0">
+                  <button
+                    onClick={() => handleEdit(a)}
+                    className="p-1.5 text-slate-300 hover:text-indigo-600 hover:bg-indigo-50 rounded-lg transition-all"
+                    title="Edit"
+                  >
+                    <Pencil className="w-4 h-4" />
+                  </button>
+                  <button
+                    onClick={() => handleDelete(a.id)}
+                    className="p-1.5 text-slate-300 hover:text-red-500 hover:bg-red-50 rounded-lg transition-all"
+                    title="Delete"
+                  >
+                    <Trash2 className="w-4 h-4" />
+                  </button>
+                </div>
               </div>
             ))}
           </div>
         </div>
 
-        {/* ── Create Form ──────────────────────────────── */}
+        {/* ── Create / Edit Form ──────────────────────────────── */}
         <div className="bg-white border border-slate-100 rounded-xl p-5">
-          <h2 className="font-semibold text-slate-800 text-sm mb-4">Add New Update</h2>
+          <div className="flex items-center justify-between mb-4">
+            <h2 className="font-semibold text-slate-800 text-sm">
+              {editingId ? 'Edit Update' : 'Add New Update'}
+            </h2>
+            {editingId && (
+              <button onClick={resetForm} className="text-xs text-slate-400 hover:text-slate-600">
+                Cancel Edit
+              </button>
+            )}
+          </div>
           <form className="space-y-4" onSubmit={handleSubmit}>
             <div>
               <label className="block text-xs font-semibold text-slate-600 mb-1">Title *</label>
@@ -290,8 +347,8 @@ export default function CurrentAffairsPage() {
                 type="submit" disabled={submitting}
                 className="flex items-center gap-1.5 px-4 py-2 bg-indigo-600 text-white text-sm font-semibold rounded-xl hover:bg-indigo-700 transition-colors disabled:opacity-60"
               >
-                {submitting ? <Loader2 className="w-4 h-4 animate-spin" /> : <Plus className="w-4 h-4" />}
-                {submitting ? 'Saving...' : 'Publish'}
+                {submitting ? <Loader2 className="w-4 h-4 animate-spin" /> : (editingId ? <Pencil className="w-4 h-4" /> : <Plus className="w-4 h-4" />)}
+                {submitting ? (editingId ? 'Saving...' : 'Publishing...') : (editingId ? 'Update' : 'Publish')}
               </button>
             </div>
           </form>

@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useState, useEffect, useRef } from 'react';
-import { Plus, Trash2, Loader2, CheckCircle, X, FileText, Tag } from 'lucide-react';
+import { Plus, Trash2, Loader2, CheckCircle, X, FileText, Tag, Pencil } from 'lucide-react';
 
 interface PyqPdf {
   id: string;
@@ -16,12 +16,22 @@ interface PyqPdf {
 const SUBJECTS = ['Indian Polity', 'Indian Economy', 'History', 'Geography', 'Environment', 'Science & Technology', 'Ethics', 'General Studies', 'CSAT'];
 
 // ─── PDF Upload Widget ──────────────────────────────────────────────────────
-function PdfUpload({ onUploaded }: { onUploaded: (url: string) => void }) {
-  const [state, setState] = useState<'idle' | 'uploading' | 'done' | 'error'>('idle');
-  const [fileName, setFileName] = useState('');
+function PdfUpload({ onUploaded, currentUrl }: { onUploaded: (url: string) => void; currentUrl?: string }) {
+  const [state, setState] = useState<'idle' | 'uploading' | 'done' | 'error'>(currentUrl ? 'done' : 'idle');
+  const [fileName, setFileName] = useState(currentUrl ? currentUrl.split('/').pop() || '' : '');
   const [errMsg, setErrMsg] = useState('');
   const [progress, setProgress] = useState(0);
   const ref = useRef<HTMLInputElement>(null);
+
+  useEffect(() => {
+    if (currentUrl) {
+      setState('done');
+      setFileName(currentUrl.split('/').pop() || '');
+    } else {
+      setState('idle');
+      setFileName('');
+    }
+  }, [currentUrl]);
 
   async function upload(file: File) {
     setState('uploading'); setErrMsg(''); setProgress(10);
@@ -99,6 +109,7 @@ export default function PYQsPage() {
   const [loading, setLoading] = useState(true);
   const [submitting, setSubmitting] = useState(false);
   const [tick, setTick] = useState(0);
+  const [editingId, setEditingId] = useState<string | null>(null);
 
   // Form state
   const [title, setTitle] = useState('');
@@ -116,19 +127,40 @@ export default function PYQsPage() {
       .finally(() => setLoading(false));
   }, [tick]);
 
+  function resetForm() {
+    setTitle('');
+    setTagsInput('');
+    setPdfUrl('');
+    setSubject('General Studies');
+    setYear(new Date().getFullYear().toString());
+    setEditingId(null);
+  }
+
+  function handleEdit(p: PyqPdf) {
+    setEditingId(p.id);
+    setTitle(p.title);
+    setTagsInput(p.tags ? p.tags.join(', ') : '');
+    setPdfUrl(p.pdf_url);
+    setSubject(p.subject || 'General Studies');
+    setYear(p.year ? p.year.toString() : new Date().getFullYear().toString());
+  }
+
   async function submit(e: React.FormEvent) {
     e.preventDefault();
     if (!pdfUrl) return alert('Please upload a PDF first');
     setSubmitting(true);
     try {
       const tags = tagsInput.split(',').map(t => t.trim()).filter(Boolean);
-      const res = await fetch('/api/content/pyq-pdfs', {
-        method: 'POST',
+      const url = editingId ? `/api/content/pyq-pdfs/${editingId}` : '/api/content/pyq-pdfs';
+      const method = editingId ? 'PUT' : 'POST';
+
+      const res = await fetch(url, {
+        method,
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ title, tags, pdfUrl, subject, year }),
       });
       if (!res.ok) throw new Error((await res.json()).error);
-      setTitle(''); setTagsInput(''); setPdfUrl(''); setYear(new Date().getFullYear().toString());
+      resetForm();
       setTick(t => t + 1);
     } catch (e: any) { alert(e.message); }
     finally { setSubmitting(false); }
@@ -137,6 +169,7 @@ export default function PYQsPage() {
   async function del(id: string) {
     if (!confirm('Delete this PYQ PDF?')) return;
     await fetch(`/api/content/pyq-pdfs/${id}`, { method: 'DELETE' });
+    if (editingId === id) resetForm();
     setTick(t => t + 1);
   }
 
@@ -187,18 +220,33 @@ export default function PYQsPage() {
                     📄 View PDF
                   </a>
                 </div>
-                <button onClick={() => del(p.id)}
-                  className="p-1.5 text-slate-300 hover:text-red-500 hover:bg-red-50 rounded-lg flex-shrink-0">
-                  <Trash2 className="w-4 h-4" />
-                </button>
+                <div className="flex items-center gap-1 flex-shrink-0">
+                  <button onClick={() => handleEdit(p)}
+                    className="p-1.5 text-slate-300 hover:text-indigo-600 hover:bg-indigo-50 rounded-lg transition-all" title="Edit">
+                    <Pencil className="w-4 h-4" />
+                  </button>
+                  <button onClick={() => del(p.id)}
+                    className="p-1.5 text-slate-300 hover:text-red-500 hover:bg-red-50 rounded-lg transition-all" title="Delete">
+                    <Trash2 className="w-4 h-4" />
+                  </button>
+                </div>
               </div>
             ))}
           </div>
         </div>
 
-        {/* ── Upload Form ───────────────────────────── */}
+        {/* ── Upload / Edit Form ───────────────────────────── */}
         <div className="bg-white border border-slate-100 rounded-xl p-5">
-          <h2 className="font-semibold text-slate-800 text-sm mb-4">Upload PYQ PDF</h2>
+          <div className="flex items-center justify-between mb-4">
+            <h2 className="font-semibold text-slate-800 text-sm">
+              {editingId ? 'Edit PYQ PDF' : 'Upload PYQ PDF'}
+            </h2>
+            {editingId && (
+              <button onClick={resetForm} className="text-xs text-slate-400 hover:text-slate-600">
+                Cancel Edit
+              </button>
+            )}
+          </div>
           <form className="space-y-4" onSubmit={submit}>
             <div>
               <label className="block text-xs font-semibold text-slate-600 mb-1">Title / Heading *</label>
@@ -209,7 +257,7 @@ export default function PYQsPage() {
               />
             </div>
 
-            <PdfUpload onUploaded={setPdfUrl} />
+            <PdfUpload onUploaded={setPdfUrl} currentUrl={pdfUrl} />
 
             <div>
               <label className="block text-xs font-semibold text-slate-600 mb-1">
@@ -253,8 +301,8 @@ export default function PYQsPage() {
               type="submit" disabled={submitting || !pdfUrl}
               className="w-full flex items-center justify-center gap-2 py-2.5 bg-indigo-600 text-white text-sm font-semibold rounded-xl hover:bg-indigo-700 disabled:opacity-50 transition-colors"
             >
-              {submitting ? <Loader2 className="w-4 h-4 animate-spin" /> : <Plus className="w-4 h-4" />}
-              {submitting ? 'Uploading...' : 'Add PYQ PDF'}
+              {submitting ? <Loader2 className="w-4 h-4 animate-spin" /> : (editingId ? <Pencil className="w-4 h-4" /> : <Plus className="w-4 h-4" />)}
+              {submitting ? (editingId ? 'Updating...' : 'Uploading...') : (editingId ? 'Update PYQ PDF' : 'Add PYQ PDF')}
             </button>
           </form>
         </div>

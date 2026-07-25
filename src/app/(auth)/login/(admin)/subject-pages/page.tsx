@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useState, useEffect, useRef } from 'react';
-import { Plus, Trash2, Loader2, CheckCircle, X, Image, FileText } from 'lucide-react';
+import { Plus, Trash2, Loader2, CheckCircle, X, Image, FileText, Pencil } from 'lucide-react';
 
 const SUBJECTS = [
   { value: 'polity', label: 'Polity & Governance' },
@@ -21,15 +21,26 @@ interface SubjectPost {
 
 // ─── File Upload Widget ─────────────────────────────────────────────────────
 function FileUpload({
-  label, accept, folder, onUploaded,
+  label, accept, folder, onUploaded, current,
 }: {
   label: string; accept: string; folder: string;
   onUploaded: (url: string) => void;
+  current?: string;
 }) {
-  const [state, setState] = useState<'idle'|'uploading'|'done'|'error'>('idle');
-  const [preview, setPreview] = useState('');
+  const [state, setState] = useState<'idle'|'uploading'|'done'|'error'>(current ? 'done' : 'idle');
+  const [preview, setPreview] = useState(current || '');
   const [errMsg, setErrMsg] = useState('');
   const ref = useRef<HTMLInputElement>(null);
+
+  useEffect(() => {
+    if (current) {
+      setPreview(current);
+      setState('done');
+    } else {
+      setPreview('');
+      setState('idle');
+    }
+  }, [current]);
 
   async function upload(file: File) {
     setState('uploading'); setErrMsg('');
@@ -99,6 +110,7 @@ export default function SubjectPagesAdmin() {
   const [loading, setLoading] = useState(false);
   const [submitting, setSubmitting] = useState(false);
   const [tick, setTick] = useState(0);
+  const [editingId, setEditingId] = useState<string | null>(null);
 
   // Form
   const [title, setTitle] = useState('');
@@ -116,18 +128,39 @@ export default function SubjectPagesAdmin() {
       .finally(() => setLoading(false));
   }, [activeSubject, tick]);
 
+  function resetForm() {
+    setTitle('');
+    setContent('');
+    setImageUrl('');
+    setPdfUrl('');
+    setPublished(true);
+    setEditingId(null);
+  }
+
+  function handleEdit(p: SubjectPost) {
+    setEditingId(p.id);
+    setTitle(p.title);
+    setContent(p.content || '');
+    setImageUrl(p.image_url || '');
+    setPdfUrl(p.pdf_url || '');
+    setPublished(p.published);
+  }
+
   async function submit(e: React.FormEvent) {
     e.preventDefault();
     if (!title.trim()) return;
     setSubmitting(true);
     try {
-      const res = await fetch('/api/content/subject', {
-        method: 'POST',
+      const url = editingId ? `/api/content/subject/${editingId}` : '/api/content/subject';
+      const method = editingId ? 'PUT' : 'POST';
+
+      const res = await fetch(url, {
+        method,
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ subject: activeSubject, title, content, imageUrl, pdfUrl, published }),
       });
       if (!res.ok) throw new Error((await res.json()).error);
-      setTitle(''); setContent(''); setImageUrl(''); setPdfUrl(''); setPublished(true);
+      resetForm();
       setTick(t => t + 1);
     } catch (e: any) { alert(e.message); }
     finally { setSubmitting(false); }
@@ -136,6 +169,7 @@ export default function SubjectPagesAdmin() {
   async function del(id: string) {
     if (!confirm('Delete?')) return;
     await fetch(`/api/content/subject/${id}`, { method: 'DELETE' });
+    if (editingId === id) resetForm();
     setTick(t => t + 1);
   }
 
@@ -153,7 +187,10 @@ export default function SubjectPagesAdmin() {
         {SUBJECTS.map(s => (
           <button
             key={s.value}
-            onClick={() => setActiveSubject(s.value)}
+            onClick={() => {
+              setActiveSubject(s.value);
+              resetForm();
+            }}
             className={`px-3 py-1.5 text-xs font-semibold rounded-full transition-all ${
               activeSubject === s.value
                 ? 'bg-indigo-600 text-white'
@@ -198,20 +235,32 @@ export default function SubjectPagesAdmin() {
                       <span className="text-[10px] text-slate-300">{new Date(p.created_at).toLocaleDateString('en-IN')}</span>
                     </div>
                   </div>
-                  <button onClick={() => del(p.id)} className="p-1.5 text-slate-300 hover:text-red-500 hover:bg-red-50 rounded-lg flex-shrink-0">
-                    <Trash2 className="w-4 h-4"/>
-                  </button>
+                  <div className="flex items-center gap-1 flex-shrink-0">
+                    <button onClick={() => handleEdit(p)} className="p-1.5 text-slate-300 hover:text-indigo-600 hover:bg-indigo-50 rounded-lg transition-all" title="Edit">
+                      <Pencil className="w-4 h-4"/>
+                    </button>
+                    <button onClick={() => del(p.id)} className="p-1.5 text-slate-300 hover:text-red-500 hover:bg-red-50 rounded-lg transition-all" title="Delete">
+                      <Trash2 className="w-4 h-4"/>
+                    </button>
+                  </div>
                 </div>
               </div>
             ))}
           </div>
         </div>
 
-        {/* ── Add Form ─────────────────────────────────── */}
+        {/* ── Add / Edit Form ─────────────────────────────────── */}
         <div className="bg-white border border-slate-100 rounded-xl p-5">
-          <h2 className="font-semibold text-slate-800 text-sm mb-4">
-            Add Content → <span className="text-indigo-600">{subjectLabel}</span>
-          </h2>
+          <div className="flex items-center justify-between mb-4">
+            <h2 className="font-semibold text-slate-800 text-sm">
+              {editingId ? 'Edit Content' : 'Add Content'} → <span className="text-indigo-600">{subjectLabel}</span>
+            </h2>
+            {editingId && (
+              <button onClick={resetForm} className="text-xs text-slate-400 hover:text-slate-600">
+                Cancel Edit
+              </button>
+            )}
+          </div>
           <form className="space-y-4" onSubmit={submit}>
             <div>
               <label className="block text-xs font-semibold text-slate-600 mb-1">Title / Headline *</label>
@@ -236,6 +285,7 @@ export default function SubjectPagesAdmin() {
               label="Featured Image (→ Cloudflare R2)"
               accept="image/*"
               folder="misc"
+              current={imageUrl}
               onUploaded={setImageUrl}
             />
 
@@ -243,6 +293,7 @@ export default function SubjectPagesAdmin() {
               label="PDF / Study Material (→ Cloudflare R2)"
               accept="application/pdf"
               folder="notes"
+              current={pdfUrl}
               onUploaded={setPdfUrl}
             />
 
@@ -255,8 +306,8 @@ export default function SubjectPagesAdmin() {
                 type="submit" disabled={submitting}
                 className="flex items-center gap-1.5 px-4 py-2 bg-indigo-600 text-white text-sm font-semibold rounded-xl hover:bg-indigo-700 disabled:opacity-60 transition-colors"
               >
-                {submitting ? <Loader2 className="w-4 h-4 animate-spin"/> : <Plus className="w-4 h-4"/>}
-                {submitting ? 'Saving...' : 'Post'}
+                {submitting ? <Loader2 className="w-4 h-4 animate-spin"/> : (editingId ? <Pencil className="w-4 h-4"/> : <Plus className="w-4 h-4"/>)}
+                {submitting ? (editingId ? 'Saving...' : 'Posting...') : (editingId ? 'Update' : 'Post')}
               </button>
             </div>
           </form>
