@@ -6,8 +6,15 @@ const SUBJECTS = ['Indian Polity', 'Indian Economy', 'History & Culture', 'Geogr
 
 export default async function QuizzesPage() {
   async function safeQuery<T>(fn: () => Promise<T>, fb: T): Promise<T> {
-    try { return await Promise.race([fn(), new Promise<T>((r) => setTimeout(() => r(fb), 5000))]); }
-    catch { return fb; }
+    try {
+      return await Promise.race([
+        fn(),
+        new Promise<T>((_, reject) => setTimeout(() => reject(new Error('Query timeout after 9s')), 9000))
+      ]);
+    } catch (err) {
+      console.error('[safeQuery error in /login/quizzes]:', err);
+      return fb;
+    }
   }
   const quizzes = await safeQuery(getQuizzes, []);
   const active = quizzes.filter(q => q.active).length;

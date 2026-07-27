@@ -5,8 +5,15 @@ import { format } from 'date-fns';
 
 export default async function CommentsPage() {
   async function safeQuery<T>(fn: () => Promise<T>, fb: T): Promise<T> {
-    try { return await Promise.race([fn(), new Promise<T>((r) => setTimeout(() => r(fb), 5000))]); }
-    catch { return fb; }
+    try {
+      return await Promise.race([
+        fn(),
+        new Promise<T>((_, reject) => setTimeout(() => reject(new Error('Query timeout after 9s')), 9000))
+      ]);
+    } catch (err) {
+      console.error('[safeQuery error in /login/comments]:', err);
+      return fb;
+    }
   }
   const all = await safeQuery(getComments, []);
   const pending = all.filter(c => !c.approved);

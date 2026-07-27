@@ -3,8 +3,15 @@ import { format } from 'date-fns';
 
 export default async function UsersPage() {
   async function safeQuery<T>(fn: () => Promise<T>, fb: T): Promise<T> {
-    try { return await Promise.race([fn(), new Promise<T>((r) => setTimeout(() => r(fb), 5000))]); }
-    catch { return fb; }
+    try {
+      return await Promise.race([
+        fn(),
+        new Promise<T>((_, reject) => setTimeout(() => reject(new Error('Query timeout after 9s')), 9000))
+      ]);
+    } catch (err) {
+      console.error('[safeQuery error in /login/users]:', err);
+      return fb;
+    }
   }
   const users = await safeQuery(getAllUsers, []);
 

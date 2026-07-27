@@ -14,7 +14,7 @@ const globalForDb = global as unknown as { db: ReturnType<typeof drizzle> | unde
 function createDb() {
   const client = postgres(DATABASE_URL, {
     prepare: false,      // Required for Supabase transaction-mode pooler
-    max: 1,             // Serverless: one connection per function invocation
+    max: 5,             // Allow up to 5 parallel connections for dashboard queries
     idle_timeout: 20,   // Release idle connections quickly
     connect_timeout: 10, // Fail fast if DB unreachable
   });
