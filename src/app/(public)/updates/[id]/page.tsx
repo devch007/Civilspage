@@ -5,7 +5,7 @@ import Link from 'next/link';
 import { motion } from 'framer-motion';
 import {
   Calendar, Tag, BookOpen, ArrowLeft, Loader2,
-  Bookmark, MessageSquare, Sparkles
+  Bookmark, MessageSquare
 } from 'lucide-react';
 
 interface Affair {
@@ -133,26 +133,6 @@ export default function UpdateDetail({ params }: PageProps) {
                 </a>
               )}
 
-              {/* Quote */}
-              <div className="p-4 bg-slate-50 border-l-4 border-indigo-600 rounded-r-xl my-6">
-                <blockquote className="text-slate-700 italic text-sm font-medium">
-                  &ldquo;A successful civil services candidate bridges theoretical foundation models from textbooks with live, high-yield announcements and judicial updates.&rdquo;
-                </blockquote>
-                <cite className="block text-[10px] font-bold text-slate-400 uppercase mt-2 tracking-wider">
-                  — Rajiv Ranjan Singh, Lead Academic Advisor
-                </cite>
-              </div>
-
-              {/* Tip box */}
-              <div className="p-5 border border-amber-200/60 bg-amber-50/40 rounded-xl space-y-3 text-sm">
-                <div className="flex items-center gap-1.5">
-                  <Sparkles className="w-4 h-4 text-amber-600 animate-pulse" />
-                  <span className="font-bold text-slate-800 uppercase tracking-wider text-xs">Mentor Answer Writing Tip</span>
-                </div>
-                <p className="text-xs text-slate-600 leading-relaxed">
-                  When answering questions in the CSE Mains related to this development, cite standard constitutional committees and explain checks-and-balances frameworks. Add this brief as a contemporary citation to secure 1.5 to 2 extra marks per answer sheet!
-                </p>
-              </div>
 
               {/* Author footer */}
               <div className="border-t border-slate-100 pt-8 mt-10 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-6 bg-slate-50/50 -mx-6 -mb-6 md:-mx-10 md:-mb-10 p-6 md:p-8">
