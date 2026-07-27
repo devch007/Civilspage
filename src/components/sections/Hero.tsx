@@ -67,9 +67,9 @@ export default function Hero() {
 
             {/* Main Headline */}
             <h1 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold text-slate-900 tracking-tight leading-[1.12]">
-              Your Trusted Partner for <br />
+              Your Trusted Partner <br />
               <span className="bg-gradient-to-r from-indigo-600 via-indigo-700 to-emerald-600 bg-clip-text text-transparent">
-                UPSC CSE Success
+                for UPSC CSE Success
               </span>
             </h1>
 
