@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
-import { BookOpen, HelpCircle, Scale, Shield, Award, FileText, ChevronRight, Bookmark, Users, Compass, ArrowUpRight, Sparkles, Calendar, Loader2, BrainCircuit, MessageSquare } from 'lucide-react';
+import { BookOpen, Shield, Compass, ArrowUpRight, Sparkles, Calendar, Loader2 } from 'lucide-react';
 
 interface Affair {
   id: string;
@@ -197,103 +197,7 @@ export default function EthicsSubjectPage() {
               </div>
             </section>
 
-            {/* 3. MORAL THINKERS & PHILOSOPHERS */}
-            <section id="thinkers" className="subject-section">
-              <h2 className="subject-section-title">
-                <Users className="w-6 h-6 text-indigo-600" />
-                Contributions of Moral Thinkers & Philosophers
-              </h2>
-              <p className="text-slate-500 mb-6">
-                Key concepts of eminent philosophers from India and the world to weave into theoretical responses.
-              </p>
 
-              <div className="space-y-4">
-                <div className="p-5 bg-white border border-slate-100 rounded-xl hover:border-slate-200 transition-all shadow-sm">
-                  <div className="flex justify-between items-center mb-2">
-                    <span className="text-xs font-extrabold text-amber-600 uppercase bg-amber-50 px-2 py-0.5 rounded text-slate-800">Deontology</span>
-                    <span className="text-xs text-slate-405 font-bold">Western Philosophy</span>
-                  </div>
-                  <h3 className="text-base font-bold text-slate-900 mb-1">Immanuel Kant: Categorical Imperative</h3>
-                  <p className="text-xs text-slate-500 mb-3">Core Idea: Duty-based ethics (Deontology) over consequentialism.</p>
-                  <p className="text-xs text-slate-600 leading-relaxed bg-slate-50 p-3 rounded italic border-l-4 border-amber-500">
-                    &ldquo;Act only according to that maxim whereby you can at the same time will that it should become a universal law.&rdquo;
-                  </p>
-                  <p className="text-xs text-slate-500 mt-2">
-                    <strong>UPSC Application:</strong> Use this when answering questions regarding absolute truths, honesty, and anti-corruption frameworks.
-                  </p>
-                </div>
-
-                <div className="p-5 bg-white border border-slate-100 rounded-xl hover:border-slate-200 transition-all shadow-sm">
-                  <div className="flex justify-between items-center mb-2">
-                    <span className="text-xs font-extrabold text-indigo-600 uppercase bg-indigo-50 px-2 py-0.5 rounded">Utilitarianism</span>
-                    <span className="text-xs text-slate-405 font-bold">Western Philosophy</span>
-                  </div>
-                  <h3 className="text-base font-bold text-slate-900 mb-1">Jeremy Bentham & John Stuart Mill</h3>
-                  <p className="text-xs text-slate-500 mb-3">Core Idea: Actions are right in proportion as they tend to promote happiness (Consequentialism).</p>
-                  <p className="text-xs text-slate-600 leading-relaxed bg-slate-50 p-3 rounded italic border-l-4 border-indigo-600">
-                    &ldquo;The greatest happiness of the greatest number is the foundation of morals and legislation.&rdquo;
-                  </p>
-                  <p className="text-xs text-slate-500 mt-2">
-                    <strong>UPSC Application:</strong> Relevant in policy design, infrastructure rehabilitation versus environmental displacement dilemmas, and welfare distribution analysis.
-                  </p>
-                </div>
-
-                <div className="p-5 bg-white border border-slate-100 rounded-xl hover:border-slate-200 transition-all shadow-sm">
-                  <div className="flex justify-between items-center mb-2">
-                    <span className="text-xs font-extrabold text-emerald-600 uppercase bg-emerald-50 px-2 py-0.5 rounded text-slate-800">Sarvodaya & Trusteeship</span>
-                    <span className="text-xs text-slate-405 font-bold">Indian Philosophy</span>
-                  </div>
-                  <h3 className="text-base font-bold text-slate-900 mb-1">Mahatma Gandhi: The Seven Social Sins</h3>
-                  <p className="text-xs text-slate-500 mb-3">Core Idea: Means and Ends are inseparable. Politics without principles and commerce without morality lead to societal decay.</p>
-                  <p className="text-xs text-slate-600 leading-relaxed bg-slate-50 p-3 rounded italic border-l-4 border-emerald-500">
-                    &ldquo;Recall the face of the poorest and the weakest man whom you may have seen, and ask yourself if the step you contemplate is going to be of any use to him.&rdquo;
-                  </p>
-                  <p className="text-xs text-slate-500 mt-2">
-                    <strong>UPSC Application:</strong> Gandhi's Talisman is the ultimate moral compass tool for solving conflict administrative case studies.
-                  </p>
-                </div>
-              </div>
-            </section>
-
-            {/* 4. CASE STUDIES ANALYSIS FRAMEWORK */}
-            <section id="casestudies" className="subject-section">
-              <h2 className="subject-section-title">
-                <Scale className="w-6 h-6 text-indigo-600" />
-                Case Studies Strategy & Framework
-              </h2>
-              <p className="text-slate-500 mb-6">
-                Case studies constitute 50% of the GS IV Marks. Learn the standard structured answer writing framework designed to handle any administrative dilemma.
-              </p>
-
-              <div className="p-6 bg-slate-50 border border-slate-100 rounded-xl space-y-4 text-slate-650">
-                <div className="flex items-center gap-2">
-                  <BrainCircuit className="w-5 h-5 text-indigo-600" />
-                  <h3 className="text-base font-bold text-slate-900 m-0">Standard 5-Step Resolution Matrix</h3>
-                </div>
-                
-                <div className="space-y-3 text-xs">
-                  <div className="p-3 bg-white rounded border border-slate-200/50">
-                    <strong className="block text-slate-800 text-sm mb-1">Step 1: Stakeholder Mapping</strong>
-                    Identify all affected parties. Distinguish between primary (e.g. citizens, contractors) and secondary (e.g. government, media) stakeholders.
-                  </div>
-                  
-                  <div className="p-3 bg-white rounded border border-slate-200/50">
-                    <strong className="block text-slate-800 text-sm mb-1">Step 2: Identifying Ethical Dilemmas</strong>
-                    Highlight the core value conflicts involved (e.g. Professional Duty vs. Personal Compassion, Efficiency vs. Procedural Correctness, Public Welfare vs. Environmental Conservation).
-                  </div>
-
-                  <div className="p-3 bg-white rounded border border-slate-200/50">
-                    <strong className="block text-slate-800 text-sm mb-1">Step 3: Options Evaluation</strong>
-                    Enumerate 3-4 possible paths of action. Detail both the short-term and long-term pros and cons for each option, including ethical and legal consequences.
-                  </div>
-
-                  <div className="p-3 bg-white rounded border border-slate-200/50">
-                    <strong className="block text-slate-800 text-sm mb-1">Step 4: Formulate the Course of Action</strong>
-                    Present your recommended path. Ensure it is legally sound, economically feasible, administratively practical, and ethically justified.
-                  </div>
-                </div>
-              </div>
-            </section>
 
             {/* 5. STUDY NOTES */}
             <section id="material" className="subject-section">

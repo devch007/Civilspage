@@ -75,7 +75,7 @@ export default function Hero() {
 
             {/* Subtitle */}
             <p className="text-base sm:text-lg text-slate-600 max-w-xl leading-relaxed">
-              Accelerate your IAS journey with top-tier syllabus notes, 10+ years filterable previous year questions, daily high-yield current affairs, and comprehensive interactive mock tests.
+              Accelerate your IAS journey with top-tier syllabus notes by Rajiv Ranjan Singh, 10+ years filterable previous year questions, daily high-yield current affairs, and comprehensive interactive mock tests.
             </p>
 
             {/* CTA Buttons */}
@@ -123,7 +123,7 @@ export default function Hero() {
                   <span className="text-xs font-extrabold text-slate-800 ml-1">4.9 / 5.0</span>
                 </div>
                 <p className="text-[11px] text-slate-500 font-medium mt-0.5">
-                  Trusted by <strong className="text-slate-800 font-semibold">25,000+ IAS Aspirants</strong> across India
+                  Trusted by <strong className="text-slate-800 font-semibold">2,500+ IAS Aspirants</strong> across India
                 </p>
               </div>
             </div>
