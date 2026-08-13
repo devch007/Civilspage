@@ -67,15 +67,15 @@ export default function Hero() {
 
             {/* Main Headline */}
             <h1 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold text-slate-900 tracking-tight leading-[1.12]">
-              Your Trusted Partner <br className="hidden sm:inline" />
-              <span className="bg-gradient-to-r from-indigo-600 via-indigo-700 to-emerald-600 bg-clip-text text-transparent">
-                for UPSC CSE Success
+              Dedicated Resource Centre <br className="hidden sm:inline" />
+              for <span className="bg-gradient-to-r from-indigo-600 via-indigo-700 to-emerald-600 bg-clip-text text-transparent">
+                Polity, Governance & Ethics
               </span>
             </h1>
 
             {/* Subtitle */}
             <p className="text-base sm:text-lg text-slate-600 max-w-xl leading-relaxed">
-              Accelerate your IAS journey with top-tier syllabus notes by Rajiv Ranjan Singh, 10+ years filterable previous year questions, daily high-yield current affairs, and comprehensive interactive mock tests.
+              Civils PAGE endeavors to provide a planned and systematic consultancy, guidance, teaching and an organized data input to the prospective civil servants under the mentorship of Rajiv Ranjan Singh & panel of experts.
             </p>
 
             {/* CTA Buttons */}

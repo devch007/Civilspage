@@ -1,9 +1,10 @@
 'use client';
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, Suspense } from 'react';
 import Link from 'next/link';
 import { motion } from 'framer-motion';
 import { Calendar, Tag, Sparkles, BookOpen, Loader2 } from 'lucide-react';
+import { useSearchParams } from 'next/navigation';
 
 interface Affair {
   id: string;
@@ -14,9 +15,12 @@ interface Affair {
   featuredImage?: string | null;
 }
 
-export default function CurrentUpdates() {
+function UpdatesContent() {
   const [updates, setUpdates] = useState<Affair[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
+  
+  const searchParams = useSearchParams();
+  const selectedCategory = searchParams.get('category');
 
   useEffect(() => {
     fetch('/api/content/affairs')
@@ -26,6 +30,9 @@ export default function CurrentUpdates() {
       .finally(() => setLoading(false));
   }, []);
 
+  const filteredUpdates = selectedCategory
+    ? updates.filter(item => item.category.toLowerCase().includes(selectedCategory.toLowerCase()))
+    : updates;
 
   return (
     <main style={{ minHeight: '100vh', background: 'var(--bg-deep)', padding: '140px 0 80px 0' }}>
@@ -45,6 +52,20 @@ export default function CurrentUpdates() {
           </p>
         </div>
 
+        {selectedCategory && (
+          <div className="flex items-center justify-between bg-indigo-50/50 border border-indigo-100 rounded-xl px-5 py-3 mb-8 max-w-xl mx-auto">
+            <span className="text-sm font-semibold text-slate-700">
+              Showing updates in category: <span className="text-indigo-700 font-bold uppercase">{selectedCategory}</span>
+            </span>
+            <Link 
+              href="/updates"
+              className="text-xs font-bold text-indigo-600 hover:text-indigo-800 underline transition-all"
+            >
+              Clear Filter
+            </Link>
+          </div>
+        )}
+
         {/* Responsive Grid of Cards */}
         {loading ? (
           <div className="flex flex-col items-center justify-center py-20 gap-3">
@@ -53,8 +74,8 @@ export default function CurrentUpdates() {
           </div>
         ) : (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {updates.length > 0 ? (
-              updates.map((item, index) => (
+            {filteredUpdates.length > 0 ? (
+              filteredUpdates.map((item, index) => (
                 <Link href={`/updates/${item.id}`} key={item.id} className="block cursor-pointer group">
                   <motion.div 
                     className="glass-card flex flex-col justify-between overflow-hidden p-0 text-left h-full transition-all duration-300"
@@ -139,5 +160,18 @@ export default function CurrentUpdates() {
 
       </div>
     </main>
+  );
+}
+
+export default function CurrentUpdates() {
+  return (
+    <Suspense fallback={
+      <div className="flex flex-col items-center justify-center py-20 gap-3 min-h-screen">
+        <Loader2 className="w-8 h-8 text-indigo-600 animate-spin" />
+        <span className="text-sm font-bold text-slate-400">Loading updates...</span>
+      </div>
+    }>
+      <UpdatesContent />
+    </Suspense>
   );
 }
