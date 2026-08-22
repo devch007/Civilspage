@@ -2,7 +2,7 @@
 
 import React, { useState } from 'react';
 import Link from 'next/link';
-import { Mail, Phone, MapPin, Landmark, ExternalLink, ShieldCheck, CheckCircle } from 'lucide-react';
+import { Mail, Phone, MapPin, ExternalLink, ShieldCheck, CheckCircle, Shield, Star } from 'lucide-react';
 
 export default function Footer() {
   const [email, setEmail] = useState('');
@@ -40,12 +40,9 @@ export default function Footer() {
           
           {/* Col 1: Portal Overview */}
           <div className="lg:col-span-4 space-y-4">
-            <Link href="/" className="flex items-center gap-3">
-              <div className="w-10 h-10 rounded bg-[#0b3b60] border border-amber-500/40 text-amber-400 flex items-center justify-center font-bold">
-                <Landmark className="w-5 h-5 text-amber-300" />
-              </div>
+            <Link href="/" className="flex items-center group">
               <div>
-                <h3 className="text-base font-black tracking-wider text-white uppercase font-serif">CIVILSPAGE</h3>
+                <h3 className="text-base font-black tracking-wider text-white font-serif">Civils PAGE</h3>
                 <p className="text-[10px] text-amber-300/90 font-medium">UPSC CSE Contemporary Resource Portal</p>
               </div>
             </Link>

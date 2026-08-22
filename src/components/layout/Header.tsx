@@ -19,7 +19,9 @@ import {
   ShieldAlert,
   Gavel,
   Scroll,
-  Newspaper
+  Newspaper,
+  Shield,
+  Star
 } from 'lucide-react';
 
 export default function Header() {
@@ -134,30 +136,19 @@ export default function Header() {
         </div>
 
         {/* 3. Institutional Identity Branding Banner */}
-        <div className="bg-white border-b border-slate-200/90 py-2.5 px-4 sm:px-6">
+        <div className="bg-white border-b border-slate-200/90 py-3 px-4 sm:px-6">
           <div className="max-w-7xl mx-auto flex items-center justify-between gap-4">
             
-            {/* Logo & Emblem Branding */}
-            <Link href="/" className="flex items-center gap-3 group">
-              <div className="w-10 h-10 sm:w-11 sm:h-11 rounded-lg bg-gradient-to-b from-[#0b3b60] to-[#062038] text-amber-400 flex items-center justify-center shadow-md border border-amber-500/30 shrink-0">
-                <Landmark className="w-5 h-5 sm:w-6 sm:h-6 text-amber-300 group-hover:scale-105 transition-transform" />
-              </div>
-
+            <Link href="/" className="flex items-center group">
               <div className="text-left">
                 <div className="flex items-center gap-2">
-                  <h1 className="text-xl sm:text-2xl font-black tracking-wider text-[#0b3b60] uppercase leading-none font-serif">
-                    CIVILSPAGE
+                  <h1 className="text-xl sm:text-2xl font-black tracking-wider text-[#0b3b60] leading-none font-serif">
+                    Civils PAGE
                   </h1>
                   <span className="hidden sm:inline-block text-[9px] font-extrabold uppercase bg-amber-100 text-amber-900 px-1.5 py-0.5 rounded border border-amber-300">
                     UPSC CSE Resource Portal
                   </span>
                 </div>
-                <p className="text-[11px] sm:text-xs font-semibold text-slate-700 tracking-tight mt-0.5">
-                  Contemporary Perspectives on Polity, Administration, Governance & Ethics
-                </p>
-                <p className="text-[10px] text-slate-500 font-medium hidden md:block">
-                  Under the Mentorship of <strong className="text-slate-800">Rajiv Ranjan Singh</strong>
-                </p>
               </div>
             </Link>
 
@@ -415,7 +406,7 @@ export default function Header() {
       </header>
 
       {/* Spacer to push content down cleanly beneath fixed multi-tier header */}
-      <div className="h-[95px] lg:h-[135px]"></div>
+      <div className="h-[78px] lg:h-[124px]"></div>
 
       {/* 5. Mobile Navigation Drawer */}
       {mobileMenuOpen && (
@@ -429,22 +420,25 @@ export default function Header() {
           {/* Drawer Content */}
           <div className="fixed top-0 left-0 bottom-0 w-4/5 max-w-sm bg-white shadow-2xl flex flex-col z-50 overflow-y-auto">
             
-            {/* Drawer Header */}
-            <div className="bg-[#0b3b60] text-white p-4 border-b-2 border-amber-500 flex items-center justify-between">
-              <div className="flex items-center gap-2">
-                <div className="w-8 h-8 rounded bg-amber-400 text-[#0b3b60] flex items-center justify-center font-bold">
-                  <Landmark className="w-5 h-5" />
-                </div>
+            {/* Drawer Header with Tricolor accent & premium brand header */}
+            <div className="h-[3px] w-full flex shrink-0">
+              <div className="w-1/3 bg-[#FF9933]"></div>
+              <div className="w-1/3 bg-[#FFFFFF] border-y border-slate-100"></div>
+              <div className="w-1/3 bg-[#138808]"></div>
+            </div>
+
+            <div className="bg-white text-slate-800 p-4 border-b border-slate-200 flex items-center justify-between shrink-0">
+              <div className="flex items-center">
                 <div>
-                  <h2 className="text-sm font-black tracking-wider uppercase font-serif">CIVILSPAGE</h2>
-                  <p className="text-[9px] text-amber-200 font-medium">UPSC CSE Resource Centre</p>
+                  <h2 className="text-sm font-black tracking-wider text-[#0b3b60] leading-none font-serif">Civils PAGE</h2>
                 </div>
               </div>
               <button 
                 onClick={() => setMobileMenuOpen(false)}
-                className="p-1 rounded text-white/80 hover:text-white"
+                className="p-1.5 rounded-md hover:bg-slate-100 text-slate-500 hover:text-slate-800 transition-colors"
+                aria-label="Close menu"
               >
-                <X className="w-6 h-6" />
+                <X className="w-5 h-5" />
               </button>
             </div>
 
