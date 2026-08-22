@@ -67,9 +67,9 @@ export default function Hero() {
 
             {/* Main Headline */}
             <h1 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold text-slate-900 tracking-tight leading-[1.12]">
-              Dedicated Resource Centre <br className="hidden sm:inline" />
-              for <span className="bg-gradient-to-r from-indigo-600 via-indigo-700 to-emerald-600 bg-clip-text text-transparent">
-                Polity, Governance & Ethics
+              Resource Centre for Contemporary Perspectives <br className="hidden sm:inline" />
+              on <span className="bg-gradient-to-r from-indigo-600 via-indigo-700 to-emerald-600 bg-clip-text text-transparent">
+                Polity, Administration, Governance & Ethics
               </span>
             </h1>
 
