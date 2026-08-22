@@ -188,8 +188,17 @@ export default function Footer() {
         {/* 3. Bottom Legal & Portal Compliance Statement */}
         <div className="pt-6 flex flex-col sm:flex-row items-center justify-between gap-4 text-[11px] text-slate-400">
           <div>
-            <p>© {new Date().getFullYear()} CivilsPAGE · Dedicated Resource Centre for Polity, Administration, Governance & Ethics.</p>
-            <p className="text-[10px] text-slate-400 mt-0.5">Designed with official national portal standards for academic and civil services aspirants.</p>
+            <p>
+              © {new Date().getFullYear()} Reserved by CivilsPAGE. Powered by{' '}
+              <a 
+                href="https://dctechnologies.in" 
+                target="_blank" 
+                rel="noopener noreferrer" 
+                className="text-amber-300 hover:underline font-semibold"
+              >
+                DC Technologies
+              </a>.
+            </p>
           </div>
 
           <div className="flex items-center gap-4 text-[10.5px]">
