@@ -3,163 +3,564 @@
 import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { Menu, X, ChevronDown } from 'lucide-react';
+import { 
+  Menu, 
+  X, 
+  ChevronDown, 
+  Home, 
+  Search, 
+  BookOpen, 
+  FileText, 
+  Award, 
+  HelpCircle, 
+  Sparkles,
+  Scale,
+  Landmark,
+  ShieldAlert,
+  Gavel,
+  Scroll,
+  Newspaper
+} from 'lucide-react';
 
 export default function Header() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [activeDropdown, setActiveDropdown] = useState<string | null>(null);
-  const [scrolled, setScrolled] = useState(false);
+  const [fontSizeLevel, setFontSizeLevel] = useState<number>(0);
+  const [searchOpen, setSearchOpen] = useState(false);
+  const [searchQuery, setSearchQuery] = useState('');
   const pathname = usePathname();
 
-  // Detect scroll to style header
-  useEffect(() => {
-    const handleScroll = () => {
-      if (window.scrollY > 20) {
-        setScrolled(true);
-      } else {
-        setScrolled(false);
-      }
-    };
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
-
-  // Close mobile menu on path changes
+  // Close mobile menu & dropdown on path changes
   useEffect(() => {
     setMobileMenuOpen(false);
     setActiveDropdown(null);
+    setSearchOpen(false);
   }, [pathname]);
 
   const toggleDropdown = (name: string) => {
-    if (activeDropdown === name) {
-      setActiveDropdown(null);
-    } else {
-      setActiveDropdown(name);
-    }
+    setActiveDropdown(activeDropdown === name ? null : name);
   };
 
   const getHomeLink = (hash: string) => {
     return pathname === '/' ? hash : `/${hash}`;
   };
 
+  const handleSearchSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (searchQuery.trim()) {
+      window.location.href = `/updates?q=${encodeURIComponent(searchQuery.trim())}`;
+    }
+  };
+
+  // Adjust font size (accessibility feature)
+  const changeFontSize = (delta: number) => {
+    const newLevel = Math.max(-1, Math.min(1, fontSizeLevel + delta));
+    setFontSizeLevel(newLevel);
+    if (newLevel === -1) {
+      document.documentElement.style.fontSize = '14px';
+    } else if (newLevel === 1) {
+      document.documentElement.style.fontSize = '18px';
+    } else {
+      document.documentElement.style.fontSize = '16px';
+    }
+  };
+
+  const resetFontSize = () => {
+    setFontSizeLevel(0);
+    document.documentElement.style.fontSize = '16px';
+  };
+
+  const currentDate = new Date().toLocaleDateString('en-IN', {
+    weekday: 'long',
+    day: 'numeric',
+    month: 'short',
+    year: 'numeric'
+  });
+
   return (
     <>
-      <header 
-        className={`header ${scrolled ? 'scrolled shadow-lg' : ''}`} 
-        style={{ 
-          background: '#ffffff',
-          borderBottom: '1px solid rgba(15, 23, 42, 0.08)',
-          boxShadow: scrolled ? '0 8px 32px 0 rgba(31, 38, 135, 0.06)' : 'none',
-          transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)'
-        }}
-      >
-        <div className="header-container" style={{ maxWidth: '100%', width: '100%', padding: '0 24px', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-          <Link href="/" className="logo" aria-label="CivilsPage Home" style={{ flexShrink: 0 }}>
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <path d="M12 2L2 7L12 12L22 7L12 2Z" fill="var(--color-primary)"/>
-              <path d="M2 17L12 22L22 17" stroke="var(--color-success)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-              <path d="M2 12L12 17L22 12" stroke="var(--color-primary)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-            </svg>
-            <span>CivilsPage</span>
-          </Link>
+      <header className="fixed top-0 left-0 w-full z-50 bg-white shadow-md transition-all">
+        {/* 1. National Tricolor Accent Bar */}
+        <div className="h-[3px] w-full flex">
+          <div className="w-1/3 bg-[#FF9933]"></div>
+          <div className="w-1/3 bg-[#FFFFFF] border-y border-slate-200"></div>
+          <div className="w-1/3 bg-[#138808]"></div>
+        </div>
 
-          {/* Desktop Navigation */}
-          <nav className="nav-links" style={{ gap: '12px', fontSize: '0.78rem', flexWrap: 'nowrap' }} aria-label="Main Navigation">
-            <Link href="/" className={`nav-link ${pathname === '/' ? 'active' : ''}`} style={{ whiteSpace: 'nowrap' }}>Home</Link>
-            <Link href="/aboutcse" className={`nav-link ${pathname === '/aboutcse' ? 'active' : ''}`} style={{ whiteSpace: 'nowrap' }}>About CSE Exam</Link>
-            <Link href="/updates" className={`nav-link ${pathname === '/updates' && !pathname.includes('category') ? 'active' : ''}`} style={{ whiteSpace: 'nowrap' }}>Current News & Views</Link>
-            
-            <Link href="/updates?category=Legislation" className={`nav-link ${pathname.includes('category=Legislation') ? 'active' : ''}`} style={{ whiteSpace: 'nowrap' }}>Legislation</Link>
-            <Link href="/updates?category=Constitutional Amendments" className={`nav-link ${pathname.includes('category=Constitutional Amendments') ? 'active' : ''}`} style={{ whiteSpace: 'nowrap' }}>Constitutional Amendments</Link>
-            <Link href="/updates?category=Court Judgements" className={`nav-link ${pathname.includes('category=Court Judgements') ? 'active' : ''}`} style={{ whiteSpace: 'nowrap' }}>Court Judgements</Link>
-            <Link href="/updates?category=Policies %26 Programs" className={`nav-link ${pathname.includes('category=Policies') ? 'active' : ''}`} style={{ whiteSpace: 'nowrap' }}>Policies & Programs</Link>
-            <Link href="/updates?category=Commissions %26 Committees" className={`nav-link ${pathname.includes('category=Commissions') ? 'active' : ''}`} style={{ whiteSpace: 'nowrap' }}>Commissions & Committees</Link>
-            
-            <Link href="/subject/ethics" className={`nav-link ${pathname === '/subject/ethics' ? 'active' : ''}`} style={{ whiteSpace: 'nowrap' }}>Ethical Case Studies</Link>
-
-            {/* Practice Test Dropdown */}
-            <div className="dropdown" style={{ display: 'inline-block' }}>
-              <button className="nav-link dropdown-trigger" aria-expanded="false" aria-haspopup="true" style={{ display: 'flex', alignItems: 'center', whiteSpace: 'nowrap' }}>
-                Practice Test 
-                <ChevronDown className="caret w-3.5 h-3.5 ml-1" />
-              </button>
-              <div className="dropdown-menu">
-                <Link href="/pyqs" className="dropdown-item">PYQ's</Link>
-                <Link href={getHomeLink('#mock-test')} className="dropdown-item">Mock Tests</Link>
-                <Link href="/updates?category=Model Answers" className="dropdown-item">Model Answers</Link>
-              </div>
+        {/* 2. Top Utility & Accessibility Bar */}
+        <div className="bg-[#0b2948] text-slate-200 text-[11px] font-medium border-b border-slate-800/40 py-1 px-4 sm:px-6">
+          <div className="max-w-7xl mx-auto flex items-center justify-between">
+            {/* Left: Date Display */}
+            <div className="flex items-center gap-2 sm:gap-4 truncate">
+              <span className="text-slate-300 font-mono text-[10.5px]">{currentDate}</span>
             </div>
-            
-            <Link href="/direct-query" className={`nav-link ${pathname === '/direct-query' ? 'active' : ''}`} style={{ whiteSpace: 'nowrap' }}>Direct Queries</Link>
-          </nav>
 
-          {/* CTA & Hamburger */}
-          <div className="header-actions" style={{ flexShrink: 0 }}>
-            <Link href={getHomeLink('#mock-test')} className="btn btn-primary" style={{ padding: '10px 20px', minHeight: '40px' }}>
-              Free Mock Test
-            </Link>
-            <button 
-              className={`hamburger ${mobileMenuOpen ? 'open' : ''}`}
-              onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              aria-label="Toggle Navigation Menu" 
-              aria-expanded={mobileMenuOpen}
-            >
-              <span></span>
-              <span></span>
-              <span></span>
-            </button>
+            {/* Right: Accessibility Controls */}
+            <div className="flex items-center gap-3 shrink-0">
+              <a href="#hero" className="hover:text-amber-300 transition-colors hidden md:inline text-[10.5px]">
+                Skip to main content
+              </a>
+              <span className="text-slate-600 hidden md:inline">|</span>
+              
+              {/* Text Size Controls */}
+              <div className="flex items-center gap-1 bg-[#133860] px-1.5 py-0.5 rounded border border-slate-700">
+                <button 
+                  onClick={() => changeFontSize(-1)}
+                  className={`px-1 hover:text-amber-300 font-bold transition-colors ${fontSizeLevel === -1 ? 'text-amber-400' : 'text-slate-300'}`}
+                  title="Decrease Font Size"
+                >
+                  A-
+                </button>
+                <button 
+                  onClick={resetFontSize}
+                  className={`px-1 hover:text-amber-300 font-bold transition-colors ${fontSizeLevel === 0 ? 'text-amber-400' : 'text-slate-300'}`}
+                  title="Default Font Size"
+                >
+                  A
+                </button>
+                <button 
+                  onClick={() => changeFontSize(1)}
+                  className={`px-1 hover:text-amber-300 font-bold transition-colors ${fontSizeLevel === 1 ? 'text-amber-400' : 'text-slate-300'}`}
+                  title="Increase Font Size"
+                >
+                  A+
+                </button>
+              </div>
+
+              <span className="text-slate-600">|</span>
+              <span className="text-amber-300 font-semibold cursor-default">English</span>
+            </div>
           </div>
         </div>
+
+        {/* 3. Institutional Identity Branding Banner */}
+        <div className="bg-white border-b border-slate-200/90 py-2.5 px-4 sm:px-6">
+          <div className="max-w-7xl mx-auto flex items-center justify-between gap-4">
+            
+            {/* Logo & Emblem Branding */}
+            <Link href="/" className="flex items-center gap-3 group">
+              <div className="w-10 h-10 sm:w-11 sm:h-11 rounded-lg bg-gradient-to-b from-[#0b3b60] to-[#062038] text-amber-400 flex items-center justify-center shadow-md border border-amber-500/30 shrink-0">
+                <Landmark className="w-5 h-5 sm:w-6 sm:h-6 text-amber-300 group-hover:scale-105 transition-transform" />
+              </div>
+
+              <div className="text-left">
+                <div className="flex items-center gap-2">
+                  <h1 className="text-xl sm:text-2xl font-black tracking-wider text-[#0b3b60] uppercase leading-none font-serif">
+                    CIVILSPAGE
+                  </h1>
+                  <span className="hidden sm:inline-block text-[9px] font-extrabold uppercase bg-amber-100 text-amber-900 px-1.5 py-0.5 rounded border border-amber-300">
+                    UPSC CSE Resource Portal
+                  </span>
+                </div>
+                <p className="text-[11px] sm:text-xs font-semibold text-slate-700 tracking-tight mt-0.5">
+                  Contemporary Perspectives on Polity, Administration, Governance & Ethics
+                </p>
+                <p className="text-[10px] text-slate-500 font-medium hidden md:block">
+                  Under the Mentorship of <strong className="text-slate-800">Rajiv Ranjan Singh</strong>
+                </p>
+              </div>
+            </Link>
+
+            {/* Right Search & Quick CTA Action */}
+            <div className="hidden lg:flex items-center gap-3">
+              <form onSubmit={handleSearchSubmit} className="relative">
+                <input
+                  type="text"
+                  placeholder="Search Acts, Judgements, Issues..."
+                  value={searchQuery}
+                  onChange={(e) => setSearchQuery(e.target.value)}
+                  className="w-56 xl:w-64 pl-8 pr-3 py-1.5 text-xs bg-slate-50 border border-slate-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#0b3b60] focus:bg-white text-slate-800 placeholder-slate-400 transition-all"
+                />
+                <Search className="w-3.5 h-3.5 text-slate-400 absolute left-2.5 top-1/2 -translate-y-1/2" />
+              </form>
+
+              <Link 
+                href="/direct-query" 
+                className="px-3 py-1.5 bg-amber-50 hover:bg-amber-100 text-amber-900 border border-amber-300 rounded-md font-bold text-xs flex items-center gap-1.5 transition-colors shadow-xs shrink-0"
+              >
+                <HelpCircle className="w-3.5 h-3.5 text-amber-700" />
+                <span>Address your Queries</span>
+              </Link>
+            </div>
+
+            {/* Mobile Hamburger Toggle */}
+            <div className="flex lg:hidden items-center gap-2">
+              <button
+                onClick={() => setSearchOpen(!searchOpen)}
+                className="p-2 text-slate-600 hover:text-[#0b3b60]"
+                aria-label="Search"
+              >
+                <Search className="w-5 h-5" />
+              </button>
+              <button
+                onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+                className="p-2 rounded-md bg-slate-100 text-[#0b3b60] hover:bg-slate-200"
+                aria-label="Toggle navigation"
+              >
+                {mobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
+              </button>
+            </div>
+          </div>
+
+          {/* Mobile Search Bar (Collapsible) */}
+          {searchOpen && (
+            <div className="lg:hidden mt-2 pt-2 border-t border-slate-100 px-2">
+              <form onSubmit={handleSearchSubmit} className="relative">
+                <input
+                  type="text"
+                  placeholder="Search Acts, Judgements, Issues..."
+                  value={searchQuery}
+                  onChange={(e) => setSearchQuery(e.target.value)}
+                  className="w-full pl-8 pr-3 py-2 text-xs bg-slate-50 border border-slate-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#0b3b60]"
+                  autoFocus
+                />
+                <Search className="w-4 h-4 text-slate-400 absolute left-2.5 top-1/2 -translate-y-1/2" />
+              </form>
+            </div>
+          )}
+        </div>
+
+        {/* 4. Primary Deep Navy Navigation Bar - Direct Main Items */}
+        <nav className="bg-[#0b3b60] text-white border-b-2 border-amber-500 shadow-inner hidden lg:block overflow-x-auto scrollbar-none">
+          <div className="max-w-7xl mx-auto px-2 sm:px-4 flex items-center justify-between">
+            <ul className="flex items-center text-[11.5px] font-semibold tracking-normal flex-nowrap whitespace-nowrap">
+              {/* Home */}
+              <li>
+                <Link
+                  href="/"
+                  className={`flex items-center gap-1 px-2.5 py-2.5 transition-colors border-b-2 ${
+                    pathname === '/' 
+                      ? 'bg-[#06243d] text-amber-300 border-amber-400 font-bold' 
+                      : 'border-transparent hover:bg-[#082e4e] hover:text-amber-200'
+                  }`}
+                >
+                  <Home className="w-3.5 h-3.5" />
+                  <span>Home</span>
+                </Link>
+              </li>
+
+              {/* Civil Services Examination */}
+              <li>
+                <Link
+                  href="/aboutcse"
+                  className={`block px-2.5 py-2.5 transition-colors border-b-2 ${
+                    pathname === '/aboutcse' 
+                      ? 'bg-[#06243d] text-amber-300 border-amber-400 font-bold' 
+                      : 'border-transparent hover:bg-[#082e4e] hover:text-amber-200'
+                  }`}
+                >
+                  Civil Services Examination
+                </Link>
+              </li>
+
+              {/* Current News & Views */}
+              <li>
+                <Link
+                  href="/updates"
+                  className={`block px-2.5 py-2.5 transition-colors border-b-2 ${
+                    pathname === '/updates' && !pathname.includes('category')
+                      ? 'bg-[#06243d] text-amber-300 border-amber-400 font-bold' 
+                      : 'border-transparent hover:bg-[#082e4e] hover:text-amber-200'
+                  }`}
+                >
+                  Current News & Views
+                </Link>
+              </li>
+
+              {/* Legislation */}
+              <li>
+                <Link
+                  href="/updates?category=Legislation"
+                  className={`block px-2.5 py-2.5 transition-colors border-b-2 ${
+                    pathname.includes('category=Legislation') 
+                      ? 'bg-[#06243d] text-amber-300 border-amber-400 font-bold' 
+                      : 'border-transparent hover:bg-[#082e4e] hover:text-amber-200'
+                  }`}
+                >
+                  Legislation
+                </Link>
+              </li>
+
+              {/* Constitutional Amendments */}
+              <li>
+                <Link
+                  href="/updates?category=Constitutional Amendments"
+                  className={`block px-2.5 py-2.5 transition-colors border-b-2 ${
+                    pathname.includes('category=Constitutional Amendments') 
+                      ? 'bg-[#06243d] text-amber-300 border-amber-400 font-bold' 
+                      : 'border-transparent hover:bg-[#082e4e] hover:text-amber-200'
+                  }`}
+                >
+                  Constitutional Amendments
+                </Link>
+              </li>
+
+              {/* Court Judgements */}
+              <li>
+                <Link
+                  href="/updates?category=Court Judgements"
+                  className={`block px-2.5 py-2.5 transition-colors border-b-2 ${
+                    pathname.includes('category=Court Judgements') 
+                      ? 'bg-[#06243d] text-amber-300 border-amber-400 font-bold' 
+                      : 'border-transparent hover:bg-[#082e4e] hover:text-amber-200'
+                  }`}
+                >
+                  Court Judgements
+                </Link>
+              </li>
+
+              {/* Policies/ Programme */}
+              <li>
+                <Link
+                  href="/updates?category=Policies %26 Programs"
+                  className={`block px-2.5 py-2.5 transition-colors border-b-2 ${
+                    pathname.includes('category=Policies') 
+                      ? 'bg-[#06243d] text-amber-300 border-amber-400 font-bold' 
+                      : 'border-transparent hover:bg-[#082e4e] hover:text-amber-200'
+                  }`}
+                >
+                  Policies/ Programme
+                </Link>
+              </li>
+
+              {/* Commissions/ Committees */}
+              <li>
+                <Link
+                  href="/updates?category=Commissions %26 Committees"
+                  className={`block px-2.5 py-2.5 transition-colors border-b-2 ${
+                    pathname.includes('category=Commissions') 
+                      ? 'bg-[#06243d] text-amber-300 border-amber-400 font-bold' 
+                      : 'border-transparent hover:bg-[#082e4e] hover:text-amber-200'
+                  }`}
+                >
+                  Commissions/ Committees
+                </Link>
+              </li>
+
+              {/* Ethics Case Studies */}
+              <li>
+                <Link
+                  href="/subject/ethics"
+                  className={`block px-2.5 py-2.5 transition-colors border-b-2 ${
+                    pathname === '/subject/ethics' 
+                      ? 'bg-[#06243d] text-amber-300 border-amber-400 font-bold' 
+                      : 'border-transparent hover:bg-[#082e4e] hover:text-amber-200'
+                  }`}
+                >
+                  Ethical Case Studies
+                </Link>
+              </li>
+
+              {/* Practice & Tests Dropdown */}
+              <li 
+                className="relative group"
+                onMouseEnter={() => setActiveDropdown('practice')}
+                onMouseLeave={() => setActiveDropdown(null)}
+              >
+                <button
+                  onClick={() => toggleDropdown('practice')}
+                  className={`flex items-center gap-1 px-2.5 py-2.5 transition-colors border-b-2 ${
+                    pathname.startsWith('/pyqs') || pathname.includes('mock')
+                      ? 'bg-[#06243d] text-amber-300 border-amber-400 font-bold' 
+                      : 'border-transparent hover:bg-[#082e4e] hover:text-amber-200'
+                  }`}
+                >
+                  <span>Practice & Tests</span>
+                  <ChevronDown className="w-3.5 h-3.5 ml-0.5 opacity-80 group-hover:rotate-180 transition-transform" />
+                </button>
+
+                {activeDropdown === 'practice' && (
+                  <div className="absolute left-0 top-full w-52 bg-white text-slate-800 rounded-b-md shadow-2xl border-t-2 border-amber-500 py-1 z-50 animate-in fade-in slide-in-from-top-1 duration-150">
+                    <Link 
+                      href="/pyqs" 
+                      className="flex items-center gap-2 px-4 py-2 text-xs hover:bg-slate-100 text-slate-700"
+                    >
+                      <BookOpen className="w-3.5 h-3.5 text-indigo-600" />
+                      Topicwise PYQ Archive
+                    </Link>
+                    <Link 
+                      href={getHomeLink('#mock-test')} 
+                      className="flex items-center gap-2 px-4 py-2 text-xs hover:bg-slate-100 text-slate-700"
+                    >
+                      <Award className="w-3.5 h-3.5 text-emerald-600" />
+                      Daily Practice Quiz
+                    </Link>
+                    <Link 
+                      href="/updates?category=Model Answers" 
+                      className="flex items-center gap-2 px-4 py-2 text-xs hover:bg-slate-100 text-slate-700"
+                    >
+                      <FileText className="w-3.5 h-3.5 text-amber-600" />
+                      Mains Model Answers
+                    </Link>
+                  </div>
+                )}
+              </li>
+
+              {/* Address your Queries */}
+              <li>
+                <Link
+                  href="/direct-query"
+                  className={`block px-2.5 py-2.5 transition-colors border-b-2 ${
+                    pathname === '/direct-query' 
+                      ? 'bg-[#06243d] text-amber-300 border-amber-400 font-bold' 
+                      : 'border-transparent hover:bg-[#082e4e] hover:text-amber-200'
+                  }`}
+                >
+                  Address your Queries
+                </Link>
+              </li>
+            </ul>
+          </div>
+        </nav>
       </header>
 
-      {/* Mobile Drawer Menu Overlay */}
-      <div 
-        className={`mobile-overlay ${mobileMenuOpen ? 'active' : ''}`}
-        onClick={() => setMobileMenuOpen(false)}
-      ></div>
+      {/* Spacer to push content down cleanly beneath fixed multi-tier header */}
+      <div className="h-[95px] lg:h-[135px]"></div>
 
-      {/* Mobile Drawer Navigation Drawer */}
-      <nav className={`mobile-nav ${mobileMenuOpen ? 'open' : ''}`} aria-label="Mobile Navigation" style={{ display: 'flex', flexDirection: 'column', overflowY: 'auto', position: 'fixed' }}>
-        {/* Close Button inside Drawer */}
-        <button 
-          onClick={() => setMobileMenuOpen(false)}
-          style={{ position: 'absolute', top: '16px', right: '16px', background: 'transparent', border: 'none', cursor: 'pointer', padding: '8px', zIndex: 1060 }}
-          className="text-slate-400 hover:text-slate-850 transition-colors"
-          aria-label="Close Menu"
-        >
-          <X className="w-5 h-5" />
-        </button>
-        
-        <Link href="/" className={`mobile-nav-link ${pathname === '/' ? 'active' : ''}`} onClick={() => setMobileMenuOpen(false)}>Home</Link>
-        <Link href="/aboutcse" className={`mobile-nav-link ${pathname === '/aboutcse' ? 'active' : ''}`} onClick={() => setMobileMenuOpen(false)}>About CSE Exam</Link>
-        <Link href="/updates" className={`mobile-nav-link ${pathname === '/updates' ? 'active' : ''}`} onClick={() => setMobileMenuOpen(false)}>Current News & Views</Link>
-        
-        <Link href="/updates?category=Legislation" className="mobile-nav-link" onClick={() => setMobileMenuOpen(false)}>Legislation</Link>
-        <Link href="/updates?category=Constitutional Amendments" className="mobile-nav-link" onClick={() => setMobileMenuOpen(false)}>Constitutional Amendments</Link>
-        <Link href="/updates?category=Court Judgements" className="mobile-nav-link" onClick={() => setMobileMenuOpen(false)}>Court Judgements</Link>
-        <Link href="/updates?category=Policies %26 Programs" className="mobile-nav-link" onClick={() => setMobileMenuOpen(false)}>Policies & Programs</Link>
-        <Link href="/updates?category=Commissions %26 Committees" className="mobile-nav-link" onClick={() => setMobileMenuOpen(false)}>Commissions & Committees</Link>
-        
-        <Link href="/subject/ethics" className={`mobile-nav-link ${pathname === '/subject/ethics' ? 'active' : ''}`} onClick={() => setMobileMenuOpen(false)}>Ethical Case Studies</Link>
-        
-        {/* Mobile Practice Test Dropdown */}
-        <div className={`mobile-dropdown ${activeDropdown === 'practice' ? 'active' : ''}`}>
-          <button className="mobile-dropdown-trigger" onClick={() => toggleDropdown('practice')}>
-            <span>Practice Test</span>
-            <ChevronDown className="caret w-4 h-4" />
-          </button>
-          <div className="mobile-dropdown-menu">
-            <Link href="/pyqs" className="mobile-dropdown-item" onClick={() => setMobileMenuOpen(false)}>PYQ's</Link>
-            <Link href={getHomeLink('#mock-test')} className="mobile-dropdown-item" onClick={() => setMobileMenuOpen(false)}>Mock Tests</Link>
-            <Link href="/updates?category=Model Answers" className="mobile-dropdown-item" onClick={() => setMobileMenuOpen(false)}>Model Answers</Link>
+      {/* 5. Mobile Navigation Drawer */}
+      {mobileMenuOpen && (
+        <div className="fixed inset-0 z-50 lg:hidden">
+          {/* Backdrop */}
+          <div 
+            className="fixed inset-0 bg-slate-900/60 backdrop-blur-xs transition-opacity"
+            onClick={() => setMobileMenuOpen(false)}
+          ></div>
+
+          {/* Drawer Content */}
+          <div className="fixed top-0 left-0 bottom-0 w-4/5 max-w-sm bg-white shadow-2xl flex flex-col z-50 overflow-y-auto">
+            
+            {/* Drawer Header */}
+            <div className="bg-[#0b3b60] text-white p-4 border-b-2 border-amber-500 flex items-center justify-between">
+              <div className="flex items-center gap-2">
+                <div className="w-8 h-8 rounded bg-amber-400 text-[#0b3b60] flex items-center justify-center font-bold">
+                  <Landmark className="w-5 h-5" />
+                </div>
+                <div>
+                  <h2 className="text-sm font-black tracking-wider uppercase font-serif">CIVILSPAGE</h2>
+                  <p className="text-[9px] text-amber-200 font-medium">UPSC CSE Resource Centre</p>
+                </div>
+              </div>
+              <button 
+                onClick={() => setMobileMenuOpen(false)}
+                className="p-1 rounded text-white/80 hover:text-white"
+              >
+                <X className="w-6 h-6" />
+              </button>
+            </div>
+
+            {/* Drawer Links */}
+            <div className="py-2 px-3 space-y-1 text-sm font-medium text-slate-700">
+              <Link 
+                href="/" 
+                className={`flex items-center gap-2 px-3 py-2 rounded-md ${pathname === '/' ? 'bg-slate-100 text-[#0b3b60] font-bold' : 'hover:bg-slate-50'}`}
+                onClick={() => setMobileMenuOpen(false)}
+              >
+                <Home className="w-4 h-4 text-[#0b3b60]" /> Home
+              </Link>
+
+              <Link 
+                href="/aboutcse" 
+                className={`flex items-center gap-2 px-3 py-2 rounded-md ${pathname === '/aboutcse' ? 'bg-slate-100 text-[#0b3b60] font-bold' : 'hover:bg-slate-50'}`}
+                onClick={() => setMobileMenuOpen(false)}
+              >
+                <BookOpen className="w-4 h-4 text-[#0b3b60]" /> Civil Services Examination
+              </Link>
+
+              <Link 
+                href="/updates" 
+                className={`flex items-center gap-2 px-3 py-2 rounded-md ${pathname === '/updates' ? 'bg-slate-100 text-[#0b3b60] font-bold' : 'hover:bg-slate-50'}`}
+                onClick={() => setMobileMenuOpen(false)}
+              >
+                <Newspaper className="w-4 h-4 text-[#0b3b60]" /> Current News & Views
+              </Link>
+
+              <Link 
+                href="/updates?category=Legislation" 
+                className="flex items-center gap-2 px-3 py-2 rounded-md hover:bg-slate-50 text-slate-700"
+                onClick={() => setMobileMenuOpen(false)}
+              >
+                <Gavel className="w-4 h-4 text-slate-500" /> Legislation
+              </Link>
+
+              <Link 
+                href="/updates?category=Constitutional Amendments" 
+                className="flex items-center gap-2 px-3 py-2 rounded-md hover:bg-slate-50 text-slate-700"
+                onClick={() => setMobileMenuOpen(false)}
+              >
+                <Landmark className="w-4 h-4 text-slate-500" /> Constitutional Amendments
+              </Link>
+
+              <Link 
+                href="/updates?category=Court Judgements" 
+                className="flex items-center gap-2 px-3 py-2 rounded-md hover:bg-slate-50 text-slate-700"
+                onClick={() => setMobileMenuOpen(false)}
+              >
+                <Scale className="w-4 h-4 text-slate-500" /> Court Judgements
+              </Link>
+
+              <Link 
+                href="/updates?category=Policies %26 Programs" 
+                className="flex items-center gap-2 px-3 py-2 rounded-md hover:bg-slate-50 text-slate-700"
+                onClick={() => setMobileMenuOpen(false)}
+              >
+                <FileText className="w-4 h-4 text-slate-500" /> Policies/ Programme
+              </Link>
+
+              <Link 
+                href="/updates?category=Commissions %26 Committees" 
+                className="flex items-center gap-2 px-3 py-2 rounded-md hover:bg-slate-50 text-slate-700"
+                onClick={() => setMobileMenuOpen(false)}
+              >
+                <ShieldAlert className="w-4 h-4 text-slate-500" /> Commissions/ Committees
+              </Link>
+
+              <Link 
+                href="/subject/ethics" 
+                className={`flex items-center gap-2 px-3 py-2 rounded-md ${pathname === '/subject/ethics' ? 'bg-slate-100 text-[#0b3b60] font-bold' : 'hover:bg-slate-50'}`}
+                onClick={() => setMobileMenuOpen(false)}
+              >
+                <Scale className="w-4 h-4 text-[#0b3b60]" /> Ethical Case Studies
+              </Link>
+
+              {/* Practice & PYQs Accordion */}
+              <div className="border-t border-slate-100 pt-1">
+                <button
+                  onClick={() => toggleDropdown('mobile-practice')}
+                  className="w-full flex items-center justify-between px-3 py-2 rounded-md hover:bg-slate-50 text-slate-800 font-semibold"
+                >
+                  <span className="flex items-center gap-2">
+                    <Award className="w-4 h-4 text-[#0b3b60]" />
+                    Practice & Tests
+                  </span>
+                  <ChevronDown className={`w-4 h-4 transition-transform ${activeDropdown === 'mobile-practice' ? 'rotate-180' : ''}`} />
+                </button>
+
+                {activeDropdown === 'mobile-practice' && (
+                  <div className="pl-6 pr-2 py-1 space-y-1 bg-slate-50 rounded-md text-xs">
+                    <Link href="/pyqs" className="block py-1 text-slate-600" onClick={() => setMobileMenuOpen(false)}>
+                      • PYQ Bank
+                    </Link>
+                    <Link href={getHomeLink('#mock-test')} className="block py-1 text-slate-600" onClick={() => setMobileMenuOpen(false)}>
+                      • Mock Quiz
+                    </Link>
+                    <Link href="/updates?category=Model Answers" className="block py-1 text-slate-600" onClick={() => setMobileMenuOpen(false)}>
+                      • Model Answers
+                    </Link>
+                  </div>
+                )}
+              </div>
+
+              <Link 
+                href="/direct-query" 
+                className={`flex items-center gap-2 px-3 py-2 rounded-md ${pathname === '/direct-query' ? 'bg-slate-100 text-[#0b3b60] font-bold' : 'hover:bg-slate-50'}`}
+                onClick={() => setMobileMenuOpen(false)}
+              >
+                <HelpCircle className="w-4 h-4 text-[#0b3b60]" /> Address your Queries
+              </Link>
+            </div>
           </div>
         </div>
-        
-        <Link href="/direct-query" className={`mobile-nav-link ${pathname === '/direct-query' ? 'active' : ''}`} onClick={() => setMobileMenuOpen(false)}>Direct Queries</Link>
-        <Link href={getHomeLink('#mock-test')} className="btn btn-primary w-full mt-4" onClick={() => setMobileMenuOpen(false)}>
-          Start Free Test
-        </Link>
-      </nav>
+      )}
     </>
   );
 }

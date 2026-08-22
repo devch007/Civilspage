@@ -2,7 +2,7 @@
 
 import React, { useState } from 'react';
 import Link from 'next/link';
-import { Mail, Phone, MapPin, Send } from 'lucide-react';
+import { Mail, Phone, MapPin, Landmark, ExternalLink, ShieldCheck, CheckCircle } from 'lucide-react';
 
 export default function Footer() {
   const [email, setEmail] = useState('');
@@ -14,114 +14,190 @@ export default function Footer() {
     if (!email) return;
 
     setLoading(true);
-    setFeedback({ text: '', type: null });
-
-    // Simulate server side delay
     setTimeout(() => {
       setLoading(false);
       setFeedback({
-        text: 'Successfully subscribed to high-yield updates!',
+        text: 'Successfully subscribed to Contemporary Gazettes & Circulars!',
         type: 'success'
       });
       setEmail('');
-    }, 1000);
+    }, 800);
   };
 
   return (
-    <footer className="footer mt-auto">
-      <div className="container">
-        <div className="footer-grid">
-          {/* Brand details */}
-          <div className="footer-brand">
-            <Link href="/" className="logo">
-              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path d="M12 2L2 7L12 12L22 7L12 2Z" fill="var(--color-primary)"/>
-                <path d="M2 17L12 22L22 17" stroke="var(--color-success)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-                <path d="M2 12L12 17L22 12" stroke="var(--color-primary)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-              </svg>
-              <span>CivilsPage</span>
+    <footer className="mt-auto bg-[#071d31] text-slate-300 border-t-2 border-amber-500 text-xs">
+      
+      {/* 1. National Tricolor Strip */}
+      <div className="h-[3px] w-full flex">
+        <div className="w-1/3 bg-[#FF9933]"></div>
+        <div className="w-1/3 bg-[#FFFFFF]"></div>
+        <div className="w-1/3 bg-[#138808]"></div>
+      </div>
+
+      {/* 2. Main Footer Grid */}
+      <div className="max-w-7xl mx-auto px-4 sm:px-8 py-12">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-8 pb-10 border-b border-slate-700/80">
+          
+          {/* Col 1: Portal Overview */}
+          <div className="lg:col-span-4 space-y-4">
+            <Link href="/" className="flex items-center gap-3">
+              <div className="w-10 h-10 rounded bg-[#0b3b60] border border-amber-500/40 text-amber-400 flex items-center justify-center font-bold">
+                <Landmark className="w-5 h-5 text-amber-300" />
+              </div>
+              <div>
+                <h3 className="text-base font-black tracking-wider text-white uppercase font-serif">CIVILSPAGE</h3>
+                <p className="text-[10px] text-amber-300/90 font-medium">UPSC CSE Contemporary Resource Portal</p>
+              </div>
             </Link>
-            <p>Empowering the next generation of civil servants with structured study materials, direct expert strategies, and responsive learning interfaces.</p>
-            <div className="social-links">
-              <a href="#" className="social-link" aria-label="Twitter Page">
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z"></path></svg>
-              </a>
-              <a href="#" className="social-link" aria-label="YouTube Channel">
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M22.54 6.42a2.78 2.78 0 0 0-1.94-2C18.88 4 12 4 12 4s-6.88 0-8.6.46a2.78 2.78 0 0 0-1.94 2a29 29 0 0 0-.46 5.33A2.78 2.78 0 0 0 3.4 19c1.72.46 8.6.46 8.6.46s6.88 0 8.6-.46a2.78 2.78 0 0 0 1.94-2 29 29 0 0 0 .46-5.25 29 29 0 0 0-.46-5.33z"></path><polygon points="9.75 15.02 15.5 11.75 9.75 8.48 9.75 15.02"/></svg>
-              </a>
-              <a href="#" className="social-link" aria-label="Telegram Channel">
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><line x1="22" y1="2" x2="11" y2="13"></line><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
-              </a>
+
+            <p className="text-xs text-slate-300 leading-relaxed">
+              Dedicated Resource Centre for Contemporary Perspectives on Polity, Administration, Governance & Ethics under the mentorship of <strong className="text-white">Rajiv Ranjan Singh</strong>.
+            </p>
+
+            <div className="text-[11px] text-slate-400 space-y-1 pt-1">
+              <p className="flex items-center gap-1.5">
+                <ShieldCheck className="w-3.5 h-3.5 text-emerald-400" />
+                <span>Standard Academic & Examination Frameworks</span>
+              </p>
+              <p className="flex items-center gap-1.5">
+                <CheckCircle className="w-3.5 h-3.5 text-amber-400" />
+                <span>Mapped to UPSC Civil Services Examination Syllabi</span>
+              </p>
             </div>
           </div>
 
-          {/* Links 1 */}
-          <div>
-            <h4 className="footer-title">UPSC Resources</h4>
-            <ul className="footer-links">
-              <li><Link href="/#study-material" className="footer-link">GS Study Notes</Link></li>
-              <li><Link href="/#pyq-hub" className="footer-link">Prelims PYQ Solver</Link></li>
-              <li><Link href="/#current-affairs" className="footer-link">Daily High-Yield News</Link></li>
-              <li><Link href="/#mock-test" className="footer-link">Daily Prelims Mini-Quiz</Link></li>
+          {/* Col 2: Core Contemporary Sections */}
+          <div className="lg:col-span-3 space-y-3">
+            <h4 className="text-xs font-black text-amber-300 uppercase tracking-wider pb-1 border-b border-slate-700">
+              Contemporary Perspectives
+            </h4>
+            <ul className="space-y-2 text-xs">
+              <li>
+                <Link href="/updates?category=Legislation" className="hover:text-amber-200 transition-colors">
+                  • Legislation & Parliamentary Bills
+                </Link>
+              </li>
+              <li>
+                <Link href="/updates?category=Constitutional Amendments" className="hover:text-amber-200 transition-colors">
+                  • Constitutional Amendments
+                </Link>
+              </li>
+              <li>
+                <Link href="/updates?category=Court Judgements" className="hover:text-amber-200 transition-colors">
+                  • Supreme Court Judgements
+                </Link>
+              </li>
+              <li>
+                <Link href="/updates?category=Policies %26 Programs" className="hover:text-amber-200 transition-colors">
+                  • Government Policies & Schemes
+                </Link>
+              </li>
+              <li>
+                <Link href="/updates?category=Commissions %26 Committees" className="hover:text-amber-200 transition-colors">
+                  • Commissions & Committees
+                </Link>
+              </li>
+              <li>
+                <Link href="/subject/ethics" className="hover:text-amber-200 transition-colors">
+                  • Applied Ethics & Case Studies
+                </Link>
+              </li>
             </ul>
           </div>
 
-          {/* Contact Info */}
-          <div>
-            <h4 className="footer-title">Contact Us</h4>
-            <div className="contact-info">
-              <div className="contact-item">
-                <Mail className="w-4 h-4" />
+          {/* Col 3: Academic Resources & Important Links */}
+          <div className="lg:col-span-2 space-y-3">
+            <h4 className="text-xs font-black text-amber-300 uppercase tracking-wider pb-1 border-b border-slate-700">
+              Aspirant Resources
+            </h4>
+            <ul className="space-y-2 text-xs">
+              <li>
+                <Link href="/aboutcse" className="hover:text-amber-200 transition-colors">
+                  • About CSE Examination
+                </Link>
+              </li>
+              <li>
+                <Link href="/pyqs" className="hover:text-amber-200 transition-colors">
+                  • 10-Year Topicwise PYQs
+                </Link>
+              </li>
+              <li>
+                <Link href="/#mock-test" className="hover:text-amber-200 transition-colors">
+                  • Daily Practice Mini-Quiz
+                </Link>
+              </li>
+              <li>
+                <Link href="/updates?category=Model Answers" className="hover:text-amber-200 transition-colors">
+                  • Mains Model Answers
+                </Link>
+              </li>
+              <li>
+                <Link href="/direct-query" className="hover:text-amber-200 transition-colors">
+                  • Direct Faculty Query
+                </Link>
+              </li>
+            </ul>
+          </div>
+
+          {/* Col 4: Newsletter & Contact */}
+          <div className="lg:col-span-3 space-y-3">
+            <h4 className="text-xs font-black text-amber-300 uppercase tracking-wider pb-1 border-b border-slate-700">
+              Gazette Dispatch
+            </h4>
+            <p className="text-[11px] text-slate-300">
+              Receive notifications for newly published statutory briefs and committee analyses.
+            </p>
+
+            <form onSubmit={handleSubscribe} className="space-y-2">
+              <input
+                type="email"
+                placeholder="Enter your email address"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                className="w-full px-3 py-1.5 text-xs bg-[#0b2948] border border-slate-600 rounded text-white placeholder-slate-400 focus:outline-none focus:ring-1 focus:ring-amber-400"
+              />
+              <button
+                type="submit"
+                disabled={loading}
+                className="w-full py-1.5 bg-[#FF9933] hover:bg-[#e68524] text-slate-950 font-bold text-xs uppercase tracking-wider rounded transition-colors"
+              >
+                {loading ? 'Subscribing...' : 'Subscribe Bulletin'}
+              </button>
+            </form>
+
+            {feedback.text && (
+              <p className="text-[10.5px] font-semibold text-emerald-400">
+                {feedback.text}
+              </p>
+            )}
+
+            <div className="pt-2 text-[11px] text-slate-400 space-y-1">
+              <p className="flex items-center gap-1.5">
+                <Mail className="w-3.5 h-3.5 text-amber-400" />
                 <span>rajivranjansingh@civilspage.com</span>
-              </div>
-              <div className="contact-item">
-                <Phone className="w-4 h-4" />
-                <span>+91 98765 43210</span>
-              </div>
-              <div className="contact-item">
-                <MapPin className="w-4 h-4" />
-                <span>ORP, Rajinder Nagar,<br />New Delhi, India</span>
-              </div>
+              </p>
+              <p className="flex items-center gap-1.5">
+                <MapPin className="w-3.5 h-3.5 text-amber-400" />
+                <span>New Delhi, India</span>
+              </p>
             </div>
           </div>
 
-          {/* Newsletter subscription */}
-          <div className="footer-newsletter">
-            <h4 className="footer-title">Newsletter</h4>
-            <p>Get high-yield UPSC topics, weekly strategy notes, and exam notifications directly in your inbox.</p>
-            
-            <form className="newsletter-form" onSubmit={handleSubscribe}>
-              <div className="newsletter-input-wrapper">
-                <input 
-                  type="email" 
-                  className="newsletter-input" 
-                  placeholder="Enter your email" 
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                  required 
-                  disabled={loading}
-                  aria-label="Email for Newsletter"
-                />
-                <button type="submit" className="newsletter-submit" aria-label="Subscribe to newsletter" disabled={loading}>
-                  <Send className="w-4.5 h-4.5" />
-                </button>
-              </div>
-              {feedback.type && (
-                <span className={`newsletter-feedback ${feedback.type === 'success' ? 'success text-emerald-600' : 'error text-red-600'} text-xs font-semibold mt-2 block`}>
-                  {feedback.text}
-                </span>
-              )}
-            </form>
-          </div>
         </div>
 
-        {/* Copyright Bottom footer */}
-        <div className="footer-bottom">
-          <p>&copy; 2026 CivilsPage UPSC Academy. All rights reserved.</p>
-          <div className="footer-bottom-links">
-            <Link href="/login" className="footer-link">Admin Dashboard</Link>
-            <Link href="#" className="footer-link">Privacy Policy</Link>
-            <Link href="#" className="footer-link">Terms of Service</Link>
+        {/* 3. Bottom Legal & Portal Compliance Statement */}
+        <div className="pt-6 flex flex-col sm:flex-row items-center justify-between gap-4 text-[11px] text-slate-400">
+          <div>
+            <p>© {new Date().getFullYear()} CivilsPAGE · Dedicated Resource Centre for Polity, Administration, Governance & Ethics.</p>
+            <p className="text-[10px] text-slate-400 mt-0.5">Designed with official national portal standards for academic and civil services aspirants.</p>
+          </div>
+
+          <div className="flex items-center gap-4 text-[10.5px]">
+            <Link href="/" className="hover:text-amber-300">Privacy Policy</Link>
+            <span>•</span>
+            <Link href="/" className="hover:text-amber-300">Terms of Use</Link>
+            <span>•</span>
+            <Link href="/direct-query" className="hover:text-amber-300">Help & Feedback</Link>
           </div>
         </div>
       </div>
