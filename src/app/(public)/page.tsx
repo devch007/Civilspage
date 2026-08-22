@@ -1,7 +1,6 @@
 import React from 'react';
 import Hero from '@/components/sections/Hero';
 import Mentor from '@/components/sections/Mentor';
-import CseOverview from '@/components/sections/CseOverview';
 import FeaturedResources from '@/components/sections/FeaturedResources';
 import StudyMaterial from '@/components/sections/StudyMaterial';
 import CurrentAffairs from '@/components/sections/CurrentAffairs';
@@ -16,9 +15,6 @@ export default function Home() {
 
       {/* Mentor Profile Biography Section */}
       <Mentor />
-
-      {/* About CSE Exam Card Section */}
-      <CseOverview />
 
       {/* Must-Read High Yield Focus Resources */}
       <FeaturedResources />
