@@ -25,7 +25,8 @@ import {
   ArrowRight,
   TrendingUp,
   Brain,
-  FileCheck
+  FileCheck,
+  Clock
 } from 'lucide-react';
 
 type TabType = 'overview' | 'eligibility' | 'syllabus' | 'reading' | 'approach' | 'salary';
