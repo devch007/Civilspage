@@ -34,7 +34,7 @@ import {
   Users
 } from 'lucide-react';
 
-type TabType = 'overview' | 'eligibility' | 'syllabus' | 'reading' | 'approach' | 'polity' | 'salary';
+type TabType = 'syllabus' | 'reading' | 'approach' | 'polity' | 'salary';
 type SyllabusStage = 'prelims' | 'mains' | 'optionals';
 type OptionalChoice = 'pubad' | 'psir' | 'law';
 type PolityStage = 'gs2' | 'pubad' | 'ethics';
@@ -64,19 +64,10 @@ const faqsList: FaqItem[] = [
 ];
 
 export default function AboutCse() {
-  const [activeTab, setActiveTab] = useState<TabType>('overview');
+  const [activeTab, setActiveTab] = useState<TabType>('syllabus');
   const [syllabusStage, setSyllabusStage] = useState<SyllabusStage>('prelims');
   const [selectedOptional, setSelectedOptional] = useState<OptionalChoice>('pubad');
   const [polityStage, setPolityStage] = useState<PolityStage>('gs2');
-  
-  const [category, setCategory] = useState('general');
-  const [disability, setDisability] = useState('no');
-  const [calcResult, setCalcResult] = useState({
-    minAge: 21,
-    maxAge: 32,
-    attempts: '6 Attempts',
-    relaxation: 'None'
-  });
   const [activeFaq, setActiveFaq] = useState<number | null>(null);
 
   // Sync hash routing on page load
@@ -91,55 +82,11 @@ export default function AboutCse() {
         setActiveTab('approach');
       } else if (hash === '#polity' || hash === '#polity-approach' || hash === '#approach-to-polity') {
         setActiveTab('polity');
+      } else if (hash === '#salary' || hash === '#posts') {
+        setActiveTab('salary');
       }
     }
   }, []);
-
-  // Run eligibility check logic on input change
-  useEffect(() => {
-    let maxAge = 32;
-    let attempts: number | string = 6;
-    let relaxation = 'None';
-
-    if (category === 'general') {
-      if (disability === 'yes') {
-        maxAge = 42;
-        attempts = 9;
-        relaxation = '+10 Years (PwBD)';
-      } else {
-        maxAge = 32;
-        attempts = 6;
-        relaxation = 'None';
-      }
-    } else if (category === 'obc') {
-      if (disability === 'yes') {
-        maxAge = 45;
-        attempts = 9;
-        relaxation = '+13 Years (OBC + PwBD)';
-      } else {
-        maxAge = 35;
-        attempts = 9;
-        relaxation = '+3 Years (OBC)';
-      }
-    } else if (category === 'scst') {
-      if (disability === 'yes') {
-        maxAge = 47;
-        attempts = 'Unlimited';
-        relaxation = '+15 Years (SC/ST + PwBD)';
-      } else {
-        maxAge = 37;
-        attempts = 'Unlimited';
-        relaxation = '+5 Years (SC/ST)';
-      }
-    }
-
-    setCalcResult({
-      minAge: 21,
-      maxAge,
-      attempts: typeof attempts === 'number' ? `${attempts} Attempts` : attempts,
-      relaxation
-    });
-  }, [category, disability]);
 
   return (
     <div className="min-h-screen bg-[#FAF9F6] text-slate-800">
@@ -161,31 +108,11 @@ export default function AboutCse() {
             transition={{ duration: 0.5, delay: 0.1 }}
             className="text-sm sm:text-base text-slate-600 max-w-2xl mx-auto leading-relaxed"
           >
-            Authoritative handbook detailing the constitutional mandate, stages of selection, complete official syllabi, and administrative rank matrices of the UPSC CSE.
+            Authoritative handbook detailing the stages of selection, official syllabi, textbook readings, subject approaches, and administrative rank matrices of the UPSC CSE.
           </motion.p>
 
           {/* Quick Nav Pill Tabs */}
           <div className="flex flex-wrap items-center justify-center gap-2 pt-4">
-            <button 
-              className={`px-4 py-2 text-xs font-bold rounded-lg border transition-all ${
-                activeTab === 'overview'
-                  ? 'bg-[#0b3b60] text-white border-[#0b3b60] shadow-sm'
-                  : 'bg-white text-slate-700 border-slate-300 hover:bg-slate-50'
-              }`}
-              onClick={() => setActiveTab('overview')}
-            >
-              Historical Background
-            </button>
-            <button 
-              className={`px-4 py-2 text-xs font-bold rounded-lg border transition-all ${
-                activeTab === 'eligibility'
-                  ? 'bg-[#0b3b60] text-white border-[#0b3b60] shadow-sm'
-                  : 'bg-white text-slate-700 border-slate-300 hover:bg-slate-50'
-              }`}
-              onClick={() => setActiveTab('eligibility')}
-            >
-              Eligibility & Limits
-            </button>
             <button 
               className={`px-4 py-2 text-xs font-bold rounded-lg border transition-all ${
                 activeTab === 'syllabus'
@@ -243,192 +170,6 @@ export default function AboutCse() {
       {/* 2. MAIN CONTAINER WITH TAB PANELS */}
       <div className="max-w-6xl mx-auto px-4 sm:px-8 py-10">
         
-        {/* OVERVIEW TAB */}
-        {activeTab === 'overview' && (
-          <motion.section 
-            key="tab-overview" 
-            initial={{ opacity: 0, y: 15 }} 
-            animate={{ opacity: 1, y: 0 }} 
-            exit={{ opacity: 0, y: -15 }} 
-            transition={{ duration: 0.3 }}
-            className="space-y-8"
-          >
-            <div className="text-left mb-6">
-              <h2 className="text-2xl sm:text-3xl font-black text-[#0b3b60] font-serif">
-                Institutional Origins of the Civil Services
-              </h2>
-              <p className="text-xs sm:text-sm text-slate-600 mt-1">
-                A historical overview of public administration in India from early East India Company patronage to modern constitutional safeguards under Part XIV.
-              </p>
-            </div>
-
-            {/* Constitutional Mandate Callout */}
-            <div className="bg-white border border-slate-200 rounded-xl p-5 shadow-xs flex gap-4 items-start">
-              <div className="w-10 h-10 rounded-lg bg-[#0b3b60]/10 text-[#0b3b60] flex items-center justify-center shrink-0">
-                <Info className="w-5 h-5" />
-              </div>
-              <div className="space-y-1 text-xs sm:text-sm">
-                <h3 className="font-bold text-slate-900">Constitutional Mandate: Article 315 to 323</h3>
-                <p className="text-slate-600 leading-relaxed">
-                  The Union Public Service Commission (UPSC) is a permanent Constitutional Body mandated under Article 315 to conduct merit-based competitive examinations for appointments to the civil services of the Union.
-                </p>
-              </div>
-            </div>
-
-            {/* Prose */}
-            <div className="bg-white border border-slate-200 rounded-xl p-6 shadow-xs space-y-4 text-xs sm:text-sm text-slate-700 leading-relaxed">
-              <h3 className="text-lg font-bold text-[#0b3b60] font-serif">Evolution of Merit Selection</h3>
-              <p>
-                During the East India Company rule, civil servants were nominated by the Court of Directors and trained at Haileybury College. Lord Macaulay's Committee Report in 1854 established that patronage must give way to open, merit-based competitive examinations.
-              </p>
-              <p>
-                The 1919 Montagu-Chelmsford reforms recommended holding simultaneous examinations in India. The <strong>Lee Commission (1923)</strong> later formalized the blueprint, leading to the setting up of the first Public Service Commission of India on <strong>October 1, 1926</strong> under the Chairmanship of Sir Ross Barker.
-              </p>
-            </div>
-
-            {/* Timeline Cards */}
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-              <div className="bg-white border border-slate-200 rounded-xl p-5 shadow-xs hover:border-[#0b3b60] transition-colors">
-                <span className="inline-block px-2.5 py-0.5 bg-[#0b3b60] text-white text-xs font-bold rounded font-mono mb-2">1854</span>
-                <h4 className="text-sm font-bold text-slate-900">Macaulay Report</h4>
-                <p className="text-xs text-slate-600 mt-1 leading-relaxed">
-                  Abolished the nomination system and instituted open competition to select individuals with strong intellectual capabilities.
-                </p>
-              </div>
-
-              <div className="bg-white border border-slate-200 rounded-xl p-5 shadow-xs hover:border-[#0b3b60] transition-colors">
-                <span className="inline-block px-2.5 py-0.5 bg-[#0b3b60] text-white text-xs font-bold rounded font-mono mb-2">1926</span>
-                <h4 className="text-sm font-bold text-slate-900">First PSC Formed</h4>
-                <p className="text-xs text-slate-600 mt-1 leading-relaxed">
-                  Under Sir Ross Barker, the initial four-member commission conducted selections for the elite ICS and Indian Police.
-                </p>
-              </div>
-
-              <div className="bg-white border border-slate-200 rounded-xl p-5 shadow-xs hover:border-[#0b3b60] transition-colors">
-                <span className="inline-block px-2.5 py-0.5 bg-[#0b3b60] text-white text-xs font-bold rounded font-mono mb-2">1935</span>
-                <h4 className="text-sm font-bold text-slate-900">Federal PSC</h4>
-                <p className="text-xs text-slate-600 mt-1 leading-relaxed">
-                  The Government of India Act 1935 transformed the board into the Federal PSC, establishing provincial-level services.
-                </p>
-              </div>
-            </div>
-          </motion.section>
-        )}
-
-        {/* ELIGIBILITY TAB */}
-        {activeTab === 'eligibility' && (
-          <motion.section 
-            key="tab-eligibility" 
-            initial={{ opacity: 0, y: 15 }} 
-            animate={{ opacity: 1, y: 0 }} 
-            exit={{ opacity: 0, y: -15 }} 
-            transition={{ duration: 0.3 }}
-            className="space-y-8"
-          >
-            <div className="text-left mb-6">
-              <h2 className="text-2xl sm:text-3xl font-black text-[#0b3b60] font-serif">
-                UPSC CSE Eligibility Criteria
-              </h2>
-              <p className="text-xs sm:text-sm text-slate-600 mt-1">
-                To apply for the Civil Services Examination, aspirants must satisfy core nationality, educational qualifications, age limits, and maximum attempt counts.
-              </p>
-            </div>
-
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-              <div className="bg-white border border-slate-200 rounded-xl p-5 shadow-xs">
-                <div className="w-9 h-9 rounded-lg bg-indigo-50 text-indigo-700 flex items-center justify-center mb-3">
-                  <GraduationCap className="w-5 h-5" />
-                </div>
-                <h4 className="text-sm font-bold text-slate-900">Education</h4>
-                <p className="text-xs text-slate-600 mt-1 leading-relaxed">
-                  Candidates must hold a Bachelor's Degree in any discipline from a recognized University incorporated by an Act of Parliament.
-                </p>
-                <p className="text-[11px] font-semibold text-[#0b3b60] mt-2">* Final year students can apply for Prelims.</p>
-              </div>
-
-              <div className="bg-white border border-slate-200 rounded-xl p-5 shadow-xs">
-                <div className="w-9 h-9 rounded-lg bg-emerald-50 text-emerald-700 flex items-center justify-center mb-3">
-                  <Globe className="w-5 h-5" />
-                </div>
-                <h4 className="text-sm font-bold text-slate-900">Nationality</h4>
-                <p className="text-xs text-slate-600 mt-1 leading-relaxed">
-                  For IAS and IPS, a candidate must be a <strong>Citizen of India</strong>. For other services, candidates can be subjects of Nepal, Bhutan, or Tibetan refugees.
-                </p>
-              </div>
-
-              <div className="bg-white border border-slate-200 rounded-xl p-5 shadow-xs">
-                <div className="w-9 h-9 rounded-lg bg-amber-50 text-amber-700 flex items-center justify-center mb-3">
-                  <Calendar className="w-5 h-5" />
-                </div>
-                <h4 className="text-sm font-bold text-slate-900">Age Base</h4>
-                <p className="text-xs text-slate-600 mt-1 leading-relaxed">
-                  A candidate must have attained <strong>21 years</strong> and not have attained <strong>32 years</strong> on the 1st of August of the exam year.
-                </p>
-              </div>
-            </div>
-
-            {/* Interactive Eligibility Checker */}
-            <div className="bg-[#0b3b60] text-white rounded-2xl p-6 sm:p-8 shadow-md">
-              <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-center">
-                <div className="lg:col-span-7 space-y-4">
-                  <div>
-                    <h3 className="text-xl font-bold font-serif text-amber-300">Interactive Eligibility Checker</h3>
-                    <p className="text-xs text-slate-300 mt-1">
-                      Select your category and disability criteria to instantly verify your maximum age limit, relaxations, and allowed attempts.
-                    </p>
-                  </div>
-
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-2">
-                    <div>
-                      <label className="block text-[11px] font-bold uppercase tracking-wider text-slate-300 mb-1.5">Category</label>
-                      <select 
-                        className="w-full bg-[#082945] border border-slate-600 text-white rounded-lg px-3 py-2 text-xs focus:outline-none focus:ring-1 focus:ring-amber-400"
-                        value={category} 
-                        onChange={(e) => setCategory(e.target.value)}
-                      >
-                        <option value="general">General / EWS</option>
-                        <option value="obc">OBC (Non-Creamy Layer)</option>
-                        <option value="scst">SC / ST</option>
-                      </select>
-                    </div>
-
-                    <div>
-                      <label className="block text-[11px] font-bold uppercase tracking-wider text-slate-300 mb-1.5">Benchmark Disability (PwBD)</label>
-                      <select 
-                        className="w-full bg-[#082945] border border-slate-600 text-white rounded-lg px-3 py-2 text-xs focus:outline-none focus:ring-1 focus:ring-amber-400"
-                        value={disability} 
-                        onChange={(e) => setDisability(e.target.value)}
-                      >
-                        <option value="no">No Disability</option>
-                        <option value="yes">Yes (PwBD)</option>
-                      </select>
-                    </div>
-                  </div>
-                </div>
-
-                <div className="lg:col-span-5 bg-[#082945] p-5 rounded-xl border border-slate-700/80 space-y-3">
-                  <div className="flex justify-between items-center text-xs pb-2 border-b border-slate-700">
-                    <span className="text-slate-400">Minimum Age Limit</span>
-                    <span className="font-bold text-amber-300 font-mono">21 Years</span>
-                  </div>
-                  <div className="flex justify-between items-center text-xs pb-2 border-b border-slate-700">
-                    <span className="text-slate-400">Maximum Age Limit</span>
-                    <span className="font-bold text-white font-mono">{calcResult.maxAge} Years</span>
-                  </div>
-                  <div className="flex justify-between items-center text-xs pb-2 border-b border-slate-700">
-                    <span className="text-slate-400">Age Relaxation</span>
-                    <span className="font-bold text-emerald-400">{calcResult.relaxation}</span>
-                  </div>
-                  <div className="flex justify-between items-center text-xs">
-                    <span className="text-slate-400">Max Attempts</span>
-                    <span className="font-bold text-amber-300 font-mono">{calcResult.attempts}</span>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </motion.section>
-        )}
-
         {/* SYLLABUS TAB - COMPLETE CONTENT FROM OFFICIAL PDF */}
         {activeTab === 'syllabus' && (
           <motion.section 
