@@ -32,12 +32,30 @@ export default function Header() {
   const [searchQuery, setSearchQuery] = useState('');
   const pathname = usePathname();
 
+  const [currentLang, setCurrentLang] = useState<'en' | 'hi'>('en');
+
   // Close mobile menu & dropdown on path changes
   useEffect(() => {
     setMobileMenuOpen(false);
     setActiveDropdown(null);
     setSearchOpen(false);
   }, [pathname]);
+
+  // Synchronize dynamic language selection state on mount
+  useEffect(() => {
+    const getCookie = (name: string) => {
+      const value = `; ${document.cookie}`;
+      const parts = value.split(`; ${name}=`);
+      if (parts.length === 2) return parts.pop()?.split(';').shift();
+      return null;
+    };
+    const langCookie = getCookie('googtrans');
+    if (langCookie === '/en/hi') {
+      setCurrentLang('hi');
+    } else {
+      setCurrentLang('en');
+    }
+  }, []);
 
   // Dynamically load Google Translate for high-efficiency Hindi translation
   useEffect(() => {
@@ -64,6 +82,20 @@ export default function Header() {
 
     addGoogleTranslateScript();
   }, []);
+
+  const handleLanguageChange = (lang: 'en' | 'hi') => {
+    setCurrentLang(lang);
+    if (lang === 'hi') {
+      document.cookie = 'googtrans=/en/hi; path=/';
+      document.cookie = 'googtrans=/en/hi; path=/; domain=' + window.location.hostname;
+      document.cookie = 'googtrans=/en/hi; path=/; domain=.' + window.location.hostname.replace(/^www\./, '');
+    } else {
+      document.cookie = 'googtrans=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;';
+      document.cookie = 'googtrans=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/; domain=' + window.location.hostname;
+      document.cookie = 'googtrans=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/; domain=.' + window.location.hostname.replace(/^www\./, '');
+    }
+    window.location.reload();
+  };
 
   const toggleDropdown = (name: string) => {
     setActiveDropdown(activeDropdown === name ? null : name);
@@ -156,7 +188,17 @@ export default function Header() {
               </div>
 
               <span className="text-slate-600">|</span>
-              <div id="google_translate_element" className="flex items-center min-h-[22px]"></div>
+              <div className="relative inline-block align-middle">
+                <select
+                  value={currentLang}
+                  onChange={(e) => handleLanguageChange(e.target.value as 'en' | 'hi')}
+                  className="bg-[#133860] text-slate-200 border border-slate-700/60 rounded px-2 py-0.5 text-[10.5px] font-bold outline-none cursor-pointer hover:text-amber-300 hover:border-slate-500 transition-colors focus:ring-0 focus:outline-none h-[22px] leading-tight"
+                >
+                  <option value="en" className="bg-[#0b2948] text-white">English ▾</option>
+                  <option value="hi" className="bg-[#0b2948] text-white">हिन्दी (Hindi) ▾</option>
+                </select>
+              </div>
+              <div id="google_translate_element" className="hidden"></div>
             </div>
           </div>
         </div>
