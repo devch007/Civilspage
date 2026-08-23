@@ -13,10 +13,12 @@ import {
   CheckCircle2,
   Building2,
   DollarSign,
-  HelpCircle
+  HelpCircle,
+  BookMarked,
+  Library
 } from 'lucide-react';
 
-type TabType = 'overview' | 'eligibility' | 'syllabus' | 'salary';
+type TabType = 'overview' | 'eligibility' | 'syllabus' | 'reading' | 'salary';
 type SyllabusStage = 'prelims' | 'mains' | 'optionals';
 type OptionalChoice = 'pubad' | 'psir' | 'law';
 
@@ -65,6 +67,8 @@ export default function AboutCse() {
       const hash = window.location.hash;
       if (hash === '#exam-plan' || hash === '#detailed-syllabus') {
         setActiveTab('syllabus');
+      } else if (hash === '#suggested-reading' || hash === '#reading') {
+        setActiveTab('reading');
       }
     }
   }, []);
@@ -169,6 +173,16 @@ export default function AboutCse() {
               onClick={() => setActiveTab('syllabus')}
             >
               Official Syllabi
+            </button>
+            <button 
+              className={`px-4 py-2 text-xs font-bold rounded-lg border transition-all ${
+                activeTab === 'reading'
+                  ? 'bg-[#0b3b60] text-white border-[#0b3b60] shadow-sm'
+                  : 'bg-white text-slate-700 border-slate-300 hover:bg-slate-50'
+              }`}
+              onClick={() => setActiveTab('reading')}
+            >
+              Suggested Reading
             </button>
             <button 
               className={`px-4 py-2 text-xs font-bold rounded-lg border transition-all ${
@@ -1186,6 +1200,368 @@ export default function AboutCse() {
 
               </div>
             )}
+
+          </motion.section>
+        )}
+
+        {/* SUGGESTED READING TAB */}
+        {activeTab === 'reading' && (
+          <motion.section 
+            key="tab-reading" 
+            initial={{ opacity: 0, y: 15 }} 
+            animate={{ opacity: 1, y: 0 }} 
+            exit={{ opacity: 0, y: -15 }} 
+            transition={{ duration: 0.3 }}
+            className="space-y-8"
+          >
+            <div className="text-left mb-6">
+              <h2 className="text-2xl sm:text-3xl font-black text-[#0b3b60] font-serif">
+                Suggested Reading: General Studies
+              </h2>
+              <p className="text-xs sm:text-sm text-slate-600 mt-1">
+                Standard reference literature, NCERT foundational textbooks, and Administrative Commission Reports for Civil Services Examination.
+              </p>
+            </div>
+
+            {/* Subject Grid */}
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+
+              {/* 1. Constitution, Polity and Governance */}
+              <div className="bg-white border border-slate-200 rounded-xl p-6 shadow-xs space-y-4">
+                <div className="pb-3 border-b border-slate-100">
+                  <span className="text-[10px] font-bold uppercase tracking-wider text-slate-500 font-mono">Polity & Governance</span>
+                  <h3 className="text-base font-bold text-[#0b3b60] font-serif mt-0.5">Constitution, Polity and Governance</h3>
+                </div>
+
+                <div className="space-y-3 text-xs sm:text-sm text-slate-700">
+                  <div>
+                    <span className="inline-block px-2 py-0.5 bg-blue-50 text-blue-700 font-bold text-[10.5px] rounded border border-blue-200 mb-1.5 font-mono">NCERT Textbooks</span>
+                    <ul className="space-y-1 pl-3 border-l-2 border-blue-200 text-xs">
+                      <li>• Democratic Politics - Vol. I (Class IX)</li>
+                      <li>• Democratic Politics - Vol. II (Class X)</li>
+                      <li>• Indian Constitution at Work (Class XI)</li>
+                    </ul>
+                  </div>
+
+                  <div className="pt-2">
+                    <span className="inline-block px-2 py-0.5 bg-amber-50 text-amber-800 font-bold text-[10.5px] rounded border border-amber-200 mb-1.5 font-mono">Standard References</span>
+                    <ul className="space-y-1 pl-3 border-l-2 border-amber-300 text-xs">
+                      <li>• <em>Our Political System</em> – Subhash C. Kashyap</li>
+                      <li>• <em>Indian Political System: Institutions and Processes</em> – Bidyut Chakrabarty & Rajendra K. Pandey</li>
+                      <li>• <em>From Government to Governance</em> – Kuldeep Mathur (National Book Trust India)</li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+
+              {/* 2. Art and Culture */}
+              <div className="bg-white border border-slate-200 rounded-xl p-6 shadow-xs space-y-4">
+                <div className="pb-3 border-b border-slate-100">
+                  <span className="text-[10px] font-bold uppercase tracking-wider text-slate-500 font-mono">Culture & Heritage</span>
+                  <h3 className="text-base font-bold text-[#0b3b60] font-serif mt-0.5">Art and Culture</h3>
+                </div>
+
+                <div className="space-y-3 text-xs sm:text-sm text-slate-700">
+                  <div>
+                    <span className="inline-block px-2 py-0.5 bg-blue-50 text-blue-700 font-bold text-[10.5px] rounded border border-blue-200 mb-1.5 font-mono">NCERT Textbooks</span>
+                    <ul className="space-y-1 pl-3 border-l-2 border-blue-200 text-xs">
+                      <li>• Introduction to Indian Arts (Class XI)</li>
+                    </ul>
+                  </div>
+
+                  <div className="pt-2">
+                    <span className="inline-block px-2 py-0.5 bg-amber-50 text-amber-800 font-bold text-[10.5px] rounded border border-amber-200 mb-1.5 font-mono">Standard References</span>
+                    <ul className="space-y-1 pl-3 border-l-2 border-amber-300 text-xs">
+                      <li>• <em>Indian Art and Culture</em> – Nitin Singhania</li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+
+              {/* 3. History */}
+              <div className="bg-white border border-slate-200 rounded-xl p-6 shadow-xs space-y-4">
+                <div className="pb-3 border-b border-slate-100">
+                  <span className="text-[10px] font-bold uppercase tracking-wider text-slate-500 font-mono">Historical Studies</span>
+                  <h3 className="text-base font-bold text-[#0b3b60] font-serif mt-0.5">History</h3>
+                </div>
+
+                <div className="space-y-3 text-xs sm:text-sm text-slate-700">
+                  <div>
+                    <span className="inline-block px-2 py-0.5 bg-blue-50 text-blue-700 font-bold text-[10.5px] rounded border border-blue-200 mb-1.5 font-mono">NCERT Textbooks</span>
+                    <ul className="space-y-1 pl-3 border-l-2 border-blue-200 text-xs">
+                      <li>• India and Contemporary World - I (Class IX)</li>
+                      <li>• India and Contemporary World - II (Class X)</li>
+                      <li>• Themes of World History (Class XI)</li>
+                      <li>• Themes in Indian History - Part I (Class XII)</li>
+                      <li>• Themes in Indian History - Part II (Class XII)</li>
+                      <li>• Themes in Indian History - Part III (Class XII)</li>
+                    </ul>
+                  </div>
+
+                  <div className="pt-2">
+                    <span className="inline-block px-2 py-0.5 bg-amber-50 text-amber-800 font-bold text-[10.5px] rounded border border-amber-200 mb-1.5 font-mono">Standard References</span>
+                    <ul className="space-y-1 pl-3 border-l-2 border-amber-300 text-xs">
+                      <li>• <em>India’s Ancient Past</em> – R.S. Sharma</li>
+                      <li>• <em>History of Modern India</em> – Bipan Chandra</li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+
+              {/* 4. Geography */}
+              <div className="bg-white border border-slate-200 rounded-xl p-6 shadow-xs space-y-4">
+                <div className="pb-3 border-b border-slate-100">
+                  <span className="text-[10px] font-bold uppercase tracking-wider text-slate-500 font-mono">Physical & Human</span>
+                  <h3 className="text-base font-bold text-[#0b3b60] font-serif mt-0.5">Geography</h3>
+                </div>
+
+                <div className="space-y-3 text-xs sm:text-sm text-slate-700">
+                  <div>
+                    <span className="inline-block px-2 py-0.5 bg-blue-50 text-blue-700 font-bold text-[10.5px] rounded border border-blue-200 mb-1.5 font-mono">NCERT Textbooks</span>
+                    <ul className="space-y-1 pl-3 border-l-2 border-blue-200 text-xs">
+                      <li>• Contemporary India - I (Class IX)</li>
+                      <li>• Contemporary India - II (Class X)</li>
+                      <li>• Fundamentals of Physical Geography (Class XI)</li>
+                      <li>• Fundamentals of Human Geography (Class XII)</li>
+                    </ul>
+                  </div>
+
+                  <div className="pt-2">
+                    <span className="inline-block px-2 py-0.5 bg-amber-50 text-amber-800 font-bold text-[10.5px] rounded border border-amber-200 mb-1.5 font-mono">Standard References</span>
+                    <ul className="space-y-1 pl-3 border-l-2 border-amber-300 text-xs">
+                      <li>• <em>Indian and World Geography</em> – Majid Husain</li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+
+              {/* 5. Society */}
+              <div className="bg-white border border-slate-200 rounded-xl p-6 shadow-xs space-y-4">
+                <div className="pb-3 border-b border-slate-100">
+                  <span className="text-[10px] font-bold uppercase tracking-wider text-slate-500 font-mono">Indian Society</span>
+                  <h3 className="text-base font-bold text-[#0b3b60] font-serif mt-0.5">Society</h3>
+                </div>
+
+                <div className="space-y-3 text-xs sm:text-sm text-slate-700">
+                  <div>
+                    <span className="inline-block px-2 py-0.5 bg-blue-50 text-blue-700 font-bold text-[10.5px] rounded border border-blue-200 mb-1.5 font-mono">NCERT Textbooks</span>
+                    <ul className="space-y-1 pl-3 border-l-2 border-blue-200 text-xs">
+                      <li>• Indian Society (Class XII)</li>
+                      <li>• Social Change and Development in India (Class XII)</li>
+                    </ul>
+                  </div>
+
+                  <div className="pt-2">
+                    <span className="inline-block px-2 py-0.5 bg-amber-50 text-amber-800 font-bold text-[10.5px] rounded border border-amber-200 mb-1.5 font-mono">Standard References</span>
+                    <ul className="space-y-1 pl-3 border-l-2 border-amber-300 text-xs">
+                      <li>• <em>Indian Social System</em> – Ram Ahuja</li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+
+              {/* 6. International Relations */}
+              <div className="bg-white border border-slate-200 rounded-xl p-6 shadow-xs space-y-4">
+                <div className="pb-3 border-b border-slate-100">
+                  <span className="text-[10px] font-bold uppercase tracking-wider text-slate-500 font-mono">Global Affairs</span>
+                  <h3 className="text-base font-bold text-[#0b3b60] font-serif mt-0.5">International Relations</h3>
+                </div>
+
+                <div className="space-y-3 text-xs sm:text-sm text-slate-700">
+                  <div>
+                    <span className="inline-block px-2 py-0.5 bg-blue-50 text-blue-700 font-bold text-[10.5px] rounded border border-blue-200 mb-1.5 font-mono">NCERT Textbooks</span>
+                    <ul className="space-y-1 pl-3 border-l-2 border-blue-200 text-xs">
+                      <li>• Contemporary World Politics (Class XII)</li>
+                    </ul>
+                  </div>
+
+                  <div className="pt-2">
+                    <span className="inline-block px-2 py-0.5 bg-amber-50 text-amber-800 font-bold text-[10.5px] rounded border border-amber-200 mb-1.5 font-mono">Standard References</span>
+                    <ul className="space-y-1 pl-3 border-l-2 border-amber-300 text-xs">
+                      <li>• <em>International Relations</em> – V.N. Khanna</li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+
+              {/* 7. Ethics, Integrity and Aptitude */}
+              <div className="bg-white border border-slate-200 rounded-xl p-6 shadow-xs space-y-4">
+                <div className="pb-3 border-b border-slate-100">
+                  <span className="text-[10px] font-bold uppercase tracking-wider text-slate-500 font-mono">GS Paper IV</span>
+                  <h3 className="text-base font-bold text-[#0b3b60] font-serif mt-0.5">Ethics, Integrity and Aptitude</h3>
+                </div>
+
+                <div className="space-y-3 text-xs sm:text-sm text-slate-700">
+                  <div>
+                    <span className="inline-block px-2 py-0.5 bg-blue-50 text-blue-700 font-bold text-[10.5px] rounded border border-blue-200 mb-1.5 font-mono">NCERT Textbooks</span>
+                    <ul className="space-y-1 pl-3 border-l-2 border-blue-200 text-xs">
+                      <li>• Psychology - Class XI (Chapter 8: Motivation and Emotion)</li>
+                      <li>• Psychology - Class XII (Chapter 6: Attitude and Social Cognition)</li>
+                    </ul>
+                  </div>
+
+                  <div className="pt-2">
+                    <span className="inline-block px-2 py-0.5 bg-amber-50 text-amber-800 font-bold text-[10.5px] rounded border border-amber-200 mb-1.5 font-mono">Standard References</span>
+                    <ul className="space-y-1 pl-3 border-l-2 border-amber-300 text-xs">
+                      <li>• <em>Ethics, Integrity and Aptitude (Foundational Values for Civil Services in India)</em> – P.D. Sharma</li>
+                      <li>• <em>The LEXICON For Ethics, Integrity & Aptitude</em> (Chronicle Publications)</li>
+                      <li>• <em>Makers of Modern India</em> – Ramachandra Guha</li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+
+              {/* 8. Economy */}
+              <div className="bg-white border border-slate-200 rounded-xl p-6 shadow-xs space-y-4">
+                <div className="pb-3 border-b border-slate-100">
+                  <span className="text-[10px] font-bold uppercase tracking-wider text-slate-500 font-mono">Economic Development</span>
+                  <h3 className="text-base font-bold text-[#0b3b60] font-serif mt-0.5">Economy</h3>
+                </div>
+
+                <div className="space-y-3 text-xs sm:text-sm text-slate-700">
+                  <div>
+                    <span className="inline-block px-2 py-0.5 bg-blue-50 text-blue-700 font-bold text-[10.5px] rounded border border-blue-200 mb-1.5 font-mono">NCERT Textbooks</span>
+                    <ul className="space-y-1 pl-3 border-l-2 border-blue-200 text-xs">
+                      <li>• Resources and Development (Class VIII)</li>
+                      <li>• Economics (Class IX)</li>
+                      <li>• Understanding Economic Development (Class X)</li>
+                      <li>• Indian Economic Development (Class XI)</li>
+                      <li>• India - People and Economy (Class XII)</li>
+                    </ul>
+                  </div>
+
+                  <div className="pt-2">
+                    <span className="inline-block px-2 py-0.5 bg-amber-50 text-amber-800 font-bold text-[10.5px] rounded border border-amber-200 mb-1.5 font-mono">Standard References</span>
+                    <ul className="space-y-1 pl-3 border-l-2 border-amber-300 text-xs">
+                      <li>• <em>India’s Economic Development since 1947</em> – Uma Kapila</li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+
+              {/* 9. Science and Technology */}
+              <div className="bg-white border border-slate-200 rounded-xl p-6 shadow-xs space-y-4">
+                <div className="pb-3 border-b border-slate-100">
+                  <span className="text-[10px] font-bold uppercase tracking-wider text-slate-500 font-mono">Applied Sciences</span>
+                  <h3 className="text-base font-bold text-[#0b3b60] font-serif mt-0.5">Science and Technology</h3>
+                </div>
+
+                <div className="space-y-3 text-xs sm:text-sm text-slate-700">
+                  <div>
+                    <span className="inline-block px-2 py-0.5 bg-blue-50 text-blue-700 font-bold text-[10.5px] rounded border border-blue-200 mb-1.5 font-mono">NCERT Textbooks</span>
+                    <ul className="space-y-1 pl-3 border-l-2 border-blue-200 text-xs">
+                      <li>• Science (Classes 6 to 10)</li>
+                    </ul>
+                  </div>
+
+                  <div className="pt-2">
+                    <span className="inline-block px-2 py-0.5 bg-amber-50 text-amber-800 font-bold text-[10.5px] rounded border border-amber-200 mb-1.5 font-mono">Standard References</span>
+                    <ul className="space-y-1 pl-3 border-l-2 border-amber-300 text-xs">
+                      <li>• <em>Developments in Science and Technology</em> – Published by Spectrum Books Pvt. Ltd.</li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+
+              {/* 10. Environment */}
+              <div className="bg-white border border-slate-200 rounded-xl p-6 shadow-xs space-y-4">
+                <div className="pb-3 border-b border-slate-100">
+                  <span className="text-[10px] font-bold uppercase tracking-wider text-slate-500 font-mono">Ecology & Biodiversity</span>
+                  <h3 className="text-base font-bold text-[#0b3b60] font-serif mt-0.5">Environment</h3>
+                </div>
+
+                <div className="space-y-3 text-xs sm:text-sm text-slate-700">
+                  <div>
+                    <span className="inline-block px-2 py-0.5 bg-blue-50 text-blue-700 font-bold text-[10.5px] rounded border border-blue-200 mb-1.5 font-mono">NCERT Textbooks</span>
+                    <ul className="space-y-1 pl-3 border-l-2 border-blue-200 text-xs">
+                      <li>• Our Environment (Class VII)</li>
+                      <li>• Chemistry - Part II - Class XI (Units 14 and 16)</li>
+                      <li>• Biology - Class XII (Units VIII, IX and X: Chapters 8 to 16)</li>
+                    </ul>
+                  </div>
+
+                  <div className="pt-2">
+                    <span className="inline-block px-2 py-0.5 bg-amber-50 text-amber-800 font-bold text-[10.5px] rounded border border-amber-200 mb-1.5 font-mono">Standard References</span>
+                    <ul className="space-y-1 pl-3 border-l-2 border-amber-300 text-xs">
+                      <li>• <em>Environmental Studies: from crisis to cure</em> – R. Rajagopalan</li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+
+              {/* 11. Security */}
+              <div className="bg-white border border-slate-200 rounded-xl p-6 shadow-xs space-y-4 md:col-span-2">
+                <div className="pb-3 border-b border-slate-100">
+                  <span className="text-[10px] font-bold uppercase tracking-wider text-slate-500 font-mono">Internal & Border Security</span>
+                  <h3 className="text-base font-bold text-[#0b3b60] font-serif mt-0.5">Security</h3>
+                </div>
+
+                <div className="space-y-2 text-xs sm:text-sm text-slate-700">
+                  <span className="inline-block px-2 py-0.5 bg-amber-50 text-amber-800 font-bold text-[10.5px] rounded border border-amber-200 mb-1 font-mono">Standard References</span>
+                  <ul className="space-y-1 pl-3 border-l-2 border-amber-300 text-xs">
+                    <li>• <em>India’s National Security: A Reader (Critical Issues in Indian Politics)</em> – edited by Kanti P. Bajpai and Harsh V. Pant</li>
+                  </ul>
+                </div>
+              </div>
+
+            </div>
+
+            {/* 12. Commissions & Committees Reports */}
+            <div className="bg-white border border-slate-200 rounded-xl p-6 shadow-xs space-y-6">
+              <div className="pb-3 border-b border-slate-100">
+                <span className="text-[10px] font-bold uppercase tracking-wider text-slate-500 font-mono">Government Commissions</span>
+                <h3 className="text-lg font-black text-[#0b3b60] font-serif mt-0.5">Commissions and Committees Reports</h3>
+                <p className="text-xs text-slate-600 mt-1">High-impact administrative reform blueprints and federal relations reports required for GS II, GS IV and Essay papers.</p>
+              </div>
+
+              <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                
+                {/* 2nd ARC Reports */}
+                <div className="space-y-3">
+                  <div className="flex items-center gap-2 pb-2 border-b border-slate-100">
+                    <span className="w-2 h-2 rounded-full bg-[#0b3b60]"></span>
+                    <h4 className="font-bold text-xs sm:text-sm text-slate-900">Second Administrative Reforms Commission (ARC) Reports</h4>
+                  </div>
+                  
+                  <ol className="space-y-1.5 text-xs text-slate-700 pl-4 list-decimal marker:text-slate-400">
+                    <li><strong>1st Report:</strong> Right to Information - Master Key to good governance</li>
+                    <li><strong>2nd Report:</strong> Unlocking human Capital, Entitlements and Governance - A Case Study</li>
+                    <li><strong>3rd Report:</strong> Crisis Management - from Despair to Hope</li>
+                    <li><strong>4th Report:</strong> Ethics in Governance</li>
+                    <li><strong>5th Report:</strong> Public Order - Justice for All……Peace for All</li>
+                    <li><strong>6th Report:</strong> Local Governance - An Inspiring Journey into the Future</li>
+                    <li><strong>7th Report:</strong> Capacity Building for Conflict Resolution - Friction to Fusion</li>
+                    <li><strong>8th Report:</strong> Combating Terrorism - Protecting by Righteousness</li>
+                    <li><strong>9th Report:</strong> Social Capital - A shared Destiny</li>
+                    <li><strong>10th Report:</strong> Refurbishing of Personnel Administration - Scaling New Heights</li>
+                    <li><strong>11th Report:</strong> Promoting e-Governance: The SMART way Forward</li>
+                    <li><strong>12th Report:</strong> Citizen-centric Administration - The Heart of Governance</li>
+                    <li><strong>13th Report:</strong> Organisational Structure of Government of India</li>
+                    <li><strong>14th Report:</strong> Strengthening financial management systems</li>
+                    <li><strong>15th Report:</strong> State and District Administration</li>
+                  </ol>
+                </div>
+
+                {/* Punchhi Commission Report */}
+                <div className="space-y-3">
+                  <div className="flex items-center gap-2 pb-2 border-b border-slate-100">
+                    <span className="w-2 h-2 rounded-full bg-amber-600"></span>
+                    <h4 className="font-bold text-xs sm:text-sm text-slate-900">Punchhi Commission Report on Centre – State Relations</h4>
+                  </div>
+                  
+                  <ul className="space-y-2 text-xs text-slate-700 pl-3 border-l-2 border-amber-300">
+                    <li><strong>Volume 1:</strong> Evolution of Centre – State Relations in India</li>
+                    <li><strong>Volume 2:</strong> Constitutional Governance and management of Centre – State relations</li>
+                    <li><strong>Volume 3:</strong> Centre - State Financial relations and planning</li>
+                    <li><strong>Volume 4:</strong> Local self-governments and decentralized governance</li>
+                    <li><strong>Volume 5:</strong> Internal security, criminal justice and Centre - State cooperation</li>
+                    <li><strong>Volume 6:</strong> Environment, natural resources and infrastructure</li>
+                    <li><strong>Volume 7:</strong> Socio-economic development, public policy and good governance</li>
+                  </ul>
+                </div>
+
+              </div>
+            </div>
 
           </motion.section>
         )}
