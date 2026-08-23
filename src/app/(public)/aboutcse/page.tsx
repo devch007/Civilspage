@@ -15,10 +15,20 @@ import {
   DollarSign,
   HelpCircle,
   BookMarked,
-  Library
+  Library,
+  Compass,
+  Lightbulb,
+  PenTool,
+  Target,
+  Flame,
+  Layers,
+  ArrowRight,
+  TrendingUp,
+  Brain,
+  FileCheck
 } from 'lucide-react';
 
-type TabType = 'overview' | 'eligibility' | 'syllabus' | 'reading' | 'salary';
+type TabType = 'overview' | 'eligibility' | 'syllabus' | 'reading' | 'approach' | 'salary';
 type SyllabusStage = 'prelims' | 'mains' | 'optionals';
 type OptionalChoice = 'pubad' | 'psir' | 'law';
 
@@ -69,6 +79,8 @@ export default function AboutCse() {
         setActiveTab('syllabus');
       } else if (hash === '#suggested-reading' || hash === '#reading') {
         setActiveTab('reading');
+      } else if (hash === '#approach' || hash === '#approach-to-gs') {
+        setActiveTab('approach');
       }
     }
   }, []);
@@ -183,6 +195,16 @@ export default function AboutCse() {
               onClick={() => setActiveTab('reading')}
             >
               Suggested Reading
+            </button>
+            <button 
+              className={`px-4 py-2 text-xs font-bold rounded-lg border transition-all ${
+                activeTab === 'approach'
+                  ? 'bg-[#0b3b60] text-white border-[#0b3b60] shadow-sm'
+                  : 'bg-white text-slate-700 border-slate-300 hover:bg-slate-50'
+              }`}
+              onClick={() => setActiveTab('approach')}
+            >
+              Approach to GS
             </button>
             <button 
               className={`px-4 py-2 text-xs font-bold rounded-lg border transition-all ${
@@ -1558,6 +1580,343 @@ export default function AboutCse() {
                     <li><strong>Volume 6:</strong> Environment, natural resources and infrastructure</li>
                     <li><strong>Volume 7:</strong> Socio-economic development, public policy and good governance</li>
                   </ul>
+                </div>
+
+              </div>
+            </div>
+
+          </motion.section>
+        )}
+
+        {/* APPROACH TO GS TAB */}
+        {activeTab === 'approach' && (
+          <motion.section 
+            key="tab-approach" 
+            initial={{ opacity: 0, y: 15 }} 
+            animate={{ opacity: 1, y: 0 }} 
+            exit={{ opacity: 0, y: -15 }} 
+            transition={{ duration: 0.3 }}
+            className="space-y-8"
+          >
+            {/* Header Banner */}
+            <div className="bg-gradient-to-r from-[#0b3b60] to-[#124e7e] text-white p-6 sm:p-8 rounded-2xl shadow-md space-y-3">
+              <div className="flex items-center gap-2">
+                <span className="px-2.5 py-0.5 bg-amber-400 text-slate-950 font-black text-[10px] uppercase tracking-wider rounded font-mono">
+                  Orientation & Strategy Framework
+                </span>
+                <span className="text-xs text-amber-200 font-medium">By Rajiv Ranjan Singh</span>
+              </div>
+              <h2 className="text-2xl sm:text-3xl font-black font-serif text-white">
+                An Approach to GS: Orientation & Methodology
+              </h2>
+              <p className="text-xs sm:text-sm text-slate-200 leading-relaxed max-w-3xl">
+                A definitive strategic blueprint for mastering General Studies — demystifying scoring realities, cognitive pipelines, temporal current affairs integration, and answer-crafting discipline.
+              </p>
+              
+              <div className="pt-2 border-t border-slate-700/60 flex flex-wrap gap-4 text-xs text-amber-300 font-medium">
+                <span>• "In GS, sky is the limit is a misconception."</span>
+                <span>• "Prediction is difficult, but not impossible."</span>
+                <span>• "It is the process of continuous, definitive direction."</span>
+              </div>
+            </div>
+
+            {/* Part 1: Core Strategy & Exam Reality */}
+            <div className="space-y-4">
+              <div className="flex items-center gap-2 border-b border-slate-200 pb-2">
+                <Target className="w-5 h-5 text-[#0b3b60]" />
+                <h3 className="text-lg font-bold font-serif text-[#0b3b60]">1. Strategic Mindset & Demystifying the Exam</h3>
+              </div>
+
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                
+                <div className="bg-white border border-slate-200 rounded-xl p-5 shadow-xs space-y-2">
+                  <div className="flex items-center gap-2">
+                    <span className="w-6 h-6 rounded-full bg-[#0b3b60] text-white font-bold text-xs flex items-center justify-center font-mono">1</span>
+                    <h4 className="font-bold text-xs sm:text-sm text-slate-900">Strategy: What & How</h4>
+                  </div>
+                  <p className="text-xs text-slate-600 leading-relaxed">
+                    Strategy defines <em>what is to be done</em> and <em>how it is to be done</em>. For example: focus on <strong>Polity and Governance</strong>, and not merely Constitution in isolation.
+                  </p>
+                </div>
+
+                <div className="bg-white border border-slate-200 rounded-xl p-5 shadow-xs space-y-2">
+                  <div className="flex items-center gap-2">
+                    <span className="w-6 h-6 rounded-full bg-[#0b3b60] text-white font-bold text-xs flex items-center justify-center font-mono">2</span>
+                    <h4 className="font-bold text-xs sm:text-sm text-slate-900">GS is NOT GK</h4>
+                  </div>
+                  <p className="text-xs text-slate-600 leading-relaxed">
+                    General Studies is distinct from General Knowledge. GK is rote factual recall; GS demands multi-dimensional causality, systemic evaluation, and institutional perspectives.
+                  </p>
+                </div>
+
+                <div className="bg-white border border-slate-200 rounded-xl p-5 shadow-xs space-y-2">
+                  <div className="flex items-center gap-2">
+                    <span className="w-6 h-6 rounded-full bg-[#0b3b60] text-white font-bold text-xs flex items-center justify-center font-mono">3</span>
+                    <h4 className="font-bold text-xs sm:text-sm text-slate-900">Low Scoring Examination</h4>
+                  </div>
+                  <p className="text-xs text-slate-600 leading-relaxed">
+                    UPSC is a low-scoring exam: IAS Topper 2018 secured <strong>55.36%</strong>; IAS Topper 2021 scored <strong>52.04%</strong> (878/1750 in written + 176/275 in interview = 1054/2025). Aim for quality over impossible volume.
+                  </p>
+                </div>
+
+                <div className="bg-white border border-slate-200 rounded-xl p-5 shadow-xs space-y-2">
+                  <div className="flex items-center gap-2">
+                    <span className="w-6 h-6 rounded-full bg-[#0b3b60] text-white font-bold text-xs flex items-center justify-center font-mono">4</span>
+                    <h4 className="font-bold text-xs sm:text-sm text-slate-900">Academic Background Demystified</h4>
+                  </div>
+                  <p className="text-xs text-slate-600 leading-relaxed">
+                    An excellent academic background is <strong>not a necessary condition</strong> to qualify. Your prior school or college percentage does not decide success; every exam is the toughest at that point in time.
+                  </p>
+                </div>
+
+                <div className="bg-white border border-slate-200 rounded-xl p-5 shadow-xs space-y-2">
+                  <div className="flex items-center gap-2">
+                    <span className="w-6 h-6 rounded-full bg-[#0b3b60] text-white font-bold text-xs flex items-center justify-center font-mono">5</span>
+                    <h4 className="font-bold text-xs sm:text-sm text-slate-900">Rural – Urban Background</h4>
+                  </div>
+                  <p className="text-xs text-slate-600 leading-relaxed">
+                    Whether from a rural or urban background, the playing field is leveled by clarity of concepts, analytical writing skills, and adherence to definitive strategy.
+                  </p>
+                </div>
+
+                <div className="bg-white border border-slate-200 rounded-xl p-5 shadow-xs space-y-2">
+                  <div className="flex items-center gap-2">
+                    <span className="w-6 h-6 rounded-full bg-[#0b3b60] text-white font-bold text-xs flex items-center justify-center font-mono">6</span>
+                    <h4 className="font-bold text-xs sm:text-sm text-slate-900">Skill and Will</h4>
+                  </div>
+                  <p className="text-xs text-slate-600 leading-relaxed">
+                    Preparation requires equal harmony between <strong>Skill</strong> (analytical competence, notes synthesis, expression) and <strong>Will</strong> (perseverance, consistency, and mental endurance).
+                  </p>
+                </div>
+
+              </div>
+
+              {/* Systemic Gap Callout */}
+              <div className="bg-amber-50 border border-amber-200 rounded-xl p-5 text-xs sm:text-sm text-amber-900 leading-relaxed">
+                <strong>The Core Knowledge Gap:</strong> The gap between <em>what you are expected to know</em> and <em>what you know</em> arises primarily due to a <strong>lack of integration between the standard academic educational system and the competitive examination system</strong>. Bridging this requires deliberate syllabus alignment.
+              </div>
+            </div>
+
+            {/* Part 2: Cognitive Pipeline & Learning Continuum */}
+            <div className="space-y-4 pt-4">
+              <div className="flex items-center gap-2 border-b border-slate-200 pb-2">
+                <Brain className="w-5 h-5 text-[#0b3b60]" />
+                <h3 className="text-lg font-bold font-serif text-[#0b3b60]">2. Cognitive Pipeline & The Learning Continuum</h3>
+              </div>
+
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+
+                {/* 4-Stage Continuum */}
+                <div className="bg-white border border-slate-200 rounded-xl p-6 shadow-xs space-y-4">
+                  <span className="text-[10px] font-bold uppercase tracking-wider text-slate-500 font-mono">The Learning Continuum</span>
+                  <h4 className="font-bold text-sm text-[#0b3b60]">Reading → Understanding → Retention → Expression</h4>
+                  
+                  <div className="grid grid-cols-2 gap-2 text-xs">
+                    <div className="p-3 bg-slate-50 rounded-lg border border-slate-100">
+                      <strong className="text-slate-900 block mb-1">1. Reading:</strong>
+                      <span className="text-slate-600">Initial exposure to authentic primary sources.</span>
+                    </div>
+                    <div className="p-3 bg-slate-50 rounded-lg border border-slate-100">
+                      <strong className="text-slate-900 block mb-1">2. Understanding:</strong>
+                      <span className="text-slate-600">Deconstructing conceptual logic and interlinkages.</span>
+                    </div>
+                    <div className="p-3 bg-slate-50 rounded-lg border border-slate-100">
+                      <strong className="text-slate-900 block mb-1">3. Retention:</strong>
+                      <span className="text-slate-600">Synoptical revision to consolidate core frameworks.</span>
+                    </div>
+                    <div className="p-3 bg-slate-50 rounded-lg border border-slate-100">
+                      <strong className="text-slate-900 block mb-1">4. Expression:</strong>
+                      <span className="text-slate-600">Crisp, structured delivery in exam answer sheets.</span>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Data Pipeline & Concepts */}
+                <div className="bg-white border border-slate-200 rounded-xl p-6 shadow-xs space-y-4">
+                  <span className="text-[10px] font-bold uppercase tracking-wider text-slate-500 font-mono">Information Processing</span>
+                  <h4 className="font-bold text-sm text-[#0b3b60]">Data → Process → Information → Insight</h4>
+                  
+                  <div className="space-y-2.5 text-xs text-slate-600">
+                    <div className="p-2.5 bg-slate-50 rounded-lg border border-slate-100 flex items-start gap-2">
+                      <span className="font-bold text-[#0b3b60]">Concept, Application & Practice:</span>
+                      <span>Concepts provide the foundation, application tests relevance, and consistent practice generates speed and accuracy.</span>
+                    </div>
+                    <div className="p-2.5 bg-slate-50 rounded-lg border border-slate-100 flex items-start gap-2">
+                      <span className="font-bold text-[#0b3b60]">Non-Linear Learning:</span>
+                      <span>Subject matter does not necessarily need to follow rigid chronological sequence (ancient, medieval, modern); focus on thematic coherence.</span>
+                    </div>
+                  </div>
+                </div>
+
+              </div>
+
+              {/* Coverage Cards */}
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                <div className="bg-white border border-slate-200 rounded-xl p-5 shadow-xs space-y-2">
+                  <h4 className="font-bold text-xs sm:text-sm text-slate-900">Horizontal & Vertical Coverage</h4>
+                  <p className="text-xs text-slate-600 leading-relaxed">
+                    <strong>Horizontal coverage</strong> ensures broad multi-disciplinary awareness across all GS papers, while <strong>Vertical coverage</strong> develops deep subject mastery in high-yield core themes.
+                  </p>
+                </div>
+
+                <div className="bg-white border border-slate-200 rounded-xl p-5 shadow-xs space-y-2">
+                  <h4 className="font-bold text-xs sm:text-sm text-slate-900">Explicit & Implicit Coverage</h4>
+                  <p className="text-xs text-slate-600 leading-relaxed">
+                    Go beyond the <strong>explicit</strong> keywords printed in the syllabus to explore the <strong>implicit</strong> underlying institutional questions and policy debates connected to them.
+                  </p>
+                </div>
+
+                <div className="bg-white border border-slate-200 rounded-xl p-5 shadow-xs space-y-2">
+                  <h4 className="font-bold text-xs sm:text-sm text-slate-900">Micro-Dimensions & Complexity</h4>
+                  <p className="text-xs text-slate-600 leading-relaxed">
+                    Break broad themes into <strong>micro-dimensions and sub-dimensions</strong>. As complexity arises, sub-dimensioning allows multi-stakeholder and multi-sectoral coverage.
+                  </p>
+                </div>
+              </div>
+
+              {/* Event to Issue Callout */}
+              <div className="bg-slate-900 text-white rounded-xl p-5 shadow-xs flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+                <div className="space-y-1">
+                  <span className="text-[10px] font-bold uppercase tracking-wider text-amber-400 font-mono">Critical Analytical Shift</span>
+                  <h4 className="text-sm sm:text-base font-bold">Event → Issue (What, How and Why)</h4>
+                  <p className="text-xs text-slate-300">
+                    Never stop at the "Event" (the daily news headline). Elevate your study to the "Issue" — analyzing <em>What</em> occurred, <em>How</em> it operates constitutionally/administratively, and <em>Why</em> it matters for governance.
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            {/* Part 3: Contemporary Events & The Temporal Triad */}
+            <div className="space-y-4 pt-4">
+              <div className="flex items-center gap-2 border-b border-slate-200 pb-2">
+                <Clock className="w-5 h-5 text-[#0b3b60]" />
+                <h3 className="text-lg font-bold font-serif text-[#0b3b60]">3. Contemporary Affairs & The Three-Tense Model</h3>
+              </div>
+
+              <div className="bg-white border border-slate-200 rounded-xl p-6 shadow-xs space-y-4">
+                <div>
+                  <h4 className="font-bold text-sm text-[#0b3b60]">Current Affairs Spans All Three Tenses: Past, Present & Future</h4>
+                  <p className="text-xs text-slate-600 mt-1">
+                    Contemporary events (<em>Naveentam</em>) should never be studied in a chronological vacuum. They must be actively correlated with corresponding historical and future institutional trajectories.
+                  </p>
+                </div>
+
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-4 text-xs text-slate-700">
+                  <div className="p-4 bg-slate-50 rounded-lg border border-slate-200 space-y-1.5">
+                    <span className="px-2 py-0.5 bg-slate-200 text-slate-800 font-bold text-[10px] rounded uppercase font-mono">1. Past Tense</span>
+                    <strong className="block text-slate-900">Historical & Institutional Precedents</strong>
+                    <p className="text-slate-600 leading-relaxed">
+                      <em>Example (UPSC 2021):</em> "How have the recommendations of the 14th Finance Commission enabled (Saksham) the States to improve their fiscal (rajkoshiya) position?"
+                    </p>
+                  </div>
+
+                  <div className="p-4 bg-slate-50 rounded-lg border border-slate-200 space-y-1.5">
+                    <span className="px-2 py-0.5 bg-blue-100 text-blue-900 font-bold text-[10px] rounded uppercase font-mono">2. Present Tense</span>
+                    <strong className="block text-slate-900">Live Developments & Structural Mechanics</strong>
+                    <p className="text-slate-600 leading-relaxed">
+                      <em>Example:</em> Presidential Elections, 15th Finance Commission devolution criteria, or new regulatory bodies formed under statutory mandates.
+                    </p>
+                  </div>
+
+                  <div className="p-4 bg-slate-50 rounded-lg border border-slate-200 space-y-1.5">
+                    <span className="px-2 py-0.5 bg-emerald-100 text-emerald-900 font-bold text-[10px] rounded uppercase font-mono">3. Future Tense</span>
+                    <strong className="block text-slate-900">Implications & Policy Impact</strong>
+                    <p className="text-slate-600 leading-relaxed">
+                      <em>Example:</em> "When a bill becomes an Act... assessing its prospective institutional, socio-economic, and administrative implications."
+                    </p>
+                  </div>
+                </div>
+
+                <div className="p-3 bg-amber-50/70 border border-amber-200 rounded-lg text-xs text-amber-900 leading-relaxed">
+                  <strong>The Newspaper Principle:</strong> Keep in mind that a daily newspaper is printed for <em>all segments of society</em>, not exclusively for UPSC aspirants. Read selectively through the filter of syllabus topics and institutional issues.
+                </div>
+              </div>
+            </div>
+
+            {/* Part 4: Notes, Answer Writing & Self-Study Discipline */}
+            <div className="space-y-4 pt-4">
+              <div className="flex items-center gap-2 border-b border-slate-200 pb-2">
+                <PenTool className="w-5 h-5 text-[#0b3b60]" />
+                <h3 className="text-lg font-bold font-serif text-[#0b3b60]">4. Notes, Answer Writing & Self-Study Discipline</h3>
+              </div>
+
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+
+                {/* Answer Writing as Editorial Analysis */}
+                <div className="bg-white border border-slate-200 rounded-xl p-6 shadow-xs space-y-3">
+                  <div className="flex items-center justify-between pb-2 border-b border-slate-100">
+                    <h4 className="font-bold text-sm text-[#0b3b60]">Answer Writing: Editorial vs Reporting</h4>
+                    <span className="px-2 py-0.5 bg-indigo-50 text-indigo-700 text-[10px] font-bold rounded font-mono">Mains Technique</span>
+                  </div>
+                  <p className="text-xs text-slate-600 leading-relaxed">
+                    Answers must <strong>not read like news reporting</strong> (<em>Samachar lekhan / Samachar preshan</em>), but like an authoritative, balanced <strong>editorial</strong>.
+                  </p>
+                  <ul className="space-y-2 text-xs text-slate-700">
+                    <li className="flex items-start gap-2">
+                      <span className="w-1.5 h-1.5 rounded-full bg-[#0b3b60] mt-1.5 shrink-0"></span>
+                      <span><strong>Address Question Dimensions:</strong> Decipher nuance (e.g. <em>"Ashoka was not only great, greater-greatest"</em>) within strict word limits.</span>
+                    </li>
+                    <li className="flex items-start gap-2">
+                      <span className="w-1.5 h-1.5 rounded-full bg-[#0b3b60] mt-1.5 shrink-0"></span>
+                      <span><strong>Conceptual Clarity:</strong> <em>"Hide your ignorance and exhibit your knowledge"</em> through disciplined, structured presentation.</span>
+                    </li>
+                  </ul>
+                </div>
+
+                {/* Input-Output & Error Matrix */}
+                <div className="bg-white border border-slate-200 rounded-xl p-6 shadow-xs space-y-3">
+                  <div className="flex items-center justify-between pb-2 border-b border-slate-100">
+                    <h4 className="font-bold text-sm text-[#0b3b60]">Input-Output Dynamics & Error Matrix</h4>
+                    <span className="px-2 py-0.5 bg-amber-50 text-amber-800 text-[10px] font-bold rounded font-mono">Risk Management</span>
+                  </div>
+                  
+                  <div className="grid grid-cols-3 gap-2 text-center text-xs font-mono">
+                    <div className="p-2 bg-slate-50 border border-slate-200 rounded-lg">
+                      <div className="font-bold text-slate-900">I &gt; O</div>
+                      <div className="text-[10px] text-slate-500">Uncertain</div>
+                    </div>
+                    <div className="p-2 bg-amber-50 border border-amber-200 rounded-lg">
+                      <div className="font-bold text-amber-900">I = O</div>
+                      <div className="text-[10px] text-amber-700">Calculated Risk</div>
+                    </div>
+                    <div className="p-2 bg-emerald-50 border border-emerald-200 rounded-lg">
+                      <div className="font-bold text-emerald-900">I &lt; O</div>
+                      <div className="text-[10px] text-emerald-700">Predictable Certainty</div>
+                    </div>
+                  </div>
+
+                  <div className="text-xs text-slate-600 pt-1 leading-relaxed border-t border-slate-100">
+                    <strong>Error Classification:</strong> Distinguish between <em>"Nahi aata tha, galti ho gayi"</em> (knowledge deficit requiring study) versus <em>"Aata hai usme galti hoti hai"</em> (silly errors and temperament issues requiring timed practice).
+                  </div>
+                </div>
+
+                {/* Notes & Primary Reading */}
+                <div className="bg-white border border-slate-200 rounded-xl p-6 shadow-xs space-y-3">
+                  <h4 className="font-bold text-sm text-[#0b3b60]">Study Materials & Synoptical Notes</h4>
+                  <ul className="space-y-2 text-xs text-slate-600">
+                    <li className="flex items-start gap-2">
+                      <span className="w-1.5 h-1.5 rounded-full bg-[#0b3b60] mt-1.5 shrink-0"></span>
+                      <span><strong>Original Reading & Primary Sources:</strong> Real value addition happens when studying foundational acts, reports, and primary policy texts rather than superficial digests.</span>
+                    </li>
+                    <li className="flex items-start gap-2">
+                      <span className="w-1.5 h-1.5 rounded-full bg-[#0b3b60] mt-1.5 shrink-0"></span>
+                      <span><strong>Synoptical Notes:</strong> Condense large topics into keyword-based synopses for quick multi-iteration revisions.</span>
+                    </li>
+                  </ul>
+                </div>
+
+                {/* The Golden Rule of Self Study */}
+                <div className="bg-[#0b3b60] text-white rounded-xl p-6 shadow-xs space-y-2 flex flex-col justify-between">
+                  <div>
+                    <span className="text-[10px] font-bold uppercase tracking-wider text-amber-300 font-mono">The Cardinal Rule</span>
+                    <h4 className="text-base font-bold text-white font-serif mt-1">No Substitute for Self-Study</h4>
+                    <p className="text-xs text-slate-200 leading-relaxed mt-2">
+                      "Self-study is the single most decisive aspect of preparation. You are with me in the classroom for roughly 3 hours, but the remaining 21 hours of your day are equally, if not more, crucial for your success."
+                    </p>
+                  </div>
+                  <div className="pt-2 border-t border-slate-600/80 text-[11px] text-amber-300 font-medium">
+                    — Rajiv Ranjan Singh
+                  </div>
                 </div>
 
               </div>
