@@ -34,7 +34,7 @@ import {
   Users
 } from 'lucide-react';
 
-type TabType = 'syllabus' | 'reading' | 'approach' | 'polity' | 'salary';
+type TabType = 'about-exam' | 'syllabus' | 'reading' | 'approach' | 'polity' | 'salary';
 type SyllabusStage = 'prelims' | 'mains' | 'optionals';
 type OptionalChoice = 'pubad' | 'psir' | 'law';
 type PolityStage = 'gs2' | 'pubad' | 'ethics';
@@ -64,7 +64,7 @@ const faqsList: FaqItem[] = [
 ];
 
 export default function AboutCse() {
-  const [activeTab, setActiveTab] = useState<TabType>('syllabus');
+  const [activeTab, setActiveTab] = useState<TabType>('about-exam');
   const [syllabusStage, setSyllabusStage] = useState<SyllabusStage>('prelims');
   const [selectedOptional, setSelectedOptional] = useState<OptionalChoice>('pubad');
   const [polityStage, setPolityStage] = useState<PolityStage>('gs2');
@@ -74,7 +74,9 @@ export default function AboutCse() {
   useEffect(() => {
     if (typeof window !== 'undefined') {
       const hash = window.location.hash;
-      if (hash === '#exam-plan' || hash === '#detailed-syllabus') {
+      if (hash === '#about-exam' || hash === '#about') {
+        setActiveTab('about-exam');
+      } else if (hash === '#exam-plan' || hash === '#detailed-syllabus') {
         setActiveTab('syllabus');
       } else if (hash === '#suggested-reading' || hash === '#reading') {
         setActiveTab('reading');
@@ -113,6 +115,16 @@ export default function AboutCse() {
 
           {/* Quick Nav Pill Tabs */}
           <div className="flex flex-wrap items-center justify-center gap-2 pt-4">
+            <button 
+              className={`px-4 py-2 text-xs font-bold rounded-lg border transition-all ${
+                activeTab === 'about-exam'
+                  ? 'bg-[#0b3b60] text-white border-[#0b3b60] shadow-sm'
+                  : 'bg-white text-slate-700 border-slate-300 hover:bg-slate-50'
+              }`}
+              onClick={() => setActiveTab('about-exam')}
+            >
+              About Exam
+            </button>
             <button 
               className={`px-4 py-2 text-xs font-bold rounded-lg border transition-all ${
                 activeTab === 'syllabus'
@@ -170,6 +182,250 @@ export default function AboutCse() {
       {/* 2. MAIN CONTAINER WITH TAB PANELS */}
       <div className="max-w-6xl mx-auto px-4 sm:px-8 py-10">
         
+        {/* ABOUT EXAM TAB */}
+        {activeTab === 'about-exam' && (
+          <motion.section 
+            key="tab-about-exam" 
+            initial={{ opacity: 0, y: 15 }} 
+            animate={{ opacity: 1, y: 0 }} 
+            exit={{ opacity: 0, y: -15 }} 
+            transition={{ duration: 0.3 }}
+            className="space-y-8"
+          >
+            {/* Header Banner */}
+            <div className="bg-gradient-to-r from-[#0b3b60] to-[#124e7e] text-white p-6 sm:p-8 rounded-2xl shadow-md space-y-3">
+              <div className="flex items-center gap-2">
+                <span className="px-2.5 py-0.5 bg-amber-400 text-slate-950 font-black text-[10px] uppercase tracking-wider rounded font-mono">
+                  Official Notification & Directory
+                </span>
+                <span className="text-xs text-amber-200 font-medium">Source: www.upsc.gov.in</span>
+              </div>
+              <h2 className="text-2xl sm:text-3xl font-black font-serif text-white">
+                About the Civil Services Examination (CSE)
+              </h2>
+              <p className="text-xs sm:text-sm text-slate-200 leading-relaxed max-w-3xl">
+                Conducted annually by the Union Public Service Commission (UPSC), the Civil Services Examination selects candidates for prestigious administrative, foreign policy, and security leadership roles in the Government of India.
+              </p>
+            </div>
+
+            {/* Services & Recruitment Directory */}
+            <div className="space-y-4">
+              <div className="border-b border-slate-200 pb-2 flex items-center gap-2">
+                <Building2 className="w-5 h-5 text-[#0b3b60]" />
+                <h3 className="text-lg font-bold font-serif text-[#0b3b60]">1. Recruiting Services & Posts Directory</h3>
+              </div>
+
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                
+                {/* Group A Services */}
+                <div className="bg-white border border-slate-200 rounded-xl p-5 shadow-xs space-y-3">
+                  <h4 className="font-bold text-xs sm:text-sm text-[#0b3b60] border-b border-slate-100 pb-1.5 flex items-center gap-2">
+                    <span className="w-2 h-2 rounded-full bg-[#0b3b60]"></span>
+                    All India Services & Group 'A' Services
+                  </h4>
+                  <ul className="space-y-1.5 text-xs text-slate-700">
+                    <li><strong className="text-slate-900">(i)</strong> Indian Administrative Service (IAS)</li>
+                    <li><strong className="text-slate-900">(ii)</strong> Indian Foreign Service (IFS)</li>
+                    <li><strong className="text-slate-900">(iii)</strong> Indian Police Service (IPS)</li>
+                    <li><strong className="text-slate-900">(iv)</strong> Indian Audit and Accounts Service, Group 'A'</li>
+                    <li><strong className="text-slate-900">(v)</strong> Indian Civil Accounts Service, Group 'A'</li>
+                    <li><strong className="text-slate-900">(vi)</strong> Indian Corporate Law Service, Group 'A'</li>
+                    <li><strong className="text-slate-900">(vii)</strong> Indian Defence Accounts Service, Group 'A'</li>
+                    <li><strong className="text-slate-900">(viii)</strong> Indian Defence Estates Service, Group 'A'</li>
+                    <li><strong className="text-slate-900">(ix)</strong> Indian Information Service, Group 'A'</li>
+                    <li><strong className="text-slate-900">(x)</strong> Indian Postal Service, Group 'A'</li>
+                    <li><strong className="text-slate-900">(xi)</strong> Indian P&T Accounts and Finance Service, Group 'A'</li>
+                    <li><strong className="text-slate-900">(xii)</strong> Indian Railway Management Service (Traffic), Group 'A'</li>
+                    <li><strong className="text-slate-900">(xiii)</strong> Indian Railway Management Service (Personnel), Group 'A'</li>
+                    <li><strong className="text-slate-900">(xiv)</strong> Indian Railway Management Service (Accounts), Group 'A'</li>
+                    <li><strong className="text-slate-900">(xv)</strong> Indian Railway Protection Force Service, Group 'A'</li>
+                    <li><strong className="text-slate-900">(xvi)</strong> Indian Revenue Service (Customs & Indirect Taxes), Group 'A'</li>
+                    <li><strong className="text-slate-900">(xvii)</strong> Indian Revenue Service (Income Tax), Group 'A'</li>
+                    <li><strong className="text-slate-900">(xviii)</strong> Indian Trade Service, Group 'A' (Grade III)</li>
+                  </ul>
+                </div>
+
+                {/* Group B Services */}
+                <div className="bg-white border border-slate-200 rounded-xl p-5 shadow-xs space-y-3 h-fit">
+                  <h4 className="font-bold text-xs sm:text-sm text-[#0b3b60] border-b border-slate-100 pb-1.5 flex items-center gap-2">
+                    <span className="w-2 h-2 rounded-full bg-amber-600"></span>
+                    Group 'B' Services
+                  </h4>
+                  <ul className="space-y-2 text-xs text-slate-700">
+                    <li><strong className="text-slate-900">(xix)</strong> Armed Forces Headquarters Civil Service, Group 'B' (Section Officer’s Grade)</li>
+                    <li><strong className="text-slate-900">(xx)</strong> Delhi, Andaman and Nicobar Islands, Lakshadweep, Daman & Diu and Dadra & Nagar Haveli Civil Service (DANICS), Group 'B'</li>
+                    <li><strong className="text-slate-900">(xxi)</strong> Delhi, Andaman and Nicobar Islands, Lakshadweep, Daman & Diu and Dadra & Nagar Haveli Police Service (DANIPS), Group 'B'</li>
+                    <li><strong className="text-slate-900">(xxii)</strong> Pondicherry Civil Service (PONDICS), Group 'B'</li>
+                    <li><strong className="text-slate-900">(xxiii)</strong> Pondicherry Police Service (PONDIPS), Group 'B'</li>
+                  </ul>
+                </div>
+
+              </div>
+            </div>
+
+            {/* Eligibility & Key Structural Stats */}
+            <div className="space-y-4 pt-4">
+              <div className="border-b border-slate-200 pb-2 flex items-center gap-2">
+                <GraduationCap className="w-5 h-5 text-[#0b3b60]" />
+                <h3 className="text-lg font-bold font-serif text-[#0b3b60]">2. Eligibility, Vacancies & Reservation Policy</h3>
+              </div>
+
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                
+                {/* Educational Qualification */}
+                <div className="bg-white border border-slate-200 rounded-xl p-5 shadow-xs space-y-1">
+                  <span className="text-[10px] font-bold uppercase tracking-wider text-slate-500 font-mono">Academic Base</span>
+                  <h4 className="font-bold text-xs sm:text-sm text-slate-900">Educational Qualification</h4>
+                  <p className="text-xs text-slate-600 leading-relaxed">
+                    A candidate must hold a <strong>Graduate degree</strong> in any stream or discipline from a university recognized by the Government of India.
+                  </p>
+                </div>
+
+                {/* Age Limits */}
+                <div className="bg-white border border-slate-200 rounded-xl p-5 shadow-xs space-y-1">
+                  <span className="text-[10px] font-bold uppercase tracking-wider text-slate-500 font-mono">Age Limits</span>
+                  <h4 className="font-bold text-xs sm:text-sm text-slate-900">21 to 32 Years</h4>
+                  <p className="text-xs text-slate-600 leading-relaxed">
+                    Must have attained <strong>21 years</strong> and not attained <strong>32 years</strong> on the 1st of August of the examination year.
+                  </p>
+                </div>
+
+                {/* Number of Vacancies */}
+                <div className="bg-white border border-slate-200 rounded-xl p-5 shadow-xs space-y-1">
+                  <span className="text-[10px] font-bold uppercase tracking-wider text-slate-500 font-mono">Scale</span>
+                  <h4 className="font-bold text-xs sm:text-sm text-slate-900">~ 1,000 Vacancies</h4>
+                  <p className="text-xs text-slate-600 leading-relaxed">
+                    The total number of administrative vacancies filled annually through the Civil Services Examination is approximately 1,000.
+                  </p>
+                </div>
+
+              </div>
+
+              {/* Relaxations, Attempts & Reservation Grid */}
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+
+                {/* Age & Attempts Relaxations */}
+                <div className="bg-white border border-slate-200 rounded-xl p-6 shadow-xs space-y-4">
+                  <h4 className="font-bold text-sm text-[#0b3b60]">Relaxations & Attempt Limits</h4>
+                  
+                  <div className="space-y-3 text-xs text-slate-700">
+                    <div className="p-3 bg-slate-50 rounded-lg border border-slate-150">
+                      <strong className="block text-slate-900 mb-1">Scheduled Castes / Scheduled Tribes (SC/ST)</strong>
+                      <span>Age relaxable up to a maximum of <strong>5 years</strong>. Candidates have <strong>unlimited attempts</strong>.</span>
+                    </div>
+
+                    <div className="p-3 bg-slate-50 rounded-lg border border-slate-150">
+                      <strong className="block text-slate-900 mb-1">Other Backward Classes (OBC)</strong>
+                      <span>Age relaxable up to a maximum of <strong>3 years</strong>. Candidates have a limit of <strong>9 attempts</strong>.</span>
+                    </div>
+
+                    <div className="p-3 bg-slate-50 rounded-lg border border-slate-150">
+                      <strong className="block text-slate-900 mb-1">General / EWS Category</strong>
+                      <span>Allowed a maximum of <strong>6 attempts</strong>.</span>
+                    </div>
+                  </div>
+
+                  <p className="text-[11px] text-slate-500 italic">
+                    * Note: If a candidate actually appears in any one paper in the Preliminary Examination, it is deemed that they have made a full attempt at the Civil Services Examination.
+                  </p>
+                </div>
+
+                {/* Reservation Breakdown */}
+                <div className="bg-white border border-slate-200 rounded-xl p-6 shadow-xs space-y-4">
+                  <h4 className="font-bold text-sm text-[#0b3b60]">Reservation Policy</h4>
+                  
+                  <div className="space-y-2 text-xs text-slate-700">
+                    <div className="flex justify-between items-center py-1.5 border-b border-slate-100">
+                      <span>Other Backward Classes (OBC)</span>
+                      <span className="font-bold text-slate-900 font-mono">25%</span>
+                    </div>
+                    <div className="flex justify-between items-center py-1.5 border-b border-slate-100">
+                      <span>Scheduled Castes (SC)</span>
+                      <span className="font-bold text-slate-900 font-mono">15%</span>
+                    </div>
+                    <div className="flex justify-between items-center py-1.5 border-b border-slate-100">
+                      <span>Economically Weaker Sections (EWS)</span>
+                      <span className="font-bold text-slate-900 font-mono">10%</span>
+                    </div>
+                    <div className="flex justify-between items-center py-1.5 border-b border-slate-100">
+                      <span>Scheduled Tribes (ST)</span>
+                      <span className="font-bold text-slate-900 font-mono">7.5%</span>
+                    </div>
+                    <div className="flex justify-between items-center py-1.5">
+                      <span>Persons with Benchmark Disability (PwBD)</span>
+                      <span className="font-bold text-[#0b3b60] font-mono">4%</span>
+                    </div>
+                  </div>
+
+                  <div className="p-3 bg-amber-50 rounded-lg text-xs text-amber-900 leading-relaxed border border-amber-200">
+                    <strong>Mains Admission Scale:</strong> The number of candidates admitted to the Main Examination is about <strong>12 to 13 times</strong> the total approximate number of vacancies to be filled in that year.
+                  </div>
+                </div>
+
+              </div>
+            </div>
+
+            {/* Stages & Plan of Examination */}
+            <div className="space-y-4 pt-4">
+              <div className="border-b border-slate-200 pb-2 flex items-center gap-2">
+                <Calendar className="w-5 h-5 text-[#0b3b60]" />
+                <h3 className="text-lg font-bold font-serif text-[#0b3b60]">3. Plan of Examination (Compulsory Stages)</h3>
+              </div>
+
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+
+                {/* Prelims */}
+                <div className="bg-white border border-slate-200 rounded-xl p-6 shadow-xs space-y-4">
+                  <div className="pb-2 border-b border-slate-100">
+                    <span className="text-[10px] font-bold uppercase tracking-wider text-slate-500 font-mono">Stage I</span>
+                    <h4 className="font-bold text-sm text-[#0b3b60] font-serif">Preliminary Examination (Screening Only)</h4>
+                  </div>
+                  
+                  <ul className="space-y-2.5 text-xs text-slate-700 leading-relaxed">
+                    <li>• Comprises <strong>two compulsory objective papers</strong> of 200 marks each (Total 400 Marks, 2 hours duration each, set in Hindi & English).</li>
+                    <li>• <strong>General Studies Paper-II (CSAT)</strong> is qualifying in nature with minimum qualifying marks fixed at <strong>33%</strong>.</li>
+                    <li>• Marks obtained in Prelims act as screening and are <strong>not counted</strong> for final order of merit ranking.</li>
+                    <li className="p-2 bg-red-50 text-red-900 border border-red-150 rounded">
+                      <strong>Negative Marking:</strong> One-third <strong>(0.33)</strong> of the marks assigned to that question is deducted as penalty for wrong answers. Leaving a question blank has no penalty.
+                    </li>
+                  </ul>
+                </div>
+
+                {/* Mains */}
+                <div className="bg-white border border-slate-200 rounded-xl p-6 shadow-xs space-y-4">
+                  <div className="pb-2 border-b border-slate-100">
+                    <span className="text-[10px] font-bold uppercase tracking-wider text-slate-500 font-mono">Stage II</span>
+                    <h4 className="font-bold text-sm text-[#0b3b60] font-serif">Main Written Examination (Descriptive)</h4>
+                  </div>
+                  
+                  <ul className="space-y-2.5 text-xs text-slate-700 leading-relaxed">
+                    <li>• Intended to assess the overall intellectual traits and depth of understanding rather than mere memory. Marks will not be allotted for superficial knowledge.</li>
+                    <li>• Comprises <strong>7 compulsory papers for merit (1750 Marks)</strong> and <strong>2 qualifying conventional language papers (300 Marks each)</strong>.</li>
+                    <li>• **Qualifying standard** for Paper-A (Indian Language) and Paper-B (English) is fixed at <strong>25% marks</strong>.</li>
+                    <li>• Candidates who clear the written cutoff (summoned at twice the number of vacancies) move to the Personality Test.</li>
+                  </ul>
+                </div>
+
+                {/* Interview */}
+                <div className="bg-white border border-slate-200 rounded-xl p-6 shadow-xs space-y-4">
+                  <div className="pb-2 border-b border-slate-100">
+                    <span className="text-[10px] font-bold uppercase tracking-wider text-slate-500 font-mono">Stage III</span>
+                    <h4 className="font-bold text-sm text-[#0b3b60] font-serif">Interview & Personality Test (275 Marks)</h4>
+                  </div>
+                  
+                  <ul className="space-y-2.5 text-xs text-slate-700 leading-relaxed">
+                    <li>• Purpose is to assess the personal suitability of the candidate for a career in public service by a Board of competent, unbiased observers.</li>
+                    <li>• Evaluates mental alertness, critical powers of assimilation, logical exposition, balance of judgment, social cohesion, and moral integrity.</li>
+                    <li>• It is a natural, directed, and purposive conversation rather than a strict cross-examination. No minimum qualifying marks are fixed.</li>
+                  </ul>
+                </div>
+
+              </div>
+            </div>
+
+          </motion.section>
+        )}
+
         {/* SYLLABUS TAB - COMPLETE CONTENT FROM OFFICIAL PDF */}
         {activeTab === 'syllabus' && (
           <motion.section 
