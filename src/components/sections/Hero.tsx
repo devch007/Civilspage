@@ -19,7 +19,7 @@ export default function Hero() {
             transition={{ duration: 0.6, delay: 0.1 }}
           >
             Dedicated Resource Centre for Contemporary Perspectives <br className="hidden sm:inline" />
-            on <span className="text-[#138808]">Polity, Administration, Governance & Ethics</span>
+            on Polity, Administration, Governance & Ethics
           </motion.h1>
 
           {/* Subtitle */}

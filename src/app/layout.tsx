@@ -1,11 +1,10 @@
 import type { Metadata } from 'next';
-import { Merriweather, Inter } from 'next/font/google';
+import { Lora, Inter } from 'next/font/google';
 import './globals.css';
 
 // Load Google Fonts using optimized Next.js variables
-const merriweather = Merriweather({
+const lora = Lora({
   subsets: ['latin'],
-  weight: ['300', '400', '700', '900'],
   variable: '--font-heading',
   display: 'swap',
 });
@@ -30,7 +29,7 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${merriweather.variable} ${inter.variable} h-full antialiased`}
+      className={`${lora.variable} ${inter.variable} h-full antialiased`}
       style={{ scrollBehavior: 'smooth' }}
     >
       <body className="min-h-full flex flex-col text-[#0F172A] selection:bg-[#4F46E5] selection:text-white">
