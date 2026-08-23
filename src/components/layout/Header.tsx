@@ -39,6 +39,32 @@ export default function Header() {
     setSearchOpen(false);
   }, [pathname]);
 
+  // Dynamically load Google Translate for high-efficiency Hindi translation
+  useEffect(() => {
+    const addGoogleTranslateScript = () => {
+      if (document.getElementById('google-translate-script')) return;
+      const script = document.createElement('script');
+      script.id = 'google-translate-script';
+      script.src = 'https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit';
+      script.async = true;
+      document.body.appendChild(script);
+    };
+
+    (window as any).googleTranslateElementInit = () => {
+      new (window as any).google.translate.TranslateElement(
+        {
+          pageLanguage: 'en',
+          includedLanguages: 'en,hi',
+          layout: (window as any).google.translate.TranslateElement.InlineLayout.SIMPLE,
+          autoDisplay: false,
+        },
+        'google_translate_element'
+      );
+    };
+
+    addGoogleTranslateScript();
+  }, []);
+
   const toggleDropdown = (name: string) => {
     setActiveDropdown(activeDropdown === name ? null : name);
   };
@@ -130,7 +156,7 @@ export default function Header() {
               </div>
 
               <span className="text-slate-600">|</span>
-              <span className="text-amber-300 font-semibold cursor-default">English</span>
+              <div id="google_translate_element" className="flex items-center min-h-[22px]"></div>
             </div>
           </div>
         </div>
