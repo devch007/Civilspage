@@ -11,13 +11,9 @@ export default function Mentor() {
     <section id="mentor-profile" className="py-16 bg-white border-b border-slate-200">
       <div className="max-w-7xl mx-auto px-4 sm:px-8">
         
-        {/* Section Header with PIB style badge */}
+        {/* Section Header */}
         <div className="text-center max-w-3xl mx-auto mb-10">
-          <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded bg-[#0b3b60]/10 text-[#0b3b60] text-[11px] font-extrabold uppercase tracking-wider">
-            <Award className="w-3.5 h-3.5 text-[#0b3b60]" />
-            Chief Academic Advisory & Mentorship
-          </span>
-          <h2 className="text-2xl sm:text-3xl font-black text-[#0b3b60] font-serif mt-2">
+          <h2 className="text-2xl sm:text-3xl font-black text-[#0b3b60] font-serif">
             Academic Mentorship: Rajiv Ranjan Singh
           </h2>
           <p className="text-xs sm:text-sm text-slate-600 mt-1">
