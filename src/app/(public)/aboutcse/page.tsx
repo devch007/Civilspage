@@ -34,7 +34,7 @@ import {
   Users
 } from 'lucide-react';
 
-type TabType = 'about-exam' | 'syllabus' | 'reading' | 'approach' | 'polity' | 'salary';
+type TabType = 'about-exam' | 'syllabus' | 'reading' | 'approach' | 'polity';
 type SyllabusStage = 'prelims' | 'mains' | 'optionals';
 type OptionalChoice = 'pubad' | 'psir' | 'law';
 type PolityStage = 'gs2' | 'pubad' | 'ethics';
@@ -84,8 +84,6 @@ export default function AboutCse() {
         setActiveTab('approach');
       } else if (hash === '#polity' || hash === '#polity-approach' || hash === '#approach-to-polity') {
         setActiveTab('polity');
-      } else if (hash === '#salary' || hash === '#posts') {
-        setActiveTab('salary');
       }
     }
   }, []);
@@ -164,16 +162,6 @@ export default function AboutCse() {
               onClick={() => setActiveTab('polity')}
             >
               Approach to Polity & Governance
-            </button>
-            <button 
-              className={`px-4 py-2 text-xs font-bold rounded-lg border transition-all ${
-                activeTab === 'salary'
-                  ? 'bg-[#0b3b60] text-white border-[#0b3b60] shadow-sm'
-                  : 'bg-white text-slate-700 border-slate-300 hover:bg-slate-50'
-              }`}
-              onClick={() => setActiveTab('salary')}
-            >
-              Salary & Post Matrix
             </button>
           </div>
         </div>
@@ -2356,144 +2344,6 @@ export default function AboutCse() {
               </div>
             )}
 
-          </motion.section>
-        )}
-
-        {/* SALARY & POSTS TAB */}
-        {activeTab === 'salary' && (
-          <motion.section 
-            key="tab-salary" 
-            initial={{ opacity: 0, y: 15 }} 
-            animate={{ opacity: 1, y: 0 }} 
-            exit={{ opacity: 0, y: -15 }} 
-            transition={{ duration: 0.3 }}
-            className="space-y-8"
-          >
-            <div className="text-left mb-6">
-              <h2 className="text-2xl sm:text-3xl font-black text-[#0b3b60] font-serif">
-                Salary Structure & Recruiting Posts
-              </h2>
-              <p className="text-xs sm:text-sm text-slate-600 mt-1">
-                Understand the monetary benefits, promotions structure, pay matrix levels, and the complete directory of services filled by the UPSC CSE.
-              </p>
-            </div>
-
-            <div className="bg-white border border-slate-200 rounded-xl p-6 shadow-xs space-y-4">
-              <div>
-                <h3 className="text-lg font-bold text-[#0b3b60] font-serif">IAS/IPS Salary Breakdown (7th Pay Commission)</h3>
-                <p className="text-xs text-slate-600 mt-1">
-                  The entry-level basic pay for an IAS officer is <strong>₹56,100 per month</strong> (Pay Level 10). Officers are entitled to substantial allowances and rise through the promotion matrix up to Cabinet Secretary level.
-                </p>
-              </div>
-              
-              <div className="overflow-x-auto rounded-lg border border-slate-200">
-                <table className="w-full text-left text-xs text-slate-700">
-                  <thead className="bg-[#0b3b60] text-white uppercase text-[10.5px] font-mono tracking-wider">
-                    <tr>
-                      <th className="py-3 px-4">Designation / Post</th>
-                      <th className="py-3 px-4">Pay Level</th>
-                      <th className="py-3 px-4">Basic Pay Scale (Monthly)</th>
-                      <th className="py-3 px-4">Typical Experience Required</th>
-                    </tr>
-                  </thead>
-                  <tbody className="divide-y divide-slate-200">
-                    <tr className="hover:bg-slate-50">
-                      <td className="py-2.5 px-4 font-semibold">Sub-Divisional Magistrate (SDM) / Entry</td>
-                      <td className="py-2.5 px-4 font-mono font-bold text-[#0b3b60]">Level 10</td>
-                      <td className="py-2.5 px-4 font-mono">₹56,100</td>
-                      <td className="py-2.5 px-4 text-slate-500">1 - 4 Years</td>
-                    </tr>
-                    <tr className="hover:bg-slate-50">
-                      <td className="py-2.5 px-4 font-semibold">Additional District Magistrate (ADM)</td>
-                      <td className="py-2.5 px-4 font-mono font-bold text-[#0b3b60]">Level 11</td>
-                      <td className="py-2.5 px-4 font-mono">₹67,700</td>
-                      <td className="py-2.5 px-4 text-slate-500">5 - 8 Years</td>
-                    </tr>
-                    <tr className="hover:bg-slate-50">
-                      <td className="py-2.5 px-4 font-semibold">District Magistrate (DM) / Collector</td>
-                      <td className="py-2.5 px-4 font-mono font-bold text-[#0b3b60]">Level 12</td>
-                      <td className="py-2.5 px-4 font-mono">₹78,800</td>
-                      <td className="py-2.5 px-4 text-slate-500">9 - 12 Years</td>
-                    </tr>
-                    <tr className="hover:bg-slate-50">
-                      <td className="py-2.5 px-4 font-semibold">District Collector (Selection Grade)</td>
-                      <td className="py-2.5 px-4 font-mono font-bold text-[#0b3b60]">Level 13</td>
-                      <td className="py-2.5 px-4 font-mono">₹1,18,500</td>
-                      <td className="py-2.5 px-4 text-slate-500">13 - 16 Years</td>
-                    </tr>
-                    <tr className="hover:bg-slate-50">
-                      <td className="py-2.5 px-4 font-semibold">Divisional Commissioner / Secretary</td>
-                      <td className="py-2.5 px-4 font-mono font-bold text-[#0b3b60]">Level 14</td>
-                      <td className="py-2.5 px-4 font-mono">₹1,44,200</td>
-                      <td className="py-2.5 px-4 text-slate-500">17 - 24 Years</td>
-                    </tr>
-                    <tr className="hover:bg-slate-50">
-                      <td className="py-2.5 px-4 font-semibold">Principal Secretary</td>
-                      <td className="py-2.5 px-4 font-mono font-bold text-[#0b3b60]">Level 15</td>
-                      <td className="py-2.5 px-4 font-mono">₹1,82,200</td>
-                      <td className="py-2.5 px-4 text-slate-500">25 - 28 Years</td>
-                    </tr>
-                    <tr className="hover:bg-slate-50">
-                      <td className="py-2.5 px-4 font-semibold">Chief Secretary of State / Union Secretary</td>
-                      <td className="py-2.5 px-4 font-mono font-bold text-[#0b3b60]">Level 17</td>
-                      <td className="py-2.5 px-4 font-mono">₹2,25,000</td>
-                      <td className="py-2.5 px-4 text-slate-500">30+ Years</td>
-                    </tr>
-                    <tr className="hover:bg-slate-50">
-                      <td className="py-2.5 px-4 font-semibold">Cabinet Secretary of India (Highest Post)</td>
-                      <td className="py-2.5 px-4 font-mono font-bold text-[#0b3b60]">Level 18</td>
-                      <td className="py-2.5 px-4 font-mono">₹2,50,000</td>
-                      <td className="py-2.5 px-4 text-slate-500">Senior-most Service</td>
-                    </tr>
-                  </tbody>
-                </table>
-              </div>
-            </div>
-
-            <div className="text-left pt-4">
-              <h3 className="text-xl font-bold font-serif text-[#0b3b60]">All-India & Central Services Groupings</h3>
-              <p className="text-xs text-slate-600 mt-1">Recruitment through the CSE allocates candidates across 3 premier All-India Services and various Group 'A' and 'B' Central Services.</p>
-            </div>
-
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-              <div className="bg-white border border-slate-200 rounded-xl p-5 shadow-xs">
-                <div className="w-9 h-9 rounded-lg bg-indigo-50 text-indigo-700 flex items-center justify-center mb-3">
-                  <Award className="w-5 h-5" />
-                </div>
-                <h4 className="text-sm font-bold text-slate-900">All India Services</h4>
-                <ul className="text-xs text-slate-600 mt-2 space-y-1.5 list-disc list-inside">
-                  <li>Indian Administrative Service (IAS)</li>
-                  <li>Indian Police Service (IPS)</li>
-                  <li>Indian Forest Service (IFoS - Prelims common)</li>
-                </ul>
-              </div>
-
-              <div className="bg-white border border-slate-200 rounded-xl p-5 shadow-xs">
-                <div className="w-9 h-9 rounded-lg bg-emerald-50 text-emerald-700 flex items-center justify-center mb-3">
-                  <Globe className="w-5 h-5" />
-                </div>
-                <h4 className="text-sm font-bold text-slate-900">Group 'A' Central Services</h4>
-                <ul className="text-xs text-slate-600 mt-2 space-y-1.5 list-disc list-inside">
-                  <li>Indian Foreign Service (IFS)</li>
-                  <li>Indian Revenue Service (IRS - IT & Customs)</li>
-                  <li>Indian Audit & Accounts Service (IA&AS)</li>
-                  <li>Indian Postal Service (IPoS)</li>
-                </ul>
-              </div>
-
-              <div className="bg-white border border-slate-200 rounded-xl p-5 shadow-xs">
-                <div className="w-9 h-9 rounded-lg bg-amber-50 text-amber-700 flex items-center justify-center mb-3">
-                  <GraduationCap className="w-5 h-5" />
-                </div>
-                <h4 className="text-sm font-bold text-slate-900">Group 'B' Central Services</h4>
-                <ul className="text-xs text-slate-600 mt-2 space-y-1.5 list-disc list-inside">
-                  <li>Armed Forces Headquarters Civil Service</li>
-                  <li>Delhi, Andaman & Nicobar Islands Civil Service (DANICS)</li>
-                  <li>DANIPS (Police Service)</li>
-                  <li>Pondicherry Civil Service</li>
-                </ul>
-              </div>
-            </div>
           </motion.section>
         )}
 
