@@ -26,12 +26,18 @@ import {
   TrendingUp,
   Brain,
   FileCheck,
-  Clock
+  Clock,
+  Scale,
+  Landmark,
+  ShieldCheck,
+  FileText,
+  Users
 } from 'lucide-react';
 
-type TabType = 'overview' | 'eligibility' | 'syllabus' | 'reading' | 'approach' | 'salary';
+type TabType = 'overview' | 'eligibility' | 'syllabus' | 'reading' | 'approach' | 'polity' | 'salary';
 type SyllabusStage = 'prelims' | 'mains' | 'optionals';
 type OptionalChoice = 'pubad' | 'psir' | 'law';
+type PolityStage = 'gs2' | 'pubad' | 'ethics';
 
 interface FaqItem {
   id: number;
@@ -61,6 +67,7 @@ export default function AboutCse() {
   const [activeTab, setActiveTab] = useState<TabType>('overview');
   const [syllabusStage, setSyllabusStage] = useState<SyllabusStage>('prelims');
   const [selectedOptional, setSelectedOptional] = useState<OptionalChoice>('pubad');
+  const [polityStage, setPolityStage] = useState<PolityStage>('gs2');
   
   const [category, setCategory] = useState('general');
   const [disability, setDisability] = useState('no');
@@ -82,6 +89,8 @@ export default function AboutCse() {
         setActiveTab('reading');
       } else if (hash === '#approach' || hash === '#approach-to-gs') {
         setActiveTab('approach');
+      } else if (hash === '#polity' || hash === '#polity-approach' || hash === '#approach-to-polity') {
+        setActiveTab('polity');
       }
     }
   }, []);
@@ -206,6 +215,16 @@ export default function AboutCse() {
               onClick={() => setActiveTab('approach')}
             >
               Approach to GS
+            </button>
+            <button 
+              className={`px-4 py-2 text-xs font-bold rounded-lg border transition-all ${
+                activeTab === 'polity'
+                  ? 'bg-[#0b3b60] text-white border-[#0b3b60] shadow-sm'
+                  : 'bg-white text-slate-700 border-slate-300 hover:bg-slate-50'
+              }`}
+              onClick={() => setActiveTab('polity')}
+            >
+              Approach to Polity & Governance
             </button>
             <button 
               className={`px-4 py-2 text-xs font-bold rounded-lg border transition-all ${
@@ -1922,6 +1941,423 @@ export default function AboutCse() {
 
               </div>
             </div>
+
+          </motion.section>
+        )}
+
+        {/* APPROACH TO POLITY & GOVERNANCE TAB */}
+        {activeTab === 'polity' && (
+          <motion.section 
+            key="tab-polity" 
+            initial={{ opacity: 0, y: 15 }} 
+            animate={{ opacity: 1, y: 0 }} 
+            exit={{ opacity: 0, y: -15 }} 
+            transition={{ duration: 0.3 }}
+            className="space-y-8"
+          >
+            {/* Header Banner */}
+            <div className="bg-gradient-to-r from-[#0b3b60] to-[#124e7e] text-white p-6 sm:p-8 rounded-2xl shadow-md space-y-3">
+              <div className="flex items-center gap-2">
+                <span className="px-2.5 py-0.5 bg-amber-400 text-slate-950 font-black text-[10px] uppercase tracking-wider rounded font-mono">
+                  Subject-Specific Methodologies
+                </span>
+                <span className="text-xs text-amber-200 font-medium">By Rajiv Ranjan Singh</span>
+              </div>
+              <h2 className="text-2xl sm:text-3xl font-black font-serif text-white">
+                Approach to Polity, Governance, Pub Ad & Ethics
+              </h2>
+              <p className="text-xs sm:text-sm text-slate-200 leading-relaxed max-w-3xl">
+                Comprehensive pedagogical blueprints for GS-II (Polity & Governance), Public Administration Optional, and GS-IV (Ethics, Integrity & Case Study Diagnostics).
+              </p>
+            </div>
+
+            {/* Sub-navigation Pills for Polity/PubAd/Ethics */}
+            <div className="flex flex-wrap gap-2 pb-4 border-b border-slate-200">
+              <button
+                onClick={() => setPolityStage('gs2')}
+                className={`px-4 py-2 text-xs font-bold rounded-lg border transition-all ${
+                  polityStage === 'gs2'
+                    ? 'bg-[#0b3b60] text-white border-[#0b3b60] shadow-sm'
+                    : 'bg-white text-slate-700 border-slate-300 hover:bg-slate-50'
+                }`}
+              >
+                1. Polity & Governance (GS-II)
+              </button>
+              <button
+                onClick={() => setPolityStage('pubad')}
+                className={`px-4 py-2 text-xs font-bold rounded-lg border transition-all ${
+                  polityStage === 'pubad'
+                    ? 'bg-[#0b3b60] text-white border-[#0b3b60] shadow-sm'
+                    : 'bg-white text-slate-700 border-slate-300 hover:bg-slate-50'
+                }`}
+              >
+                2. Public Administration (Optional)
+              </button>
+              <button
+                onClick={() => setPolityStage('ethics')}
+                className={`px-4 py-2 text-xs font-bold rounded-lg border transition-all ${
+                  polityStage === 'ethics'
+                    ? 'bg-[#0b3b60] text-white border-[#0b3b60] shadow-sm'
+                    : 'bg-white text-slate-700 border-slate-300 hover:bg-slate-50'
+                }`}
+              >
+                3. Ethics & Case Studies (GS-IV)
+              </button>
+            </div>
+
+            {/* ========================================================= */}
+            {/* SUB-SECTION 1: POLITY & GOVERNANCE (GS-II) */}
+            {/* ========================================================= */}
+            {polityStage === 'gs2' && (
+              <div className="space-y-8 animate-in fade-in duration-150">
+                
+                {/* Integration Callout */}
+                <div className="bg-amber-50 border border-amber-200 rounded-xl p-5 text-xs sm:text-sm text-amber-900 leading-relaxed">
+                  <strong>Integrated Preparatory Framework:</strong> Polity and Governance is a common subject area for both Preliminary and Main examinations. An <strong>integrated preparatory approach</strong> is desirable, keeping in mind the specific requirement of each stage (objectivity for facts in Prelims, and subjectivity for analytical evaluation in Mains).
+                </div>
+
+                {/* Prelims Guidelines */}
+                <div className="bg-white border border-slate-200 rounded-xl p-6 shadow-xs space-y-4">
+                  <div className="pb-3 border-b border-slate-100 flex items-center justify-between">
+                    <div>
+                      <span className="text-[10px] font-bold uppercase tracking-wider text-slate-500 font-mono">Stage I</span>
+                      <h3 className="text-base font-bold text-[#0b3b60] font-serif">Preliminary Examination: Key Focus Areas</h3>
+                    </div>
+                    <span className="px-2.5 py-1 bg-slate-100 text-slate-700 text-xs font-bold rounded border border-slate-200">Objective Accuracy</span>
+                  </div>
+
+                  <ul className="space-y-3 text-xs sm:text-sm text-slate-700">
+                    <li className="flex items-start gap-2.5">
+                      <span className="w-1.5 h-1.5 rounded-full bg-[#0b3b60] mt-2 shrink-0"></span>
+                      <span><strong>Refer to Mains Syllabus for Clarity:</strong> The Prelims syllabus broadly mentions Constitution, Political system, Panchayati Raj, Public Policy, and Rights issues. To overcome lack of clarity, refer to the <strong>GS Paper II Mains syllabus</strong> where topics are elaborately specified.</span>
+                    </li>
+                    <li className="flex items-start gap-2.5">
+                      <span className="w-1.5 h-1.5 rounded-full bg-[#0b3b60] mt-2 shrink-0"></span>
+                      <span><strong>Constitutional & Extra-Constitutional Balance:</strong> Pay serious attention to constitutional articles, but equally emphasize <strong>extra-constitutional aspects</strong> (the syllabus focuses on <em>Indian Polity and Governance</em>, not merely the <em>Constitution of India</em>).</span>
+                    </li>
+                    <li className="flex items-start gap-2.5">
+                      <span className="w-1.5 h-1.5 rounded-full bg-[#0b3b60] mt-2 shrink-0"></span>
+                      <span><strong>Political & Administrative Bodies:</strong> Focus on administrative bodies alongside political bodies, as together they constitute the twin operational pillars of governance.</span>
+                    </li>
+                    <li className="flex items-start gap-2.5">
+                      <span className="w-1.5 h-1.5 rounded-full bg-[#0b3b60] mt-2 shrink-0"></span>
+                      <span><strong>Multi-Dimensional Interlinkages:</strong> The majority of questions are multi-dimensional; study statutory enactments, schemes, and institutional mandates across Ministries/Departments.</span>
+                    </li>
+                    <li className="flex items-start gap-2.5">
+                      <span className="w-1.5 h-1.5 rounded-full bg-[#0b3b60] mt-2 shrink-0"></span>
+                      <span><strong>Data Processing vs Mindless Compilation:</strong> Facts are important, but their correct application through conceptual understanding is paramount. Do not simply compile raw data; process it into meaningful information.</span>
+                    </li>
+                  </ul>
+                </div>
+
+                {/* Mains Detailed Strategy */}
+                <div className="space-y-4">
+                  <div className="border-b border-slate-200 pb-2">
+                    <h3 className="text-lg font-bold font-serif text-[#0b3b60]">Main Examination: Core Analytical Pillars</h3>
+                    <p className="text-xs text-slate-600 mt-0.5">
+                      Governance, constitution, polity, and social justice are mutually interrelated under the overarching connotation of <strong>'Governance'</strong>.
+                    </p>
+                  </div>
+
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+
+                    <div className="bg-white border border-slate-200 rounded-xl p-5 shadow-xs space-y-2">
+                      <h4 className="font-bold text-xs sm:text-sm text-slate-900">1. Constitutional Foundation of Governance</h4>
+                      <p className="text-xs text-slate-600 leading-relaxed">
+                        The Constitution is the fundamental law of the land providing the legal basis to polity. <strong>Directive Principles of State Policy (Part IV)</strong> is regarded as the fundamental law of Governance.
+                      </p>
+                    </div>
+
+                    <div className="bg-white border border-slate-200 rounded-xl p-5 shadow-xs space-y-2">
+                      <h4 className="font-bold text-xs sm:text-sm text-slate-900">2. Civil Society & Non-State Actors</h4>
+                      <p className="text-xs text-slate-600 leading-relaxed">
+                        Governance implies both government and its dynamic networking with bodies outside the formal state machinery — including <strong>Civil Society Organisations (CSOs)</strong>, NGOs, SHGs, and pressure groups.
+                      </p>
+                    </div>
+
+                    <div className="bg-white border border-slate-200 rounded-xl p-5 shadow-xs space-y-2">
+                      <h4 className="font-bold text-xs sm:text-sm text-slate-900">3. Federalism & Commission Reports</h4>
+                      <p className="text-xs text-slate-600 leading-relaxed">
+                        Examine division of powers from constitutional and extra-constitutional angles. Supplement study with <strong>Punchhi Commission</strong> and <strong>Sarkaria Commission</strong> reports, and the <strong>2nd ARC report on Local Governance</strong> for local devolution challenges.
+                      </p>
+                    </div>
+
+                    <div className="bg-white border border-slate-200 rounded-xl p-5 shadow-xs space-y-2">
+                      <h4 className="font-bold text-xs sm:text-sm text-slate-900">4. Separation of Powers & Comparative Schemes</h4>
+                      <p className="text-xs text-slate-600 leading-relaxed">
+                        Compare separation of powers between the Indian Parliamentary model and the US Presidential democracy. Benchmark Indian constitutional features with borrowing sources: <strong>UK, USA, and Canada</strong>.
+                      </p>
+                    </div>
+
+                    <div className="bg-white border border-slate-200 rounded-xl p-5 shadow-xs space-y-2">
+                      <h4 className="font-bold text-xs sm:text-sm text-slate-900">5. Executive, PMO & NITI Aayog</h4>
+                      <p className="text-xs text-slate-600 leading-relaxed">
+                        Study the Executive from both political and administrative perspectives. Examine the working of Ministries alongside the <strong>Prime Minister’s Office (PMO), Cabinet Secretariat, and NITI Aayog</strong>.
+                      </p>
+                    </div>
+
+                    <div className="bg-white border border-slate-200 rounded-xl p-5 shadow-xs space-y-2">
+                      <h4 className="font-bold text-xs sm:text-sm text-slate-900">6. Judiciary, ADR & Tribunals</h4>
+                      <p className="text-xs text-slate-600 leading-relaxed">
+                        Focus on judicial innovations, reformative trends, <strong>Alternative Dispute Resolution (ADR)</strong>, and specialized quasi-judicial tribunals on the basis of dispute nature and stakeholders involved.
+                      </p>
+                    </div>
+
+                    <div className="bg-white border border-slate-200 rounded-xl p-5 shadow-xs space-y-2">
+                      <h4 className="font-bold text-xs sm:text-sm text-slate-900">7. Electoral Process & Representation of People</h4>
+                      <p className="text-xs text-slate-600 leading-relaxed">
+                        Master the statutory foundations under <strong>RPA 1950 and RPA 1951</strong>, with special emphasis on contemporary electoral reforms and emerging trends in electoral behavior.
+                      </p>
+                    </div>
+
+                    <div className="bg-white border border-slate-200 rounded-xl p-5 shadow-xs space-y-2">
+                      <h4 className="font-bold text-xs sm:text-sm text-slate-900">8. Social Sector Policies & SDGs</h4>
+                      <p className="text-xs text-slate-600 leading-relaxed">
+                        Give precedence to health, education, human resources, poverty, and hunger policies framed in the context of <strong>Sustainable Development Goals (SDGs)</strong> and multi-dimensional welfare interventions.
+                      </p>
+                    </div>
+
+                  </div>
+                </div>
+
+                {/* Synthesis Banner */}
+                <div className="bg-slate-900 text-white rounded-xl p-6 shadow-xs space-y-2">
+                  <span className="text-[10px] font-bold uppercase tracking-wider text-amber-300 font-mono">Core Pedagogical Maxims for GS-II</span>
+                  <ul className="space-y-1.5 text-xs text-slate-200 leading-relaxed">
+                    <li>• <strong>Writing Practice in Totality:</strong> Avoid writing practice topic-wise in isolation; questions in UPSC are designed around polity and governance in totality.</li>
+                    <li>• <strong>Constitutional Evolution:</strong> Study constitutional evolution in direct relation to India’s freedom struggle, and shortlist amendments thematically by subject matter.</li>
+                    <li>• <strong>Parliament & State Legislatures:</strong> The issues in Parliament and State Legislatures are common; thorough mastery of Parliament automatically covers state legislatures.</li>
+                    <li>• <strong>Civil Services in Democracy:</strong> Civil Services translate public aspirations into reality; focus on transparency, accountability, and citizen-centric governance.</li>
+                  </ul>
+                </div>
+
+              </div>
+            )}
+
+            {/* ========================================================= */}
+            {/* SUB-SECTION 2: PUBLIC ADMINISTRATION (OPTIONAL) */}
+            {/* ========================================================= */}
+            {polityStage === 'pubad' && (
+              <div className="space-y-6 animate-in fade-in duration-150">
+                
+                <div className="bg-white border border-slate-200 rounded-xl p-6 shadow-xs space-y-3">
+                  <span className="text-[10px] font-bold uppercase tracking-wider text-slate-500 font-mono">Disciplinary Orientation</span>
+                  <h3 className="text-lg font-black text-[#0b3b60] font-serif">Why Public Administration? Distinct Advantages</h3>
+                  <p className="text-xs sm:text-sm text-slate-600 leading-relaxed">
+                    Public Administration is regarded as the most <strong>inter- as well as intra-disciplinary subject</strong> among all social sciences. Its non-technical nature makes it accessible for candidates from all academic backgrounds to master within a definitive time period.
+                  </p>
+                </div>
+
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+
+                  {/* Two Paper Dynamic */}
+                  <div className="bg-white border border-slate-200 rounded-xl p-6 shadow-xs space-y-3">
+                    <h4 className="font-bold text-sm text-[#0b3b60]">The Two-Paper Dynamic & Linkages</h4>
+                    <p className="text-xs text-slate-600 leading-relaxed">
+                      The demarcation between <strong>Paper I (Administrative Theory)</strong> and <strong>Paper II (Indian Administration)</strong> is according to the examination scheme rather than the subject matter itself:
+                    </p>
+                    <ul className="space-y-2 text-xs text-slate-700">
+                      <li className="p-2.5 bg-slate-50 rounded-lg border border-slate-100">
+                        <strong>Financial Administration (P-I)</strong> ↔ <strong>Financial Management (P-II)</strong>
+                      </li>
+                      <li className="p-2.5 bg-slate-50 rounded-lg border border-slate-100">
+                        <strong>Personnel Administration (P-I)</strong> ↔ <strong>Civil Services in India (P-II)</strong>
+                      </li>
+                      <li className="p-2.5 bg-slate-50 rounded-lg border border-slate-100">
+                        <strong>Techniques of Admin Improvement (P-I)</strong> ↔ <strong>Administrative Reforms (P-II)</strong>
+                      </li>
+                    </ul>
+                  </div>
+
+                  {/* Disciplinary Roots */}
+                  <div className="bg-white border border-slate-200 rounded-xl p-6 shadow-xs space-y-3">
+                    <h4 className="font-bold text-sm text-[#0b3b60]">Roots in Management & Political Science</h4>
+                    <ul className="space-y-3 text-xs text-slate-600 leading-relaxed">
+                      <li className="p-3 bg-slate-50 rounded-lg border border-slate-100">
+                        <strong>Separation from Management (1987):</strong> Although segregated in 1987, principles and practices of Management still have strong bearing. Examine management fundamentals specifically in the context of the <em>governmental system</em>.
+                      </li>
+                      <li className="p-3 bg-slate-50 rounded-lg border border-slate-100">
+                        <strong>Political Science as Mother Science:</strong> Political concepts provide the essential operational context for public administration, especially for Indian Administration in Paper II.
+                      </li>
+                    </ul>
+                  </div>
+
+                </div>
+
+                {/* Substantive Understanding Callout */}
+                <div className="bg-[#0b3b60] text-white rounded-xl p-5 shadow-xs text-xs sm:text-sm leading-relaxed">
+                  <strong>The Golden Principle:</strong> "Group syllabus topics to maximize output per hour of study. It is the <em>substantive</em> and not the <em>superficial</em> understanding of concepts and their application in the Indian context that provides the true foundation for scoring in Public Administration."
+                </div>
+
+              </div>
+            )}
+
+            {/* ========================================================= */}
+            {/* SUB-SECTION 3: ETHICS, INTEGRITY & APTITUDE (GS-IV) */}
+            {/* ========================================================= */}
+            {polityStage === 'ethics' && (
+              <div className="space-y-8 animate-in fade-in duration-150">
+                
+                {/* Purpose Card */}
+                <div className="bg-white border border-slate-200 rounded-xl p-6 shadow-xs space-y-3">
+                  <div className="flex items-center justify-between pb-2 border-b border-slate-100">
+                    <h3 className="text-base font-bold text-[#0b3b60] font-serif">Core Purpose of General Studies Paper IV</h3>
+                    <span className="px-2 py-0.5 bg-indigo-50 text-indigo-700 text-[10px] font-bold rounded font-mono">Attitude & Probity</span>
+                  </div>
+                  <p className="text-xs sm:text-sm text-slate-600 leading-relaxed">
+                    The main purpose of GS-IV is <em>"to test the candidates' attitude and approach to issues relating to integrity, probity in public life and problem-solving approach to conflicts faced in dealing with society."</em> Study must focus on:
+                  </p>
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs pt-1">
+                    <div className="p-3 bg-slate-50 rounded-lg border border-slate-100">
+                      <strong>(a) Value Inculcation:</strong> Understanding and appreciating the foundational values needed in public service.
+                    </div>
+                    <div className="p-3 bg-slate-50 rounded-lg border border-slate-100">
+                      <strong>(b) Applied Problem-Solving:</strong> Ability to resolve real-life ethical dilemmas with legal and moral consistency.
+                    </div>
+                  </div>
+                </div>
+
+                {/* Foundational Documents Grid */}
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+
+                  {/* Indian Documents */}
+                  <div className="bg-white border border-slate-200 rounded-xl p-6 shadow-xs space-y-3">
+                    <span className="text-[10px] font-bold uppercase tracking-wider text-slate-500 font-mono">Indian Sources</span>
+                    <h4 className="font-bold text-sm text-[#0b3b60]">Primary Documents Guiding Civil Service Values</h4>
+                    <ul className="space-y-2 text-xs text-slate-700">
+                      <li className="p-2.5 bg-slate-50 rounded-lg border border-slate-100">
+                        <strong>The Indian Constitution:</strong> Preamble, Fundamental Duties, Directive Principles, and Fundamental Rights.
+                      </li>
+                      <li className="p-2.5 bg-slate-50 rounded-lg border border-slate-100">
+                        <strong>Service Rules & Conduct:</strong> Central Civil Services (Conduct) Rules and Code of Conduct frameworks.
+                      </li>
+                      <li className="p-2.5 bg-slate-50 rounded-lg border border-slate-100">
+                        <strong>2nd ARC & Ethics Initiative:</strong> 2nd ARC Report on Ethics in Governance, Code of Ethics (1997), and proposed Public Service Bill (2006).
+                      </li>
+                    </ul>
+                  </div>
+
+                  {/* International Documents */}
+                  <div className="bg-white border border-slate-200 rounded-xl p-6 shadow-xs space-y-3">
+                    <span className="text-[10px] font-bold uppercase tracking-wider text-slate-500 font-mono">International Standards</span>
+                    <h4 className="font-bold text-sm text-[#0b3b60]">Global Landmarks in Public Ethics</h4>
+                    <ul className="space-y-2 text-xs text-slate-700">
+                      <li className="p-2.5 bg-slate-50 rounded-lg border border-slate-100">
+                        <strong>Nolan Committee (UK 1996):</strong> 7 Principles of Public Life: <em>Selflessness, Integrity, Objectivity, Accountability, Openness, Honesty, and Leadership</em>.
+                      </li>
+                      <li className="p-2.5 bg-slate-50 rounded-lg border border-slate-100">
+                        <strong>UN Documents:</strong> Declaration of Human Rights and International Code of Conduct for Public Officials (1996).
+                      </li>
+                      <li className="p-2.5 bg-slate-50 rounded-lg border border-slate-100">
+                        <strong>USA & OECD:</strong> Ethics in Government Act (1978, USA), Office of Government Ethics, and OECD Recommendation on Ethical Conduct (1998).
+                      </li>
+                    </ul>
+                  </div>
+
+                </div>
+
+                {/* Thinkers & Philosophers */}
+                <div className="bg-white border border-slate-200 rounded-xl p-6 shadow-xs space-y-4">
+                  <div className="pb-2 border-b border-slate-100">
+                    <span className="text-[10px] font-bold uppercase tracking-wider text-slate-500 font-mono">Thinkers & Traditions</span>
+                    <h4 className="font-bold text-sm text-[#0b3b60]">Moral Thinkers & Theoretical Readings</h4>
+                  </div>
+                  
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 text-xs text-slate-700">
+                    <div className="space-y-1.5 p-3 bg-slate-50 rounded-lg border border-slate-100">
+                      <strong className="text-slate-900 block">Western & Global Thinkers:</strong>
+                      <p className="text-slate-600">Confucius, Enlightenment thinkers (Voltaire, Rousseau), American Declaration of Independence, and the Humanist tradition.</p>
+                    </div>
+                    <div className="space-y-1.5 p-3 bg-slate-50 rounded-lg border border-slate-100">
+                      <strong className="text-slate-900 block">Indian Moral Philosophy:</strong>
+                      <p className="text-slate-600">Prof. S.K. Chakraborty (IIM Calcutta - <em>Human Values and Ethics</em>), Swami Ranganathananda, Ambedkar, Gandhi, Nehru, Tagore, and Vivekananda.</p>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Case Study Mastery Section */}
+                <div className="bg-white border border-slate-200 rounded-xl p-6 shadow-xs space-y-6">
+                  <div className="pb-3 border-b border-slate-100">
+                    <span className="text-[10px] font-bold uppercase tracking-wider text-slate-500 font-mono">GS-IV Methodology</span>
+                    <h3 className="text-lg font-black text-[#0b3b60] font-serif">Comprehensive Case Study Blueprint</h3>
+                    <p className="text-xs text-slate-600 mt-0.5">Systematic technique for diagnosing ethical dilemmas and structuring high-scoring solutions.</p>
+                  </div>
+
+                  {/* Role Agent Analysis */}
+                  <div className="space-y-3">
+                    <h4 className="font-bold text-xs sm:text-sm text-slate-900">1. Role-Agent Identification (Active vs Advisory)</h4>
+                    <p className="text-xs text-slate-600 leading-relaxed">
+                      Give critical importance to the <strong>role-agent</strong> in which you are placed:
+                    </p>
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs text-slate-700">
+                      <div className="p-3 bg-slate-50 rounded-lg border border-slate-100">
+                        <strong>(i) Active / Direct Role with Authority:</strong> e.g., District Collector, SP in Naxalite-affected district, Municipal Executive Engineer, or CEO.
+                      </div>
+                      <div className="p-3 bg-slate-50 rounded-lg border border-slate-100">
+                        <strong>(ii) Advisory Role:</strong> e.g., Senior consultant, PIO seeking advice, or recommending options to higher competent authority.
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Real-world roles CSE 2021-2024 */}
+                  <div className="bg-slate-50 p-4 rounded-xl border border-slate-200 space-y-2">
+                    <h5 className="font-bold text-xs text-slate-900">Recent Role-Agent Archetypes from UPSC CSE:</h5>
+                    <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 text-[11px] text-slate-600">
+                      <div className="p-2 bg-white rounded border border-slate-200"><strong>CSE 2024:</strong> Tech CEO, IPS / DG, District SP, Hospital Manager, Collector, Scientist.</div>
+                      <div className="p-2 bg-white rounded border border-slate-200"><strong>CSE 2023:</strong> Bank Exec, DM (AIIMS Doctor), Joint Secretary (MNC spouse), ADG CPWD.</div>
+                      <div className="p-2 bg-white rounded border border-slate-200"><strong>CSE 2022:</strong> Vice-President MNC, State Civil Servant, Journalist, Pollution Board Officer.</div>
+                      <div className="p-2 bg-white rounded border border-slate-200"><strong>CSE 2021:</strong> Young Civil Servant, Vice-Principal, Project Manager, Hospital Admin.</div>
+                    </div>
+                  </div>
+
+                  {/* Diagnostic & Solution Framework */}
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-xs text-slate-700">
+                    <div className="p-4 bg-slate-50 rounded-lg border border-slate-100 space-y-1.5">
+                      <strong className="block text-slate-900">2. Real Problem vs Symptoms (Diagnosis)</strong>
+                      <p className="text-slate-600 leading-relaxed">
+                        Identify the fundamental root problem rather than confusing it with surface symptoms (<strong>RP-RD, WP-RD, RP-WD, WP-WD</strong>). Define all stakeholders, variables, and ethical tensions.
+                      </p>
+                    </div>
+
+                    <div className="p-4 bg-slate-50 rounded-lg border border-slate-100 space-y-1.5">
+                      <strong className="block text-slate-900">3. Legality vs Morality Principle</strong>
+                      <p className="text-slate-600 leading-relaxed">
+                        Your preferred course of action must satisfy <strong>both legality and morality</strong>. <em>"Legality should not be sacrificed for the sake of morality"</em> (e.g. empathy must operate within laid-down legal provisions).
+                      </p>
+                    </div>
+                  </div>
+
+                  {/* 6 Parameter Authenticator */}
+                  <div className="bg-[#0b3b60] text-white p-5 rounded-xl space-y-3">
+                    <span className="text-[10px] font-bold uppercase tracking-wider text-amber-300 font-mono">Rajiv Ranjan Singh's 6-Parameter Test</span>
+                    <h4 className="font-bold text-sm text-white">How to Authenticate an Ethical Course of Action</h4>
+                    
+                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-2.5 text-xs text-slate-200 pt-1">
+                      <div className="p-2.5 bg-[#082945] rounded-lg border border-slate-700/80">
+                        1. Is the action legal and consistent with government policies?
+                      </div>
+                      <div className="p-2.5 bg-[#082945] rounded-lg border border-slate-700/80">
+                        2. Is it in line with organizational goals and code of conduct?
+                      </div>
+                      <div className="p-2.5 bg-[#082945] rounded-lg border border-slate-700/80">
+                        3. Do I genuinely think it is the right thing to do?
+                      </div>
+                      <div className="p-2.5 bg-[#082945] rounded-lg border border-slate-700/80">
+                        4. What will be its outcome for the organization, associates, and stakeholders?
+                      </div>
+                      <div className="p-2.5 bg-[#082945] rounded-lg border border-slate-700/80">
+                        5. Can I ethically justify doing it before my conscience?
+                      </div>
+                      <div className="p-2.5 bg-[#082945] rounded-lg border border-slate-700/80">
+                        6. What would happen if my action is publicly scrutinized?
+                      </div>
+                    </div>
+                  </div>
+
+                </div>
+
+              </div>
+            )}
 
           </motion.section>
         )}
