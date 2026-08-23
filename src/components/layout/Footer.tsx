@@ -2,7 +2,7 @@
 
 import React, { useState } from 'react';
 import Link from 'next/link';
-import { Mail, Phone, MapPin, ExternalLink, ShieldCheck, CheckCircle, Shield, Star } from 'lucide-react';
+import { Mail, Phone, MapPin, ExternalLink, Shield, Star } from 'lucide-react';
 
 export default function Footer() {
   const [email, setEmail] = useState('');
@@ -39,7 +39,7 @@ export default function Footer() {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-8 pb-10 border-b border-slate-700/80">
           
           {/* Col 1: Portal Overview */}
-          <div className="lg:col-span-4 space-y-4">
+          <div className="lg:col-span-5 space-y-4">
             <Link href="/" className="flex items-center group">
               <div>
                 <h3 className="text-base font-black tracking-wider text-white font-serif">Civils PAGE</h3>
@@ -50,17 +50,6 @@ export default function Footer() {
             <p className="text-xs text-slate-300 leading-relaxed">
               Dedicated Resource Centre for Contemporary Perspectives on Polity, Administration, Governance & Ethics under the mentorship of <strong className="text-white">Rajiv Ranjan Singh</strong>.
             </p>
-
-            <div className="text-[11px] text-slate-400 space-y-1 pt-1">
-              <p className="flex items-center gap-1.5">
-                <ShieldCheck className="w-3.5 h-3.5 text-emerald-400" />
-                <span>Standard Academic & Examination Frameworks</span>
-              </p>
-              <p className="flex items-center gap-1.5">
-                <CheckCircle className="w-3.5 h-3.5 text-amber-400" />
-                <span>Mapped to UPSC Civil Services Examination Syllabi</span>
-              </p>
-            </div>
           </div>
 
           {/* Col 2: Core Contemporary Sections */}
@@ -102,42 +91,8 @@ export default function Footer() {
             </ul>
           </div>
 
-          {/* Col 3: Academic Resources & Important Links */}
-          <div className="lg:col-span-2 space-y-3">
-            <h4 className="text-xs font-black text-amber-300 uppercase tracking-wider pb-1 border-b border-slate-700">
-              Aspirant Resources
-            </h4>
-            <ul className="space-y-2 text-xs">
-              <li>
-                <Link href="/aboutcse" className="hover:text-amber-200 transition-colors">
-                  • About CSE Examination
-                </Link>
-              </li>
-              <li>
-                <Link href="/pyqs" className="hover:text-amber-200 transition-colors">
-                  • 10-Year Topicwise PYQs
-                </Link>
-              </li>
-              <li>
-                <Link href="/#mock-test" className="hover:text-amber-200 transition-colors">
-                  • Daily Practice Mini-Quiz
-                </Link>
-              </li>
-              <li>
-                <Link href="/updates?category=Model Answers" className="hover:text-amber-200 transition-colors">
-                  • Mains Model Answers
-                </Link>
-              </li>
-              <li>
-                <Link href="/direct-query" className="hover:text-amber-200 transition-colors">
-                  • Direct Faculty Query
-                </Link>
-              </li>
-            </ul>
-          </div>
-
           {/* Col 4: Newsletter & Contact */}
-          <div className="lg:col-span-3 space-y-3">
+          <div className="lg:col-span-4 space-y-3">
             <h4 className="text-xs font-black text-amber-300 uppercase tracking-wider pb-1 border-b border-slate-700">
               Gazette Dispatch
             </h4>

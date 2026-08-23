@@ -145,14 +145,11 @@ export default function Header() {
                   <h1 className="text-xl sm:text-2xl font-black tracking-wider text-[#0b3b60] leading-none font-serif">
                     Civils PAGE
                   </h1>
-                  <span className="hidden sm:inline-block text-[9px] font-extrabold uppercase bg-amber-100 text-amber-900 px-1.5 py-0.5 rounded border border-amber-300">
-                    UPSC CSE Resource Portal
-                  </span>
                 </div>
               </div>
             </Link>
 
-            {/* Right Search & Quick CTA Action */}
+            {/* Right Search Action */}
             <div className="hidden lg:flex items-center gap-3">
               <form onSubmit={handleSearchSubmit} className="relative">
                 <input
@@ -160,18 +157,10 @@ export default function Header() {
                   placeholder="Search Acts, Judgements, Issues..."
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
-                  className="w-56 xl:w-64 pl-8 pr-3 py-1.5 text-xs bg-slate-50 border border-slate-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#0b3b60] focus:bg-white text-slate-800 placeholder-slate-400 transition-all"
+                  className="w-64 pl-8 pr-3 py-1.5 text-xs bg-slate-50 border border-slate-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#0b3b60] focus:bg-white text-slate-800 placeholder-slate-400 transition-all"
                 />
                 <Search className="w-3.5 h-3.5 text-slate-400 absolute left-2.5 top-1/2 -translate-y-1/2" />
               </form>
-
-              <Link 
-                href="/direct-query" 
-                className="px-3 py-1.5 bg-amber-50 hover:bg-amber-100 text-amber-900 border border-amber-300 rounded-md font-bold text-xs flex items-center gap-1.5 transition-colors shadow-xs shrink-0"
-              >
-                <HelpCircle className="w-3.5 h-3.5 text-amber-700" />
-                <span>Address your Queries</span>
-              </Link>
             </div>
 
             {/* Mobile Hamburger Toggle */}
