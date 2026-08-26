@@ -301,20 +301,6 @@ export default function Header() {
                 </Link>
               </li>
 
-              {/* Current News & Views */}
-              <li>
-                <Link
-                  href="/updates"
-                  className={`block px-2.5 py-2.5 transition-colors border-b-2 ${
-                    pathname === '/updates' && !pathname.includes('category')
-                      ? 'bg-[#06243d] text-amber-300 border-amber-400 font-bold' 
-                      : 'border-transparent hover:bg-[#082e4e] hover:text-amber-200'
-                  }`}
-                >
-                  Current News & Views
-                </Link>
-              </li>
-
               {/* Legislation */}
               <li>
                 <Link
@@ -515,14 +501,6 @@ export default function Header() {
                 onClick={() => setMobileMenuOpen(false)}
               >
                 <BookOpen className="w-4 h-4 text-[#0b3b60]" /> Civil Services Examination
-              </Link>
-
-              <Link 
-                href="/updates" 
-                className={`flex items-center gap-2 px-3 py-2 rounded-md ${pathname === '/updates' ? 'bg-slate-100 text-[#0b3b60] font-bold' : 'hover:bg-slate-50'}`}
-                onClick={() => setMobileMenuOpen(false)}
-              >
-                <Newspaper className="w-4 h-4 text-[#0b3b60]" /> Current News & Views
               </Link>
 
               <Link 
