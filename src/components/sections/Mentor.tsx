@@ -36,10 +36,7 @@ export default function Mentor() {
                 Pedagogy Built on Analytical Rigor & Constitutional Values
               </h3>
               <p className="text-xs sm:text-sm text-slate-700 leading-relaxed">
-                Rajiv Ranjan Singh is a distinguished UPSC Civil Services mentor with over 8 years of dedicated experience mentoring aspirants through the rigorous phases of the Civil Services Examination.
-              </p>
-              <p className="text-xs sm:text-sm text-slate-700 leading-relaxed">
-                His academic orientation synthesizes statutory enactments, judicial pronouncements, and institutional committee reports into structured frameworks for GS Paper II (Polity & Governance) and GS Paper IV (Ethics, Integrity & Aptitude).
+                Rajiv Ranjan Singh (MPA, NET) is a distinguished academician and consultant who has been mentoring Civils Services aspirants across India for over two decades. As the Founder Director of INTERFACE IAS Academy, Chairman of Sanchetna Panchayat Vikas Sabha, Editor of Contemporary Perspective, and Editor-in-Chief of Civils PAGE24, he has played a pivotal role in shaping the academic and administrative discourse in the field of competitive examinations.
               </p>
             </div>
           </motion.div>
