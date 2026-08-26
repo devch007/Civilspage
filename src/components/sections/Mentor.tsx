@@ -16,7 +16,7 @@ export default function Mentor() {
           <h2 className="text-2xl sm:text-3xl font-black text-[#0b3b60] font-serif">
             Academic Mentorship: Rajiv Ranjan Singh
           </h2>
-          <p className="text-xs sm:text-sm text-slate-600 mt-1">
+          <p className="text-sm sm:text-base text-slate-600 mt-2 font-normal">
             Guiding prospective civil servants in Constitution, Contemporary Governance & Applied Administrative Ethics.
           </p>
         </div>
@@ -35,7 +35,7 @@ export default function Mentor() {
               <h3 className="text-xl font-bold text-slate-900 leading-tight">
                 Pedagogy Built on Analytical Rigor & Constitutional Values
               </h3>
-              <p className="text-xs sm:text-sm text-slate-700 leading-relaxed">
+              <p className="text-sm sm:text-base text-slate-700 leading-relaxed font-normal">
                 Rajiv Ranjan Singh (MPA, NET) is a distinguished academician and consultant who has been mentoring Civils Services aspirants across India for over two decades. As the Founder Director of INTERFACE IAS Academy, Chairman of Sanchetna Panchayat Vikas Sabha, Editor of Contemporary Perspective, and Editor-in-Chief of Civils PAGE24, he has played a pivotal role in shaping the academic and administrative discourse in the field of competitive examinations.
               </p>
             </div>

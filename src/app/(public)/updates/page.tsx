@@ -34,6 +34,32 @@ function UpdatesContent() {
     ? updates.filter(item => item.category.toLowerCase().includes(selectedCategory.toLowerCase()))
     : updates;
 
+  const getSubtext = (cat: string | null) => {
+    if (!cat) {
+      return "Comprehensive analysis of statutory enactments, judicial pronouncements, policy frameworks, and constitutional developments for UPSC Civil Services Examination.";
+    }
+    const lower = cat.toLowerCase();
+    if (lower.includes('court') || lower.includes('judgement')) {
+      return "Analytical digests and constitutional breakdowns of landmark judicial rulings, legal precedents, and judicial doctrines.";
+    }
+    if (lower.includes('legislat')) {
+      return "In-depth analysis of Parliamentary acts, bills, statutory provisions, and legal reforms.";
+    }
+    if (lower.includes('amendment')) {
+      return "Detailed examinations of constitutional amendments, federal structures, and institutional checks and balances.";
+    }
+    if (lower.includes('polic') || lower.includes('program')) {
+      return "Structured briefings on Union and State government schemes, missions, and developmental policy initiatives.";
+    }
+    if (lower.includes('commission') || lower.includes('committee')) {
+      return "Authoritative summaries of administrative reform commissions, committee recommendations, and statutory reports.";
+    }
+    if (lower.includes('model') || lower.includes('answer')) {
+      return "Evaluated answer writing frameworks, multi-dimensional structures, and standard model answers for UPSC Mains.";
+    }
+    return `Structured updates, academic briefings, and analytical perspectives on ${cat}.`;
+  };
+
   return (
     <main className="min-h-screen bg-[#FAF9F6] pt-28 sm:pt-36 pb-20">
       <div className="container max-w-7xl mx-auto px-4 sm:px-6">
@@ -47,8 +73,8 @@ function UpdatesContent() {
           <h1 className="text-2xl sm:text-3xl md:text-4xl font-black font-serif text-[#0b3b60] mb-3 tracking-tight">
             {selectedCategory ? selectedCategory : 'Current Updates'}
           </h1>
-          <p className="text-xs sm:text-sm md:text-base text-slate-600 max-w-2xl mx-auto leading-relaxed">
-            Stay informed with the latest notifications, syllabus updates, exam results briefings, and official updates posted regularly by Rajiv Ranjan Singh Sir.
+          <p className="text-sm sm:text-base text-slate-600 max-w-2xl mx-auto leading-relaxed font-normal">
+            {getSubtext(selectedCategory)}
           </p>
         </div>
 
