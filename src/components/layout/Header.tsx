@@ -3,6 +3,7 @@
 import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
+import { motion, AnimatePresence } from 'framer-motion';
 import { 
   Menu, 
   X, 
@@ -452,41 +453,52 @@ export default function Header() {
       <div className="h-[78px] lg:h-[124px]"></div>
 
       {/* 5. Mobile Navigation Drawer */}
-      {mobileMenuOpen && (
-        <div className="fixed inset-0 z-50 lg:hidden">
-          {/* Backdrop */}
-          <div 
-            className="fixed inset-0 bg-slate-900/60 backdrop-blur-xs transition-opacity"
-            onClick={() => setMobileMenuOpen(false)}
-          ></div>
+      <AnimatePresence>
+        {mobileMenuOpen && (
+          <div className="fixed inset-0 z-50 lg:hidden">
+            {/* Backdrop */}
+            <motion.div 
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.2 }}
+              className="fixed inset-0 bg-slate-900/60 backdrop-blur-sm"
+              onClick={() => setMobileMenuOpen(false)}
+            />
 
-          {/* Drawer Content */}
-          <div className="fixed top-0 left-0 bottom-0 w-4/5 max-w-sm bg-white shadow-2xl flex flex-col z-50 overflow-y-auto">
-            
-            {/* Drawer Header with Tricolor accent & premium brand header */}
-            <div className="h-[3px] w-full flex shrink-0">
-              <div className="w-1/3 bg-[#FF9933]"></div>
-              <div className="w-1/3 bg-[#FFFFFF] border-y border-slate-100"></div>
-              <div className="w-1/3 bg-[#138808]"></div>
-            </div>
-
-            <div className="bg-white text-slate-800 p-4 border-b border-slate-200 flex items-center justify-between shrink-0">
-              <div className="flex items-center">
-                <div>
-                  <h2 className="text-sm font-black tracking-wider text-[#0b3b60] leading-none font-serif">Civils PAGE</h2>
-                </div>
+            {/* Drawer Content */}
+            <motion.div 
+              initial={{ x: '100%' }}
+              animate={{ x: 0 }}
+              exit={{ x: '100%' }}
+              transition={{ type: 'spring', damping: 25, stiffness: 200 }}
+              className="fixed top-0 right-0 bottom-0 w-[85%] max-w-[320px] bg-white shadow-2xl flex flex-col z-50 overflow-y-auto"
+            >
+              
+              {/* Drawer Header with Tricolor accent & premium brand header */}
+              <div className="h-[3px] w-full flex shrink-0">
+                <div className="w-1/3 bg-[#FF9933]"></div>
+                <div className="w-1/3 bg-[#FFFFFF] border-y border-slate-100"></div>
+                <div className="w-1/3 bg-[#138808]"></div>
               </div>
-              <button 
-                onClick={() => setMobileMenuOpen(false)}
-                className="p-1.5 rounded-md hover:bg-slate-100 text-slate-500 hover:text-slate-800 transition-colors"
-                aria-label="Close menu"
-              >
-                <X className="w-5 h-5" />
-              </button>
-            </div>
 
-            {/* Drawer Links */}
-            <div className="py-2 px-3 space-y-1 text-sm font-medium text-slate-700">
+              <div className="bg-white text-slate-800 p-5 border-b border-slate-200 flex items-center justify-between shrink-0">
+                <div className="flex items-center">
+                  <div>
+                    <h2 className="text-lg font-black tracking-wider text-[#0b3b60] leading-none font-serif">Civils PAGE</h2>
+                  </div>
+                </div>
+                <button 
+                  onClick={() => setMobileMenuOpen(false)}
+                  className="p-1.5 rounded-md hover:bg-slate-100 text-slate-500 hover:text-slate-800 transition-colors"
+                  aria-label="Close menu"
+                >
+                  <X className="w-6 h-6" />
+                </button>
+              </div>
+
+              {/* Drawer Links */}
+              <div className="py-4 px-4 space-y-2 text-sm font-medium text-slate-700">
               <Link 
                 href="/" 
                 className={`flex items-center gap-2 px-3 py-2 rounded-md ${pathname === '/' ? 'bg-slate-100 text-[#0b3b60] font-bold' : 'hover:bg-slate-50'}`}
@@ -587,9 +599,10 @@ export default function Header() {
                 <HelpCircle className="w-4 h-4 text-[#0b3b60]" /> Address your Queries
               </Link>
             </div>
+            </motion.div>
           </div>
-        </div>
-      )}
+        )}
+      </AnimatePresence>
     </>
   );
 }
