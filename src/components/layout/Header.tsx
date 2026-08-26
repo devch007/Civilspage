@@ -151,9 +151,14 @@ export default function Header() {
         {/* 2. Top Utility & Accessibility Bar */}
         <div className="bg-[#0b2948] text-slate-200 text-[11px] font-medium border-b border-slate-800/40 py-1 px-4 sm:px-6">
           <div className="max-w-7xl mx-auto flex items-center justify-between">
-            {/* Left: Date Display */}
-            <div className="flex items-center gap-2 sm:gap-4 truncate">
-              <span className="text-slate-300 font-mono text-[10.5px]">{currentDate}</span>
+            {/* Left: Date Display & Membership */}
+            <div className="flex items-center gap-3 sm:gap-4 truncate">
+              <span className="text-slate-300 font-mono text-[10.5px] hidden sm:inline-block">{currentDate}</span>
+              <span className="text-slate-600 hidden sm:inline-block">|</span>
+              <Link href="/membership" className="flex items-center gap-1.5 text-amber-300 hover:text-amber-400 font-bold transition-colors">
+                <Award className="w-3.5 h-3.5" />
+                <span className="text-[10.5px] tracking-wide uppercase">Join Membership</span>
+              </Link>
             </div>
 
             {/* Right: Accessibility Controls */}
