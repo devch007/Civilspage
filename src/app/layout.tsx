@@ -1,15 +1,16 @@
 import type { Metadata } from 'next';
-import { Lora, Inter } from 'next/font/google';
+import { Merriweather, Source_Sans_3 } from 'next/font/google';
 import './globals.css';
 
 // Load Google Fonts using optimized Next.js variables
-const lora = Lora({
+const merriweather = Merriweather({
+  weight: ['300', '400', '700', '900'],
   subsets: ['latin'],
   variable: '--font-heading',
   display: 'swap',
 });
 
-const inter = Inter({
+const sourceSans3 = Source_Sans_3({
   subsets: ['latin'],
   variable: '--font-sans',
   display: 'swap',
@@ -29,10 +30,10 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${lora.variable} ${inter.variable} h-full antialiased`}
+      className={`${merriweather.variable} ${sourceSans3.variable} h-full antialiased`}
       style={{ scrollBehavior: 'smooth' }}
     >
-      <body className="min-h-full flex flex-col text-[#0F172A] selection:bg-[#4F46E5] selection:text-white">
+      <body className="min-h-full flex flex-col text-[#0F172A] selection:bg-[#4F46E5] selection:text-white font-sans">
         {children}
       </body>
     </html>
