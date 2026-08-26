@@ -61,12 +61,12 @@ export default function DirectQuery() {
                 exit={{ opacity: 0, scale: 0.95 }}
                 transition={{ duration: 0.3 }}
               >
-                <div style={{ textAlign: 'center', marginBottom: '36px' }}>
-                  <span className="badge badge-primary" style={{ marginBottom: '12px' }}>Direct Access Channel</span>
-                  <h1 style={{ fontSize: '2rem', fontWeight: 800, color: 'var(--text-primary)', margin: '0 0 8px 0' }}>
+                <div className="text-center mb-8">
+                  <span className="badge badge-primary inline-flex mb-3">Direct Access Channel</span>
+                  <h1 className="text-2xl sm:text-3xl font-black font-serif text-[#0b3b60] mb-2 tracking-tight">
                     Query to Rajiv Sir
                   </h1>
-                  <p style={{ color: 'var(--text-secondary)', fontSize: '0.95rem', lineHeight: 1.6, margin: 0 }}>
+                  <p className="text-xs sm:text-sm text-slate-600 max-w-md mx-auto leading-relaxed">
                     Have questions about syllabus topics, answer strategies, or mentorship courses? Send Sir a direct query below.
                   </p>
                 </div>

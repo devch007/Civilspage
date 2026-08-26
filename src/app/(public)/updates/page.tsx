@@ -35,19 +35,19 @@ function UpdatesContent() {
     : updates;
 
   return (
-    <main style={{ minHeight: '100vh', background: 'var(--bg-deep)', padding: '140px 0 80px 0' }}>
-      <div className="container">
+    <main className="min-h-screen bg-[#FAF9F6] pt-28 sm:pt-36 pb-20">
+      <div className="container max-w-7xl mx-auto px-4 sm:px-6">
         
         {/* Banner Section */}
-        <div style={{ textAlign: 'center', marginBottom: '48px' }}>
-          <span className="badge badge-primary gap-1 flex items-center w-fit mx-auto mb-3">
+        <div className="text-center max-w-3xl mx-auto mb-10">
+          <span className="badge badge-primary gap-1 inline-flex items-center mx-auto mb-3">
             <Sparkles className="w-3.5 h-3.5 text-indigo-500 animate-pulse" />
             Live Academic Feeds
           </span>
-          <h1 style={{ fontSize: '2.5rem', fontWeight: 800, color: 'var(--text-primary)', margin: '0 0 12px 0' }}>
-            Current Updates & Announcements
+          <h1 className="text-2xl sm:text-3xl md:text-4xl font-black font-serif text-[#0b3b60] mb-3 tracking-tight">
+            {selectedCategory ? selectedCategory : 'Current Updates'}
           </h1>
-          <p style={{ color: 'var(--text-secondary)', fontSize: '1.05rem', maxWidth: '600px', margin: '0 auto', lineHeight: 1.6 }}>
+          <p className="text-xs sm:text-sm md:text-base text-slate-600 max-w-2xl mx-auto leading-relaxed">
             Stay informed with the latest notifications, syllabus updates, exam results briefings, and official updates posted regularly by Rajiv Ranjan Singh Sir.
           </p>
         </div>
@@ -151,8 +151,8 @@ function UpdatesContent() {
               ))
             ) : (
               <div className="col-span-full flex flex-col items-center justify-center py-20 bg-white rounded-2xl border border-slate-100">
-                <h4 className="text-lg font-bold text-slate-900 mb-1">No Announcements Yet</h4>
-                <p className="text-slate-400 text-sm">Announcements posted inside the Admin Panel will immediately display here.</p>
+                <h4 className="text-lg font-bold text-slate-900 mb-1">No Updates Found</h4>
+                <p className="text-slate-400 text-sm">Updates published inside the Admin Panel will immediately display here.</p>
               </div>
             )}
           </div>

@@ -34,7 +34,7 @@ export default function UpdateDetail({ params }: PageProps) {
         const { id } = await params;
         const res = await fetch(`/api/content/affairs/${id}`);
         if (res.status === 404) {
-          setErrorMsg('The requested announcement could not be found.');
+          setErrorMsg('The requested update could not be found.');
           return;
         }
         if (!res.ok) throw new Error(`HTTP ${res.status}`);
@@ -51,8 +51,8 @@ export default function UpdateDetail({ params }: PageProps) {
   }, [params]);
 
   return (
-    <main style={{ minHeight: '100vh', background: 'var(--bg-deep)', padding: '140px 0 80px 0' }}>
-      <div className="container max-w-4xl">
+    <main className="min-h-screen bg-[#FAF9F6] pt-28 sm:pt-36 pb-20">
+      <div className="container max-w-4xl mx-auto px-4 sm:px-6">
 
         <Link href="/updates" className="inline-flex items-center gap-2 text-sm font-bold text-slate-500 hover:text-indigo-600 transition-colors mb-6">
           <ArrowLeft className="w-4 h-4" />
@@ -62,7 +62,7 @@ export default function UpdateDetail({ params }: PageProps) {
         {loading ? (
           <div className="flex flex-col items-center justify-center py-20 gap-3 bg-white rounded-2xl border border-slate-100 shadow-sm">
             <Loader2 className="w-8 h-8 text-indigo-600 animate-spin" />
-            <span className="text-sm font-bold text-slate-400">Loading announcement details...</span>
+            <span className="text-sm font-bold text-slate-400">Loading update details...</span>
           </div>
         ) : errorMsg ? (
           <div className="text-center py-20 bg-white rounded-2xl border border-slate-100 shadow-sm space-y-4">
