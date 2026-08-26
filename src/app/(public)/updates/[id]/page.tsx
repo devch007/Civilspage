@@ -82,88 +82,63 @@ export default function UpdateDetail({ params }: PageProps) {
           </div>
         ) : update ? (
           <motion.article
-            className="glass-card bg-white border border-slate-100 rounded-2xl shadow-xl overflow-hidden text-left p-0"
+            className="bg-white border border-slate-200 rounded-2xl shadow-xs overflow-hidden text-left p-6 sm:p-10 space-y-6"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5 }}
           >
-            {/* Cover image */}
-            {update.featuredImage ? (
-              <div className="relative w-full h-[320px] overflow-hidden bg-slate-100 border-b border-slate-100">
-                <img src={update.featuredImage} alt={update.title} className="object-cover w-full h-full" />
-              </div>
-            ) : (
-              <div className="w-full h-8 bg-gradient-to-r from-indigo-50 to-emerald-50 border-b border-slate-100/60" />
-            )}
+            {/* Meta */}
+            <div className="flex flex-wrap items-center gap-3 text-xs font-bold text-slate-400">
+              <span className="flex items-center gap-1">
+                <Calendar className="w-4 h-4 text-indigo-500" />
+                {update.date}
+              </span>
+              <span className="text-slate-300">•</span>
+              <span className="flex items-center gap-1 text-indigo-600 bg-indigo-50 px-2 py-0.5 rounded-full uppercase">
+                <Tag className="w-3.5 h-3.5 text-indigo-500" />
+                {update.category}
+              </span>
+              <span className="text-slate-300">•</span>
+              <span className="flex items-center gap-1">
+                <BookOpen className="w-4 h-4 text-indigo-500" />
+                {update.content ? `${Math.max(1, Math.ceil(update.content.split(' ').length / 200))} min read` : '1 min read'}
+              </span>
+            </div>
 
-            <div className="p-6 md:p-10 space-y-6">
-              {/* Meta */}
-              <div className="flex flex-wrap items-center gap-3 text-xs font-bold text-slate-400">
-                <span className="flex items-center gap-1">
-                  <Calendar className="w-4 h-4 text-indigo-500" />
-                  {update.date}
-                </span>
-                <span className="text-slate-300">•</span>
-                <span className="flex items-center gap-1 text-indigo-600 bg-indigo-50 px-2 py-0.5 rounded-full uppercase">
-                  <Tag className="w-3.5 h-3.5 text-indigo-500" />
-                  {update.category}
-                </span>
-                <span className="text-slate-300">•</span>
-                <span className="flex items-center gap-1">
-                  <BookOpen className="w-4 h-4 text-indigo-500" />
-                  {update.content ? `${Math.max(1, Math.ceil(update.content.split(' ').length / 200))} min read` : '1 min read'}
-                </span>
-              </div>
+            {/* Title */}
+            <h1 className="text-xl sm:text-2xl md:text-3xl font-black font-serif text-slate-900 leading-snug">
+              {update.title}
+            </h1>
 
-              {/* Title */}
-              <h1 style={{ fontSize: '2.25rem', fontWeight: 800, color: 'var(--text-primary)', lineHeight: 1.25, margin: 0 }}>
-                {update.title}
-              </h1>
+            {/* Content */}
+            <div className="prose max-w-none text-[#1f2937] leading-relaxed text-sm sm:text-base">
+              {update.content ? (
+                <p className="mb-4 whitespace-pre-wrap">{update.content}</p>
+              ) : (
+                <p className="mb-4 text-slate-500 italic">No detailed content available for this update.</p>
+              )}
+            </div>
 
-              {/* Content */}
-              <div className="prose max-w-none text-[#1f2937]" style={{ fontSize: '1.05rem', lineHeight: 1.6 }}>
-                {update.content ? (
-                  <p className="mb-4 leading-relaxed">{update.content}</p>
-                ) : (
-                  <p className="mb-4 leading-relaxed text-slate-500 italic">No detailed content available for this update.</p>
-                )}
-              </div>
-
-              {/* PDF link if available */}
-              {update.pdfUrl && (
+            {/* Actions Footer Bar */}
+            <div className="pt-6 border-t border-slate-100 flex flex-wrap justify-between items-center gap-4">
+              {update.pdfUrl ? (
                 <a
                   href={update.pdfUrl}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex items-center gap-2 px-4 py-2 bg-indigo-600 text-white text-sm font-semibold rounded-xl hover:bg-indigo-700 transition-colors"
+                  className="inline-flex items-center gap-2 px-4 py-2 bg-indigo-600 hover:bg-indigo-700 text-white text-xs font-semibold rounded-lg transition-colors shadow-sm"
                 >
-                  📄 Download PDF
+                  📄 Download PDF Document
                 </a>
+              ) : (
+                <div />
               )}
-
-
-              {/* Author footer */}
-              <div className="border-t border-slate-100 pt-8 mt-10 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-6 bg-slate-50/50 -mx-6 -mb-6 md:-mx-10 md:-mb-10 p-6 md:p-8">
-                <div className="flex items-center gap-3">
-                  <div className="w-10 h-10 rounded-full bg-emerald-600 text-white flex items-center justify-center font-bold text-sm">RR</div>
-                  <div>
-                    <span className="block text-sm font-bold text-slate-900 leading-tight">Rajiv Ranjan Singh</span>
-                    <span className="block text-[10px] text-slate-400 font-semibold uppercase tracking-wider">UPSC IAS Core Mentor</span>
-                  </div>
-                </div>
-                <div className="flex gap-2 w-full sm:w-auto">
-                  <Link href="/direct-query" className="btn btn-secondary !py-2 !px-4 text-xs font-semibold flex items-center gap-1.5 flex-grow sm:flex-grow-0 justify-center">
-                    <MessageSquare className="w-4 h-4 text-indigo-500" />
-                    <span>Consult Sir</span>
-                  </Link>
-                  <button
-                    onClick={() => alert('Article saved!')}
-                    className="btn btn-secondary !py-2 !px-4 text-xs font-semibold flex items-center gap-1.5 flex-grow sm:flex-grow-0 justify-center"
-                  >
-                    <Bookmark className="w-4 h-4 text-indigo-500" />
-                    <span>Save Article</span>
-                  </button>
-                </div>
+              
+              <div className="flex gap-2">
+                <Link href="/direct-query" className="btn btn-secondary !py-2 !px-3 text-xs font-semibold flex items-center gap-1.5 justify-center">
+                  <MessageSquare className="w-3.5 h-3.5 text-indigo-500" />
+                  <span>Ask a Query</span>
+                </Link>
               </div>
             </div>
           </motion.article>
