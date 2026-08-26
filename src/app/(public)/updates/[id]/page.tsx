@@ -50,13 +50,21 @@ export default function UpdateDetail({ params }: PageProps) {
     load();
   }, [params]);
 
+  const backUrl = update?.category
+    ? `/updates?category=${encodeURIComponent(update.category)}`
+    : '/updates';
+
+  const backText = update?.category
+    ? `Back to ${update.category}`
+    : 'Back to Current Updates';
+
   return (
     <main className="min-h-screen bg-[#FAF9F6] pt-28 sm:pt-36 pb-20">
       <div className="container max-w-4xl mx-auto px-4 sm:px-6">
 
-        <Link href="/updates" className="inline-flex items-center gap-2 text-sm font-bold text-slate-500 hover:text-indigo-600 transition-colors mb-6">
+        <Link href={backUrl} className="inline-flex items-center gap-2 text-sm font-bold text-slate-500 hover:text-indigo-600 transition-colors mb-6">
           <ArrowLeft className="w-4 h-4" />
-          <span>Back to Current Updates</span>
+          <span>{backText}</span>
         </Link>
 
         {loading ? (
