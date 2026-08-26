@@ -104,73 +104,35 @@ function UpdatesContent() {
               filteredUpdates.map((item, index) => (
                 <Link href={`/updates/${item.id}`} key={item.id} className="block cursor-pointer group">
                   <motion.div 
-                    className="glass-card flex flex-col justify-between overflow-hidden p-0 text-left h-full transition-all duration-300"
+                    className="bg-white border border-slate-200/80 rounded-xl hover:border-indigo-500 hover:shadow-xs transition-all duration-300 p-5 text-left h-full flex flex-col justify-between"
                     initial={{ opacity: 0, y: 30 }}
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true }}
                     transition={{ duration: 0.5, delay: Math.min(index * 0.1, 0.4) }}
-                    style={{ minHeight: '380px' }}
                   >
                     <div>
-                      {/* Optional Card Image Banner */}
-                      {item.featuredImage ? (
-                        <div className="relative w-full h-44 overflow-hidden rounded-t-xl bg-slate-100 border-b border-slate-100">
-                          <img
-                            src={item.featuredImage}
-                            alt={item.title}
-                            className="object-cover w-full h-full group-hover:scale-105 transition-transform duration-500"
-                            loading="lazy"
-                          />
-                        </div>
-                      ) : (
-                        <div className="h-4 w-full bg-slate-50/50"></div>
-                      )}
-
-                      <div className="p-5">
-                        {/* Meta Tags */}
-                        <div className="flex items-center gap-2 mb-3 text-[10.5px] font-bold text-slate-400">
-                          <span className="flex items-center gap-1 shrink-0">
-                            <Calendar className="w-3.5 h-3.5 text-indigo-500" />
-                            {item.date}
-                          </span>
-                          <span className="text-slate-300">•</span>
-                          <span className="flex items-center gap-1 text-indigo-600 bg-indigo-50 px-2 py-0.5 rounded-full uppercase shrink-0">
-                            <Tag className="w-3 h-3 text-indigo-500" />
-                            {item.category}
-                          </span>
-                          <span className="text-slate-300">•</span>
-                          <span className="flex items-center gap-1 text-slate-400 flex items-center gap-0.5 shrink-0">
-                            <BookOpen className="w-3 h-3 text-slate-450" /> 4 min read
-                          </span>
-                        </div>
-
-                        {/* Title: 24px */}
-                        <h3 className="group-hover:text-indigo-600 transition-colors" style={{ fontSize: '1.25rem', fontWeight: 800, color: 'var(--text-primary)', lineHeight: 1.3, marginBottom: '12px' }}>
-                          {item.title}
-                        </h3>
-
-                        {/* Content excerpt */}
-                        <p style={{ fontSize: '0.95rem', color: 'var(--text-secondary)', lineHeight: 1.6, margin: 0 }}>
-                          {item.content ? item.content.slice(0, 160).replace(/<[^>]*>/g, '') + '…' : 'Read more →'}
-                        </p>
+                      {/* Meta Tags */}
+                      <div className="flex items-center gap-2 mb-3 text-[10.5px] font-bold text-slate-400">
+                        <span className="flex items-center gap-1 shrink-0">
+                          <Calendar className="w-3.5 h-3.5 text-indigo-500" />
+                          {item.date}
+                        </span>
+                        <span className="text-slate-300">•</span>
+                        <span className="flex items-center gap-1 text-indigo-600 bg-indigo-50 px-2 py-0.5 rounded-full uppercase shrink-0">
+                          <Tag className="w-3 h-3 text-indigo-500" />
+                          {item.category}
+                        </span>
                       </div>
-                    </div>
 
-                    {/* Card Footer Profile */}
-                    <div className="p-5 border-t border-slate-100/60 bg-slate-50/40 flex items-center justify-between">
-                      <div className="flex items-center gap-2">
-                        <div className="w-7 h-7 rounded-full bg-emerald-600 text-white flex items-center justify-center font-bold text-[10px]">
-                          RR
-                        </div>
-                        <div className="text-left">
-                          <span className="block text-[11px] font-bold text-slate-800 leading-tight">Rajiv Ranjan Singh</span>
-                          <span className="block text-[9px] text-slate-400 font-semibold leading-none">UPSC Lead Mentor</span>
-                        </div>
-                      </div>
-                      
-                      <span className="text-[10px] font-bold text-slate-450 group-hover:text-indigo-600 transition-colors">
-                        Read More →
-                      </span>
+                      {/* Title */}
+                      <h3 className="group-hover:text-indigo-600 transition-colors font-serif font-black text-slate-900 leading-snug mb-2" style={{ fontSize: '1.15rem' }}>
+                        {item.title}
+                      </h3>
+
+                      {/* Content excerpt */}
+                      <p className="text-slate-600 font-normal leading-relaxed text-xs sm:text-sm">
+                        {item.content ? item.content.slice(0, 160).replace(/<[^>]*>/g, '') + '…' : 'Click to view update details.'}
+                      </p>
                     </div>
                   </motion.div>
                 </Link>
