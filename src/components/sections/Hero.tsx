@@ -29,7 +29,7 @@ export default function Hero() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.2 }}
           >
-            Civils PAGE endeavors to provide a planned and systematic consultancy, guidance, teaching and an organized data input to prospective civil servants under the mentorship of <strong className="text-slate-900 font-bold">Rajiv Ranjan Singh</strong> & expert panel.
+            Civils PAGE endeavors to provide a planned and systematic consultancy, guidance, teaching and an organized data input to prospective civil servants under the mentorship of Rajiv Ranjan Singh & expert panel.
           </motion.p>
 
         </div>
