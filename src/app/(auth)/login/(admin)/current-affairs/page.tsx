@@ -15,9 +15,10 @@ interface Affair {
 }
 
 const CATEGORIES = [
-  'Legislation',
+  'Current News & Views',
   'Constitutional Amendments',
   'Ordinary Laws',
+  'Legislation',
   'Court Judgements',
   'Policies & Programs',
   'Commissions & Committees',
@@ -25,7 +26,6 @@ const CATEGORIES = [
   'Ethical Case Studies',
   'Ethics',
   'Polity',
- 
 ];
 
 // ─── Upload widget ─────────────────────────────────────────────────────────────
@@ -361,7 +361,7 @@ export default function CurrentNewsViewsPage() {
               >
                 All
               </button>
-              {['Legislation', 'Constitutional Amendments', 'Ordinary Laws', 'Court Judgements', 'Policies & Programs', 'Commissions & Committees', 'Ethical Issues', 'Ethical Case Studies'].map((cat) => (
+              {['Current News & Views', 'Constitutional Amendments', 'Ordinary Laws', 'Legislation', 'Court Judgements', 'Policies & Programs', 'Commissions & Committees', 'Ethical Issues', 'Ethical Case Studies'].map((cat) => (
                 <button
                   key={cat}
                   onClick={() => setFilterCategory(cat)}

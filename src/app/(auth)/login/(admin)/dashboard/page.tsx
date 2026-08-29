@@ -36,6 +36,7 @@ export default async function DashboardPage() {
   ];
 
   const quickCategories = [
+    { title: 'Current News & Views', param: 'Current News %26 Views', icon: Newspaper, desc: 'Featured on Homepage News & Views Section' },
     { title: 'Constitutional Amendments', param: 'Constitutional Amendments', icon: Layers, desc: 'Articles & Constitutional Changes' },
     { title: 'Ordinary Laws', param: 'Ordinary Laws', icon: Gavel, desc: 'Acts, Parliamentary Bills & Enactments' },
     { title: 'Court Judgements', param: 'Court Judgements', icon: Scale, desc: 'Supreme Court & High Court Rulings' },

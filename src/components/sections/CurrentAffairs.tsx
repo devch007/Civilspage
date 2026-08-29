@@ -7,6 +7,7 @@ import Link from 'next/link';
 interface Affair {
   id: string;
   title: string;
+  category?: string;
 }
 
 export default function CurrentAffairs() {
@@ -16,8 +17,16 @@ export default function CurrentAffairs() {
   useEffect(() => {
     fetch('/api/content/affairs')
       .then((r) => r.json())
-      .then((data) => {
-        setAllAffairs(Array.isArray(data) ? data.slice(0, 6) : []);
+      .then((data: Affair[]) => {
+        if (Array.isArray(data)) {
+          const newsOnly = data.filter(item => {
+            const cat = (item.category || '').toLowerCase();
+            return cat.includes('current news') || cat.includes('news & views') || cat === 'news' || cat === 'current news & views';
+          });
+          setAllAffairs(newsOnly.slice(0, 6));
+        } else {
+          setAllAffairs([]);
+        }
         setLoading(false);
       })
       .catch(() => setLoading(false));
@@ -30,7 +39,7 @@ export default function CurrentAffairs() {
         {/* Section Header - Compact Centered */}
         <div className="text-center max-w-3xl mx-auto mb-5 space-y-1">
           <h2 className="text-2xl sm:text-3xl lg:text-4xl font-black text-[#0b3b60] font-serif leading-snug">
-            Current News & Views
+            Current News &amp; Views
           </h2>
         </div>
 
@@ -59,8 +68,8 @@ export default function CurrentAffairs() {
               ))}
             </div>
           ) : (
-            <div className="text-center py-6 bg-white rounded-lg border border-slate-200 text-slate-500 font-semibold text-xs">
-              No news & views uploaded yet.
+            <div className="text-center py-8 bg-white rounded-xl border border-slate-200 text-[#0b3b60] font-serif font-bold text-sm">
+              To be Updated soon.
             </div>
           )}
         </div>
