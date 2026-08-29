@@ -37,7 +37,7 @@ export default function Mentor() {
           >
             <div className="space-y-4">
               <p className="text-sm sm:text-base text-slate-700 leading-relaxed font-normal">
-                Rajiv Ranjan Singh (MPA, NET) is a distinguished academician and consultant who has been mentoring Civil Services aspirants across India for over two decades. As the Founder Director of INTERFACE IAS Academy, Chairman of Sanchetna Panchayat Vikas Sabha, Editor of Contemporary Perspective, and Editor-in-Chief of Civils PAGE 24, he has played a pivotal role in shaping the academic and administrative discourse in the field of competitive examinations. He has played a proactive role in the growth of SAMKALAP IAS, a unit of Madhav Sharshti Nyas, and has been associated with the organization since its inception, contributing to its mission of socially committed Civil Services Examination (CSE) preparation.
+                Rajiv Ranjan Singh (MPA, NET) is a distinguished academician and consultant who has been mentoring Civil Services aspirants across India for over two decades. As the Founder Director of INTERFACE IAS Academy, Chairman of Sanchetna Panchayat Vikas Sabha, Editor of Contemporary Perspective, and Editor-in-Chief of Civils PAGE, he has played a pivotal role in shaping the academic and administrative discourse in the field of competitive examinations. He has played a proactive role in the growth of SAMKALAP IAS, a unit of Madhav Sharshti Nyas, and has been associated with the organization since its inception, contributing to its mission of socially committed Civil Services Examination (CSE) preparation.
               </p>
               
               <div className="pt-2 flex justify-center">

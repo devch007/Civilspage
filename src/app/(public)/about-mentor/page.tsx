@@ -37,7 +37,7 @@ export default function AboutMentorPage() {
   const leadershipRoles = [
     {
       title: 'Editor-in-Chief',
-      organization: 'Civils PAGE 24',
+      organization: 'Civils PAGE',
       description: 'Guiding conceptual framework, editorial standards, and high-yield pedagogical resources for Civil Services aspirants across India.'
     },
     {
@@ -80,24 +80,6 @@ export default function AboutMentorPage() {
     }
   ];
 
-  const coreFocusAreas = [
-    {
-      title: 'Constitution & Polity (GS-II)',
-      description: 'In-depth analytical deconstruction of constitutional articles, landmark Supreme Court jurisprudence, federal dynamics, and statutory governance mechanisms.'
-    },
-    {
-      title: 'Public Administration & Public Policy',
-      description: 'Administrative theory synthesis, accountability frameworks, civil service reforms, and applied implementation models for Mains examinations.'
-    },
-    {
-      title: 'Ethics, Integrity & Aptitude (GS-IV)',
-      description: 'Structured case study frameworks, Nolan committee benchmarks, moral philosophy integration, and ethical governance solutions for bureaucracy.'
-    },
-    {
-      title: 'Analytical Answer Framing & Interview Mentorship',
-      description: 'Precision Mains answer structuring, multi-dimensional viewpoints, and personalized Personality Test (Interview) board grooming.'
-    }
-  ];
 
   return (
     <div className="min-h-screen bg-[#FAF9F6] text-slate-800 pb-20">
@@ -217,7 +199,7 @@ export default function AboutMentorPage() {
                 </p>
                 
                 <p>
-                  As the <strong className="text-[#0b3b60]">Founder Director of INTERFACE IAS Academy</strong>, <strong className="text-[#0b3b60]">Chairman of Sanchetna Panchayat Vikas Sabha</strong>, <strong className="text-[#0b3b60]">Editor of Contemporary Perspective</strong>, and <strong className="text-[#0b3b60]">Editor-in-Chief of Civils PAGE 24</strong>, he has played a pivotal role in shaping the academic and administrative discourse in the field of competitive examinations.
+                  As the <strong className="text-[#0b3b60]">Founder Director of INTERFACE IAS Academy</strong>, <strong className="text-[#0b3b60]">Chairman of Sanchetna Panchayat Vikas Sabha</strong>, <strong className="text-[#0b3b60]">Editor of Contemporary Perspective</strong>, and <strong className="text-[#0b3b60]">Editor-in-Chief of Civils PAGE</strong>, he has played a pivotal role in shaping the academic and administrative discourse in the field of competitive examinations.
                 </p>
 
                 <p>
@@ -239,35 +221,7 @@ export default function AboutMentorPage() {
               </div>
             </motion.section>
 
-            {/* Core Areas of Specialization */}
-            <motion.section 
-              className="bg-white rounded-2xl border border-slate-200 p-6 sm:p-8 shadow-xs"
-              initial={{ opacity: 0, y: 15 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-            >
-              <div className="flex items-center gap-3 mb-6 pb-4 border-b border-slate-100">
-                <div className="w-10 h-10 rounded-xl bg-amber-500/10 text-amber-800 flex items-center justify-center font-bold">
-                  <BookOpen className="w-5 h-5" />
-                </div>
-                <div>
-                  <h2 className="text-2xl font-black font-serif text-[#0b3b60]">Pillars of Mentorship & Specialization</h2>
-                  <p className="text-xs text-slate-500">Core academic subjects and examination domains guided by Rajiv Ranjan Singh</p>
-                </div>
-              </div>
 
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                {coreFocusAreas.map((area, i) => (
-                  <div key={i} className="p-5 rounded-xl border border-slate-200 bg-[#FAF9F6] hover:border-[#0b3b60] hover:shadow-xs transition-all">
-                    <div className="flex items-center gap-2 mb-2">
-                      <div className="w-2 h-2 rounded-full bg-amber-500"></div>
-                      <h3 className="font-bold font-serif text-[#0b3b60] text-base">{area.title}</h3>
-                    </div>
-                    <p className="text-xs text-slate-600 leading-relaxed">{area.description}</p>
-                  </div>
-                ))}
-              </div>
-            </motion.section>
 
             {/* Institutional Leadership & Editorial Roles */}
             <motion.section 
