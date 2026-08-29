@@ -51,7 +51,7 @@ export default function Header() {
       return null;
     };
     const langCookie = getCookie('googtrans');
-    if (langCookie === '/en/hi') {
+    if (langCookie && langCookie.includes('/hi')) {
       setCurrentLang('hi');
     } else {
       setCurrentLang('en');
@@ -220,14 +220,14 @@ export default function Header() {
               </div>
 
               <span className="text-slate-600">|</span>
-              <div className="relative inline-block align-middle">
+              <div className="relative inline-block align-middle notranslate" data-no-translate="true">
                 <select
                   value={currentLang}
                   onChange={(e) => handleLanguageChange(e.target.value as 'en' | 'hi')}
-                  className="bg-[#133860] text-slate-200 border border-slate-700/60 rounded px-2 py-0.5 text-[10.5px] font-bold outline-none cursor-pointer hover:text-amber-300 hover:border-slate-500 transition-colors focus:ring-0 focus:outline-none h-[22px] leading-tight"
+                  className="notranslate bg-[#133860] text-slate-200 border border-slate-700/60 rounded px-2 py-0.5 text-[10.5px] font-bold outline-none cursor-pointer hover:text-amber-300 hover:border-slate-500 transition-colors focus:ring-0 focus:outline-none h-[22px] leading-tight"
                 >
-                  <option value="en" className="bg-[#0b2948] text-white">English ▾</option>
-                  <option value="hi" className="bg-[#0b2948] text-white">हिन्दी (Hindi) ▾</option>
+                  <option value="en" className="notranslate bg-[#0b2948] text-white">English ▾</option>
+                  <option value="hi" className="notranslate bg-[#0b2948] text-white">हिन्दी (Hindi) ▾</option>
                 </select>
               </div>
               <div id="google_translate_element" className="hidden"></div>
