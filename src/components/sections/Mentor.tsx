@@ -3,7 +3,7 @@
 import React from 'react';
 import Image from 'next/image';
 import { motion } from 'framer-motion';
-import { Award, BookOpen, Users, CheckCircle2, ShieldCheck, Mail } from 'lucide-react';
+import { Award, BookOpen, Users, CheckCircle2, ShieldCheck, Mail, ArrowRight } from 'lucide-react';
 import Link from 'next/link';
 
 export default function Mentor() {
@@ -39,9 +39,16 @@ export default function Mentor() {
               <p className="text-sm sm:text-base text-slate-700 leading-relaxed font-normal">
                 Rajiv Ranjan Singh (MPA, NET) is a distinguished academician and consultant who has been mentoring Civil Services aspirants across India for over two decades. As the Founder Director of INTERFACE IAS Academy, Chairman of Sanchetna Panchayat Vikas Sabha, Editor of Contemporary Perspective, and Editor-in-Chief of Civils PAGE 24, he has played a pivotal role in shaping the academic and administrative discourse in the field of competitive examinations. He has played a proactive role in the growth of SAMKALAP IAS, a unit of Madhav Sharshti Nyas, and has been associated with the organization since its inception, contributing to its mission of socially committed Civil Services Examination (CSE) preparation.
               </p>
-              <p className="text-sm sm:text-base text-slate-700 leading-relaxed font-normal">
-                A respected member of several professional and academic bodies including the Ethnographic and Folk Culture Society, Author's Guild of India, and the Red Cross Society, he has also participated in numerous national and international seminars and conferences. His scholarly contributions include several well-received articles and research papers focused on contemporary political and administrative issues.
-              </p>
+              
+              <div className="pt-2 flex justify-center">
+                <Link
+                  href="/about-mentor"
+                  className="inline-flex items-center gap-2 px-5 py-2.5 rounded-lg bg-[#0b3b60] hover:bg-[#082a45] text-amber-300 hover:text-amber-200 text-xs sm:text-sm font-bold transition-all shadow-xs hover:shadow-md group"
+                >
+                  <span>Read Full Profile & Contributions</span>
+                  <ArrowRight className="w-4 h-4 text-amber-400 group-hover:translate-x-1 transition-transform" />
+                </Link>
+              </div>
             </div>
           </motion.div>
         </div>
