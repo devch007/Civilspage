@@ -12,7 +12,7 @@ export default function Mentor() {
       <div className="max-w-7xl mx-auto px-4 sm:px-8">
         
         {/* Section Header */}
-        <div className="text-center max-w-3xl mx-auto mb-10 flex flex-col items-center">
+        <div className="text-center max-w-3xl mx-auto mb-4 flex flex-col items-center">
           <img 
             src="/mentor_portrait.png" 
             alt="Rajiv Ranjan Singh Portrait" 
