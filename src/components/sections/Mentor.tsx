@@ -24,9 +24,6 @@ export default function Mentor() {
               Editor in Chief <i>cum</i> Academic Consultant
             </span>
           </h2>
-          <p className="text-sm sm:text-base text-slate-600 mt-2 font-normal">
-            Guiding prospective civil servants in Constitution, Contemporary Governance & Applied Administrative Ethics.
-          </p>
         </div>
 
         <div className="bg-white border border-slate-200 rounded-xl p-4 sm:p-5 shadow-xs max-w-4xl mx-auto">
