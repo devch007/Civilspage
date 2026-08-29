@@ -819,7 +819,7 @@ export default function Header() {
                     onClick={() => setMobileMenuOpen(false)}
                   >
                     <Award className={`w-4 h-4 ${pathname === '/about-mentor' ? 'text-amber-300' : 'text-[#0b3b60]'}`} />
-                    <span>About Rajiv Ranjan Singh</span>
+                    <span>Editor-in-Chief</span>
                   </Link>
                 </div>
               </div>

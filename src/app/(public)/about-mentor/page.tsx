@@ -96,7 +96,7 @@ export default function AboutMentorPage() {
           <div className="flex items-center gap-2 text-xs font-semibold text-slate-500">
             <span>Civils PAGE</span>
             <span>/</span>
-            <span className="text-amber-700 font-bold">About Rajiv Ranjan Singh</span>
+            <span className="text-amber-700 font-bold">Editor-in-Chief</span>
           </div>
         </div>
       </div>
