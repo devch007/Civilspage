@@ -4,16 +4,16 @@ import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { motion, AnimatePresence } from 'framer-motion';
-import { 
-  Menu, 
-  X, 
-  ChevronDown, 
-  Home, 
-  Search, 
-  BookOpen, 
-  FileText, 
-  Award, 
-  HelpCircle, 
+import {
+  Menu,
+  X,
+  ChevronDown,
+  Home,
+  Search,
+  BookOpen,
+  FileText,
+  Award,
+  HelpCircle,
   Sparkles,
   Scale,
   Landmark,
@@ -200,24 +200,24 @@ export default function Header() {
                 Skip to main content
               </a>
               <span className="text-slate-600 hidden md:inline">|</span>
-              
+
               {/* Text Size Controls */}
               <div className="flex items-center gap-1 bg-[#133860] px-1.5 py-0.5 rounded border border-slate-700">
-                <button 
+                <button
                   onClick={() => changeFontSize(-1)}
                   className={`px-1 hover:text-amber-300 font-bold transition-colors ${fontSizeLevel === -1 ? 'text-amber-400' : 'text-slate-300'}`}
                   title="Decrease Font Size"
                 >
                   A-
                 </button>
-                <button 
+                <button
                   onClick={resetFontSize}
                   className={`px-1 hover:text-amber-300 font-bold transition-colors ${fontSizeLevel === 0 ? 'text-amber-400' : 'text-slate-300'}`}
                   title="Default Font Size"
                 >
                   A
                 </button>
-                <button 
+                <button
                   onClick={() => changeFontSize(1)}
                   className={`px-1 hover:text-amber-300 font-bold transition-colors ${fontSizeLevel === 1 ? 'text-amber-400' : 'text-slate-300'}`}
                   title="Increase Font Size"
@@ -247,12 +247,12 @@ export default function Header() {
         {/* 3. Institutional Identity Branding Banner */}
         <div className="bg-white border-b border-slate-200/90 py-3 px-4 sm:px-6">
           <div className="max-w-7xl mx-auto flex items-center justify-between gap-4">
-            
+
             <Link href="/" className="flex items-center gap-3 group">
-              <img 
-                src="/emblem.png" 
-                alt="National Emblem of India" 
-                className="h-10 sm:h-12 lg:h-14 w-auto object-contain transition-transform group-hover:scale-105" 
+              <img
+                src="/emblem.png"
+                alt="National Emblem of India"
+                className="h-10 sm:h-12 lg:h-14 w-auto object-contain transition-transform group-hover:scale-105"
               />
               <div className="text-left">
                 <div className="flex items-center gap-2">
@@ -322,11 +322,10 @@ export default function Header() {
               <li>
                 <Link
                   href="/"
-                  className={`flex items-center gap-1 px-2.5 py-2.5 transition-colors border-b-2 ${
-                    pathname === '/' 
-                      ? 'bg-[#06243d] text-amber-300 border-amber-400 font-bold' 
-                      : 'border-transparent hover:bg-[#082e4e] hover:text-amber-200'
-                  }`}
+                  className={`flex items-center gap-1 px-2.5 py-2.5 transition-colors border-b-2 ${pathname === '/'
+                    ? 'bg-[#06243d] text-amber-300 border-amber-400 font-bold'
+                    : 'border-transparent hover:bg-[#082e4e] hover:text-amber-200'
+                    }`}
                 >
                   <Home className="w-3.5 h-3.5" />
                   <span>Home</span>
@@ -337,18 +336,17 @@ export default function Header() {
               <li>
                 <Link
                   href="/aboutcse"
-                  className={`block px-2.5 py-2.5 transition-colors border-b-2 ${
-                    pathname === '/aboutcse' 
-                      ? 'bg-[#06243d] text-amber-300 border-amber-400 font-bold' 
-                      : 'border-transparent hover:bg-[#082e4e] hover:text-amber-200'
-                  }`}
+                  className={`block px-2.5 py-2.5 transition-colors border-b-2 ${pathname === '/aboutcse'
+                    ? 'bg-[#06243d] text-amber-300 border-amber-400 font-bold'
+                    : 'border-transparent hover:bg-[#082e4e] hover:text-amber-200'
+                    }`}
                 >
                   Civil Services Examination
                 </Link>
               </li>
 
               {/* Legislation Dropdown */}
-              <li 
+              <li
                 className="relative group"
                 onMouseEnter={() => setActiveDropdown('legislation')}
                 onMouseLeave={() => setActiveDropdown(null)}
@@ -356,21 +354,19 @@ export default function Header() {
                 <div className="flex items-center">
                   <Link
                     href="/updates?category=Constitutional Amendments"
-                    className={`block pl-2.5 pr-1 py-2.5 transition-colors border-b-2 ${
-                      pathname.includes('category=Legislation') || pathname.includes('category=Constitutional') || pathname.includes('category=Ordinary')
-                        ? 'bg-[#06243d] text-amber-300 border-amber-400 font-bold' 
-                        : 'border-transparent hover:bg-[#082e4e] hover:text-amber-200'
-                    }`}
+                    className={`block pl-2.5 pr-1 py-2.5 transition-colors border-b-2 ${pathname.includes('category=Legislation') || pathname.includes('category=Constitutional') || pathname.includes('category=Ordinary')
+                      ? 'bg-[#06243d] text-amber-300 border-amber-400 font-bold'
+                      : 'border-transparent hover:bg-[#082e4e] hover:text-amber-200'
+                      }`}
                   >
                     Legislation
                   </Link>
                   <button
                     onClick={() => toggleDropdown('legislation')}
-                    className={`pr-2 py-2.5 transition-colors border-b-2 ${
-                      pathname.includes('category=Legislation') || pathname.includes('category=Constitutional') || pathname.includes('category=Ordinary')
-                        ? 'bg-[#06243d] text-amber-300 border-amber-400 font-bold' 
-                        : 'border-transparent hover:bg-[#082e4e] hover:text-amber-200'
-                    }`}
+                    className={`pr-2 py-2.5 transition-colors border-b-2 ${pathname.includes('category=Legislation') || pathname.includes('category=Constitutional') || pathname.includes('category=Ordinary')
+                      ? 'bg-[#06243d] text-amber-300 border-amber-400 font-bold'
+                      : 'border-transparent hover:bg-[#082e4e] hover:text-amber-200'
+                      }`}
                     aria-label="Toggle Legislation Menu"
                   >
                     <ChevronDown className="w-3.5 h-3.5 opacity-80 group-hover:rotate-180 transition-transform" />
@@ -379,14 +375,14 @@ export default function Header() {
 
                 {activeDropdown === 'legislation' && (
                   <div className="absolute left-0 top-full w-56 bg-white text-slate-800 rounded-b-md shadow-2xl border-t-2 border-amber-500 py-1 z-50 animate-in fade-in slide-in-from-top-1 duration-150">
-                    <Link 
-                      href="/updates?category=Constitutional Amendments" 
+                    <Link
+                      href="/updates?category=Constitutional Amendments"
                       className="block px-4 py-2 text-xs hover:bg-slate-100 text-slate-700 font-medium"
                     >
                       Constitutional Amendments
                     </Link>
-                    <Link 
-                      href="/updates?category=Ordinary Laws" 
+                    <Link
+                      href="/updates?category=Ordinary Laws"
                       className="block px-4 py-2 text-xs hover:bg-slate-100 text-slate-700 font-medium"
                     >
                       Ordinary Laws
@@ -399,11 +395,10 @@ export default function Header() {
               <li>
                 <Link
                   href="/updates?category=Court Judgements"
-                  className={`block px-2.5 py-2.5 transition-colors border-b-2 ${
-                    pathname.includes('category=Court Judgements') 
-                      ? 'bg-[#06243d] text-amber-300 border-amber-400 font-bold' 
-                      : 'border-transparent hover:bg-[#082e4e] hover:text-amber-200'
-                  }`}
+                  className={`block px-2.5 py-2.5 transition-colors border-b-2 ${pathname.includes('category=Court Judgements')
+                    ? 'bg-[#06243d] text-amber-300 border-amber-400 font-bold'
+                    : 'border-transparent hover:bg-[#082e4e] hover:text-amber-200'
+                    }`}
                 >
                   Court Judgements
                 </Link>
@@ -413,11 +408,10 @@ export default function Header() {
               <li>
                 <Link
                   href="/updates?category=Policies %26 Programs"
-                  className={`block px-2.5 py-2.5 transition-colors border-b-2 ${
-                    pathname.includes('category=Policies') 
-                      ? 'bg-[#06243d] text-amber-300 border-amber-400 font-bold' 
-                      : 'border-transparent hover:bg-[#082e4e] hover:text-amber-200'
-                  }`}
+                  className={`block px-2.5 py-2.5 transition-colors border-b-2 ${pathname.includes('category=Policies')
+                    ? 'bg-[#06243d] text-amber-300 border-amber-400 font-bold'
+                    : 'border-transparent hover:bg-[#082e4e] hover:text-amber-200'
+                    }`}
                 >
                   Policies/ Programme
                 </Link>
@@ -427,18 +421,17 @@ export default function Header() {
               <li>
                 <Link
                   href="/updates?category=Commissions %26 Committees"
-                  className={`block px-2.5 py-2.5 transition-colors border-b-2 ${
-                    pathname.includes('category=Commissions') 
-                      ? 'bg-[#06243d] text-amber-300 border-amber-400 font-bold' 
-                      : 'border-transparent hover:bg-[#082e4e] hover:text-amber-200'
-                  }`}
+                  className={`block px-2.5 py-2.5 transition-colors border-b-2 ${pathname.includes('category=Commissions')
+                    ? 'bg-[#06243d] text-amber-300 border-amber-400 font-bold'
+                    : 'border-transparent hover:bg-[#082e4e] hover:text-amber-200'
+                    }`}
                 >
                   Commissions/ Committees
                 </Link>
               </li>
 
               {/* Ethics Dropdown */}
-              <li 
+              <li
                 className="relative group"
                 onMouseEnter={() => setActiveDropdown('ethics')}
                 onMouseLeave={() => setActiveDropdown(null)}
@@ -446,21 +439,19 @@ export default function Header() {
                 <div className="flex items-center">
                   <Link
                     href="/updates?category=Ethical Issues"
-                    className={`block pl-2.5 pr-1 py-2.5 transition-colors border-b-2 ${
-                      pathname.includes('category=Ethical') || pathname.includes('ethics') 
-                        ? 'bg-[#06243d] text-amber-300 border-amber-400 font-bold' 
-                        : 'border-transparent hover:bg-[#082e4e] hover:text-amber-200'
-                    }`}
+                    className={`block pl-2.5 pr-1 py-2.5 transition-colors border-b-2 ${pathname.includes('category=Ethical') || pathname.includes('ethics')
+                      ? 'bg-[#06243d] text-amber-300 border-amber-400 font-bold'
+                      : 'border-transparent hover:bg-[#082e4e] hover:text-amber-200'
+                      }`}
                   >
                     Ethics
                   </Link>
                   <button
                     onClick={() => toggleDropdown('ethics')}
-                    className={`pr-2 py-2.5 transition-colors border-b-2 ${
-                      pathname.includes('category=Ethical') || pathname.includes('ethics') 
-                        ? 'bg-[#06243d] text-amber-300 border-amber-400 font-bold' 
-                        : 'border-transparent hover:bg-[#082e4e] hover:text-amber-200'
-                    }`}
+                    className={`pr-2 py-2.5 transition-colors border-b-2 ${pathname.includes('category=Ethical') || pathname.includes('ethics')
+                      ? 'bg-[#06243d] text-amber-300 border-amber-400 font-bold'
+                      : 'border-transparent hover:bg-[#082e4e] hover:text-amber-200'
+                      }`}
                     aria-label="Toggle Ethics Menu"
                   >
                     <ChevronDown className="w-3.5 h-3.5 opacity-80 group-hover:rotate-180 transition-transform" />
@@ -469,14 +460,14 @@ export default function Header() {
 
                 {activeDropdown === 'ethics' && (
                   <div className="absolute left-0 top-full w-56 bg-white text-slate-800 rounded-b-md shadow-2xl border-t-2 border-amber-500 py-1 z-50 animate-in fade-in slide-in-from-top-1 duration-150">
-                    <Link 
-                      href="/updates?category=Ethical Issues" 
+                    <Link
+                      href="/updates?category=Ethical Issues"
                       className="block px-4 py-2 text-xs hover:bg-slate-100 text-slate-700 font-medium"
                     >
                       Ethical Issues
                     </Link>
-                    <Link 
-                      href="/updates?category=Ethical Case Studies" 
+                    <Link
+                      href="/updates?category=Ethical Case Studies"
                       className="block px-4 py-2 text-xs hover:bg-slate-100 text-slate-700 font-medium"
                     >
                       Ethical Case Studies
@@ -486,18 +477,17 @@ export default function Header() {
               </li>
 
               {/* Practice & Tests Dropdown */}
-              <li 
+              <li
                 className="relative group"
                 onMouseEnter={() => setActiveDropdown('practice')}
                 onMouseLeave={() => setActiveDropdown(null)}
               >
                 <button
                   onClick={() => toggleDropdown('practice')}
-                  className={`flex items-center gap-1 px-2.5 py-2.5 transition-colors border-b-2 ${
-                    pathname.startsWith('/pyqs') || pathname.includes('mock')
-                      ? 'bg-[#06243d] text-amber-300 border-amber-400 font-bold' 
-                      : 'border-transparent hover:bg-[#082e4e] hover:text-amber-200'
-                  }`}
+                  className={`flex items-center gap-1 px-2.5 py-2.5 transition-colors border-b-2 ${pathname.startsWith('/pyqs') || pathname.includes('mock')
+                    ? 'bg-[#06243d] text-amber-300 border-amber-400 font-bold'
+                    : 'border-transparent hover:bg-[#082e4e] hover:text-amber-200'
+                    }`}
                 >
                   <span>Practice & Tests</span>
                   <ChevronDown className="w-3.5 h-3.5 ml-0.5 opacity-80 group-hover:rotate-180 transition-transform" />
@@ -505,23 +495,23 @@ export default function Header() {
 
                 {activeDropdown === 'practice' && (
                   <div className="absolute left-0 top-full w-52 bg-white text-slate-800 rounded-b-md shadow-2xl border-t-2 border-amber-500 py-1 z-50 animate-in fade-in slide-in-from-top-1 duration-150">
-                    <Link 
-                      href="/pyqs" 
-                      className="block px-4 py-2 text-xs hover:bg-slate-100 text-slate-700"
+                    <Link
+                      href="/pyqs"
+                      className="block px-4 py-2 text-xs hover:bg-slate-100 text-slate-700 font-medium"
                     >
-                      Topicwise PYQ Archive
+                      Previous Years Questions
                     </Link>
-                    <Link 
-                      href={getHomeLink('#mock-test')} 
-                      className="block px-4 py-2 text-xs hover:bg-slate-100 text-slate-700"
+                    <Link
+                      href={getHomeLink('#mock-test')}
+                      className="block px-4 py-2 text-xs hover:bg-slate-100 text-slate-700 font-medium"
                     >
-                      Daily Practice Quiz
+                      Mock Tests
                     </Link>
-                    <Link 
-                      href="/updates?category=Model Answers" 
-                      className="block px-4 py-2 text-xs hover:bg-slate-100 text-slate-700"
+                    <Link
+                      href="/updates?category=Model Answers"
+                      className="block px-4 py-2 text-xs hover:bg-slate-100 text-slate-700 font-medium"
                     >
-                      Mains Model Answers
+                      Model Answers
                     </Link>
                   </div>
                 )}
@@ -531,11 +521,10 @@ export default function Header() {
               <li>
                 <Link
                   href="/direct-query"
-                  className={`block px-2.5 py-2.5 transition-colors border-b-2 ${
-                    pathname === '/direct-query' 
-                      ? 'bg-[#06243d] text-amber-300 border-amber-400 font-bold' 
-                      : 'border-transparent hover:bg-[#082e4e] hover:text-amber-200'
-                  }`}
+                  className={`block px-2.5 py-2.5 transition-colors border-b-2 ${pathname === '/direct-query'
+                    ? 'bg-[#06243d] text-amber-300 border-amber-400 font-bold'
+                    : 'border-transparent hover:bg-[#082e4e] hover:text-amber-200'
+                    }`}
                 >
                   Address your Queries
                 </Link>
@@ -553,7 +542,7 @@ export default function Header() {
         {mobileMenuOpen && (
           <div className="fixed inset-0 z-50 lg:hidden">
             {/* Backdrop */}
-            <motion.div 
+            <motion.div
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
@@ -563,7 +552,7 @@ export default function Header() {
             />
 
             {/* Drawer Content */}
-            <motion.div 
+            <motion.div
               initial={{ x: '100%' }}
               animate={{ x: 0 }}
               exit={{ x: '100%' }}
@@ -580,17 +569,17 @@ export default function Header() {
               {/* Drawer Top Header */}
               <div className="bg-[#0b3b60] text-white p-4 flex items-center justify-between shrink-0 shadow-xs">
                 <div className="flex items-center gap-2.5">
-                  <img 
-                    src="/emblem.png" 
-                    alt="National Emblem of India" 
-                    className="h-9 w-auto object-contain brightness-110" 
+                  <img
+                    src="/emblem.png"
+                    alt="National Emblem of India"
+                    className="h-9 w-auto object-contain brightness-110"
                   />
                   <div>
                     <h2 className="text-lg font-black tracking-wider text-white leading-tight font-serif">Civils PAGE</h2>
                     <p className="text-[10px] text-amber-300 font-medium tracking-tight">Dedicated UPSC Resource Hub</p>
                   </div>
                 </div>
-                <button 
+                <button
                   onClick={() => setMobileMenuOpen(false)}
                   className="p-1.5 rounded-lg bg-white/10 hover:bg-white/20 text-white transition-colors"
                   aria-label="Close menu"
@@ -615,36 +604,34 @@ export default function Header() {
 
               {/* Scrollable Navigation Body */}
               <div className="flex-1 overflow-y-auto p-3 space-y-4 text-xs">
-                
+
                 {/* Group 1: Core Navigation */}
                 <div className="space-y-1">
                   <span className="px-2 text-[10px] font-bold tracking-wider text-slate-400 uppercase font-mono">
                     Main Directory
                   </span>
 
-                  <Link 
-                    href="/" 
-                    className={`flex items-center gap-2.5 px-3 py-2.5 rounded-xl font-bold transition-all ${
-                      pathname === '/' 
-                        ? 'bg-[#0b3b60] text-white shadow-xs' 
-                        : 'text-slate-700 bg-white border border-slate-100 hover:bg-slate-100'
-                    }`}
+                  <Link
+                    href="/"
+                    className={`flex items-center gap-2.5 px-3 py-2.5 rounded-xl font-bold transition-all ${pathname === '/'
+                      ? 'bg-[#0b3b60] text-white shadow-xs'
+                      : 'text-slate-700 bg-white border border-slate-100 hover:bg-slate-100'
+                      }`}
                     onClick={() => setMobileMenuOpen(false)}
                   >
-                    <Home className={`w-4 h-4 ${pathname === '/' ? 'text-amber-300' : 'text-[#0b3b60]'}`} /> 
+                    <Home className={`w-4 h-4 ${pathname === '/' ? 'text-amber-300' : 'text-[#0b3b60]'}`} />
                     <span>Home</span>
                   </Link>
 
-                  <Link 
-                    href="/aboutcse" 
-                    className={`flex items-center gap-2.5 px-3 py-2.5 rounded-xl font-bold transition-all ${
-                      pathname === '/aboutcse' 
-                        ? 'bg-[#0b3b60] text-white shadow-xs' 
-                        : 'text-slate-700 bg-white border border-slate-100 hover:bg-slate-100'
-                    }`}
+                  <Link
+                    href="/aboutcse"
+                    className={`flex items-center gap-2.5 px-3 py-2.5 rounded-xl font-bold transition-all ${pathname === '/aboutcse'
+                      ? 'bg-[#0b3b60] text-white shadow-xs'
+                      : 'text-slate-700 bg-white border border-slate-100 hover:bg-slate-100'
+                      }`}
                     onClick={() => setMobileMenuOpen(false)}
                   >
-                    <BookOpen className={`w-4 h-4 ${pathname === '/aboutcse' ? 'text-amber-300' : 'text-[#0b3b60]'}`} /> 
+                    <BookOpen className={`w-4 h-4 ${pathname === '/aboutcse' ? 'text-amber-300' : 'text-[#0b3b60]'}`} />
                     <span>Civil Services Examination</span>
                   </Link>
                 </div>
@@ -670,63 +657,62 @@ export default function Header() {
 
                     {activeDropdown === 'mobile-legislation' && (
                       <div className="p-2 pt-0 space-y-1 bg-slate-50/70 border-t border-slate-100 animate-in fade-in duration-150">
-                        <Link 
-                          href="/updates?category=Constitutional Amendments" 
-                          className="block px-3 py-2 text-slate-600 hover:text-[#0b3b60] hover:bg-white rounded-lg font-medium transition-all"
+                        <Link
+                          href="/updates?category=Constitutional Amendments"
+                          className="flex items-center gap-2 px-3 py-2 text-slate-600 hover:text-[#0b3b60] hover:bg-white rounded-lg font-medium transition-all"
                           onClick={() => setMobileMenuOpen(false)}
                         >
-                          Constitutional Amendments
+                          <Layers className="w-3.5 h-3.5 text-indigo-600" />
+                          <span>Constitutional Amendments</span>
                         </Link>
-                        <Link 
-                          href="/updates?category=Ordinary Laws" 
-                          className="block px-3 py-2 text-slate-600 hover:text-[#0b3b60] hover:bg-white rounded-lg font-medium transition-all"
+                        <Link
+                          href="/updates?category=Ordinary Laws"
+                          className="flex items-center gap-2 px-3 py-2 text-slate-600 hover:text-[#0b3b60] hover:bg-white rounded-lg font-medium transition-all"
                           onClick={() => setMobileMenuOpen(false)}
                         >
-                          Ordinary Laws
+                          <Gavel className="w-3.5 h-3.5 text-amber-600" />
+                          <span>Ordinary Laws</span>
                         </Link>
                       </div>
                     )}
                   </div>
 
                   {/* Court Judgements */}
-                  <Link 
-                    href="/updates?category=Court Judgements" 
-                    className={`flex items-center gap-2.5 px-3 py-2.5 rounded-xl font-bold transition-all ${
-                      pathname.includes('category=Court') 
-                        ? 'bg-[#0b3b60] text-white shadow-xs' 
-                        : 'text-slate-700 bg-white border border-slate-100 hover:bg-slate-100'
-                    }`}
+                  <Link
+                    href="/updates?category=Court Judgements"
+                    className={`flex items-center gap-2.5 px-3 py-2.5 rounded-xl font-bold transition-all ${pathname.includes('category=Court')
+                      ? 'bg-[#0b3b60] text-white shadow-xs'
+                      : 'text-slate-700 bg-white border border-slate-100 hover:bg-slate-100'
+                      }`}
                     onClick={() => setMobileMenuOpen(false)}
                   >
-                    <Scale className={`w-4 h-4 ${pathname.includes('category=Court') ? 'text-amber-300' : 'text-[#0b3b60]'}`} /> 
+                    <Scale className={`w-4 h-4 ${pathname.includes('category=Court') ? 'text-amber-300' : 'text-[#0b3b60]'}`} />
                     <span>Court Judgements</span>
                   </Link>
 
                   {/* Policies / Programmes */}
-                  <Link 
-                    href="/updates?category=Policies %26 Programs" 
-                    className={`flex items-center gap-2.5 px-3 py-2.5 rounded-xl font-bold transition-all ${
-                      pathname.includes('category=Policies') 
-                        ? 'bg-[#0b3b60] text-white shadow-xs' 
-                        : 'text-slate-700 bg-white border border-slate-100 hover:bg-slate-100'
-                    }`}
+                  <Link
+                    href="/updates?category=Policies %26 Programs"
+                    className={`flex items-center gap-2.5 px-3 py-2.5 rounded-xl font-bold transition-all ${pathname.includes('category=Policies')
+                      ? 'bg-[#0b3b60] text-white shadow-xs'
+                      : 'text-slate-700 bg-white border border-slate-100 hover:bg-slate-100'
+                      }`}
                     onClick={() => setMobileMenuOpen(false)}
                   >
-                    <FileText className={`w-4 h-4 ${pathname.includes('category=Policies') ? 'text-amber-300' : 'text-[#0b3b60]'}`} /> 
+                    <FileText className={`w-4 h-4 ${pathname.includes('category=Policies') ? 'text-amber-300' : 'text-[#0b3b60]'}`} />
                     <span>Policies/ Programme</span>
                   </Link>
 
                   {/* Commissions / Committees */}
-                  <Link 
-                    href="/updates?category=Commissions %26 Committees" 
-                    className={`flex items-center gap-2.5 px-3 py-2.5 rounded-xl font-bold transition-all ${
-                      pathname.includes('category=Commissions') 
-                        ? 'bg-[#0b3b60] text-white shadow-xs' 
-                        : 'text-slate-700 bg-white border border-slate-100 hover:bg-slate-100'
-                    }`}
+                  <Link
+                    href="/updates?category=Commissions %26 Committees"
+                    className={`flex items-center gap-2.5 px-3 py-2.5 rounded-xl font-bold transition-all ${pathname.includes('category=Commissions')
+                      ? 'bg-[#0b3b60] text-white shadow-xs'
+                      : 'text-slate-700 bg-white border border-slate-100 hover:bg-slate-100'
+                      }`}
                     onClick={() => setMobileMenuOpen(false)}
                   >
-                    <ShieldAlert className={`w-4 h-4 ${pathname.includes('category=Commissions') ? 'text-amber-300' : 'text-[#0b3b60]'}`} /> 
+                    <ShieldAlert className={`w-4 h-4 ${pathname.includes('category=Commissions') ? 'text-amber-300' : 'text-[#0b3b60]'}`} />
                     <span>Commissions/ Committees</span>
                   </Link>
 
@@ -745,19 +731,21 @@ export default function Header() {
 
                     {activeDropdown === 'mobile-ethics' && (
                       <div className="p-2 pt-0 space-y-1 bg-slate-50/70 border-t border-slate-100 animate-in fade-in duration-150">
-                        <Link 
-                          href="/updates?category=Ethical Issues" 
-                          className="block px-3 py-2 text-slate-600 hover:text-[#0b3b60] hover:bg-white rounded-lg font-medium transition-all"
+                        <Link
+                          href="/updates?category=Ethical Issues"
+                          className="flex items-center gap-2 px-3 py-2 text-slate-600 hover:text-[#0b3b60] hover:bg-white rounded-lg font-medium transition-all"
                           onClick={() => setMobileMenuOpen(false)}
                         >
-                          Ethical Issues
+                          <Sparkles className="w-3.5 h-3.5 text-indigo-600" />
+                          <span>Ethical Issues</span>
                         </Link>
-                        <Link 
-                          href="/updates?category=Ethical Case Studies" 
-                          className="block px-3 py-2 text-slate-600 hover:text-[#0b3b60] hover:bg-white rounded-lg font-medium transition-all"
+                        <Link
+                          href="/updates?category=Ethical Case Studies"
+                          className="flex items-center gap-2 px-3 py-2 text-slate-600 hover:text-[#0b3b60] hover:bg-white rounded-lg font-medium transition-all"
                           onClick={() => setMobileMenuOpen(false)}
                         >
-                          Ethical Case Studies
+                          <Scale className="w-3.5 h-3.5 text-emerald-600" />
+                          <span>Ethical Case Studies</span>
                         </Link>
                       </div>
                     )}
@@ -778,61 +766,59 @@ export default function Header() {
                     >
                       <span className="flex items-center gap-2.5">
                         <Award className="w-4 h-4 text-[#0b3b60]" />
-                        Practice & Tests
+                        Practice Tests
                       </span>
                       <ChevronDown className={`w-4 h-4 text-slate-400 transition-transform duration-200 ${activeDropdown === 'mobile-practice' ? 'rotate-180 text-[#0b3b60]' : ''}`} />
                     </button>
 
                     {activeDropdown === 'mobile-practice' && (
                       <div className="p-2 pt-0 space-y-1 bg-slate-50/70 border-t border-slate-100 animate-in fade-in duration-150">
-                        <Link 
-                          href="/pyqs" 
+                        <Link
+                          href="/pyqs"
                           className="block px-3 py-2 text-slate-600 hover:text-[#0b3b60] hover:bg-white rounded-lg font-medium transition-all"
                           onClick={() => setMobileMenuOpen(false)}
                         >
-                          Topicwise PYQ Archive
+                          Previous Years Questions
                         </Link>
-                        <Link 
-                          href={getHomeLink('#mock-test')} 
+                        <Link
+                          href={getHomeLink('#mock-test')}
                           className="block px-3 py-2 text-slate-600 hover:text-[#0b3b60] hover:bg-white rounded-lg font-medium transition-all"
                           onClick={() => setMobileMenuOpen(false)}
                         >
-                          Daily Practice Quiz
+                          Mock Tests
                         </Link>
-                        <Link 
-                          href="/updates?category=Model Answers" 
+                        <Link
+                          href="/updates?category=Model Answers"
                           className="block px-3 py-2 text-slate-600 hover:text-[#0b3b60] hover:bg-white rounded-lg font-medium transition-all"
                           onClick={() => setMobileMenuOpen(false)}
                         >
-                          Mains Model Answers
+                          Model Answers
                         </Link>
                       </div>
                     )}
                   </div>
 
-                  <Link 
-                    href="/direct-query" 
-                    className={`flex items-center gap-2.5 px-3 py-2.5 rounded-xl font-bold transition-all ${
-                      pathname === '/direct-query' 
-                        ? 'bg-[#0b3b60] text-white shadow-xs' 
-                        : 'text-slate-700 bg-white border border-slate-100 hover:bg-slate-100'
-                    }`}
+                  <Link
+                    href="/direct-query"
+                    className={`flex items-center gap-2.5 px-3 py-2.5 rounded-xl font-bold transition-all ${pathname === '/direct-query'
+                      ? 'bg-[#0b3b60] text-white shadow-xs'
+                      : 'text-slate-700 bg-white border border-slate-100 hover:bg-slate-100'
+                      }`}
                     onClick={() => setMobileMenuOpen(false)}
                   >
-                    <HelpCircle className={`w-4 h-4 ${pathname === '/direct-query' ? 'text-amber-300' : 'text-[#0b3b60]'}`} /> 
+                    <HelpCircle className={`w-4 h-4 ${pathname === '/direct-query' ? 'text-amber-300' : 'text-[#0b3b60]'}`} />
                     <span>Address your Queries</span>
                   </Link>
 
-                  <Link 
-                    href="/about-mentor" 
-                    className={`flex items-center gap-2.5 px-3 py-2.5 rounded-xl font-bold transition-all ${
-                      pathname === '/about-mentor' 
-                        ? 'bg-[#0b3b60] text-white shadow-xs' 
-                        : 'text-slate-700 bg-white border border-slate-100 hover:bg-slate-100'
-                    }`}
+                  <Link
+                    href="/about-mentor"
+                    className={`flex items-center gap-2.5 px-3 py-2.5 rounded-xl font-bold transition-all ${pathname === '/about-mentor'
+                      ? 'bg-[#0b3b60] text-white shadow-xs'
+                      : 'text-slate-700 bg-white border border-slate-100 hover:bg-slate-100'
+                      }`}
                     onClick={() => setMobileMenuOpen(false)}
                   >
-                    <Award className={`w-4 h-4 ${pathname === '/about-mentor' ? 'text-amber-300' : 'text-[#0b3b60]'}`} /> 
+                    <Award className={`w-4 h-4 ${pathname === '/about-mentor' ? 'text-amber-300' : 'text-[#0b3b60]'}`} />
                     <span>About Rajiv Ranjan Singh</span>
                   </Link>
                 </div>
