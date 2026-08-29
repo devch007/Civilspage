@@ -198,9 +198,8 @@ function UpdatesContent() {
                 </Link>
               ))
             ) : (
-              <div className="col-span-full flex flex-col items-center justify-center py-20 bg-white rounded-2xl border border-slate-100">
-                <h4 className="text-lg font-bold text-slate-900 mb-1">No Entries Found</h4>
-                <p className="text-slate-400 text-sm">Entries published in this category will immediately display here.</p>
+              <div className="col-span-full flex flex-col items-center justify-center py-20 bg-white rounded-2xl border border-slate-200/80 shadow-xs">
+                <h4 className="text-lg font-bold font-serif text-[#0b3b60]">To be Updated soon.</h4>
               </div>
             )}
           </div>

@@ -335,8 +335,8 @@ export default function PolitySubjectPage() {
                     ))}
                   </div>
                 ) : (
-                  <div className="text-center py-10 bg-white rounded-xl border border-slate-100">
-                    <p className="text-sm text-slate-500 font-semibold">No recent Polity updates yet. Content posted by the mentor will appear here.</p>
+                  <div className="text-center py-12 bg-white rounded-xl border border-slate-200/80 shadow-xs">
+                    <p className="text-base text-[#0b3b60] font-bold font-serif">To be Updated soon.</p>
                   </div>
                 )}
               </div>
