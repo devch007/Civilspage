@@ -101,11 +101,8 @@ export default async function DashboardPage() {
           <div>
             <h2 className="font-bold text-slate-900 text-base font-serif flex items-center gap-2">
               <Newspaper className="w-5 h-5 text-[#0b3b60]" />
-              Quick Upload to Website Header Sections
+              Quick Upload to Website
             </h2>
-            <p className="text-xs text-slate-500">
-              Select a category to jump directly into the upload form with that category pre-selected.
-            </p>
           </div>
           <Link
             href="/login/current-affairs"
