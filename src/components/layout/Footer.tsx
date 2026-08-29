@@ -141,12 +141,13 @@ export default function Footer() {
         <div className="pt-6 flex flex-col sm:flex-row items-center justify-between gap-4 text-[11px] text-slate-400">
           <div>
             <p>
-              © {new Date().getFullYear()} Reserved by CivilsPAGE. Powered by{' '}
+              © {new Date().getFullYear()} Reserved by CivilsPAGE. Designed &amp; Developed by{' '}
               <a 
                 href="https://dctechnologies.in" 
                 target="_blank" 
-                rel="noopener noreferrer" 
-                className="text-amber-300 hover:underline font-semibold"
+                rel="noopener" 
+                className="text-amber-300 hover:underline font-bold"
+                title="DC Technologies - Web & Software Development"
               >
                 DC Technologies
               </a>.
