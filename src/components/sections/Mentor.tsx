@@ -8,7 +8,7 @@ import Link from 'next/link';
 
 export default function Mentor() {
   return (
-    <section id="mentor-profile" className="py-16 bg-white border-b border-slate-200">
+    <section id="mentor-profile" className="pt-8 pb-16 bg-white border-b border-slate-200">
       <div className="max-w-7xl mx-auto px-4 sm:px-8">
         
         {/* Section Header */}
