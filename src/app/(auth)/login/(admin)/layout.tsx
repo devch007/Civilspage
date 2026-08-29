@@ -22,7 +22,7 @@ export default async function AdminLayout({ children }: { children: React.ReactN
       />
 
       {/* Main content area */}
-      <main className="w-full md:pl-64 flex-1 p-4 sm:p-6 lg:p-8 pt-20 md:pt-8 min-h-screen">
+      <main className="flex-1 min-w-0 p-4 sm:p-6 lg:p-8 pt-20 md:pt-8 min-h-screen">
         <div className="max-w-7xl mx-auto w-full">
           {children}
         </div>

@@ -170,7 +170,9 @@ export default function AdminSidebar({ userEmail, userRole }: AdminSidebarProps)
         </div>
       )}
 
-      {/* ── 3. DESKTOP FIXED SIDEBAR (Visible on screens >= md) ─────────────── */}
+      {/* ── 3. DESKTOP FIXED SIDEBAR SPACER & SIDEBAR ────────────────── */}
+      <div className="hidden md:block w-64 shrink-0" aria-hidden="true" />
+
       <aside className="hidden md:flex w-64 bg-white border-r border-slate-200 flex-col fixed inset-y-0 left-0 z-40 shadow-xs">
         {/* Brand Header */}
         <div className="p-5 border-b border-slate-100 bg-[#0b3b60] text-white">
