@@ -29,6 +29,9 @@ export default function UpdateDetail({ params }: PageProps) {
   const [errorMsg, setErrorMsg] = useState('');
 
   useEffect(() => {
+    // Scroll immediately to top of page
+    window.scrollTo({ top: 0, left: 0, behavior: 'instant' });
+
     async function load() {
       try {
         const { id } = await params;
@@ -40,6 +43,8 @@ export default function UpdateDetail({ params }: PageProps) {
         if (!res.ok) throw new Error(`HTTP ${res.status}`);
         const affair: Affair = await res.json();
         setUpdate(affair);
+        // Ensure scroll stays at top after content render
+        window.scrollTo({ top: 0, left: 0, behavior: 'instant' });
       } catch (err) {
         console.error('Failed to load update details:', err);
         setErrorMsg('Error loading this update. Please try again.');
