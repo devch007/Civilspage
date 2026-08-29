@@ -81,12 +81,9 @@ export default function Testimonials() {
           viewport={{ once: true }}
           transition={{ duration: 0.5 }}
         >
-          <h2 className="text-2xl sm:text-3xl font-black text-[#0b3b60] font-serif">
+          <h2 className="text-xl sm:text-2xl font-black text-[#0b3b60] font-serif">
             Experiences of Successful Candidates
           </h2>
-          <p className="text-xs sm:text-sm text-slate-600 mt-1">
-            Read experience insights from rankers who prepared with Civils PAGE resource frameworks.
-          </p>
         </motion.div>
 
         {/* Testimonial Card Slider */}

@@ -32,9 +32,6 @@ export default function CurrentAffairs() {
           <h2 className="text-xl sm:text-2xl font-black text-[#0b3b60] font-serif">
             Current News & Views
           </h2>
-          <p className="text-xs text-slate-600">
-            Curated editorial perspectives on contemporary Polity, Acts, Judiciary Rulings, Governance & Public Administration.
-          </p>
         </div>
 
         {/* Headlines Compact List / Grid */}

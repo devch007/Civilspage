@@ -9,9 +9,6 @@ export default function GalleryMarquee() {
         <h2 className="text-xl sm:text-2xl font-black text-[#0b3b60] font-serif">
           Academic Seminars & Interactive Sessions
         </h2>
-        <p className="text-xs text-slate-600 mt-1">
-          Glimpses of guidance seminars, interactive answer evaluation sessions, and award ceremonies.
-        </p>
       </div>
 
       <div className="relative w-full overflow-hidden py-4 border-y border-slate-200/60 bg-white">
