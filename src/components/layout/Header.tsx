@@ -242,7 +242,7 @@ export default function Header() {
             <Link href="/" className="flex items-center group">
               <div className="text-left">
                 <div className="flex items-center gap-2">
-                  <h1 className="text-2xl sm:text-3xl lg:text-4xl font-black tracking-wider text-[#0b3b60] leading-none font-serif">
+                  <h1 className="text-3xl sm:text-4xl lg:text-5xl font-black tracking-wider text-[#0b3b60] leading-none font-serif">
                     Civils PAGE
                   </h1>
                 </div>
