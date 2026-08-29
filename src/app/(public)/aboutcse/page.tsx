@@ -39,36 +39,11 @@ type SyllabusStage = 'prelims' | 'mains' | 'optionals';
 type OptionalChoice = 'pubad' | 'psir' | 'law';
 type PolityStage = 'gs2' | 'pubad' | 'ethics';
 
-interface FaqItem {
-  id: number;
-  question: string;
-  answer: string;
-}
-
-const faqsList: FaqItem[] = [
-  {
-    id: 1,
-    question: 'Can candidates use calculators in the UPSC Civil Services Exam?',
-    answer: 'No, candidates are not allowed to use calculators in the UPSC CSE Prelims or standard Mains GS papers. However, calculators are permitted in specific optional papers containing intensive numerical formulations (e.g., Mathematics, Statistics, Engineering, or Management options).'
-  },
-  {
-    id: 2,
-    question: 'What is the qualifying criteria for CSAT Paper II in Prelims?',
-    answer: 'CSAT Paper II is strictly qualifying in nature. Candidates are required to score a minimum of 33% (equivalent to 66 Marks out of the 200 maximum score). If a candidate fails to score 66 marks in CSAT, their Paper I (General Studies) will not be evaluated, regardless of their performance.'
-  },
-  {
-    id: 3,
-    question: 'When and by whom was the Royal Commission on Superior Civil Services established?',
-    answer: 'The Royal Commission on Superior Civil Services in India (also known as the Lee Commission) was established in 1923 under the chairmanship of Lord Lee of Fareham. The commission recommended establishing a Public Service Commission, which led to the creation of India\'s first PSC in 1926.'
-  }
-];
-
 export default function AboutCse() {
   const [activeTab, setActiveTab] = useState<TabType>('about-exam');
   const [syllabusStage, setSyllabusStage] = useState<SyllabusStage>('prelims');
   const [selectedOptional, setSelectedOptional] = useState<OptionalChoice>('pubad');
   const [polityStage, setPolityStage] = useState<PolityStage>('gs2');
-  const [activeFaq, setActiveFaq] = useState<number | null>(null);
 
   // Sync hash routing on page load
   useEffect(() => {
@@ -121,7 +96,7 @@ export default function AboutCse() {
               }`}
               onClick={() => setActiveTab('about-exam')}
             >
-              Scheme of Exam
+              Scheme of Examination
             </button>
             <button 
               className={`px-4 py-2 text-xs font-bold rounded-lg border transition-all ${
@@ -161,7 +136,7 @@ export default function AboutCse() {
               }`}
               onClick={() => setActiveTab('polity')}
             >
-              Approach to Polity & Gov.
+              Approach to Polity & Governance
             </button>
             <button 
               className={`px-4 py-2 text-xs font-bold rounded-lg border transition-all ${
@@ -181,7 +156,7 @@ export default function AboutCse() {
               }`}
               onClick={() => setActiveTab('pubad')}
             >
-              Approach to Public Admin.
+              Approach to Public Administration
             </button>
           </div>
         </div>
@@ -2383,43 +2358,6 @@ export default function AboutCse() {
 
           </motion.section>
         )}
-
-        {/* 3. FREQUENTLY ASKED QUESTIONS COMPONENT */}
-        <div className="mt-16 pt-10 border-t border-slate-200">
-          <div className="text-left mb-6">
-            <h3 className="text-xl font-bold font-serif text-[#0b3b60]">Frequently Asked Questions</h3>
-            <p className="text-xs text-slate-600 mt-1">Clarifications on scoring formulas, calculator regulations, and commission origins.</p>
-          </div>
-
-          <div className="space-y-3">
-            {faqsList.map((faq) => (
-              <div key={faq.id} className="bg-white border border-slate-200 rounded-xl overflow-hidden shadow-2xs">
-                <button
-                  className="w-full flex items-center justify-between p-4 text-left font-bold text-xs sm:text-sm text-slate-900 hover:bg-slate-50 transition-colors"
-                  onClick={() => setActiveFaq(activeFaq === faq.id ? null : faq.id)}
-                >
-                  <span>{faq.question}</span>
-                  <ChevronDown className={`w-4 h-4 text-slate-400 transition-transform duration-200 shrink-0 ml-2 ${activeFaq === faq.id ? 'rotate-180 text-[#0b3b60]' : ''}`} />
-                </button>
-                <AnimatePresence>
-                  {activeFaq === faq.id && (
-                    <motion.div
-                      initial={{ height: 0, opacity: 0 }}
-                      animate={{ height: 'auto', opacity: 1 }}
-                      exit={{ height: 0, opacity: 0 }}
-                      transition={{ duration: 0.2 }}
-                      className="overflow-hidden"
-                    >
-                      <div className="p-4 pt-0 text-xs sm:text-sm text-slate-600 border-t border-slate-100 leading-relaxed bg-slate-50/50">
-                        {faq.answer}
-                      </div>
-                    </motion.div>
-                  )}
-                </AnimatePresence>
-              </div>
-            ))}
-          </div>
-        </div>
 
       </div>
     </div>
