@@ -239,7 +239,12 @@ export default function Header() {
         <div className="bg-white border-b border-slate-200/90 py-3 px-4 sm:px-6">
           <div className="max-w-7xl mx-auto flex items-center justify-between gap-4">
             
-            <Link href="/" className="flex items-center group">
+            <Link href="/" className="flex items-center gap-3 group">
+              <img 
+                src="/emblem.png" 
+                alt="National Emblem of India" 
+                className="h-10 sm:h-12 lg:h-14 w-auto object-contain transition-transform group-hover:scale-105" 
+              />
               <div className="text-left">
                 <div className="flex items-center gap-2">
                   <h1 className="text-3xl sm:text-4xl lg:text-5xl font-black tracking-wider text-[#0b3b60] leading-none font-serif">
@@ -514,9 +519,14 @@ export default function Header() {
               </div>
 
               <div className="bg-white text-slate-800 p-5 border-b border-slate-200 flex items-center justify-between shrink-0">
-                <div className="flex items-center">
+                <div className="flex items-center gap-2.5">
+                  <img 
+                    src="/emblem.png" 
+                    alt="National Emblem of India" 
+                    className="h-8 w-auto object-contain" 
+                  />
                   <div>
-                    <h2 className="text-lg font-black tracking-wider text-[#0b3b60] leading-none font-serif">Civils PAGE</h2>
+                    <h2 className="text-xl font-black tracking-wider text-[#0b3b60] leading-none font-serif">Civils PAGE</h2>
                   </div>
                 </div>
                 <button 
