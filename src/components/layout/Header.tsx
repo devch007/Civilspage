@@ -252,11 +252,11 @@ export default function Header() {
               <img
                 src="/emblem.png"
                 alt="National Emblem of India"
-                className="h-10 sm:h-12 lg:h-14 w-auto object-contain transition-transform group-hover:scale-105"
+                className="h-9 sm:h-11 lg:h-12 w-auto object-contain transition-transform group-hover:scale-105"
               />
               <div className="text-left">
                 <div className="flex items-center gap-2">
-                  <h1 className="text-3xl sm:text-4xl lg:text-5xl font-black tracking-wider text-[#0b3b60] leading-none font-serif">
+                  <h1 className="text-2xl sm:text-3xl lg:text-4xl font-black tracking-wider text-[#0b3b60] leading-none font-serif">
                     Civils PAGE
                   </h1>
                 </div>
@@ -489,7 +489,7 @@ export default function Header() {
                     : 'border-transparent hover:bg-[#082e4e] hover:text-amber-200'
                     }`}
                 >
-                  <span>Practice & Tests</span>
+                  <span>Practice Tests</span>
                   <ChevronDown className="w-3.5 h-3.5 ml-0.5 opacity-80 group-hover:rotate-180 transition-transform" />
                 </button>
 
