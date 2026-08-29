@@ -86,40 +86,42 @@ export default function Header() {
 
   const handleLanguageChange = (lang: 'en' | 'hi') => {
     setCurrentLang(lang);
-    
-    const hostname = window.location.hostname;
-    const baseDomain = hostname.replace(/^www\./, '');
-    const domains = [
-      '',
-      hostname,
-      '.' + hostname,
-      baseDomain,
-      '.' + baseDomain
-    ];
+
+    // 1. Trigger native Google Translate select element if initialized in DOM
+    const selectElem = document.querySelector('.goog-te-combo') as HTMLSelectElement | null;
+    if (selectElem) {
+      selectElem.value = lang === 'hi' ? 'hi' : 'en';
+      selectElem.dispatchEvent(new Event('change', { bubbles: true }));
+    }
+
+    // 2. Set/Clear cookies for persistency across reloads/devices (Android/iOS Chrome compatibility)
+    const host = window.location.hostname;
+    const baseHost = host.replace(/^www\./, '');
+    const domains = ['', host, '.' + host, baseHost, '.' + baseHost];
 
     if (lang === 'hi') {
-      domains.forEach(domain => {
-        const domainStr = domain ? `; domain=${domain}` : '';
-        document.cookie = `googtrans=/en/hi; path=/${domainStr}`;
+      document.cookie = 'googtrans=/en/hi; path=/';
+      domains.forEach(d => {
+        if (d) document.cookie = `googtrans=/en/hi; path=/; domain=${d}`;
       });
     } else {
-      // Clear cookie completely across all domains
-      domains.forEach(domain => {
-        const domainStr = domain ? `; domain=${domain}` : '';
-        document.cookie = `googtrans=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/${domainStr}`;
+      // Clear cookie completely across all domains and paths
+      const paths = ['/', '/app', ''];
+      domains.forEach(d => {
+        paths.forEach(p => {
+          document.cookie = `googtrans=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=${p}` + (d ? `; domain=${d}` : '');
+          document.cookie = `googtrans=; max-age=0; path=${p}` + (d ? `; domain=${d}` : '');
+        });
       });
-      
-      // Force expire any specific translation cookies
-      domains.forEach(domain => {
-        const domainStr = domain ? `; domain=${domain}` : '';
-        document.cookie = `googtrans=/en/hi; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/${domainStr}`;
-        document.cookie = `googtrans=/en/en; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/${domainStr}`;
-      });
+      // Explicitly set /en/en or /auto/en to signal reset to Google Translate engine
+      document.cookie = 'googtrans=/en/en; path=/';
+      document.cookie = 'googtrans=/auto/en; path=/';
     }
-    
+
+    // 3. Reload page after small delay to allow cookie mutation to flush
     setTimeout(() => {
       window.location.reload();
-    }, 100);
+    }, 150);
   };
 
   const toggleDropdown = (name: string) => {
