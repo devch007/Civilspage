@@ -131,7 +131,7 @@ export default function AboutCse() {
               }`}
               onClick={() => setActiveTab('syllabus')}
             >
-              Official Syllabi
+              Syllabus
             </button>
             <button 
               className={`px-4 py-2 text-xs font-bold rounded-lg border transition-all ${
@@ -141,7 +141,7 @@ export default function AboutCse() {
               }`}
               onClick={() => setActiveTab('reading')}
             >
-              Suggested Reading
+              Suggested Readings
             </button>
             <button 
               className={`px-4 py-2 text-xs font-bold rounded-lg border transition-all ${
