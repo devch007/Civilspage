@@ -13,7 +13,7 @@ export default function Hero() {
           
           {/* Main Title */}
           <motion.h1 
-            className="text-3xl sm:text-4xl lg:text-5xl font-black text-slate-900 font-serif tracking-tight leading-[1.2]"
+            className="text-xl sm:text-2xl lg:text-3xl font-bold text-slate-900 font-serif tracking-tight leading-[1.3]"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.1 }}
