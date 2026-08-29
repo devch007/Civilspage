@@ -13,8 +13,11 @@ export default function Mentor() {
         
         {/* Section Header */}
         <div className="text-center max-w-3xl mx-auto mb-10">
-          <h2 className="text-2xl sm:text-3xl font-black text-[#0b3b60] font-serif">
-            Rajiv Ranjan Singh: Editor in Chief <i>cum</i> Academic Consultant
+          <h2 className="text-2xl sm:text-3xl font-black text-[#0b3b60] font-serif leading-snug">
+            Rajiv Ranjan Singh
+            <span className="block text-xl sm:text-2xl font-bold text-slate-700 mt-1 font-sans">
+              Editor in Chief <i>cum</i> Academic Consultant
+            </span>
           </h2>
           <p className="text-sm sm:text-base text-slate-600 mt-2 font-normal">
             Guiding prospective civil servants in Constitution, Contemporary Governance & Applied Administrative Ethics.
