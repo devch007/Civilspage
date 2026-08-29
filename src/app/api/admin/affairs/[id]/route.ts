@@ -27,6 +27,7 @@ export async function PUT(
         featuredImage: featuredImage || null,
         pdfUrl: pdfUrl || null,
         published: published ?? false,
+        updatedAt: new Date(),
       })
       .where(eq(currentAffairs.id, id))
       .returning();

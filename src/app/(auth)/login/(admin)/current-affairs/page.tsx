@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useState, useEffect, useRef } from 'react';
-import { Plus, Trash2, Upload, Image, FileText, X, Loader2, CheckCircle, Pencil, ExternalLink, Globe, Sparkles, Filter } from 'lucide-react';
+import { Plus, Trash2, Upload, Image, FileText, X, Loader2, CheckCircle, Pencil, Filter, Check, Tag } from 'lucide-react';
 
 interface Affair {
   id: string;
@@ -21,6 +21,7 @@ const CATEGORIES = [
   'Policies & Programs',
   'Commissions & Committees',
   'Ethical Case Studies',
+  'Ethics',
   'General',
   'Polity',
   'Economy',
@@ -156,6 +157,9 @@ export default function CurrentNewsViewsPage() {
   const [success, setSuccess] = useState(false);
   const [editingId, setEditingId] = useState<string | null>(null);
   const [filterCategory, setFilterCategory] = useState<string>('All');
+  const [updatingCategoryId, setUpdatingCategoryId] = useState<string | null>(null);
+
+  const formRef = useRef<HTMLDivElement>(null);
 
   // Form state
   const [title, setTitle] = useState('');
@@ -171,8 +175,12 @@ export default function CurrentNewsViewsPage() {
     if (typeof window !== 'undefined') {
       const params = new URLSearchParams(window.location.search);
       const catParam = params.get('category');
-      if (catParam && CATEGORIES.includes(catParam)) {
-        setCategory(catParam);
+      if (catParam) {
+        const decoded = decodeURIComponent(catParam);
+        const matched = CATEGORIES.find(c => c.toLowerCase() === decoded.toLowerCase() || c.toLowerCase().includes(decoded.toLowerCase()));
+        if (matched) {
+          setCategory(matched);
+        }
       }
     }
   }, []);
@@ -205,6 +213,74 @@ export default function CurrentNewsViewsPage() {
     setFeaturedImage(a.featuredImage || '');
     setPdfUrl(a.pdfUrl || '');
     setPublished(a.published);
+
+    // Scroll to form smoothly
+    formRef.current?.scrollIntoView({ behavior: 'smooth' });
+  }
+
+  // Instant inline category update for published entries
+  async function handleQuickCategoryChange(affairId: string, newCategory: string) {
+    setUpdatingCategoryId(affairId);
+    const target = affairs.find((a) => a.id === affairId);
+    if (!target) return;
+
+    try {
+      const res = await fetch(`/api/admin/affairs/${affairId}`, {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          title: target.title,
+          date: target.date ? new Date(target.date).toISOString().split('T')[0] : new Date().toISOString().split('T')[0],
+          category: newCategory,
+          content: target.content || null,
+          featuredImage: target.featuredImage || null,
+          pdfUrl: target.pdfUrl || null,
+          published: target.published,
+        }),
+      });
+
+      if (!res.ok) throw new Error('Failed to update category');
+
+      // Optimistically update state
+      setAffairs((prev) =>
+        prev.map((a) => (a.id === affairId ? { ...a, category: newCategory } : a))
+      );
+    } catch (e: any) {
+      alert(e.message || 'Category update failed');
+    } finally {
+      setUpdatingCategoryId(null);
+    }
+  }
+
+  // Instant inline publish toggle
+  async function handleQuickTogglePublish(affairId: string, currentPublished: boolean) {
+    const target = affairs.find((a) => a.id === affairId);
+    if (!target) return;
+
+    try {
+      const res = await fetch(`/api/admin/affairs/${affairId}`, {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          title: target.title,
+          date: target.date ? new Date(target.date).toISOString().split('T')[0] : new Date().toISOString().split('T')[0],
+          category: target.category,
+          content: target.content || null,
+          featuredImage: target.featuredImage || null,
+          pdfUrl: target.pdfUrl || null,
+          published: !currentPublished,
+        }),
+      });
+
+      if (!res.ok) throw new Error('Failed to update publish status');
+
+      // Optimistically update state
+      setAffairs((prev) =>
+        prev.map((a) => (a.id === affairId ? { ...a, published: !currentPublished } : a))
+      );
+    } catch (e: any) {
+      alert(e.message);
+    }
   }
 
   async function handleSubmit(e: React.FormEvent) {
@@ -301,7 +377,7 @@ export default function CurrentNewsViewsPage() {
             </div>
           </div>
 
-          <div className="divide-y divide-slate-100 max-h-[620px] overflow-y-auto">
+          <div className="divide-y divide-slate-100 max-h-[660px] overflow-y-auto">
             {loading && <p className="text-center py-12 text-slate-400 text-sm">Loading content...</p>}
             {!loading && filteredAffairs.length === 0 && (
               <div className="text-center py-12 px-4">
@@ -317,47 +393,74 @@ export default function CurrentNewsViewsPage() {
               </div>
             )}
             {filteredAffairs.map((a) => (
-              <div key={a.id} className="p-4 hover:bg-slate-50/80 transition-colors flex items-start justify-between gap-4">
-                <div className="space-y-1.5 flex-1 min-w-0">
-                  <div className="flex items-center gap-2 flex-wrap">
-                    <span className="text-[11px] font-bold px-2.5 py-0.5 bg-indigo-50 text-indigo-700 rounded-md border border-indigo-100/60">
-                      {a.category}
-                    </span>
-                    <span className={`text-[11px] font-bold px-2 py-0.5 rounded-md ${a.published ? 'bg-emerald-50 text-emerald-700 border border-emerald-100' : 'bg-amber-50 text-amber-700 border border-amber-100'}`}>
-                      {a.published ? 'Published ✓' : 'Draft'}
-                    </span>
-                    <span className="text-xs text-slate-400 font-mono ml-auto">{a.date}</span>
-                  </div>
-                  <h3 className="text-sm font-bold text-slate-900 leading-snug line-clamp-2">
-                    {a.title}
-                  </h3>
-                  {a.content && (
-                    <p className="text-xs text-slate-500 line-clamp-2 leading-relaxed">
-                      {a.content}
-                    </p>
-                  )}
-                  {a.pdfUrl && (
-                    <span className="inline-flex items-center gap-1 text-[11px] font-semibold text-emerald-600">
-                      📄 PDF Attached
-                    </span>
-                  )}
-                </div>
+              <div key={a.id} className="p-4 hover:bg-slate-50/80 transition-colors space-y-3">
+                <div className="flex items-start justify-between gap-4">
+                  <div className="space-y-1.5 flex-1 min-w-0">
+                    <div className="flex items-center gap-2 flex-wrap">
+                      {/* Inline Category Quick Dropdown */}
+                      <div className="relative inline-flex items-center">
+                        <Tag className="w-3 h-3 text-indigo-500 absolute left-2 pointer-events-none" />
+                        <select
+                          value={a.category}
+                          disabled={updatingCategoryId === a.id}
+                          onChange={(e) => handleQuickCategoryChange(a.id, e.target.value)}
+                          className="pl-6 pr-2 py-0.5 text-[11px] font-bold bg-indigo-50 hover:bg-indigo-100 text-indigo-900 rounded-md border border-indigo-200 cursor-pointer focus:outline-none focus:ring-2 focus:ring-indigo-300 transition-colors"
+                          title="Click to instantly change category"
+                        >
+                          {CATEGORIES.map((c) => (
+                            <option key={c} value={c}>{c}</option>
+                          ))}
+                        </select>
+                        {updatingCategoryId === a.id && (
+                          <Loader2 className="w-3 h-3 text-indigo-600 animate-spin ml-1" />
+                        )}
+                      </div>
 
-                <div className="flex items-center gap-1 flex-shrink-0 pt-1">
-                  <button
-                    onClick={() => handleEdit(a)}
-                    className="p-2 text-slate-400 hover:text-indigo-600 hover:bg-indigo-50 rounded-xl transition-all"
-                    title="Edit Entry"
-                  >
-                    <Pencil className="w-4 h-4" />
-                  </button>
-                  <button
-                    onClick={() => handleDelete(a.id)}
-                    className="p-2 text-slate-400 hover:text-red-500 hover:bg-red-50 rounded-xl transition-all"
-                    title="Delete Entry"
-                  >
-                    <Trash2 className="w-4 h-4" />
-                  </button>
+                      {/* Quick Publish Toggle */}
+                      <button
+                        onClick={() => handleQuickTogglePublish(a.id, a.published)}
+                        className={`text-[11px] font-bold px-2 py-0.5 rounded-md transition-colors ${
+                          a.published ? 'bg-emerald-50 text-emerald-700 border border-emerald-200 hover:bg-emerald-100' : 'bg-amber-50 text-amber-700 border border-amber-200 hover:bg-amber-100'
+                        }`}
+                        title="Click to toggle published status"
+                      >
+                        {a.published ? 'Published ✓' : 'Draft'}
+                      </button>
+
+                      <span className="text-xs text-slate-400 font-mono ml-auto">{a.date}</span>
+                    </div>
+
+                    <h3 className="text-sm font-bold text-slate-900 leading-snug line-clamp-2">
+                      {a.title}
+                    </h3>
+                    {a.content && (
+                      <p className="text-xs text-slate-500 line-clamp-2 leading-relaxed">
+                        {a.content}
+                      </p>
+                    )}
+                    {a.pdfUrl && (
+                      <span className="inline-flex items-center gap-1 text-[11px] font-semibold text-emerald-600">
+                        📄 PDF Attached
+                      </span>
+                    )}
+                  </div>
+
+                  <div className="flex items-center gap-1 flex-shrink-0 pt-1">
+                    <button
+                      onClick={() => handleEdit(a)}
+                      className="p-2 text-slate-400 hover:text-indigo-600 hover:bg-indigo-50 rounded-xl transition-all"
+                      title="Edit in full form"
+                    >
+                      <Pencil className="w-4 h-4" />
+                    </button>
+                    <button
+                      onClick={() => handleDelete(a.id)}
+                      className="p-2 text-slate-400 hover:text-red-500 hover:bg-red-50 rounded-xl transition-all"
+                      title="Delete Entry"
+                    >
+                      <Trash2 className="w-4 h-4" />
+                    </button>
+                  </div>
                 </div>
               </div>
             ))}
@@ -365,7 +468,7 @@ export default function CurrentNewsViewsPage() {
         </div>
 
         {/* ── Form Side (5 cols) ──────────────────────────────── */}
-        <div className="lg:col-span-5 bg-white border border-slate-200 rounded-2xl p-6 shadow-xs h-fit space-y-4">
+        <div ref={formRef} className="lg:col-span-5 bg-white border border-slate-200 rounded-2xl p-6 shadow-xs h-fit space-y-4">
           <div className="flex items-center justify-between pb-3 border-b border-slate-100">
             <div>
               <h2 className="font-bold text-slate-900 text-base">
