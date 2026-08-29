@@ -109,7 +109,7 @@ function UpdatesContent() {
   };
 
   return (
-    <main className="min-h-screen bg-[#FAF9F6] pt-6 sm:pt-8 pb-16">
+    <main className="min-h-screen bg-[#FAF9F6] pt-12 sm:pt-14 pb-16">
       <div className="container max-w-7xl mx-auto px-4 sm:px-6">
         
         {/* TAB SELECTOR ABOVE HEADING */}

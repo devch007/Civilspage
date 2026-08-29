@@ -7,7 +7,7 @@ import { Award, ArrowLeft, ShieldCheck, Star } from 'lucide-react';
 
 export default function MembershipComingSoon() {
   return (
-    <main className="min-h-screen bg-[#FAF9F6] pt-6 sm:pt-8 pb-16 flex items-center justify-center">
+    <main className="min-h-screen bg-[#FAF9F6] pt-12 sm:pt-14 pb-16 flex items-center justify-center">
       <div className="container max-w-xl mx-auto px-4 sm:px-6">
         <motion.div 
           className="bg-white border border-slate-200 rounded-2xl p-8 sm:p-12 shadow-xs text-center space-y-6"

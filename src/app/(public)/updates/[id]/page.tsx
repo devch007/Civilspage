@@ -59,7 +59,7 @@ export default function UpdateDetail({ params }: PageProps) {
     : 'Back to Current Updates';
 
   return (
-    <main className="min-h-screen bg-[#FAF9F6] pt-6 sm:pt-8 pb-16">
+    <main className="min-h-screen bg-[#FAF9F6] pt-12 sm:pt-14 pb-16">
       <div className="container max-w-4xl mx-auto px-4 sm:px-6">
 
         <Link href={backUrl} className="inline-flex items-center gap-2 text-sm font-bold text-slate-500 hover:text-indigo-600 transition-colors mb-6">
