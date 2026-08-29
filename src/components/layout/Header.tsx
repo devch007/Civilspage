@@ -44,18 +44,23 @@ export default function Header() {
 
   // Synchronize dynamic language selection state on mount
   useEffect(() => {
-    const getCookie = (name: string) => {
-      const value = `; ${document.cookie}`;
-      const parts = value.split(`; ${name}=`);
-      if (parts.length === 2) return parts.pop()?.split(';').shift();
-      return null;
+    const detectLanguage = (): 'en' | 'hi' => {
+      if (typeof window !== 'undefined') {
+        const stored = localStorage.getItem('user_selected_lang');
+        if (stored === 'hi' || stored === 'en') return stored;
+      }
+      if (typeof document !== 'undefined') {
+        const raw = document.cookie || '';
+        const decoded = decodeURIComponent(raw);
+        if (decoded.includes('/hi') || decoded.includes('en/hi') || decoded.includes('auto/hi')) {
+          return 'hi';
+        }
+      }
+      return 'en';
     };
-    const langCookie = getCookie('googtrans');
-    if (langCookie && langCookie.includes('/hi')) {
-      setCurrentLang('hi');
-    } else {
-      setCurrentLang('en');
-    }
+
+    const initialLang = detectLanguage();
+    setCurrentLang(initialLang);
   }, []);
 
   // Dynamically load Google Translate for high-efficiency Hindi translation
@@ -86,15 +91,10 @@ export default function Header() {
 
   const handleLanguageChange = (lang: 'en' | 'hi') => {
     setCurrentLang(lang);
-
-    // 1. Trigger native Google Translate select element if initialized in DOM
-    const selectElem = document.querySelector('.goog-te-combo') as HTMLSelectElement | null;
-    if (selectElem) {
-      selectElem.value = lang === 'hi' ? 'hi' : 'en';
-      selectElem.dispatchEvent(new Event('change', { bubbles: true }));
+    if (typeof window !== 'undefined') {
+      localStorage.setItem('user_selected_lang', lang);
     }
 
-    // 2. Set/Clear cookies for persistency across reloads/devices (Android/iOS Chrome compatibility)
     const host = window.location.hostname;
     const baseHost = host.replace(/^www\./, '');
     const domains = ['', host, '.' + host, baseHost, '.' + baseHost];
@@ -105,7 +105,7 @@ export default function Header() {
         if (d) document.cookie = `googtrans=/en/hi; path=/; domain=${d}`;
       });
     } else {
-      // Clear cookie completely across all domains and paths
+      localStorage.setItem('user_selected_lang', 'en');
       const paths = ['/', '/app', ''];
       domains.forEach(d => {
         paths.forEach(p => {
@@ -113,12 +113,18 @@ export default function Header() {
           document.cookie = `googtrans=; max-age=0; path=${p}` + (d ? `; domain=${d}` : '');
         });
       });
-      // Explicitly set /en/en or /auto/en to signal reset to Google Translate engine
       document.cookie = 'googtrans=/en/en; path=/';
       document.cookie = 'googtrans=/auto/en; path=/';
     }
 
-    // 3. Reload page after small delay to allow cookie mutation to flush
+    // Trigger native google translate combo if initialized
+    const selectElem = document.querySelector('.goog-te-combo') as HTMLSelectElement | null;
+    if (selectElem) {
+      selectElem.value = lang === 'hi' ? 'hi' : 'en';
+      selectElem.dispatchEvent(new Event('change', { bubbles: true }));
+    }
+
+    // Reload page after small delay to allow cookie mutation to flush
     setTimeout(() => {
       window.location.reload();
     }, 150);
@@ -220,14 +226,16 @@ export default function Header() {
               </div>
 
               <span className="text-slate-600">|</span>
-              <div className="relative inline-block align-middle notranslate" data-no-translate="true">
+              <div className="relative inline-block align-middle notranslate" translate="no" data-no-translate="true">
                 <select
+                  key={`lang-select-${currentLang}`}
                   value={currentLang}
                   onChange={(e) => handleLanguageChange(e.target.value as 'en' | 'hi')}
+                  translate="no"
                   className="notranslate bg-[#133860] text-slate-200 border border-slate-700/60 rounded px-2 py-0.5 text-[10.5px] font-bold outline-none cursor-pointer hover:text-amber-300 hover:border-slate-500 transition-colors focus:ring-0 focus:outline-none h-[22px] leading-tight"
                 >
-                  <option value="en" className="notranslate bg-[#0b2948] text-white">English</option>
-                  <option value="hi" className="notranslate bg-[#0b2948] text-white">हिन्दी</option>
+                  <option value="en" translate="no" className="notranslate bg-[#0b2948] text-white">English</option>
+                  <option value="hi" translate="no" className="notranslate bg-[#0b2948] text-white">हिन्दी</option>
                 </select>
               </div>
               <div id="google_translate_element" className="hidden"></div>
