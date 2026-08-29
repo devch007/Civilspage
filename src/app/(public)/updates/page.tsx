@@ -110,23 +110,13 @@ function UpdatesContent() {
           </p>
         </div>
 
-        {/* Legislation Sub-Tabs */}
+        {/* Legislation Sub-Tabs: Constitutional Amendments & Ordinary Laws */}
         {isLegislationSection && (
-          <div className="flex flex-wrap items-center justify-center gap-2 mb-8">
-            <Link 
-              href="/updates?category=Legislation"
-              className={`px-4 py-2 text-xs font-bold rounded-lg border transition-all ${
-                selectedCategory?.toLowerCase() === 'legislation'
-                  ? 'bg-[#0b3b60] text-white border-[#0b3b60] shadow-sm'
-                  : 'bg-white text-slate-700 border-slate-300 hover:bg-slate-50'
-              }`}
-            >
-              All Legislation
-            </Link>
+          <div className="flex flex-wrap items-center justify-center gap-3 mb-8">
             <Link 
               href="/updates?category=Constitutional Amendments"
-              className={`px-4 py-2 text-xs font-bold rounded-lg border transition-all flex items-center gap-1.5 ${
-                selectedCategory?.toLowerCase().includes('amendment')
+              className={`px-5 py-2.5 text-xs font-bold rounded-xl border transition-all flex items-center gap-2 ${
+                selectedCategory?.toLowerCase().includes('amendment') || selectedCategory?.toLowerCase() === 'legislation'
                   ? 'bg-[#0b3b60] text-white border-[#0b3b60] shadow-sm'
                   : 'bg-white text-slate-700 border-slate-300 hover:bg-slate-50'
               }`}
@@ -136,7 +126,7 @@ function UpdatesContent() {
             </Link>
             <Link 
               href="/updates?category=Ordinary Laws"
-              className={`px-4 py-2 text-xs font-bold rounded-lg border transition-all flex items-center gap-1.5 ${
+              className={`px-5 py-2.5 text-xs font-bold rounded-xl border transition-all flex items-center gap-2 ${
                 selectedCategory?.toLowerCase().includes('ordinary')
                   ? 'bg-[#0b3b60] text-white border-[#0b3b60] shadow-sm'
                   : 'bg-white text-slate-700 border-slate-300 hover:bg-slate-50'

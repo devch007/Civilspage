@@ -381,13 +381,6 @@ export default function Header() {
                       <Gavel className="w-3.5 h-3.5 text-amber-600" />
                       Ordinary Laws
                     </Link>
-                    <Link 
-                      href="/updates?category=Legislation" 
-                      className="flex items-center gap-2 px-4 py-2 text-xs hover:bg-slate-100 text-slate-500 border-t border-slate-100 font-medium"
-                    >
-                      <BookOpen className="w-3.5 h-3.5 text-slate-400" />
-                      All Legislation & Bills
-                    </Link>
                   </div>
                 )}
               </li>
@@ -626,9 +619,6 @@ export default function Header() {
                     </Link>
                     <Link href="/updates?category=Ordinary Laws" className="block py-1 text-slate-600" onClick={() => setMobileMenuOpen(false)}>
                       • Ordinary Laws
-                    </Link>
-                    <Link href="/updates?category=Legislation" className="block py-1 text-indigo-700 font-medium" onClick={() => setMobileMenuOpen(false)}>
-                      • All Legislation & Bills
                     </Link>
                   </div>
                 )}
