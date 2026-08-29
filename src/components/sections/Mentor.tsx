@@ -29,7 +29,7 @@ export default function Mentor() {
           </p>
         </div>
 
-        <div className="bg-white border border-slate-200 rounded-xl p-6 sm:p-8 shadow-xs max-w-4xl mx-auto">
+        <div className="bg-white border border-slate-200 rounded-xl p-4 sm:p-5 shadow-xs max-w-4xl mx-auto">
           {/* Biography Details */}
           <motion.div 
             className="space-y-5 text-center"
