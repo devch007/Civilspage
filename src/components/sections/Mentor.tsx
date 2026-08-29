@@ -66,7 +66,7 @@ export default function Mentor() {
                 />
               </div>
               <div className="mt-2 text-center">
-                <span className="text-[11px] font-bold text-slate-800">Interactive Answer-Writing & Analytical Discussion</span>
+                <span className="text-[11px] font-bold text-slate-800">Interactive Session</span>
               </div>
             </div>
           </motion.div>
