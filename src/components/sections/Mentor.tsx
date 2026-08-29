@@ -32,7 +32,7 @@ export default function Mentor() {
         <div className="bg-white border border-slate-200 rounded-xl p-6 sm:p-8 shadow-xs max-w-4xl mx-auto">
           {/* Biography Details */}
           <motion.div 
-            className="space-y-5 text-left"
+            className="space-y-5 text-center"
             initial={{ opacity: 0, y: 15 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
