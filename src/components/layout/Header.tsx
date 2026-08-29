@@ -86,14 +86,37 @@ export default function Header() {
 
   const handleLanguageChange = (lang: 'en' | 'hi') => {
     setCurrentLang(lang);
+    
+    // Clear all variants of googtrans cookies
+    const hostname = window.location.hostname;
+    const hostParts = hostname.split('.');
+    const domains = [
+      '',
+      hostname,
+      '.' + hostname,
+    ];
+    if (hostParts.length > 1) {
+      domains.push('.' + hostParts.slice(-2).join('.'));
+    }
+
     if (lang === 'hi') {
       document.cookie = 'googtrans=/en/hi; path=/';
-      document.cookie = 'googtrans=/en/hi; path=/; domain=' + window.location.hostname;
-      document.cookie = 'googtrans=/en/hi; path=/; domain=.' + window.location.hostname.replace(/^www\./, '');
+      domains.forEach(domain => {
+        if (domain) {
+          document.cookie = `googtrans=/en/hi; path=/; domain=${domain}`;
+        }
+      });
     } else {
-      document.cookie = 'googtrans=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;';
-      document.cookie = 'googtrans=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/; domain=' + window.location.hostname;
-      document.cookie = 'googtrans=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/; domain=.' + window.location.hostname.replace(/^www\./, '');
+      // Clear cookie completely across all paths and domains
+      const paths = ['/', '/app', ''];
+      domains.forEach(domain => {
+        paths.forEach(path => {
+          document.cookie = `googtrans=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=${path};` + (domain ? ` domain=${domain}` : '');
+          document.cookie = `googtrans=; max-age=0; path=${path};` + (domain ? ` domain=${domain}` : '');
+        });
+      });
+      // Also set explicit /en/en to trigger default
+      document.cookie = 'googtrans=/en/en; path=/';
     }
     window.location.reload();
   };
@@ -157,7 +180,7 @@ export default function Header() {
               <span className="text-slate-600 hidden sm:inline-block">|</span>
               <Link href="/membership" className="flex items-center gap-1.5 text-amber-300 hover:text-amber-400 font-bold transition-colors">
                 <Award className="w-3.5 h-3.5" />
-                <span className="text-[10.5px] tracking-wide uppercase">Join Membership</span>
+                <span className="text-[10.5px] tracking-wide uppercase">Membership</span>
               </Link>
             </div>
 
