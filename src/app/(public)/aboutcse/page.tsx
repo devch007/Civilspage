@@ -121,7 +121,7 @@ export default function AboutCse() {
               }`}
               onClick={() => setActiveTab('about-exam')}
             >
-              About Exam
+              Scheme of Exam
             </button>
             <button 
               className={`px-4 py-2 text-xs font-bold rounded-lg border transition-all ${
