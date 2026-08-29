@@ -112,7 +112,58 @@ function UpdatesContent() {
     <main className="min-h-screen bg-[#FAF9F6] pt-28 sm:pt-36 pb-20">
       <div className="container max-w-7xl mx-auto px-4 sm:px-6">
         
-        {/* Banner Section */}
+        {/* TAB SELECTOR ABOVE HEADING */}
+        {isLegislationSection && (
+          <div className="flex flex-wrap items-center justify-center gap-3 mb-6">
+            <Link 
+              href="/updates?category=Constitutional Amendments"
+              className={`px-5 py-2.5 text-xs font-bold rounded-xl border transition-all ${
+                selectedCategory?.toLowerCase().includes('amendment') || selectedCategory?.toLowerCase() === 'legislation'
+                  ? 'bg-[#0b3b60] text-white border-[#0b3b60] shadow-sm'
+                  : 'bg-white text-slate-700 border-slate-300 hover:bg-slate-50 shadow-2xs'
+              }`}
+            >
+              Constitutional Amendments
+            </Link>
+            <Link 
+              href="/updates?category=Ordinary Laws"
+              className={`px-5 py-2.5 text-xs font-bold rounded-xl border transition-all ${
+                selectedCategory?.toLowerCase().includes('ordinary')
+                  ? 'bg-[#0b3b60] text-white border-[#0b3b60] shadow-sm'
+                  : 'bg-white text-slate-700 border-slate-300 hover:bg-slate-50 shadow-2xs'
+              }`}
+            >
+              Ordinary Laws
+            </Link>
+          </div>
+        )}
+
+        {isEthicsSection && (
+          <div className="flex flex-wrap items-center justify-center gap-3 mb-6">
+            <Link 
+              href="/updates?category=Ethical Issues"
+              className={`px-5 py-2.5 text-xs font-bold rounded-xl border transition-all ${
+                selectedCategory?.toLowerCase().includes('issue') || selectedCategory?.toLowerCase() === 'ethics'
+                  ? 'bg-[#0b3b60] text-white border-[#0b3b60] shadow-sm'
+                  : 'bg-white text-slate-700 border-slate-300 hover:bg-slate-50 shadow-2xs'
+              }`}
+            >
+              Ethical Issues
+            </Link>
+            <Link 
+              href="/updates?category=Ethical Case Studies"
+              className={`px-5 py-2.5 text-xs font-bold rounded-xl border transition-all ${
+                selectedCategory?.toLowerCase().includes('case')
+                  ? 'bg-[#0b3b60] text-white border-[#0b3b60] shadow-sm'
+                  : 'bg-white text-slate-700 border-slate-300 hover:bg-slate-50 shadow-2xs'
+              }`}
+            >
+              Ethical Case Studies
+            </Link>
+          </div>
+        )}
+
+        {/* Banner Section with Heading */}
         <div className="text-center max-w-3xl mx-auto mb-8">
           <span className="badge badge-primary gap-1 inline-flex items-center mx-auto mb-3">
             <Sparkles className="w-3.5 h-3.5 text-indigo-500 animate-pulse" />
@@ -125,62 +176,6 @@ function UpdatesContent() {
             {getSubtext(selectedCategory)}
           </p>
         </div>
-
-        {/* Legislation Sub-Tabs */}
-        {isLegislationSection && (
-          <div className="flex flex-wrap items-center justify-center gap-3 mb-8">
-            <Link 
-              href="/updates?category=Constitutional Amendments"
-              className={`px-5 py-2.5 text-xs font-bold rounded-xl border transition-all flex items-center gap-2 ${
-                selectedCategory?.toLowerCase().includes('amendment') || selectedCategory?.toLowerCase() === 'legislation'
-                  ? 'bg-[#0b3b60] text-white border-[#0b3b60] shadow-sm'
-                  : 'bg-white text-slate-700 border-slate-300 hover:bg-slate-50'
-              }`}
-            >
-              <Layers className="w-3.5 h-3.5" />
-              Constitutional Amendments
-            </Link>
-            <Link 
-              href="/updates?category=Ordinary Laws"
-              className={`px-5 py-2.5 text-xs font-bold rounded-xl border transition-all flex items-center gap-2 ${
-                selectedCategory?.toLowerCase().includes('ordinary')
-                  ? 'bg-[#0b3b60] text-white border-[#0b3b60] shadow-sm'
-                  : 'bg-white text-slate-700 border-slate-300 hover:bg-slate-50'
-              }`}
-            >
-              <Gavel className="w-3.5 h-3.5" />
-              Ordinary Laws
-            </Link>
-          </div>
-        )}
-
-        {/* Ethics Sub-Tabs */}
-        {isEthicsSection && (
-          <div className="flex flex-wrap items-center justify-center gap-3 mb-8">
-            <Link 
-              href="/updates?category=Ethical Issues"
-              className={`px-5 py-2.5 text-xs font-bold rounded-xl border transition-all flex items-center gap-2 ${
-                selectedCategory?.toLowerCase().includes('issue') || selectedCategory?.toLowerCase() === 'ethics'
-                  ? 'bg-[#0b3b60] text-white border-[#0b3b60] shadow-sm'
-                  : 'bg-white text-slate-700 border-slate-300 hover:bg-slate-50'
-              }`}
-            >
-              <Sparkles className="w-3.5 h-3.5" />
-              Ethical Issues
-            </Link>
-            <Link 
-              href="/updates?category=Ethical Case Studies"
-              className={`px-5 py-2.5 text-xs font-bold rounded-xl border transition-all flex items-center gap-2 ${
-                selectedCategory?.toLowerCase().includes('case')
-                  ? 'bg-[#0b3b60] text-white border-[#0b3b60] shadow-sm'
-                  : 'bg-white text-slate-700 border-slate-300 hover:bg-slate-50'
-              }`}
-            >
-              <Scale className="w-3.5 h-3.5" />
-              Ethical Case Studies
-            </Link>
-          </div>
-        )}
 
         {selectedCategory && !isLegislationSection && !isEthicsSection && (
           <div className="flex items-center justify-between bg-indigo-50/50 border border-indigo-100 rounded-xl px-5 py-3 mb-8 max-w-xl mx-auto">

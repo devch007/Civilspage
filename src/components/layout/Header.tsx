@@ -381,16 +381,14 @@ export default function Header() {
                   <div className="absolute left-0 top-full w-56 bg-white text-slate-800 rounded-b-md shadow-2xl border-t-2 border-amber-500 py-1 z-50 animate-in fade-in slide-in-from-top-1 duration-150">
                     <Link 
                       href="/updates?category=Constitutional Amendments" 
-                      className="flex items-center gap-2 px-4 py-2 text-xs hover:bg-slate-100 text-slate-700 font-medium"
+                      className="block px-4 py-2 text-xs hover:bg-slate-100 text-slate-700 font-medium"
                     >
-                      <Layers className="w-3.5 h-3.5 text-indigo-600" />
                       Constitutional Amendments
                     </Link>
                     <Link 
                       href="/updates?category=Ordinary Laws" 
-                      className="flex items-center gap-2 px-4 py-2 text-xs hover:bg-slate-100 text-slate-700 font-medium"
+                      className="block px-4 py-2 text-xs hover:bg-slate-100 text-slate-700 font-medium"
                     >
-                      <Gavel className="w-3.5 h-3.5 text-amber-600" />
                       Ordinary Laws
                     </Link>
                   </div>
@@ -473,16 +471,14 @@ export default function Header() {
                   <div className="absolute left-0 top-full w-56 bg-white text-slate-800 rounded-b-md shadow-2xl border-t-2 border-amber-500 py-1 z-50 animate-in fade-in slide-in-from-top-1 duration-150">
                     <Link 
                       href="/updates?category=Ethical Issues" 
-                      className="flex items-center gap-2 px-4 py-2 text-xs hover:bg-slate-100 text-slate-700 font-medium"
+                      className="block px-4 py-2 text-xs hover:bg-slate-100 text-slate-700 font-medium"
                     >
-                      <Sparkles className="w-3.5 h-3.5 text-indigo-600" />
                       Ethical Issues
                     </Link>
                     <Link 
                       href="/updates?category=Ethical Case Studies" 
-                      className="flex items-center gap-2 px-4 py-2 text-xs hover:bg-slate-100 text-slate-700 font-medium"
+                      className="block px-4 py-2 text-xs hover:bg-slate-100 text-slate-700 font-medium"
                     >
-                      <Scale className="w-3.5 h-3.5 text-emerald-600" />
                       Ethical Case Studies
                     </Link>
                   </div>
@@ -511,23 +507,20 @@ export default function Header() {
                   <div className="absolute left-0 top-full w-52 bg-white text-slate-800 rounded-b-md shadow-2xl border-t-2 border-amber-500 py-1 z-50 animate-in fade-in slide-in-from-top-1 duration-150">
                     <Link 
                       href="/pyqs" 
-                      className="flex items-center gap-2 px-4 py-2 text-xs hover:bg-slate-100 text-slate-700"
+                      className="block px-4 py-2 text-xs hover:bg-slate-100 text-slate-700"
                     >
-                      <BookOpen className="w-3.5 h-3.5 text-indigo-600" />
                       Topicwise PYQ Archive
                     </Link>
                     <Link 
                       href={getHomeLink('#mock-test')} 
-                      className="flex items-center gap-2 px-4 py-2 text-xs hover:bg-slate-100 text-slate-700"
+                      className="block px-4 py-2 text-xs hover:bg-slate-100 text-slate-700"
                     >
-                      <Award className="w-3.5 h-3.5 text-emerald-600" />
                       Daily Practice Quiz
                     </Link>
                     <Link 
                       href="/updates?category=Model Answers" 
-                      className="flex items-center gap-2 px-4 py-2 text-xs hover:bg-slate-100 text-slate-700"
+                      className="block px-4 py-2 text-xs hover:bg-slate-100 text-slate-700"
                     >
-                      <FileText className="w-3.5 h-3.5 text-amber-600" />
                       Mains Model Answers
                     </Link>
                   </div>
@@ -679,19 +672,17 @@ export default function Header() {
                       <div className="p-2 pt-0 space-y-1 bg-slate-50/70 border-t border-slate-100 animate-in fade-in duration-150">
                         <Link 
                           href="/updates?category=Constitutional Amendments" 
-                          className="flex items-center gap-2 px-3 py-2 text-slate-600 hover:text-[#0b3b60] hover:bg-white rounded-lg font-medium transition-all"
+                          className="block px-3 py-2 text-slate-600 hover:text-[#0b3b60] hover:bg-white rounded-lg font-medium transition-all"
                           onClick={() => setMobileMenuOpen(false)}
                         >
-                          <Layers className="w-3.5 h-3.5 text-indigo-600" />
-                          <span>Constitutional Amendments</span>
+                          Constitutional Amendments
                         </Link>
                         <Link 
                           href="/updates?category=Ordinary Laws" 
-                          className="flex items-center gap-2 px-3 py-2 text-slate-600 hover:text-[#0b3b60] hover:bg-white rounded-lg font-medium transition-all"
+                          className="block px-3 py-2 text-slate-600 hover:text-[#0b3b60] hover:bg-white rounded-lg font-medium transition-all"
                           onClick={() => setMobileMenuOpen(false)}
                         >
-                          <Gavel className="w-3.5 h-3.5 text-amber-600" />
-                          <span>Ordinary Laws</span>
+                          Ordinary Laws
                         </Link>
                       </div>
                     )}
@@ -756,19 +747,17 @@ export default function Header() {
                       <div className="p-2 pt-0 space-y-1 bg-slate-50/70 border-t border-slate-100 animate-in fade-in duration-150">
                         <Link 
                           href="/updates?category=Ethical Issues" 
-                          className="flex items-center gap-2 px-3 py-2 text-slate-600 hover:text-[#0b3b60] hover:bg-white rounded-lg font-medium transition-all"
+                          className="block px-3 py-2 text-slate-600 hover:text-[#0b3b60] hover:bg-white rounded-lg font-medium transition-all"
                           onClick={() => setMobileMenuOpen(false)}
                         >
-                          <Sparkles className="w-3.5 h-3.5 text-indigo-600" />
-                          <span>Ethical Issues</span>
+                          Ethical Issues
                         </Link>
                         <Link 
                           href="/updates?category=Ethical Case Studies" 
-                          className="flex items-center gap-2 px-3 py-2 text-slate-600 hover:text-[#0b3b60] hover:bg-white rounded-lg font-medium transition-all"
+                          className="block px-3 py-2 text-slate-600 hover:text-[#0b3b60] hover:bg-white rounded-lg font-medium transition-all"
                           onClick={() => setMobileMenuOpen(false)}
                         >
-                          <Scale className="w-3.5 h-3.5 text-emerald-600" />
-                          <span>Ethical Case Studies</span>
+                          Ethical Case Studies
                         </Link>
                       </div>
                     )}
@@ -798,27 +787,24 @@ export default function Header() {
                       <div className="p-2 pt-0 space-y-1 bg-slate-50/70 border-t border-slate-100 animate-in fade-in duration-150">
                         <Link 
                           href="/pyqs" 
-                          className="flex items-center gap-2 px-3 py-2 text-slate-600 hover:text-[#0b3b60] hover:bg-white rounded-lg font-medium transition-all"
+                          className="block px-3 py-2 text-slate-600 hover:text-[#0b3b60] hover:bg-white rounded-lg font-medium transition-all"
                           onClick={() => setMobileMenuOpen(false)}
                         >
-                          <BookOpen className="w-3.5 h-3.5 text-indigo-600" />
-                          <span>Topicwise PYQ Archive</span>
+                          Topicwise PYQ Archive
                         </Link>
                         <Link 
                           href={getHomeLink('#mock-test')} 
-                          className="flex items-center gap-2 px-3 py-2 text-slate-600 hover:text-[#0b3b60] hover:bg-white rounded-lg font-medium transition-all"
+                          className="block px-3 py-2 text-slate-600 hover:text-[#0b3b60] hover:bg-white rounded-lg font-medium transition-all"
                           onClick={() => setMobileMenuOpen(false)}
                         >
-                          <Award className="w-3.5 h-3.5 text-emerald-600" />
-                          <span>Daily Practice Quiz</span>
+                          Daily Practice Quiz
                         </Link>
                         <Link 
                           href="/updates?category=Model Answers" 
-                          className="flex items-center gap-2 px-3 py-2 text-slate-600 hover:text-[#0b3b60] hover:bg-white rounded-lg font-medium transition-all"
+                          className="block px-3 py-2 text-slate-600 hover:text-[#0b3b60] hover:bg-white rounded-lg font-medium transition-all"
                           onClick={() => setMobileMenuOpen(false)}
                         >
-                          <FileText className="w-3.5 h-3.5 text-amber-600" />
-                          <span>Mains Model Answers</span>
+                          Mains Model Answers
                         </Link>
                       </div>
                     )}
