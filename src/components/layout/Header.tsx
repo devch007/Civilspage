@@ -87,38 +87,39 @@ export default function Header() {
   const handleLanguageChange = (lang: 'en' | 'hi') => {
     setCurrentLang(lang);
     
-    // Clear all variants of googtrans cookies
     const hostname = window.location.hostname;
-    const hostParts = hostname.split('.');
+    const baseDomain = hostname.replace(/^www\./, '');
     const domains = [
       '',
       hostname,
       '.' + hostname,
+      baseDomain,
+      '.' + baseDomain
     ];
-    if (hostParts.length > 1) {
-      domains.push('.' + hostParts.slice(-2).join('.'));
-    }
 
     if (lang === 'hi') {
-      document.cookie = 'googtrans=/en/hi; path=/';
       domains.forEach(domain => {
-        if (domain) {
-          document.cookie = `googtrans=/en/hi; path=/; domain=${domain}`;
-        }
+        const domainStr = domain ? `; domain=${domain}` : '';
+        document.cookie = `googtrans=/en/hi; path=/${domainStr}`;
       });
     } else {
-      // Clear cookie completely across all paths and domains
-      const paths = ['/', '/app', ''];
+      // Clear cookie completely across all domains
       domains.forEach(domain => {
-        paths.forEach(path => {
-          document.cookie = `googtrans=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=${path};` + (domain ? ` domain=${domain}` : '');
-          document.cookie = `googtrans=; max-age=0; path=${path};` + (domain ? ` domain=${domain}` : '');
-        });
+        const domainStr = domain ? `; domain=${domain}` : '';
+        document.cookie = `googtrans=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/${domainStr}`;
       });
-      // Also set explicit /en/en to trigger default
-      document.cookie = 'googtrans=/en/en; path=/';
+      
+      // Force expire any specific translation cookies
+      domains.forEach(domain => {
+        const domainStr = domain ? `; domain=${domain}` : '';
+        document.cookie = `googtrans=/en/hi; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/${domainStr}`;
+        document.cookie = `googtrans=/en/en; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/${domainStr}`;
+      });
     }
-    window.location.reload();
+    
+    setTimeout(() => {
+      window.location.reload();
+    }, 100);
   };
 
   const toggleDropdown = (name: string) => {
