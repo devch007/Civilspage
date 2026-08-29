@@ -226,8 +226,8 @@ export default function Header() {
                   onChange={(e) => handleLanguageChange(e.target.value as 'en' | 'hi')}
                   className="notranslate bg-[#133860] text-slate-200 border border-slate-700/60 rounded px-2 py-0.5 text-[10.5px] font-bold outline-none cursor-pointer hover:text-amber-300 hover:border-slate-500 transition-colors focus:ring-0 focus:outline-none h-[22px] leading-tight"
                 >
-                  <option value="en" className="notranslate bg-[#0b2948] text-white">English ▾</option>
-                  <option value="hi" className="notranslate bg-[#0b2948] text-white">हिन्दी (Hindi) ▾</option>
+                  <option value="en" className="notranslate bg-[#0b2948] text-white">English</option>
+                  <option value="hi" className="notranslate bg-[#0b2948] text-white">हिन्दी</option>
                 </select>
               </div>
               <div id="google_translate_element" className="hidden"></div>
