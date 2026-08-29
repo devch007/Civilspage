@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useState, useEffect, useRef } from 'react';
-import { Plus, Trash2, Upload, Image, FileText, X, Loader2, CheckCircle, Pencil } from 'lucide-react';
+import { Plus, Trash2, Upload, Image, FileText, X, Loader2, CheckCircle, Pencil, ExternalLink, Globe, Sparkles, Filter } from 'lucide-react';
 
 interface Affair {
   id: string;
@@ -13,6 +13,21 @@ interface Affair {
   pdfUrl?: string;
   published: boolean;
 }
+
+const CATEGORIES = [
+  'Legislation',
+  'Constitutional Amendments',
+  'Court Judgements',
+  'Policies & Programs',
+  'Commissions & Committees',
+  'Ethical Case Studies',
+  'General',
+  'Polity',
+  'Economy',
+  'International',
+  'Science & Tech',
+  'Environment',
+];
 
 // ─── Upload widget ─────────────────────────────────────────────────────────────
 function FileUpload({
@@ -66,9 +81,8 @@ function FileUpload({
 
   return (
     <div className="space-y-2">
-      <label className="block text-xs font-semibold text-slate-600 mb-1">{label}</label>
+      <label className="block text-xs font-semibold text-slate-700">{label}</label>
 
-      {/* Drop zone */}
       <div
         className={`relative border-2 border-dashed rounded-xl p-4 transition-all cursor-pointer hover:border-indigo-400 hover:bg-indigo-50/30 ${
           state === 'done' ? 'border-emerald-400 bg-emerald-50/30' :
@@ -89,7 +103,7 @@ function FileUpload({
         {state === 'uploading' ? (
           <div className="flex items-center justify-center gap-2 py-2">
             <Loader2 className="w-5 h-5 text-indigo-500 animate-spin" />
-            <span className="text-sm text-slate-500 font-medium">Uploading to Cloudflare R2...</span>
+            <span className="text-sm text-slate-500 font-medium">Uploading file to Cloudflare R2...</span>
           </div>
         ) : state === 'done' ? (
           <div className="flex items-center gap-2 py-1">
@@ -117,14 +131,12 @@ function FileUpload({
         )}
       </div>
 
-      {/* Error */}
       {state === 'error' && <p className="text-xs text-red-500 font-medium">{errMsg}</p>}
 
-      {/* Preview */}
       {preview && state === 'done' && (
         <div className="mt-2">
           {accept.includes('image') ? (
-            <img src={preview} alt="preview" className="h-24 w-full object-cover rounded-lg border border-slate-100" />
+            <img src={preview} alt="preview" className="h-24 w-full object-cover rounded-lg border border-slate-200" />
           ) : (
             <a href={preview} target="_blank" rel="noreferrer" className="text-xs text-indigo-600 underline font-medium truncate block">
               📄 {preview.split('/').pop()}
@@ -137,21 +149,33 @@ function FileUpload({
 }
 
 // ─── Main page ─────────────────────────────────────────────────────────────────
-export default function CurrentAffairsPage() {
+export default function CurrentNewsViewsPage() {
   const [affairs, setAffairs] = useState<Affair[]>([]);
   const [loading, setLoading] = useState(true);
   const [submitting, setSubmitting] = useState(false);
   const [success, setSuccess] = useState(false);
   const [editingId, setEditingId] = useState<string | null>(null);
+  const [filterCategory, setFilterCategory] = useState<string>('All');
 
   // Form state
   const [title, setTitle] = useState('');
   const [date, setDate] = useState(new Date().toISOString().split('T')[0]);
-  const [category, setCategory] = useState('General');
+  const [category, setCategory] = useState('Legislation');
   const [content, setContent] = useState('');
   const [featuredImage, setFeaturedImage] = useState('');
   const [pdfUrl, setPdfUrl] = useState('');
-  const [published, setPublished] = useState(false);
+  const [published, setPublished] = useState(true);
+
+  // Read URL query parameter if navigated from Dashboard quick action
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      const params = new URLSearchParams(window.location.search);
+      const catParam = params.get('category');
+      if (catParam && CATEGORIES.includes(catParam)) {
+        setCategory(catParam);
+      }
+    }
+  }, []);
 
   useEffect(() => {
     fetch('/api/admin/affairs')
@@ -166,9 +190,9 @@ export default function CurrentAffairsPage() {
     setContent('');
     setFeaturedImage('');
     setPdfUrl('');
-    setPublished(false);
+    setPublished(true);
     setDate(new Date().toISOString().split('T')[0]);
-    setCategory('General');
+    setCategory('Legislation');
     setEditingId(null);
   }
 
@@ -176,7 +200,7 @@ export default function CurrentAffairsPage() {
     setEditingId(a.id);
     setTitle(a.title);
     setDate(a.date ? new Date(a.date).toISOString().split('T')[0] : new Date().toISOString().split('T')[0]);
-    setCategory(a.category || 'General');
+    setCategory(a.category || 'Legislation');
     setContent(a.content || '');
     setFeaturedImage(a.featuredImage || '');
     setPdfUrl(a.pdfUrl || '');
@@ -198,7 +222,7 @@ export default function CurrentAffairsPage() {
       });
       if (!res.ok) throw new Error((await res.json()).error || 'Failed');
       resetForm();
-      setSuccess((s) => !s); // trigger reload
+      setSuccess((s) => !s);
     } catch (e: any) {
       alert(e.message);
     } finally {
@@ -213,48 +237,124 @@ export default function CurrentAffairsPage() {
     setSuccess((s) => !s);
   }
 
+  const filteredAffairs = filterCategory === 'All' 
+    ? affairs 
+    : affairs.filter(a => a.category.toLowerCase().includes(filterCategory.toLowerCase()));
+
   return (
-    <div className="space-y-6">
-      <div>
-        <h1 className="text-2xl font-bold text-slate-900">Current Affairs</h1>
-        <p className="text-slate-500 text-sm mt-1">{loading ? '...' : `${affairs.length} entries`}</p>
+    <div className="space-y-6 max-w-7xl mx-auto">
+      {/* Top Banner */}
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 bg-gradient-to-r from-[#0b3b60] to-[#164e78] text-white p-6 rounded-2xl shadow-md">
+        <div>
+          <div className="flex items-center gap-2 mb-1">
+            <span className="px-2.5 py-0.5 bg-amber-400 text-slate-950 font-black text-[10px] uppercase tracking-wider rounded font-mono">
+              Primary Content Engine
+            </span>
+          </div>
+          <h1 className="text-2xl font-bold font-serif text-white">Current News & Views</h1>
+          <p className="text-slate-200 text-xs sm:text-sm mt-1">
+            Manage updates, legislation summaries, court rulings, policies, and ethics case studies.
+          </p>
+        </div>
+        <div className="flex items-center gap-2">
+          <span className="px-3 py-1.5 bg-white/10 backdrop-blur-sm rounded-xl text-xs font-bold text-amber-300 border border-white/15">
+            {affairs.length} Total Entries
+          </span>
+        </div>
       </div>
 
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-        {/* ── List ──────────────────────────────────────── */}
-        <div className="bg-white border border-slate-100 rounded-xl overflow-hidden">
-          <div className="px-5 py-4 border-b border-slate-50">
-            <h2 className="font-semibold text-slate-800 text-sm">All Updates</h2>
+      <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
+        {/* ── List Side (7 cols) ──────────────────────────────────────── */}
+        <div className="lg:col-span-7 bg-white border border-slate-200 rounded-2xl shadow-xs overflow-hidden flex flex-col">
+          <div className="p-4 border-b border-slate-100 bg-slate-50/50 space-y-3">
+            <div className="flex items-center justify-between">
+              <h2 className="font-bold text-slate-800 text-sm flex items-center gap-2">
+                <Filter className="w-4 h-4 text-indigo-600" />
+                All News & Views Entries
+              </h2>
+              <span className="text-xs text-slate-500 font-medium">
+                Showing {filteredAffairs.length} of {affairs.length}
+              </span>
+            </div>
+
+            {/* Filter Pills */}
+            <div className="flex items-center gap-1.5 overflow-x-auto pb-1 text-xs">
+              <button
+                onClick={() => setFilterCategory('All')}
+                className={`px-3 py-1 rounded-lg font-bold transition-all whitespace-nowrap ${
+                  filterCategory === 'All' ? 'bg-[#0b3b60] text-white shadow-xs' : 'bg-white text-slate-600 border border-slate-200 hover:bg-slate-100'
+                }`}
+              >
+                All
+              </button>
+              {['Legislation', 'Constitutional Amendments', 'Court Judgements', 'Policies & Programs', 'Commissions & Committees', 'Ethical Case Studies'].map((cat) => (
+                <button
+                  key={cat}
+                  onClick={() => setFilterCategory(cat)}
+                  className={`px-2.5 py-1 rounded-lg font-medium transition-all whitespace-nowrap ${
+                    filterCategory === cat ? 'bg-[#0b3b60] text-white shadow-xs' : 'bg-white text-slate-600 border border-slate-200 hover:bg-slate-100'
+                  }`}
+                >
+                  {cat}
+                </button>
+              ))}
+            </div>
           </div>
-          <div className="divide-y divide-slate-50 max-h-[600px] overflow-y-auto">
-            {loading && <p className="text-center py-10 text-slate-400 text-sm">Loading...</p>}
-            {!loading && affairs.length === 0 && (
-              <p className="text-center py-10 text-slate-400 text-sm">No entries yet.</p>
+
+          <div className="divide-y divide-slate-100 max-h-[620px] overflow-y-auto">
+            {loading && <p className="text-center py-12 text-slate-400 text-sm">Loading content...</p>}
+            {!loading && filteredAffairs.length === 0 && (
+              <div className="text-center py-12 px-4">
+                <p className="text-slate-400 text-sm">No entries found for this category.</p>
+                {filterCategory !== 'All' && (
+                  <button 
+                    onClick={() => setFilterCategory('All')} 
+                    className="mt-2 text-xs font-bold text-indigo-600 hover:underline"
+                  >
+                    Clear Filter
+                  </button>
+                )}
+              </div>
             )}
-            {affairs.map((a) => (
-              <div key={a.id} className="px-5 py-4 flex items-start justify-between gap-4">
-                <div>
-                  <p className="text-sm font-semibold text-slate-900">{a.title}</p>
-                  <div className="flex items-center gap-2 mt-1 flex-wrap">
-                    <span className="text-xs text-slate-400">{a.date}</span>
-                    <span className="text-xs px-2 py-0.5 bg-slate-100 text-slate-500 rounded-full">{a.category}</span>
-                    <span className={`text-xs px-2 py-0.5 rounded-full font-medium ${a.published ? 'bg-emerald-50 text-emerald-700' : 'bg-amber-50 text-amber-700'}`}>
-                      {a.published ? 'Live' : 'Draft'}
+            {filteredAffairs.map((a) => (
+              <div key={a.id} className="p-4 hover:bg-slate-50/80 transition-colors flex items-start justify-between gap-4">
+                <div className="space-y-1.5 flex-1 min-w-0">
+                  <div className="flex items-center gap-2 flex-wrap">
+                    <span className="text-[11px] font-bold px-2.5 py-0.5 bg-indigo-50 text-indigo-700 rounded-md border border-indigo-100/60">
+                      {a.category}
                     </span>
+                    <span className={`text-[11px] font-bold px-2 py-0.5 rounded-md ${a.published ? 'bg-emerald-50 text-emerald-700 border border-emerald-100' : 'bg-amber-50 text-amber-700 border border-amber-100'}`}>
+                      {a.published ? 'Published ✓' : 'Draft'}
+                    </span>
+                    <span className="text-xs text-slate-400 font-mono ml-auto">{a.date}</span>
                   </div>
+                  <h3 className="text-sm font-bold text-slate-900 leading-snug line-clamp-2">
+                    {a.title}
+                  </h3>
+                  {a.content && (
+                    <p className="text-xs text-slate-500 line-clamp-2 leading-relaxed">
+                      {a.content}
+                    </p>
+                  )}
+                  {a.pdfUrl && (
+                    <span className="inline-flex items-center gap-1 text-[11px] font-semibold text-emerald-600">
+                      📄 PDF Attached
+                    </span>
+                  )}
                 </div>
-                <div className="flex items-center gap-1 flex-shrink-0">
+
+                <div className="flex items-center gap-1 flex-shrink-0 pt-1">
                   <button
                     onClick={() => handleEdit(a)}
-                    className="p-1.5 text-slate-300 hover:text-indigo-600 hover:bg-indigo-50 rounded-lg transition-all"
-                    title="Edit"
+                    className="p-2 text-slate-400 hover:text-indigo-600 hover:bg-indigo-50 rounded-xl transition-all"
+                    title="Edit Entry"
                   >
                     <Pencil className="w-4 h-4" />
                   </button>
                   <button
                     onClick={() => handleDelete(a.id)}
-                    className="p-1.5 text-slate-300 hover:text-red-500 hover:bg-red-50 rounded-lg transition-all"
-                    title="Delete"
+                    className="p-2 text-slate-400 hover:text-red-500 hover:bg-red-50 rounded-xl transition-all"
+                    title="Delete Entry"
                   >
                     <Trash2 className="w-4 h-4" />
                   </button>
@@ -264,62 +364,69 @@ export default function CurrentAffairsPage() {
           </div>
         </div>
 
-        {/* ── Create / Edit Form ──────────────────────────────── */}
-        <div className="bg-white border border-slate-100 rounded-xl p-5">
-          <div className="flex items-center justify-between mb-4">
-            <h2 className="font-semibold text-slate-800 text-sm">
-              {editingId ? 'Edit Update' : 'Add New Update'}
-            </h2>
+        {/* ── Form Side (5 cols) ──────────────────────────────── */}
+        <div className="lg:col-span-5 bg-white border border-slate-200 rounded-2xl p-6 shadow-xs h-fit space-y-4">
+          <div className="flex items-center justify-between pb-3 border-b border-slate-100">
+            <div>
+              <h2 className="font-bold text-slate-900 text-base">
+                {editingId ? 'Edit Entry' : 'Add New Entry'}
+              </h2>
+              <p className="text-xs text-slate-500">
+                Will automatically route to your selected header category page.
+              </p>
+            </div>
             {editingId && (
-              <button onClick={resetForm} className="text-xs text-slate-400 hover:text-slate-600">
+              <button onClick={resetForm} className="text-xs font-bold text-slate-400 hover:text-slate-600 px-2.5 py-1 bg-slate-100 rounded-lg">
                 Cancel Edit
               </button>
             )}
           </div>
+
           <form className="space-y-4" onSubmit={handleSubmit}>
             <div>
-              <label className="block text-xs font-semibold text-slate-600 mb-1">Title *</label>
+              <label className="block text-xs font-bold text-slate-700 mb-1">Target Category *</label>
+              <select
+                value={category} onChange={(e) => setCategory(e.target.value)}
+                className="w-full px-3 py-2.5 border border-slate-200 rounded-xl text-xs font-semibold focus:border-indigo-500 focus:ring-2 focus:ring-indigo-100 focus:outline-none bg-slate-50"
+              >
+                {CATEGORIES.map((c) => (
+                  <option key={c} value={c}>
+                    {c}
+                  </option>
+                ))}
+              </select>
+            </div>
+
+            <div>
+              <label className="block text-xs font-bold text-slate-700 mb-1">Title *</label>
               <input
                 value={title} onChange={(e) => setTitle(e.target.value)} required
-                className="w-full px-3 py-2.5 border border-slate-200 rounded-lg text-sm focus:border-indigo-400 focus:outline-none"
-                placeholder="Today's key update..."
+                className="w-full px-3 py-2.5 border border-slate-200 rounded-xl text-sm focus:border-indigo-500 focus:ring-2 focus:ring-indigo-100 focus:outline-none"
+                placeholder="Headline for this update..."
               />
             </div>
 
-            <div className="grid grid-cols-2 gap-3">
-              <div>
-                <label className="block text-xs font-semibold text-slate-600 mb-1">Date *</label>
-                <input
-                  type="date" value={date} onChange={(e) => setDate(e.target.value)} required
-                  className="w-full px-3 py-2.5 border border-slate-200 rounded-lg text-sm focus:border-indigo-400 focus:outline-none"
-                />
-              </div>
-              <div>
-                <label className="block text-xs font-semibold text-slate-600 mb-1">Category</label>
-                <select
-                  value={category} onChange={(e) => setCategory(e.target.value)}
-                  className="w-full px-3 py-2.5 border border-slate-200 rounded-lg text-sm focus:border-indigo-400 focus:outline-none bg-white"
-                >
-                  {['General','Polity','Economy','International','Science & Tech','Environment','Ethics'].map(c => (
-                    <option key={c}>{c}</option>
-                  ))}
-                </select>
-              </div>
+            <div>
+              <label className="block text-xs font-bold text-slate-700 mb-1">Publication Date *</label>
+              <input
+                type="date" value={date} onChange={(e) => setDate(e.target.value)} required
+                className="w-full px-3 py-2.5 border border-slate-200 rounded-xl text-sm focus:border-indigo-500 focus:ring-2 focus:ring-indigo-100 focus:outline-none"
+              />
             </div>
 
             <div>
-              <label className="block text-xs font-semibold text-slate-600 mb-1">Content</label>
+              <label className="block text-xs font-bold text-slate-700 mb-1">Detailed Content / Summary</label>
               <textarea
                 value={content} onChange={(e) => setContent(e.target.value)}
-                rows={4}
-                className="w-full px-3 py-2.5 border border-slate-200 rounded-lg text-sm focus:border-indigo-400 focus:outline-none resize-none"
-                placeholder="Write the full update content here..."
+                rows={5}
+                className="w-full px-3 py-2.5 border border-slate-200 rounded-xl text-xs sm:text-sm focus:border-indigo-500 focus:ring-2 focus:ring-indigo-100 focus:outline-none resize-none leading-relaxed"
+                placeholder="Enter detailed analysis, key provisions, or judgements..."
               />
             </div>
 
             {/* Image upload */}
             <FileUpload
-              label="Featured Image (uploads to Cloudflare R2)"
+              label="Featured Image (Optional - Cloudflare R2)"
               accept="image/*"
               folder="current-affairs"
               current={featuredImage}
@@ -328,27 +435,28 @@ export default function CurrentAffairsPage() {
 
             {/* PDF upload */}
             <FileUpload
-              label="PDF Attachment (uploads to Cloudflare R2)"
+              label="PDF Document Attachment (Optional - Cloudflare R2)"
               accept="application/pdf"
               folder="current-affairs"
               current={pdfUrl}
               onUploaded={setPdfUrl}
             />
 
-            <div className="flex items-center justify-between pt-1">
-              <label className="flex items-center gap-2 text-sm font-medium text-slate-600 cursor-pointer">
+            <div className="pt-2 border-t border-slate-100 space-y-3">
+              <label className="flex items-center gap-2.5 text-xs font-bold text-slate-700 cursor-pointer select-none">
                 <input
                   type="checkbox" checked={published} onChange={(e) => setPublished(e.target.checked)}
-                  className="accent-indigo-600"
+                  className="w-4 h-4 rounded text-indigo-600 focus:ring-indigo-500 border-slate-300"
                 />
-                Publish immediately (visible on site)
+                Publish immediately (Visible on live site)
               </label>
+
               <button
                 type="submit" disabled={submitting}
-                className="flex items-center gap-1.5 px-4 py-2 bg-indigo-600 text-white text-sm font-semibold rounded-xl hover:bg-indigo-700 transition-colors disabled:opacity-60"
+                className="w-full flex items-center justify-center gap-2 px-4 py-3 bg-[#0b3b60] text-white text-xs font-bold uppercase tracking-wider rounded-xl hover:bg-[#072842] shadow-sm transition-all disabled:opacity-60"
               >
                 {submitting ? <Loader2 className="w-4 h-4 animate-spin" /> : (editingId ? <Pencil className="w-4 h-4" /> : <Plus className="w-4 h-4" />)}
-                {submitting ? (editingId ? 'Saving...' : 'Publishing...') : (editingId ? 'Update' : 'Publish')}
+                {submitting ? (editingId ? 'Saving Changes...' : 'Publishing...') : (editingId ? 'Save Updates' : 'Publish Entry')}
               </button>
             </div>
           </form>

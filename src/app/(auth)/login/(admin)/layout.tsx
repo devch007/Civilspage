@@ -17,12 +17,9 @@ import {
 
 const navItems = [
   { href: '/login/dashboard', label: 'Dashboard', icon: BarChart3 },
-  { href: '/login/current-affairs', label: 'Current Affairs', icon: Newspaper },
-  { href: '/login/notes', label: 'Notes', icon: FileSpreadsheet },
-  { href: '/login/subject-pages', label: 'Subject Pages', icon: BookOpen },
+  { href: '/login/current-affairs', label: 'Current News & Views', icon: Newspaper },
   { href: '/login/pyqs', label: 'PYQs', icon: HelpCircle },
   { href: '/login/comments', label: 'Comments', icon: MessageSquare },
-  { href: '/login/users', label: 'Users', icon: Users },
   { href: '/login/audit-log', label: 'Audit Log', icon: Shield },
   { href: '/login/settings', label: 'Settings', icon: Settings },
 ];
