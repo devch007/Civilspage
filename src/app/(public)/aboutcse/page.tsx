@@ -34,7 +34,7 @@ import {
   Users
 } from 'lucide-react';
 
-type TabType = 'about-exam' | 'syllabus' | 'reading' | 'approach' | 'polity';
+type TabType = 'about-exam' | 'syllabus' | 'reading' | 'approach' | 'polity' | 'ethics' | 'pubad';
 type SyllabusStage = 'prelims' | 'mains' | 'optionals';
 type OptionalChoice = 'pubad' | 'psir' | 'law';
 type PolityStage = 'gs2' | 'pubad' | 'ethics';
@@ -161,7 +161,27 @@ export default function AboutCse() {
               }`}
               onClick={() => setActiveTab('polity')}
             >
-              Approach to Polity & Governance
+              Approach to Polity & Gov.
+            </button>
+            <button 
+              className={`px-4 py-2 text-xs font-bold rounded-lg border transition-all ${
+                activeTab === 'ethics'
+                  ? 'bg-[#0b3b60] text-white border-[#0b3b60] shadow-sm'
+                  : 'bg-white text-slate-700 border-slate-300 hover:bg-slate-50'
+              }`}
+              onClick={() => setActiveTab('ethics')}
+            >
+              Approach to Ethics
+            </button>
+            <button 
+              className={`px-4 py-2 text-xs font-bold rounded-lg border transition-all ${
+                activeTab === 'pubad'
+                  ? 'bg-[#0b3b60] text-white border-[#0b3b60] shadow-sm'
+                  : 'bg-white text-slate-700 border-slate-300 hover:bg-slate-50'
+              }`}
+              onClick={() => setActiveTab('pubad')}
+            >
+              Approach to Public Admin.
             </button>
           </div>
         </div>
@@ -1949,51 +1969,16 @@ export default function AboutCse() {
                 <span className="text-xs text-amber-200 font-medium">By Rajiv Ranjan Singh</span>
               </div>
               <h2 className="text-2xl sm:text-3xl font-black font-serif text-white">
-                Approach to Polity, Governance, Pub Ad & Ethics
+                Approach to Polity & Governance
               </h2>
               <p className="text-xs sm:text-sm text-slate-200 leading-relaxed max-w-3xl">
-                Comprehensive pedagogical blueprints for GS-II (Polity & Governance), Public Administration Optional, and GS-IV (Ethics, Integrity & Case Study Diagnostics).
+                Comprehensive pedagogical blueprints for GS-II (Polity & Governance).
               </p>
-            </div>
-
-            {/* Sub-navigation Pills for Polity/PubAd/Ethics */}
-            <div className="flex flex-wrap gap-2 pb-4 border-b border-slate-200">
-              <button
-                onClick={() => setPolityStage('gs2')}
-                className={`px-4 py-2 text-xs font-bold rounded-lg border transition-all ${
-                  polityStage === 'gs2'
-                    ? 'bg-[#0b3b60] text-white border-[#0b3b60] shadow-sm'
-                    : 'bg-white text-slate-700 border-slate-300 hover:bg-slate-50'
-                }`}
-              >
-                1. Polity & Governance (GS-II)
-              </button>
-              <button
-                onClick={() => setPolityStage('pubad')}
-                className={`px-4 py-2 text-xs font-bold rounded-lg border transition-all ${
-                  polityStage === 'pubad'
-                    ? 'bg-[#0b3b60] text-white border-[#0b3b60] shadow-sm'
-                    : 'bg-white text-slate-700 border-slate-300 hover:bg-slate-50'
-                }`}
-              >
-                2. Public Administration (Optional)
-              </button>
-              <button
-                onClick={() => setPolityStage('ethics')}
-                className={`px-4 py-2 text-xs font-bold rounded-lg border transition-all ${
-                  polityStage === 'ethics'
-                    ? 'bg-[#0b3b60] text-white border-[#0b3b60] shadow-sm'
-                    : 'bg-white text-slate-700 border-slate-300 hover:bg-slate-50'
-                }`}
-              >
-                3. Ethics & Case Studies (GS-IV)
-              </button>
             </div>
 
             {/* ========================================================= */}
             {/* SUB-SECTION 1: POLITY & GOVERNANCE (GS-II) */}
             {/* ========================================================= */}
-            {polityStage === 'gs2' && (
               <div className="space-y-8 animate-in fade-in duration-150">
                 
                 {/* Integration Callout */}
@@ -2117,12 +2102,39 @@ export default function AboutCse() {
                 </div>
 
               </div>
-            )}
+            {/* ========================================================= */}
+          </motion.section>
+        )}
+
+        {/* APPROACH TO PUBLIC ADMIN TAB */}
+        {activeTab === 'pubad' && (
+          <motion.section 
+            key="tab-pubad" 
+            initial={{ opacity: 0, y: 15 }} 
+            animate={{ opacity: 1, y: 0 }} 
+            exit={{ opacity: 0, y: -15 }} 
+            transition={{ duration: 0.3 }}
+            className="space-y-8"
+          >
+            {/* Header Banner */}
+            <div className="bg-gradient-to-r from-[#0b3b60] to-[#124e7e] text-white p-6 sm:p-8 rounded-2xl shadow-md space-y-3">
+              <div className="flex items-center gap-2">
+                <span className="px-2.5 py-0.5 bg-amber-400 text-slate-950 font-black text-[10px] uppercase tracking-wider rounded font-mono">
+                  Subject-Specific Methodologies
+                </span>
+                <span className="text-xs text-amber-200 font-medium">By Rajiv Ranjan Singh</span>
+              </div>
+              <h2 className="text-2xl sm:text-3xl font-black font-serif text-white">
+                Approach to Public Administration
+              </h2>
+              <p className="text-xs sm:text-sm text-slate-200 leading-relaxed max-w-3xl">
+                Comprehensive pedagogical blueprints for Public Administration Optional.
+              </p>
+            </div>
 
             {/* ========================================================= */}
             {/* SUB-SECTION 2: PUBLIC ADMINISTRATION (OPTIONAL) */}
             {/* ========================================================= */}
-            {polityStage === 'pubad' && (
               <div className="space-y-6 animate-in fade-in duration-150">
                 
                 <div className="bg-white border border-slate-200 rounded-xl p-6 shadow-xs space-y-3">
@@ -2175,12 +2187,38 @@ export default function AboutCse() {
                 </div>
 
               </div>
-            )}
+          </motion.section>
+        )}
+
+        {/* APPROACH TO ETHICS TAB */}
+        {activeTab === 'ethics' && (
+          <motion.section 
+            key="tab-ethics" 
+            initial={{ opacity: 0, y: 15 }} 
+            animate={{ opacity: 1, y: 0 }} 
+            exit={{ opacity: 0, y: -15 }} 
+            transition={{ duration: 0.3 }}
+            className="space-y-8"
+          >
+            {/* Header Banner */}
+            <div className="bg-gradient-to-r from-[#0b3b60] to-[#124e7e] text-white p-6 sm:p-8 rounded-2xl shadow-md space-y-3">
+              <div className="flex items-center gap-2">
+                <span className="px-2.5 py-0.5 bg-amber-400 text-slate-950 font-black text-[10px] uppercase tracking-wider rounded font-mono">
+                  Subject-Specific Methodologies
+                </span>
+                <span className="text-xs text-amber-200 font-medium">By Rajiv Ranjan Singh</span>
+              </div>
+              <h2 className="text-2xl sm:text-3xl font-black font-serif text-white">
+                Approach to Ethics (GS-IV)
+              </h2>
+              <p className="text-xs sm:text-sm text-slate-200 leading-relaxed max-w-3xl">
+                Comprehensive pedagogical blueprints for GS-IV (Ethics, Integrity & Case Study Diagnostics).
+              </p>
+            </div>
 
             {/* ========================================================= */}
             {/* SUB-SECTION 3: ETHICS, INTEGRITY & APTITUDE (GS-IV) */}
             {/* ========================================================= */}
-            {polityStage === 'ethics' && (
               <div className="space-y-8 animate-in fade-in duration-150">
                 
                 {/* Purpose Card */}
@@ -2342,7 +2380,6 @@ export default function AboutCse() {
                 </div>
 
               </div>
-            )}
 
           </motion.section>
         )}
