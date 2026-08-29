@@ -29,13 +29,12 @@ export default function Mentor() {
           </p>
         </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center bg-[#FAF9F6] border border-slate-200 rounded-xl p-6 sm:p-8 shadow-xs">
-          
-          {/* Left: Biography Details */}
+        <div className="bg-white border border-slate-200 rounded-xl p-6 sm:p-8 shadow-xs max-w-4xl mx-auto">
+          {/* Biography Details */}
           <motion.div 
-            className="lg:col-span-7 space-y-5 text-left"
-            initial={{ opacity: 0, x: -20 }}
-            whileInView={{ opacity: 1, x: 0 }}
+            className="space-y-5 text-left"
+            initial={{ opacity: 0, y: 15 }}
+            whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.5 }}
           >
@@ -45,32 +44,6 @@ export default function Mentor() {
               </p>
             </div>
           </motion.div>
-
-          {/* Right: Visual Frame */}
-          <motion.div 
-            className="lg:col-span-5 flex justify-center"
-            initial={{ opacity: 0, x: 20 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.5 }}
-          >
-            <div className="w-full max-w-[460px] bg-white p-2 rounded-xl border border-slate-300 shadow-md">
-              <div className="relative rounded-lg overflow-hidden border border-slate-200">
-                <Image 
-                  src="/mentor_whiteboard.png" 
-                  alt="Rajiv Ranjan Singh Academic Session" 
-                  width={580}
-                  height={326}
-                  className="w-full h-auto object-cover"
-                  priority
-                />
-              </div>
-              <div className="mt-2 text-center">
-                <span className="text-[11px] font-bold text-slate-800">Interactive Session</span>
-              </div>
-            </div>
-          </motion.div>
-
         </div>
       </div>
     </section>
