@@ -21,7 +21,7 @@ export default function StudyMaterial() {
             <FolderArchive className="w-3.5 h-3.5" />
             Knowledge Repository
           </span>
-          <h2 className="text-2xl sm:text-3xl font-black text-[#0b3b60] font-serif mt-2">
+          <h2 className="text-2xl sm:text-3xl lg:text-4xl font-black text-[#0b3b60] font-serif mt-2 leading-snug">
             UPSC CSE Syllabus Study Modules
           </h2>
           <p className="text-xs sm:text-sm text-slate-600 mt-1">
@@ -42,7 +42,7 @@ export default function StudyMaterial() {
               <div className="w-10 h-10 rounded-lg bg-[#0b3b60]/10 text-[#0b3b60] flex items-center justify-center mb-4 group-hover:bg-[#0b3b60] group-hover:text-white transition-colors">
                 <Book className="w-5 h-5" />
               </div>
-              <h3 className="text-base font-bold text-slate-900 mb-2 font-serif group-hover:text-[#0b3b60] transition-colors">
+              <h3 className="text-lg sm:text-xl font-bold text-slate-900 font-serif leading-snug mb-2 group-hover:text-[#0b3b60] transition-colors">
                 Mains GS Core Modules
               </h3>
               <p className="text-xs text-slate-600 leading-relaxed mb-6">
@@ -67,7 +67,7 @@ export default function StudyMaterial() {
               <div className="w-10 h-10 rounded-lg bg-[#138808]/10 text-[#138808] flex items-center justify-center mb-4 group-hover:bg-[#138808] group-hover:text-white transition-colors">
                 <AlertCircle className="w-5 h-5" />
               </div>
-              <h3 className="text-base font-bold text-slate-900 mb-2 font-serif group-hover:text-[#0b3b60] transition-colors">
+              <h3 className="text-lg sm:text-xl font-bold text-slate-900 font-serif leading-snug mb-2 group-hover:text-[#0b3b60] transition-colors">
                 Prelims Factual Revision Dossiers
               </h3>
               <p className="text-xs text-slate-600 leading-relaxed mb-6">
@@ -92,7 +92,7 @@ export default function StudyMaterial() {
               <div className="w-10 h-10 rounded-lg bg-amber-500/10 text-amber-800 flex items-center justify-center mb-4 group-hover:bg-amber-600 group-hover:text-white transition-colors">
                 <FileText className="w-5 h-5" />
               </div>
-              <h3 className="text-base font-bold text-slate-900 mb-2 font-serif group-hover:text-[#0b3b60] transition-colors">
+              <h3 className="text-lg sm:text-xl font-bold text-slate-900 font-serif leading-snug mb-2 group-hover:text-[#0b3b60] transition-colors">
                 Administrative Ethics Case Studies
               </h3>
               <p className="text-xs text-slate-600 leading-relaxed mb-6">

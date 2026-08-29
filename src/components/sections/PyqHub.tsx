@@ -36,7 +36,7 @@ export default function PyqHub() {
       <div className="container">
         <div className="text-center max-w-2xl mx-auto mb-16">
           <span className="badge badge-amber uppercase mb-4">PYQ PDFs</span>
-          <h2 className="text-3xl md:text-4xl font-extrabold text-slate-900 mb-4 tracking-tight font-heading">
+          <h2 className="text-2xl sm:text-3xl lg:text-4xl font-black text-[#0b3b60] font-serif leading-snug mb-4">
             Previous Year Questions
           </h2>
           <p className="text-slate-500 text-base">
@@ -90,7 +90,7 @@ export default function PyqHub() {
                             </span>
                           )}
                         </div>
-                        <h3 className="text-base font-bold text-slate-900 leading-snug mb-3">
+                        <h3 className="text-lg sm:text-xl font-bold text-slate-900 font-serif leading-snug mb-3">
                           {item.title}
                         </h3>
                         {item.tags && item.tags.length > 0 && (

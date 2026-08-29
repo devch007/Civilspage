@@ -81,7 +81,7 @@ export default function Testimonials() {
           viewport={{ once: true }}
           transition={{ duration: 0.5 }}
         >
-          <h2 className="text-xl sm:text-2xl font-black text-[#0b3b60] font-serif">
+          <h2 className="text-2xl sm:text-3xl lg:text-4xl font-black text-[#0b3b60] font-serif leading-snug">
             Experiences of Successful Candidates
           </h2>
         </motion.div>
@@ -109,7 +109,7 @@ export default function Testimonials() {
                   <div className="w-10 h-10 rounded-full bg-[#0b3b60] text-amber-300 font-extrabold text-xs flex items-center justify-center mx-auto mb-2 border-2 border-amber-400">
                     {currentT.avatarInitials}
                   </div>
-                  <h4 className="text-sm font-bold text-slate-900 font-serif">{currentT.name}</h4>
+                  <h4 className="text-base font-bold text-slate-900 font-serif">{currentT.name}</h4>
                   <p className="text-xs font-semibold text-[#0b3b60]">{currentT.service}</p>
                   <span className="inline-block mt-1 text-[10px] font-bold text-slate-500 bg-slate-100 px-2.5 py-0.5 rounded-full border border-slate-200">
                     {currentT.rank}

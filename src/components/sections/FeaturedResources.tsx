@@ -38,7 +38,7 @@ export default function FeaturedResources() {
             <Bookmark className="w-3.5 h-3.5 text-amber-800" />
             Core Academic Publications
           </span>
-          <h2 className="text-2xl sm:text-3xl font-black text-[#0b3b60] font-serif mt-2">
+          <h2 className="text-2xl sm:text-3xl lg:text-4xl font-black text-[#0b3b60] font-serif mt-2 leading-snug">
             Featured UPSC High-Yield Focus Modules
           </h2>
           <p className="text-xs sm:text-sm text-slate-600 mt-1">
@@ -70,7 +70,7 @@ export default function FeaturedResources() {
                     </span>
                   </div>
 
-                  <h3 className="text-base sm:text-lg font-bold text-slate-900 leading-snug mb-2 font-serif">
+                  <h3 className="text-lg sm:text-xl font-bold text-slate-900 font-serif leading-snug mb-2">
                     {item.title}
                   </h3>
 

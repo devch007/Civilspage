@@ -29,7 +29,7 @@ export default function CurrentAffairs() {
         
         {/* Section Header - Compact Centered */}
         <div className="text-center max-w-3xl mx-auto mb-5 space-y-1">
-          <h2 className="text-xl sm:text-2xl font-black text-[#0b3b60] font-serif">
+          <h2 className="text-2xl sm:text-3xl lg:text-4xl font-black text-[#0b3b60] font-serif leading-snug">
             Current News & Views
           </h2>
         </div>
@@ -50,7 +50,7 @@ export default function CurrentAffairs() {
                   href={`/updates/${af.id}`}
                   className="bg-white rounded-lg border border-slate-200 hover:border-[#0b3b60] hover:shadow-xs transition-all p-3 sm:p-3.5 flex items-center justify-between text-left group"
                 >
-                  <h3 className="text-xs sm:text-sm font-bold text-slate-900 group-hover:text-[#0b3b60] transition-colors leading-snug font-serif flex-1 pr-3 line-clamp-2">
+                  <h3 className="text-base sm:text-lg lg:text-xl font-bold text-slate-900 group-hover:text-[#0b3b60] transition-colors leading-snug font-serif flex-1 pr-3 line-clamp-2">
                     {af.title}
                   </h3>
 

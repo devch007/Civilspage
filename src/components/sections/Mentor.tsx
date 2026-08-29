@@ -18,9 +18,9 @@ export default function Mentor() {
             alt="Rajiv Ranjan Singh Portrait" 
             className="w-28 h-28 sm:w-32 sm:h-32 rounded-full object-cover border-4 border-slate-100 shadow-md mb-4"
           />
-          <h2 className="text-2xl sm:text-3xl font-black text-[#0b3b60] font-serif leading-snug">
+          <h2 className="text-2xl sm:text-3xl lg:text-4xl font-black text-[#0b3b60] font-serif leading-snug">
             Rajiv Ranjan Singh
-            <span className="block text-xl sm:text-2xl font-bold text-slate-700 mt-1 font-sans">
+            <span className="block text-lg sm:text-xl font-bold text-slate-700 mt-1 font-serif leading-snug">
               Editor in Chief <i>cum</i> Academic Consultant
             </span>
           </h2>

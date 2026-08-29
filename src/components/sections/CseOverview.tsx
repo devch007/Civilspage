@@ -17,8 +17,8 @@ export default function CseOverview() {
           transition={{ duration: 0.5 }}
         >
           <span className="badge badge-primary">Civil Services Examination</span>
-          <h2>About the UPSC CSE Exam</h2>
-          <p>The Civil Services Examination (CSE) is one of India's most prestigious competitive exams. Understanding its design and scope is your first step towards success.</p>
+          <h2 className="text-2xl sm:text-3xl lg:text-4xl font-black text-[#0b3b60] font-serif leading-snug mt-2">About the UPSC CSE Exam</h2>
+          <p className="text-sm sm:text-base text-slate-700 leading-relaxed font-normal mt-2">The Civil Services Examination (CSE) is one of India's most prestigious competitive exams. Understanding its design and scope is your first step towards success.</p>
         </motion.div>
 
         {/* Premium Bento Grid Layout */}
@@ -38,7 +38,7 @@ export default function CseOverview() {
                   <Calendar className="w-5 h-5" />
                 </div>
                 <div>
-                  <h3 className="text-lg font-bold text-slate-900 leading-tight">Plan of Examination</h3>
+                  <h3 className="text-lg sm:text-xl font-bold text-slate-900 font-serif leading-snug">Plan of Examination</h3>
                   <span className="text-xs text-slate-400 font-semibold">Three integrated stages of evaluation</span>
                 </div>
               </div>
@@ -85,7 +85,7 @@ export default function CseOverview() {
                   <BookOpen className="w-5 h-5" />
                 </div>
                 <div>
-                  <h3 className="text-lg font-bold text-slate-900 leading-tight">Detailed Syllabus</h3>
+                  <h3 className="text-lg sm:text-xl font-bold text-slate-900 font-serif leading-snug">Detailed Syllabus</h3>
                   <span className="text-xs text-slate-400 font-semibold">Core GS curriculum coverage</span>
                 </div>
               </div>
@@ -118,7 +118,7 @@ export default function CseOverview() {
                   <UserCheck className="w-5 h-5" />
                 </div>
                 <div>
-                  <h3 className="text-lg font-bold text-slate-900 leading-tight">Eligibility Criteria</h3>
+                  <h3 className="text-lg sm:text-xl font-bold text-slate-900 font-serif leading-snug">Eligibility Criteria</h3>
                   <span className="text-xs text-slate-400 font-semibold">UPSC requirements checks</span>
                 </div>
               </div>
@@ -155,7 +155,7 @@ export default function CseOverview() {
                   <ShieldQuestion className="w-5 h-5" />
                 </div>
                 <div>
-                  <h3 className="text-lg font-bold text-slate-900 leading-tight">Direct Access Channel</h3>
+                  <h3 className="text-lg sm:text-xl font-bold text-slate-900 font-serif leading-snug">Direct Access Channel</h3>
                   <span className="text-xs text-slate-400 font-semibold">Instant resolution of prep queries</span>
                 </div>
               </div>

@@ -169,8 +169,8 @@ export default function MockQuiz() {
           transition={{ duration: 0.5 }}
         >
           <span className="badge badge-primary">Interactive Practice</span>
-          <h2>Instant UPSC Prelims Mini-Quiz</h2>
-          <p>Test your knowledge with 3 exam-standard UPSC multiple choice questions. Receive instant scoring and in-depth explanations.</p>
+          <h2 className="text-2xl sm:text-3xl lg:text-4xl font-black text-[#0b3b60] font-serif leading-snug mt-2">Instant UPSC Prelims Mini-Quiz</h2>
+          <p className="text-sm sm:text-base text-slate-700 leading-relaxed font-normal mt-2">Test your knowledge with 3 exam-standard UPSC multiple choice questions. Receive instant scoring and in-depth explanations.</p>
         </motion.div>
 
         <div className="glass-card quiz-widget">
@@ -281,8 +281,8 @@ export default function MockQuiz() {
                   >
                     <div className="quiz-result-score-text">{score}/{quizQuestions.length}</div>
                   </div>
-                  <h3>{getResultTitle()}</h3>
-                  <p>{getResultSub()}</p>
+                  <h3 className="text-xl sm:text-2xl font-bold text-slate-900 font-serif leading-snug">{getResultTitle()}</h3>
+                  <p className="text-sm sm:text-base text-slate-600 mt-2">{getResultSub()}</p>
                   <button 
                     className="btn btn-primary flex items-center gap-2 mx-auto" 
                     onClick={handleRetry}
