@@ -14,7 +14,7 @@ export default function Mentor() {
         {/* Section Header */}
         <div className="text-center max-w-3xl mx-auto mb-10">
           <h2 className="text-2xl sm:text-3xl font-black text-[#0b3b60] font-serif">
-            Academic Mentorship: Rajiv Ranjan Singh
+            Rajiv Ranjan Singh: Editor in Chief <i>cum</i> Academic Consultant
           </h2>
           <p className="text-sm sm:text-base text-slate-600 mt-2 font-normal">
             Guiding prospective civil servants in Constitution, Contemporary Governance & Applied Administrative Ethics.
