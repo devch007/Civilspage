@@ -3,6 +3,7 @@
 import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { BookOpen, Shield, Compass, ArrowUpRight, Sparkles, Calendar, Loader2 } from 'lucide-react';
+import FontSizeSlider from '@/components/ui/FontSizeSlider';
 
 interface Affair {
   id: string;
@@ -26,6 +27,7 @@ export default function EthicsSubjectPage() {
   const [updates, setUpdates] = useState<Affair[]>([]);
   const [subjectPosts, setSubjectPosts] = useState<SubjectPost[]>([]);
   const [loadingUpdates, setLoadingUpdates] = useState<boolean>(true);
+  const [fontSize, setFontSize] = useState<number>(15);
 
   useEffect(() => {
     fetch('/api/content/affairs?category=ethics')
@@ -118,8 +120,18 @@ export default function EthicsSubjectPage() {
           </aside>
 
           {/* Reading Content Panel */}
-          <div className="min-w-0">
+          <div className="min-w-0 space-y-6">
             
+            {/* Font Size Toolbar */}
+            <div className="flex justify-end">
+              <FontSizeSlider 
+                fontSize={fontSize} 
+                setFontSize={setFontSize} 
+                className="w-full sm:w-auto"
+              />
+            </div>
+
+            <div style={{ fontSize: `${fontSize}px` }} className="transition-all duration-100 space-y-12">
             {/* 1. INTRODUCTION */}
             <section id="intro" className="subject-section">
               <h2 className="subject-section-title">
@@ -277,6 +289,7 @@ export default function EthicsSubjectPage() {
               )}
             </section>
 
+            </div>
           </div>
         </div>
       </div>

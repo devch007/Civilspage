@@ -7,6 +7,7 @@ import {
   Calendar, Tag, BookOpen, ArrowLeft, Loader2,
   Bookmark, MessageSquare
 } from 'lucide-react';
+import FontSizeSlider from '@/components/ui/FontSizeSlider';
 
 interface Affair {
   id: string;
@@ -27,6 +28,7 @@ export default function UpdateDetail({ params }: PageProps) {
   const [update, setUpdate] = useState<Affair | null>(null);
   const [loading, setLoading] = useState(true);
   const [errorMsg, setErrorMsg] = useState('');
+  const [fontSize, setFontSize] = useState<number>(16);
 
   useEffect(() => {
     // Scroll immediately to top of page
@@ -67,10 +69,21 @@ export default function UpdateDetail({ params }: PageProps) {
     <main className="min-h-screen bg-[#FAF9F6] pt-12 sm:pt-14 pb-16">
       <div className="container max-w-4xl mx-auto px-4 sm:px-6">
 
-        <Link href={backUrl} className="inline-flex items-center gap-2 text-sm font-bold text-slate-500 hover:text-indigo-600 transition-colors mb-6">
-          <ArrowLeft className="w-4 h-4" />
-          <span>{backText}</span>
-        </Link>
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6">
+          <Link href={backUrl} className="inline-flex items-center gap-2 text-sm font-bold text-slate-500 hover:text-indigo-600 transition-colors">
+            <ArrowLeft className="w-4 h-4" />
+            <span>{backText}</span>
+          </Link>
+
+          {/* Top font size slider */}
+          {update && !loading && (
+            <FontSizeSlider 
+              fontSize={fontSize} 
+              setFontSize={setFontSize} 
+              className="sm:w-auto"
+            />
+          )}
+        </div>
 
         {loading ? (
           <div className="flex flex-col items-center justify-center py-20 gap-3 bg-white rounded-2xl border border-slate-100 shadow-sm">
@@ -115,8 +128,11 @@ export default function UpdateDetail({ params }: PageProps) {
               {update.title}
             </h1>
 
-            {/* Content */}
-            <div className="prose max-w-none text-[#1f2937] leading-relaxed text-sm sm:text-base">
+            {/* Content with dynamic font size */}
+            <div 
+              className="prose max-w-none text-[#1f2937] leading-relaxed transition-all duration-100"
+              style={{ fontSize: `${fontSize}px`, lineHeight: `${Math.round(fontSize * 1.7)}px` }}
+            >
               {update.content ? (
                 <p className="mb-4 whitespace-pre-wrap">{update.content}</p>
               ) : (

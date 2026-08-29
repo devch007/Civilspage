@@ -33,6 +33,7 @@ import {
   FileText,
   Users
 } from 'lucide-react';
+import FontSizeSlider from '@/components/ui/FontSizeSlider';
 
 type TabType = 'about-exam' | 'syllabus' | 'reading' | 'approach' | 'polity' | 'ethics' | 'pubad';
 type SyllabusStage = 'prelims' | 'mains' | 'optionals';
@@ -44,6 +45,7 @@ export default function AboutCse() {
   const [syllabusStage, setSyllabusStage] = useState<SyllabusStage>('prelims');
   const [selectedOptional, setSelectedOptional] = useState<OptionalChoice>('pubad');
   const [polityStage, setPolityStage] = useState<PolityStage>('gs2');
+  const [fontSize, setFontSize] = useState<number>(15);
 
   // Sync hash routing on page load
   useEffect(() => {
@@ -163,9 +165,18 @@ export default function AboutCse() {
       </section>
 
       {/* 2. MAIN CONTAINER WITH TAB PANELS */}
-      <div className="max-w-6xl mx-auto px-4 sm:px-8 py-10">
+      <div className="max-w-6xl mx-auto px-4 sm:px-8 py-8 space-y-6">
         
-        {/* ABOUT EXAM TAB */}
+        {/* Reading Toolbar with Font Size Slider */}
+        <div className="flex justify-end">
+          <FontSizeSlider 
+            fontSize={fontSize} 
+            setFontSize={setFontSize} 
+            className="w-full sm:w-auto"
+          />
+        </div>
+
+        <div style={{ fontSize: `${fontSize}px` }} className="transition-all duration-100 space-y-8">
         {activeTab === 'about-exam' && (
           <motion.section 
             key="tab-about-exam" 
@@ -2359,6 +2370,7 @@ export default function AboutCse() {
           </motion.section>
         )}
 
+        </div>
       </div>
     </div>
   );
