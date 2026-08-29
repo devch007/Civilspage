@@ -35,9 +35,12 @@ export default function Mentor() {
             viewport={{ once: true }}
             transition={{ duration: 0.5 }}
           >
-            <div className="space-y-3">
+            <div className="space-y-4">
               <p className="text-sm sm:text-base text-slate-700 leading-relaxed font-normal">
-                Rajiv Ranjan Singh (MPA, NET) is a distinguished academician and consultant who has been mentoring Civils Services aspirants across India for over two decades. As the Founder Director of INTERFACE IAS Academy, Chairman of Sanchetna Panchayat Vikas Sabha, Editor of Contemporary Perspective, and Editor-in-Chief of Civils PAGE24, he has played a pivotal role in shaping the academic and administrative discourse in the field of competitive examinations.
+                Rajiv Ranjan Singh (MPA, NET) is a distinguished academician and consultant who has been mentoring Civil Services aspirants across India for over two decades. As the Founder Director of INTERFACE IAS Academy, Chairman of Sanchetna Panchayat Vikas Sabha, Editor of Contemporary Perspective, and Editor-in-Chief of Civils PAGE 24, he has played a pivotal role in shaping the academic and administrative discourse in the field of competitive examinations. He has played a proactive role in the growth of SAMKALAP IAS, a unit of Madhav Sharshti Nyas, and has been associated with the organization since its inception, contributing to its mission of socially committed Civil Services Examination (CSE) preparation.
+              </p>
+              <p className="text-sm sm:text-base text-slate-700 leading-relaxed font-normal">
+                A respected member of several professional and academic bodies including the Ethnographic and Folk Culture Society, Author's Guild of India, and the Red Cross Society, he has also participated in numerous national and international seminars and conferences. His scholarly contributions include several well-received articles and research papers focused on contemporary political and administrative issues.
               </p>
             </div>
           </motion.div>
