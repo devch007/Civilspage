@@ -36,7 +36,7 @@ export default function Mentor() {
                 Pedagogy Built on Analytical Rigor & Constitutional Values
               </h3>
               <p className="text-sm sm:text-base text-slate-700 leading-relaxed font-normal">
-                Rajiv Ranjan Singh (MPA, NET) is a distinguished academician and consultant who has been mentoring Civils Services aspirants across India for over two decades. As the Founder Director of INTERFACE IAS Academy, Chairman of Sanchetna Panchayat Vikas Sabha, Editor of Contemporary Perspective, and Editor-in-Chief of Civils PAGE24, he has played a pivotal role in shaping the academic and administrative discourse in the field of competitive examinations.
+                Rajiv Ranjan Singh (MPA, NET) is a distinguished academician and consultant who has been mentoring Civils Services aspirants across India for over two decades. As the Founder Director of INTERFACE IAS Academy, Chairman of Sanchetna Panchayat Vikas Sabha, Editor of Contemporary Perspective, and Editor in Chief <i>cum</i> Academic Consultant of Civils PAGE, he has played a pivotal role in shaping the academic and administrative discourse in the field of competitive examinations.
               </p>
             </div>
           </motion.div>
