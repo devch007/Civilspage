@@ -408,18 +408,42 @@ export default function Header() {
                 </Link>
               </li>
 
-              {/* Ethics Case Studies */}
-              <li>
-                <Link
-                  href="/subject/ethics"
-                  className={`block px-2.5 py-2.5 transition-colors border-b-2 ${
-                    pathname === '/subject/ethics' 
+              {/* Ethics Dropdown */}
+              <li 
+                className="relative group"
+                onMouseEnter={() => setActiveDropdown('ethics')}
+                onMouseLeave={() => setActiveDropdown(null)}
+              >
+                <button
+                  onClick={() => toggleDropdown('ethics')}
+                  className={`flex items-center gap-1 px-2.5 py-2.5 transition-colors border-b-2 ${
+                    pathname.includes('category=Ethical') || pathname.includes('ethics') 
                       ? 'bg-[#06243d] text-amber-300 border-amber-400 font-bold' 
                       : 'border-transparent hover:bg-[#082e4e] hover:text-amber-200'
                   }`}
                 >
-                  Ethical Case Studies
-                </Link>
+                  <span>Ethics</span>
+                  <ChevronDown className="w-3.5 h-3.5 ml-0.5 opacity-80 group-hover:rotate-180 transition-transform" />
+                </button>
+
+                {activeDropdown === 'ethics' && (
+                  <div className="absolute left-0 top-full w-52 bg-white text-slate-800 rounded-b-md shadow-2xl border-t-2 border-amber-500 py-1 z-50 animate-in fade-in slide-in-from-top-1 duration-150">
+                    <Link 
+                      href="/updates?category=Ethical Issues" 
+                      className="flex items-center gap-2 px-4 py-2 text-xs hover:bg-slate-100 text-slate-700"
+                    >
+                      <Sparkles className="w-3.5 h-3.5 text-indigo-600" />
+                      Ethical Issues
+                    </Link>
+                    <Link 
+                      href="/updates?category=Ethical Case Studies" 
+                      className="flex items-center gap-2 px-4 py-2 text-xs hover:bg-slate-100 text-slate-700"
+                    >
+                      <Scale className="w-3.5 h-3.5 text-emerald-600" />
+                      Ethical Case Studies
+                    </Link>
+                  </div>
+                )}
               </li>
 
               {/* Practice & Tests Dropdown */}
@@ -596,13 +620,30 @@ export default function Header() {
                 <ShieldAlert className="w-4 h-4 text-slate-500" /> Commissions/ Committees
               </Link>
 
-              <Link 
-                href="/subject/ethics" 
-                className={`flex items-center gap-2 px-3 py-2 rounded-md ${pathname === '/subject/ethics' ? 'bg-slate-100 text-[#0b3b60] font-bold' : 'hover:bg-slate-50'}`}
-                onClick={() => setMobileMenuOpen(false)}
-              >
-                <Scale className="w-4 h-4 text-[#0b3b60]" /> Ethical Case Studies
-              </Link>
+              {/* Ethics Accordion */}
+              <div className="border-t border-slate-100 pt-1">
+                <button
+                  onClick={() => toggleDropdown('mobile-ethics')}
+                  className="w-full flex items-center justify-between px-3 py-2 rounded-md hover:bg-slate-50 text-slate-800 font-semibold"
+                >
+                  <span className="flex items-center gap-2">
+                    <Scale className="w-4 h-4 text-[#0b3b60]" />
+                    Ethics
+                  </span>
+                  <ChevronDown className={`w-4 h-4 transition-transform ${activeDropdown === 'mobile-ethics' ? 'rotate-180' : ''}`} />
+                </button>
+
+                {activeDropdown === 'mobile-ethics' && (
+                  <div className="pl-6 pr-2 py-1 space-y-1 bg-slate-50 rounded-md text-xs">
+                    <Link href="/updates?category=Ethical Issues" className="block py-1 text-slate-600" onClick={() => setMobileMenuOpen(false)}>
+                      • Ethical Issues
+                    </Link>
+                    <Link href="/updates?category=Ethical Case Studies" className="block py-1 text-slate-600" onClick={() => setMobileMenuOpen(false)}>
+                      • Ethical Case Studies
+                    </Link>
+                  </div>
+                )}
+              </div>
 
               {/* Practice & PYQs Accordion */}
               <div className="border-t border-slate-100 pt-1">

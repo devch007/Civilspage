@@ -41,7 +41,8 @@ export default async function DashboardPage() {
     { title: 'Court Judgements', param: 'Court Judgements', icon: Scale, desc: 'Supreme Court & High Court Rulings' },
     { title: 'Policies & Programs', param: 'Policies %26 Programs', icon: FileCheck, desc: 'Government Schemes & Initiatives' },
     { title: 'Commissions & Committees', param: 'Commissions %26 Committees', icon: Award, desc: 'ARC, Sarkaria & National Reports' },
-    { title: 'Ethical Case Studies', param: 'Ethical Case Studies', icon: Sparkles, desc: 'GS-IV Applied Governance Diagnostics' },
+    { title: 'Ethical Issues', param: 'Ethical Issues', icon: Sparkles, desc: 'GS-IV Applied Governance & Moral Issues' },
+    { title: 'Ethical Case Studies', param: 'Ethical Case Studies', icon: Sparkles, desc: 'GS-IV Applied Case Study Diagnostics' },
   ];
 
   const recentAffairs = affairs.slice(0, 5);

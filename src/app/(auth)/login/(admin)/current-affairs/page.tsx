@@ -20,6 +20,7 @@ const CATEGORIES = [
   'Court Judgements',
   'Policies & Programs',
   'Commissions & Committees',
+  'Ethical Issues',
   'Ethical Case Studies',
   'Ethics',
   'General',
@@ -363,7 +364,7 @@ export default function CurrentNewsViewsPage() {
               >
                 All
               </button>
-              {['Legislation', 'Constitutional Amendments', 'Court Judgements', 'Policies & Programs', 'Commissions & Committees', 'Ethical Case Studies'].map((cat) => (
+              {['Legislation', 'Constitutional Amendments', 'Court Judgements', 'Policies & Programs', 'Commissions & Committees', 'Ethical Issues', 'Ethical Case Studies'].map((cat) => (
                 <button
                   key={cat}
                   onClick={() => setFilterCategory(cat)}
