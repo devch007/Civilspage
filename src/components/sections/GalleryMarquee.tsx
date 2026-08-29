@@ -4,7 +4,7 @@ import React from 'react';
 
 export default function GalleryMarquee() {
   return (
-    <section id="gallery-marquee" className="py-10 bg-[#FAF9F6] border-b border-slate-200 overflow-hidden">
+    <section id="gallery-marquee" className="py-6 sm:py-8 bg-[#FAF9F6] border-b border-slate-200 overflow-hidden">
       <div className="max-w-7xl mx-auto px-4 sm:px-8 mb-6 text-center">
         <h2 className="text-2xl sm:text-3xl lg:text-4xl font-black text-[#0b3b60] font-serif leading-snug">
           Seminars & Interactive Sessions
