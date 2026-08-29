@@ -314,10 +314,10 @@ export default function Header() {
           )}
         </div>
 
-        {/* 4. Primary Deep Navy Navigation Bar - Direct Main Items */}
+        {/* 4. Primary Deep Navy Navigation Bar - Centered Main Items */}
         <nav className="bg-[#0b3b60] text-white border-b-2 border-amber-500 shadow-inner hidden lg:block overflow-x-auto scrollbar-none">
-          <div className="max-w-7xl mx-auto px-2 sm:px-4 flex items-center justify-between">
-            <ul className="flex items-center text-[11.5px] font-semibold tracking-normal flex-nowrap whitespace-nowrap">
+          <div className="max-w-7xl mx-auto px-4 flex items-center justify-center">
+            <ul className="flex items-center justify-center text-[11.5px] font-semibold tracking-normal flex-nowrap whitespace-nowrap mx-auto">
               {/* Home */}
               <li>
                 <Link
@@ -555,7 +555,7 @@ export default function Header() {
       {/* Spacer to push content down cleanly beneath fixed multi-tier header */}
       <div className="h-[78px] lg:h-[124px]"></div>
 
-      {/* 5. Mobile Navigation Drawer */}
+      {/* 5. Enhanced Mobile Navigation Drawer */}
       <AnimatePresence>
         {mobileMenuOpen && (
           <div className="fixed inset-0 z-50 lg:hidden">
@@ -565,7 +565,7 @@ export default function Header() {
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
               transition={{ duration: 0.2 }}
-              className="fixed inset-0 bg-slate-900/60 backdrop-blur-sm"
+              className="fixed inset-0 bg-slate-950/70 backdrop-blur-xs"
               onClick={() => setMobileMenuOpen(false)}
             />
 
@@ -574,164 +574,290 @@ export default function Header() {
               initial={{ x: '100%' }}
               animate={{ x: 0 }}
               exit={{ x: '100%' }}
-              transition={{ type: 'spring', damping: 25, stiffness: 200 }}
-              className="fixed top-0 right-0 bottom-0 w-[85%] max-w-[320px] bg-white shadow-2xl flex flex-col z-50 overflow-y-auto"
+              transition={{ type: 'spring', damping: 28, stiffness: 260 }}
+              className="fixed top-0 right-0 bottom-0 w-[88%] max-w-[340px] bg-slate-50 shadow-2xl flex flex-col z-50 overflow-hidden"
             >
-              
-              {/* Drawer Header with Tricolor accent & premium brand header */}
-              <div className="h-[3px] w-full flex shrink-0">
+              {/* National Flag Header Accent */}
+              <div className="h-[3.5px] w-full flex shrink-0">
                 <div className="w-1/3 bg-[#FF9933]"></div>
-                <div className="w-1/3 bg-[#FFFFFF] border-y border-slate-100"></div>
+                <div className="w-1/3 bg-[#FFFFFF] border-y border-slate-200"></div>
                 <div className="w-1/3 bg-[#138808]"></div>
               </div>
 
-              <div className="bg-white text-slate-800 p-5 border-b border-slate-200 flex items-center justify-between shrink-0">
+              {/* Drawer Top Header */}
+              <div className="bg-[#0b3b60] text-white p-4 flex items-center justify-between shrink-0 shadow-xs">
                 <div className="flex items-center gap-2.5">
                   <img 
                     src="/emblem.png" 
                     alt="National Emblem of India" 
-                    className="h-8 w-auto object-contain" 
+                    className="h-9 w-auto object-contain brightness-110" 
                   />
                   <div>
-                    <h2 className="text-xl font-black tracking-wider text-[#0b3b60] leading-none font-serif">Civils PAGE</h2>
+                    <h2 className="text-lg font-black tracking-wider text-white leading-tight font-serif">Civils PAGE</h2>
+                    <p className="text-[10px] text-amber-300 font-medium tracking-tight">Dedicated UPSC Resource Hub</p>
                   </div>
                 </div>
                 <button 
                   onClick={() => setMobileMenuOpen(false)}
-                  className="p-1.5 rounded-md hover:bg-slate-100 text-slate-500 hover:text-slate-800 transition-colors"
+                  className="p-1.5 rounded-lg bg-white/10 hover:bg-white/20 text-white transition-colors"
                   aria-label="Close menu"
                 >
-                  <X className="w-6 h-6" />
+                  <X className="w-5 h-5" />
                 </button>
               </div>
 
-              {/* Drawer Links */}
-              <div className="py-4 px-4 space-y-2 text-sm font-medium text-slate-700">
-              <Link 
-                href="/" 
-                className={`flex items-center gap-2 px-3 py-2 rounded-md ${pathname === '/' ? 'bg-slate-100 text-[#0b3b60] font-bold' : 'hover:bg-slate-50'}`}
-                onClick={() => setMobileMenuOpen(false)}
-              >
-                <Home className="w-4 h-4 text-[#0b3b60]" /> Home
-              </Link>
+              {/* Search Inside Drawer */}
+              <div className="p-3 bg-white border-b border-slate-200 shrink-0">
+                <form onSubmit={(e) => { handleSearchSubmit(e); setMobileMenuOpen(false); }} className="relative">
+                  <input
+                    type="text"
+                    placeholder="Search Acts, Judgements, Issues..."
+                    value={searchQuery}
+                    onChange={(e) => setSearchQuery(e.target.value)}
+                    className="w-full pl-8 pr-3 py-2 text-xs bg-slate-50 border border-slate-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#0b3b60] focus:bg-white transition-all text-slate-800"
+                  />
+                  <Search className="w-3.5 h-3.5 text-slate-400 absolute left-2.5 top-1/2 -translate-y-1/2" />
+                </form>
+              </div>
 
-              <Link 
-                href="/aboutcse" 
-                className={`flex items-center gap-2 px-3 py-2 rounded-md ${pathname === '/aboutcse' ? 'bg-slate-100 text-[#0b3b60] font-bold' : 'hover:bg-slate-50'}`}
-                onClick={() => setMobileMenuOpen(false)}
-              >
-                <BookOpen className="w-4 h-4 text-[#0b3b60]" /> Civil Services Examination
-              </Link>
-
-              {/* Legislation Accordion */}
-              <div className="border-t border-slate-100 pt-1">
-                <button
-                  onClick={() => toggleDropdown('mobile-legislation')}
-                  className="w-full flex items-center justify-between px-3 py-2 rounded-md hover:bg-slate-50 text-slate-800 font-semibold"
-                >
-                  <span>
-                    Legislation
+              {/* Scrollable Navigation Body */}
+              <div className="flex-1 overflow-y-auto p-3 space-y-4 text-xs">
+                
+                {/* Group 1: Core Navigation */}
+                <div className="space-y-1">
+                  <span className="px-2 text-[10px] font-bold tracking-wider text-slate-400 uppercase font-mono">
+                    Main Directory
                   </span>
-                  <ChevronDown className={`w-4 h-4 transition-transform ${activeDropdown === 'mobile-legislation' ? 'rotate-180' : ''}`} />
-                </button>
 
-                {activeDropdown === 'mobile-legislation' && (
-                  <div className="pl-6 pr-2 py-1 space-y-1 bg-slate-50 rounded-md text-xs">
-                    <Link href="/updates?category=Constitutional Amendments" className="block py-1 text-slate-600" onClick={() => setMobileMenuOpen(false)}>
-                      • Constitutional Amendments
-                    </Link>
-                    <Link href="/updates?category=Ordinary Laws" className="block py-1 text-slate-600" onClick={() => setMobileMenuOpen(false)}>
-                      • Ordinary Laws
-                    </Link>
-                  </div>
-                )}
-              </div>
+                  <Link 
+                    href="/" 
+                    className={`flex items-center gap-2.5 px-3 py-2.5 rounded-xl font-bold transition-all ${
+                      pathname === '/' 
+                        ? 'bg-[#0b3b60] text-white shadow-xs' 
+                        : 'text-slate-700 bg-white border border-slate-100 hover:bg-slate-100'
+                    }`}
+                    onClick={() => setMobileMenuOpen(false)}
+                  >
+                    <Home className={`w-4 h-4 ${pathname === '/' ? 'text-amber-300' : 'text-[#0b3b60]'}`} /> 
+                    <span>Home</span>
+                  </Link>
 
-              <Link 
-                href="/updates?category=Court Judgements" 
-                className="flex items-center gap-2 px-3 py-2 rounded-md hover:bg-slate-50 text-slate-700"
-                onClick={() => setMobileMenuOpen(false)}
-              >
-                <Scale className="w-4 h-4 text-slate-500" /> Court Judgements
-              </Link>
+                  <Link 
+                    href="/aboutcse" 
+                    className={`flex items-center gap-2.5 px-3 py-2.5 rounded-xl font-bold transition-all ${
+                      pathname === '/aboutcse' 
+                        ? 'bg-[#0b3b60] text-white shadow-xs' 
+                        : 'text-slate-700 bg-white border border-slate-100 hover:bg-slate-100'
+                    }`}
+                    onClick={() => setMobileMenuOpen(false)}
+                  >
+                    <BookOpen className={`w-4 h-4 ${pathname === '/aboutcse' ? 'text-amber-300' : 'text-[#0b3b60]'}`} /> 
+                    <span>Civil Services Examination</span>
+                  </Link>
+                </div>
 
-              <Link 
-                href="/updates?category=Policies %26 Programs" 
-                className="flex items-center gap-2 px-3 py-2 rounded-md hover:bg-slate-50 text-slate-700"
-                onClick={() => setMobileMenuOpen(false)}
-              >
-                <FileText className="w-4 h-4 text-slate-500" /> Policies/ Programme
-              </Link>
-
-              <Link 
-                href="/updates?category=Commissions %26 Committees" 
-                className="flex items-center gap-2 px-3 py-2 rounded-md hover:bg-slate-50 text-slate-700"
-                onClick={() => setMobileMenuOpen(false)}
-              >
-                <ShieldAlert className="w-4 h-4 text-slate-500" /> Commissions/ Committees
-              </Link>
-
-              {/* Ethics Accordion */}
-              <div className="border-t border-slate-100 pt-1">
-                <button
-                  onClick={() => toggleDropdown('mobile-ethics')}
-                  className="w-full flex items-center justify-between px-3 py-2 rounded-md hover:bg-slate-50 text-slate-800 font-semibold"
-                >
-                  <span className="flex items-center gap-2">
-                    <Scale className="w-4 h-4 text-[#0b3b60]" />
-                    Ethics
+                {/* Group 2: Contemporary Perspectives */}
+                <div className="space-y-1">
+                  <span className="px-2 text-[10px] font-bold tracking-wider text-slate-400 uppercase font-mono">
+                    Contemporary Perspectives
                   </span>
-                  <ChevronDown className={`w-4 h-4 transition-transform ${activeDropdown === 'mobile-ethics' ? 'rotate-180' : ''}`} />
-                </button>
 
-                {activeDropdown === 'mobile-ethics' && (
-                  <div className="pl-6 pr-2 py-1 space-y-1 bg-slate-50 rounded-md text-xs">
-                    <Link href="/updates?category=Ethical Issues" className="block py-1 text-slate-600" onClick={() => setMobileMenuOpen(false)}>
-                      • Ethical Issues
-                    </Link>
-                    <Link href="/updates?category=Ethical Case Studies" className="block py-1 text-slate-600" onClick={() => setMobileMenuOpen(false)}>
-                      • Ethical Case Studies
-                    </Link>
+                  {/* Legislation Accordion */}
+                  <div className="bg-white border border-slate-100 rounded-xl overflow-hidden shadow-2xs">
+                    <button
+                      onClick={() => toggleDropdown('mobile-legislation')}
+                      className="w-full flex items-center justify-between px-3 py-2.5 font-bold text-slate-800 hover:bg-slate-50 transition-colors"
+                    >
+                      <span className="flex items-center gap-2.5">
+                        <Gavel className="w-4 h-4 text-[#0b3b60]" />
+                        Legislation
+                      </span>
+                      <ChevronDown className={`w-4 h-4 text-slate-400 transition-transform duration-200 ${activeDropdown === 'mobile-legislation' ? 'rotate-180 text-[#0b3b60]' : ''}`} />
+                    </button>
+
+                    {activeDropdown === 'mobile-legislation' && (
+                      <div className="p-2 pt-0 space-y-1 bg-slate-50/70 border-t border-slate-100 animate-in fade-in duration-150">
+                        <Link 
+                          href="/updates?category=Constitutional Amendments" 
+                          className="flex items-center gap-2 px-3 py-2 text-slate-600 hover:text-[#0b3b60] hover:bg-white rounded-lg font-medium transition-all"
+                          onClick={() => setMobileMenuOpen(false)}
+                        >
+                          <Layers className="w-3.5 h-3.5 text-indigo-600" />
+                          <span>Constitutional Amendments</span>
+                        </Link>
+                        <Link 
+                          href="/updates?category=Ordinary Laws" 
+                          className="flex items-center gap-2 px-3 py-2 text-slate-600 hover:text-[#0b3b60] hover:bg-white rounded-lg font-medium transition-all"
+                          onClick={() => setMobileMenuOpen(false)}
+                        >
+                          <Gavel className="w-3.5 h-3.5 text-amber-600" />
+                          <span>Ordinary Laws</span>
+                        </Link>
+                      </div>
+                    )}
                   </div>
-                )}
-              </div>
 
-              {/* Practice & PYQs Accordion */}
-              <div className="border-t border-slate-100 pt-1">
-                <button
-                  onClick={() => toggleDropdown('mobile-practice')}
-                  className="w-full flex items-center justify-between px-3 py-2 rounded-md hover:bg-slate-50 text-slate-800 font-semibold"
-                >
-                  <span className="flex items-center gap-2">
-                    <Award className="w-4 h-4 text-[#0b3b60]" />
-                    Practice & Tests
+                  {/* Court Judgements */}
+                  <Link 
+                    href="/updates?category=Court Judgements" 
+                    className={`flex items-center gap-2.5 px-3 py-2.5 rounded-xl font-bold transition-all ${
+                      pathname.includes('category=Court') 
+                        ? 'bg-[#0b3b60] text-white shadow-xs' 
+                        : 'text-slate-700 bg-white border border-slate-100 hover:bg-slate-100'
+                    }`}
+                    onClick={() => setMobileMenuOpen(false)}
+                  >
+                    <Scale className={`w-4 h-4 ${pathname.includes('category=Court') ? 'text-amber-300' : 'text-[#0b3b60]'}`} /> 
+                    <span>Court Judgements</span>
+                  </Link>
+
+                  {/* Policies / Programmes */}
+                  <Link 
+                    href="/updates?category=Policies %26 Programs" 
+                    className={`flex items-center gap-2.5 px-3 py-2.5 rounded-xl font-bold transition-all ${
+                      pathname.includes('category=Policies') 
+                        ? 'bg-[#0b3b60] text-white shadow-xs' 
+                        : 'text-slate-700 bg-white border border-slate-100 hover:bg-slate-100'
+                    }`}
+                    onClick={() => setMobileMenuOpen(false)}
+                  >
+                    <FileText className={`w-4 h-4 ${pathname.includes('category=Policies') ? 'text-amber-300' : 'text-[#0b3b60]'}`} /> 
+                    <span>Policies/ Programme</span>
+                  </Link>
+
+                  {/* Commissions / Committees */}
+                  <Link 
+                    href="/updates?category=Commissions %26 Committees" 
+                    className={`flex items-center gap-2.5 px-3 py-2.5 rounded-xl font-bold transition-all ${
+                      pathname.includes('category=Commissions') 
+                        ? 'bg-[#0b3b60] text-white shadow-xs' 
+                        : 'text-slate-700 bg-white border border-slate-100 hover:bg-slate-100'
+                    }`}
+                    onClick={() => setMobileMenuOpen(false)}
+                  >
+                    <ShieldAlert className={`w-4 h-4 ${pathname.includes('category=Commissions') ? 'text-amber-300' : 'text-[#0b3b60]'}`} /> 
+                    <span>Commissions/ Committees</span>
+                  </Link>
+
+                  {/* Ethics Accordion */}
+                  <div className="bg-white border border-slate-100 rounded-xl overflow-hidden shadow-2xs">
+                    <button
+                      onClick={() => toggleDropdown('mobile-ethics')}
+                      className="w-full flex items-center justify-between px-3 py-2.5 font-bold text-slate-800 hover:bg-slate-50 transition-colors"
+                    >
+                      <span className="flex items-center gap-2.5">
+                        <Sparkles className="w-4 h-4 text-[#0b3b60]" />
+                        Ethics
+                      </span>
+                      <ChevronDown className={`w-4 h-4 text-slate-400 transition-transform duration-200 ${activeDropdown === 'mobile-ethics' ? 'rotate-180 text-[#0b3b60]' : ''}`} />
+                    </button>
+
+                    {activeDropdown === 'mobile-ethics' && (
+                      <div className="p-2 pt-0 space-y-1 bg-slate-50/70 border-t border-slate-100 animate-in fade-in duration-150">
+                        <Link 
+                          href="/updates?category=Ethical Issues" 
+                          className="flex items-center gap-2 px-3 py-2 text-slate-600 hover:text-[#0b3b60] hover:bg-white rounded-lg font-medium transition-all"
+                          onClick={() => setMobileMenuOpen(false)}
+                        >
+                          <Sparkles className="w-3.5 h-3.5 text-indigo-600" />
+                          <span>Ethical Issues</span>
+                        </Link>
+                        <Link 
+                          href="/updates?category=Ethical Case Studies" 
+                          className="flex items-center gap-2 px-3 py-2 text-slate-600 hover:text-[#0b3b60] hover:bg-white rounded-lg font-medium transition-all"
+                          onClick={() => setMobileMenuOpen(false)}
+                        >
+                          <Scale className="w-3.5 h-3.5 text-emerald-600" />
+                          <span>Ethical Case Studies</span>
+                        </Link>
+                      </div>
+                    )}
+                  </div>
+                </div>
+
+                {/* Group 3: Practice & Student Support */}
+                <div className="space-y-1">
+                  <span className="px-2 text-[10px] font-bold tracking-wider text-slate-400 uppercase font-mono">
+                    Evaluation & Direct Query
                   </span>
-                  <ChevronDown className={`w-4 h-4 transition-transform ${activeDropdown === 'mobile-practice' ? 'rotate-180' : ''}`} />
-                </button>
 
-                {activeDropdown === 'mobile-practice' && (
-                  <div className="pl-6 pr-2 py-1 space-y-1 bg-slate-50 rounded-md text-xs">
-                    <Link href="/pyqs" className="block py-1 text-slate-600" onClick={() => setMobileMenuOpen(false)}>
-                      • PYQ Bank
-                    </Link>
-                    <Link href={getHomeLink('#mock-test')} className="block py-1 text-slate-600" onClick={() => setMobileMenuOpen(false)}>
-                      • Mock Quiz
-                    </Link>
-                    <Link href="/updates?category=Model Answers" className="block py-1 text-slate-600" onClick={() => setMobileMenuOpen(false)}>
-                      • Model Answers
-                    </Link>
+                  {/* Practice & Tests Accordion */}
+                  <div className="bg-white border border-slate-100 rounded-xl overflow-hidden shadow-2xs">
+                    <button
+                      onClick={() => toggleDropdown('mobile-practice')}
+                      className="w-full flex items-center justify-between px-3 py-2.5 font-bold text-slate-800 hover:bg-slate-50 transition-colors"
+                    >
+                      <span className="flex items-center gap-2.5">
+                        <Award className="w-4 h-4 text-[#0b3b60]" />
+                        Practice & Tests
+                      </span>
+                      <ChevronDown className={`w-4 h-4 text-slate-400 transition-transform duration-200 ${activeDropdown === 'mobile-practice' ? 'rotate-180 text-[#0b3b60]' : ''}`} />
+                    </button>
+
+                    {activeDropdown === 'mobile-practice' && (
+                      <div className="p-2 pt-0 space-y-1 bg-slate-50/70 border-t border-slate-100 animate-in fade-in duration-150">
+                        <Link 
+                          href="/pyqs" 
+                          className="flex items-center gap-2 px-3 py-2 text-slate-600 hover:text-[#0b3b60] hover:bg-white rounded-lg font-medium transition-all"
+                          onClick={() => setMobileMenuOpen(false)}
+                        >
+                          <BookOpen className="w-3.5 h-3.5 text-indigo-600" />
+                          <span>Topicwise PYQ Archive</span>
+                        </Link>
+                        <Link 
+                          href={getHomeLink('#mock-test')} 
+                          className="flex items-center gap-2 px-3 py-2 text-slate-600 hover:text-[#0b3b60] hover:bg-white rounded-lg font-medium transition-all"
+                          onClick={() => setMobileMenuOpen(false)}
+                        >
+                          <Award className="w-3.5 h-3.5 text-emerald-600" />
+                          <span>Daily Practice Quiz</span>
+                        </Link>
+                        <Link 
+                          href="/updates?category=Model Answers" 
+                          className="flex items-center gap-2 px-3 py-2 text-slate-600 hover:text-[#0b3b60] hover:bg-white rounded-lg font-medium transition-all"
+                          onClick={() => setMobileMenuOpen(false)}
+                        >
+                          <FileText className="w-3.5 h-3.5 text-amber-600" />
+                          <span>Mains Model Answers</span>
+                        </Link>
+                      </div>
+                    )}
                   </div>
-                )}
+
+                  <Link 
+                    href="/direct-query" 
+                    className={`flex items-center gap-2.5 px-3 py-2.5 rounded-xl font-bold transition-all ${
+                      pathname === '/direct-query' 
+                        ? 'bg-[#0b3b60] text-white shadow-xs' 
+                        : 'text-slate-700 bg-white border border-slate-100 hover:bg-slate-100'
+                    }`}
+                    onClick={() => setMobileMenuOpen(false)}
+                  >
+                    <HelpCircle className={`w-4 h-4 ${pathname === '/direct-query' ? 'text-amber-300' : 'text-[#0b3b60]'}`} /> 
+                    <span>Address your Queries</span>
+                  </Link>
+
+                  <Link 
+                    href="/about-mentor" 
+                    className={`flex items-center gap-2.5 px-3 py-2.5 rounded-xl font-bold transition-all ${
+                      pathname === '/about-mentor' 
+                        ? 'bg-[#0b3b60] text-white shadow-xs' 
+                        : 'text-slate-700 bg-white border border-slate-100 hover:bg-slate-100'
+                    }`}
+                    onClick={() => setMobileMenuOpen(false)}
+                  >
+                    <Award className={`w-4 h-4 ${pathname === '/about-mentor' ? 'text-amber-300' : 'text-[#0b3b60]'}`} /> 
+                    <span>About Rajiv Ranjan Singh</span>
+                  </Link>
+                </div>
               </div>
 
-              <Link 
-                href="/direct-query" 
-                className={`flex items-center gap-2 px-3 py-2 rounded-md ${pathname === '/direct-query' ? 'bg-slate-100 text-[#0b3b60] font-bold' : 'hover:bg-slate-50'}`}
-                onClick={() => setMobileMenuOpen(false)}
-              >
-                <HelpCircle className="w-4 h-4 text-[#0b3b60]" /> Address your Queries
-              </Link>
-            </div>
+              {/* Drawer Footer */}
+              <div className="p-3 bg-white border-t border-slate-200 shrink-0 text-center">
+                <div className="text-[11px] text-slate-500 font-medium">
+                  Mentored by <span className="font-bold text-[#0b3b60]">Rajiv Ranjan Singh</span>
+                </div>
+              </div>
             </motion.div>
           </div>
         )}

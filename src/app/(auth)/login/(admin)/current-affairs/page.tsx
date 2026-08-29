@@ -24,12 +24,8 @@ const CATEGORIES = [
   'Ethical Issues',
   'Ethical Case Studies',
   'Ethics',
-  'General',
   'Polity',
-  'Economy',
-  'International',
-  'Science & Tech',
-  'Environment',
+ 
 ];
 
 // ─── Upload widget ─────────────────────────────────────────────────────────────
