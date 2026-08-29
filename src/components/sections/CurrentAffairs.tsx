@@ -68,6 +68,29 @@ export default function CurrentAffairs() {
           )}
         </div>
 
+        {/* Moving Marquee Section for Academic & Event Gallery */}
+        <div className="relative w-full overflow-hidden mt-8 py-4 border-y border-slate-200/60 bg-white/50 backdrop-blur-xs rounded-xl">
+          <div className="absolute left-0 top-0 bottom-0 w-16 bg-gradient-to-r from-[#FAF9F6] to-transparent z-10 pointer-events-none"></div>
+          <div className="absolute right-0 top-0 bottom-0 w-16 bg-gradient-to-l from-[#FAF9F6] to-transparent z-10 pointer-events-none"></div>
+          
+          <div className="animate-marquee flex gap-4 items-center">
+            {/* Slide Set 1 */}
+            <div className="flex gap-4 shrink-0">
+              <img src="/gallery_1.jpg" alt="Session Ceremony 1" className="h-44 sm:h-52 w-auto object-cover rounded-lg shadow-sm border border-slate-200" />
+              <img src="/mentor_whiteboard.png" alt="Whiteboard Discussion 2" className="h-44 sm:h-52 w-auto object-cover rounded-lg shadow-sm border border-slate-200" />
+              <img src="/gallery_1.jpg" alt="Session Ceremony 3" className="h-44 sm:h-52 w-auto object-cover rounded-lg shadow-sm border border-slate-200" />
+              <img src="/mentor_whiteboard.png" alt="Whiteboard Discussion 4" className="h-44 sm:h-52 w-auto object-cover rounded-lg shadow-sm border border-slate-200" />
+            </div>
+            {/* Duplicate Slide Set 2 for seamless loop animation */}
+            <div className="flex gap-4 shrink-0">
+              <img src="/gallery_1.jpg" alt="Session Ceremony 1" className="h-44 sm:h-52 w-auto object-cover rounded-lg shadow-sm border border-slate-200" />
+              <img src="/mentor_whiteboard.png" alt="Whiteboard Discussion 2" className="h-44 sm:h-52 w-auto object-cover rounded-lg shadow-sm border border-slate-200" />
+              <img src="/gallery_1.jpg" alt="Session Ceremony 3" className="h-44 sm:h-52 w-auto object-cover rounded-lg shadow-sm border border-slate-200" />
+              <img src="/mentor_whiteboard.png" alt="Whiteboard Discussion 4" className="h-44 sm:h-52 w-auto object-cover rounded-lg shadow-sm border border-slate-200" />
+            </div>
+          </div>
+        </div>
+
         {/* View All Resources Button - Centered */}
         <div className="text-center mt-5">
           <Link 
