@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { AlertCircle, FileText, Download, Tag } from 'lucide-react';
+import { FileText, Download, Tag, Loader2 } from 'lucide-react';
 
 interface PyqPdf {
   id: string;
@@ -14,12 +14,9 @@ interface PyqPdf {
   created_at: string;
 }
 
-const SUBJECTS = ['All', 'Indian Polity', 'Indian Economy', 'History', 'Geography', 'Environment', 'Science & Technology', 'Ethics', 'General Studies', 'CSAT'];
-
 export default function PyqHub() {
   const [pdfs, setPdfs] = useState<PyqPdf[]>([]);
   const [loading, setLoading] = useState(true);
-  const [selectedSubject, setSelectedSubject] = useState('All');
 
   useEffect(() => {
     fetch('/api/content/pyq-pdfs')
@@ -29,48 +26,33 @@ export default function PyqHub() {
       .finally(() => setLoading(false));
   }, []);
 
-  const filteredPdfs = pdfs.filter(p => selectedSubject === 'All' || p.subject === selectedSubject);
-
   return (
-    <section id="pyqs" className="py-24 bg-white">
-      <div className="container">
-        <div className="text-center max-w-2xl mx-auto mb-16">
-          <span className="badge badge-amber uppercase mb-4">PYQ PDFs</span>
-          <h2 className="text-2xl sm:text-3xl lg:text-4xl font-black text-[#0b3b60] font-serif leading-snug mb-4">
-            Previous Year Questions
+    <section id="pyqs" className="py-16 bg-white">
+      <div className="container max-w-6xl mx-auto px-4 sm:px-6">
+        <div className="text-center max-w-2xl mx-auto mb-12">
+          <span className="badge badge-amber uppercase mb-3 inline-block">PYQ Repository</span>
+          <h2 className="text-2xl sm:text-3xl lg:text-4xl font-black text-[#0b3b60] font-serif leading-snug mb-3">
+            Previous Years Questions
           </h2>
-          <p className="text-slate-500 text-base">
-            Download standard PYQ PDFs categorized by subject and year.
+          <p className="text-slate-500 text-sm sm:text-base">
+            Download standard PYQ PDFs and authentic compilations for UPSC Civil Services Examination.
           </p>
-        </div>
-
-        <div className="flex flex-wrap justify-center gap-2 mb-10">
-          {SUBJECTS.map((subject) => (
-            <button
-              key={subject}
-              onClick={() => setSelectedSubject(subject)}
-              className={`px-4 py-2 rounded-full text-xs font-semibold transition-all shadow-sm ${
-                selectedSubject === subject
-                  ? 'bg-indigo-600 text-white shadow-indigo-200'
-                  : 'bg-white text-slate-600 hover:bg-slate-50 border border-slate-100'
-              }`}
-            >
-              {subject}
-            </button>
-          ))}
         </div>
 
         <div className="max-w-4xl mx-auto">
           {loading ? (
-             <div className="text-center py-10 text-slate-400 text-sm">Loading PYQs...</div>
+            <div className="flex flex-col items-center justify-center py-16 gap-3">
+              <Loader2 className="w-8 h-8 text-indigo-600 animate-spin" />
+              <span className="text-sm font-bold text-slate-400">Loading PYQ database...</span>
+            </div>
           ) : (
             <AnimatePresence mode="popLayout">
-              {filteredPdfs.length > 0 ? (
+              {pdfs.length > 0 ? (
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                  {filteredPdfs.map((item) => (
+                  {pdfs.map((item) => (
                     <motion.div
                       key={item.id}
-                      className="bg-white border border-slate-100 p-5 rounded-2xl shadow-sm hover:shadow-md transition-shadow hover:border-indigo-100 flex flex-col justify-between"
+                      className="bg-white border border-slate-200/90 p-5 rounded-2xl shadow-2xs hover:shadow-md transition-shadow hover:border-indigo-200 flex flex-col justify-between"
                       layout
                       initial={{ opacity: 0, scale: 0.98 }}
                       animate={{ opacity: 1, scale: 1 }}
@@ -80,17 +62,17 @@ export default function PyqHub() {
                       <div>
                         <div className="flex gap-2 mb-3">
                           {item.subject && (
-                            <span className="text-[10px] px-2 py-0.5 bg-indigo-50 text-indigo-700 rounded-full font-medium">
+                            <span className="text-[10px] px-2.5 py-0.5 bg-indigo-50 text-indigo-700 rounded-full font-bold">
                               {item.subject}
                             </span>
                           )}
                           {item.year && (
-                            <span className="text-[10px] px-2 py-0.5 bg-slate-100 text-slate-600 rounded-full font-medium">
+                            <span className="text-[10px] px-2.5 py-0.5 bg-slate-100 text-slate-600 rounded-full font-bold">
                               {item.year}
                             </span>
                           )}
                         </div>
-                        <h3 className="text-lg sm:text-xl font-bold text-slate-900 font-serif leading-snug mb-3">
+                        <h3 className="text-lg font-bold text-slate-900 font-serif leading-snug mb-3">
                           {item.title}
                         </h3>
                         {item.tags && item.tags.length > 0 && (
@@ -107,28 +89,19 @@ export default function PyqHub() {
                         href={item.pdf_url} 
                         target="_blank" 
                         rel="noreferrer"
-                        className="btn btn-secondary !py-2 !px-4 text-xs font-semibold flex items-center justify-center gap-2 mt-auto w-full group"
+                        className="btn btn-secondary !py-2.5 !px-4 text-xs font-semibold flex items-center justify-center gap-2 mt-auto w-full group hover:bg-[#0b3b60] hover:text-white transition-colors"
                       >
-                        <FileText className="w-4 h-4 text-indigo-500 group-hover:text-indigo-600" />
-                        <span>View PDF</span>
-                        <Download className="w-3.5 h-3.5 ml-auto text-slate-400 group-hover:text-indigo-500" />
+                        <FileText className="w-4 h-4 text-indigo-500 group-hover:text-white" />
+                        <span>View &amp; Download PDF</span>
+                        <Download className="w-3.5 h-3.5 ml-auto text-slate-400 group-hover:text-white" />
                       </a>
                     </motion.div>
                   ))}
                 </div>
               ) : (
-                <motion.div 
-                  className="flex flex-col items-center justify-center py-16 px-4 bg-slate-50 rounded-2xl border border-slate-100 border-dashed"
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: 1 }}
-                  exit={{ opacity: 0 }}
-                >
-                  <AlertCircle className="w-12 h-12 text-slate-300 mb-4" />
-                  <h4 className="text-lg font-bold text-slate-700 mb-1">No PYQs Found</h4>
-                  <p className="text-slate-500 text-sm text-center">
-                    We couldn't find any PDF documents for the selected filter.
-                  </p>
-                </motion.div>
+                <div className="text-center py-16 bg-white rounded-2xl border border-slate-200 shadow-xs">
+                  <h4 className="text-lg font-bold font-serif text-[#0b3b60]">To be Updated soon.</h4>
+                </div>
               )}
             </AnimatePresence>
           )}
