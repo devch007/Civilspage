@@ -17,6 +17,7 @@ interface Affair {
 const CATEGORIES = [
   'Legislation',
   'Constitutional Amendments',
+  'Ordinary Laws',
   'Court Judgements',
   'Policies & Programs',
   'Commissions & Committees',
@@ -364,7 +365,7 @@ export default function CurrentNewsViewsPage() {
               >
                 All
               </button>
-              {['Legislation', 'Constitutional Amendments', 'Court Judgements', 'Policies & Programs', 'Commissions & Committees', 'Ethical Issues', 'Ethical Case Studies'].map((cat) => (
+              {['Legislation', 'Constitutional Amendments', 'Ordinary Laws', 'Court Judgements', 'Policies & Programs', 'Commissions & Committees', 'Ethical Issues', 'Ethical Case Studies'].map((cat) => (
                 <button
                   key={cat}
                   onClick={() => setFilterCategory(cat)}

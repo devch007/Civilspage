@@ -3,7 +3,7 @@
 import React, { useState, useEffect, Suspense } from 'react';
 import Link from 'next/link';
 import { motion } from 'framer-motion';
-import { Calendar, Tag, Sparkles, BookOpen, Loader2 } from 'lucide-react';
+import { Calendar, Tag, Sparkles, BookOpen, Loader2, Gavel, Layers, Scale } from 'lucide-react';
 import { useSearchParams } from 'next/navigation';
 
 interface Affair {
@@ -30,9 +30,30 @@ function UpdatesContent() {
       .finally(() => setLoading(false));
   }, []);
 
-  const filteredUpdates = selectedCategory
-    ? updates.filter(item => item.category.toLowerCase().includes(selectedCategory.toLowerCase()))
-    : updates;
+  const isLegislationSection = Boolean(
+    selectedCategory && (
+      selectedCategory.toLowerCase().includes('legislat') ||
+      selectedCategory.toLowerCase().includes('amendment') ||
+      selectedCategory.toLowerCase().includes('ordinary')
+    )
+  );
+
+  const filteredUpdates = updates.filter(item => {
+    if (!selectedCategory) return true;
+    const catLower = item.category.toLowerCase();
+    const selLower = selectedCategory.toLowerCase();
+
+    if (selLower === 'legislation') {
+      return catLower.includes('legislat') || catLower.includes('amendment') || catLower.includes('ordinary') || catLower.includes('law');
+    }
+    if (selLower.includes('amendment')) {
+      return catLower.includes('amendment') || catLower.includes('constitutional');
+    }
+    if (selLower.includes('ordinary')) {
+      return catLower.includes('ordinary') || (catLower.includes('legislat') && !catLower.includes('amendment'));
+    }
+    return catLower.includes(selLower);
+  });
 
   const getSubtext = (cat: string | null) => {
     if (!cat) {
@@ -42,11 +63,14 @@ function UpdatesContent() {
     if (lower.includes('court') || lower.includes('judgement')) {
       return "Analytical digests and constitutional breakdowns of landmark judicial rulings, legal precedents, and judicial doctrines.";
     }
-    if (lower.includes('legislat')) {
-      return "In-depth analysis of Parliamentary acts, bills, statutory provisions, and legal reforms.";
-    }
     if (lower.includes('amendment')) {
-      return "Detailed examinations of constitutional amendments, federal structures, and institutional checks and balances.";
+      return "Detailed thematic examinations of constitutional amendments, fundamental rights evolution, and institutional checks and balances.";
+    }
+    if (lower.includes('ordinary')) {
+      return "In-depth analysis of ordinary statutes, Parliamentary bills, codifications, and administrative acts.";
+    }
+    if (lower.includes('legislat')) {
+      return "Comprehensive directory of Parliamentary enactments, Constitutional Amendments, and Ordinary Laws.";
     }
     if (lower.includes('polic') || lower.includes('program')) {
       return "Structured briefings on Union and State government schemes, missions, and developmental policy initiatives.";
@@ -54,10 +78,18 @@ function UpdatesContent() {
     if (lower.includes('commission') || lower.includes('committee')) {
       return "Authoritative summaries of administrative reform commissions, committee recommendations, and statutory reports.";
     }
-    if (lower.includes('model') || lower.includes('answer')) {
-      return "Evaluated answer writing frameworks, multi-dimensional structures, and standard model answers for UPSC Mains.";
+    if (lower.includes('ethic')) {
+      return "Applied analysis of public service ethics, governance dilemmas, moral philosophy, and diagnostic case studies.";
     }
     return `Structured updates, academic briefings, and analytical perspectives on ${cat}.`;
+  };
+
+  const getPageTitle = (cat: string | null) => {
+    if (!cat) return 'Current Updates';
+    if (cat.toLowerCase().includes('amendment')) return 'Constitutional Amendments';
+    if (cat.toLowerCase().includes('ordinary')) return 'Ordinary Laws';
+    if (cat.toLowerCase() === 'legislation') return 'Legislation & Parliamentary Bills';
+    return cat;
   };
 
   return (
@@ -65,23 +97,61 @@ function UpdatesContent() {
       <div className="container max-w-7xl mx-auto px-4 sm:px-6">
         
         {/* Banner Section */}
-        <div className="text-center max-w-3xl mx-auto mb-10">
+        <div className="text-center max-w-3xl mx-auto mb-8">
           <span className="badge badge-primary gap-1 inline-flex items-center mx-auto mb-3">
             <Sparkles className="w-3.5 h-3.5 text-indigo-500 animate-pulse" />
-            Live Academic Feeds
+            Academic Resource Feed
           </span>
           <h1 className="text-2xl sm:text-3xl md:text-4xl font-black font-serif text-[#0b3b60] mb-3 tracking-tight">
-            {selectedCategory ? selectedCategory : 'Current Updates'}
+            {getPageTitle(selectedCategory)}
           </h1>
           <p className="text-sm sm:text-base text-slate-600 max-w-2xl mx-auto leading-relaxed font-normal">
             {getSubtext(selectedCategory)}
           </p>
         </div>
 
-        {selectedCategory && (
+        {/* Legislation Sub-Tabs */}
+        {isLegislationSection && (
+          <div className="flex flex-wrap items-center justify-center gap-2 mb-8">
+            <Link 
+              href="/updates?category=Legislation"
+              className={`px-4 py-2 text-xs font-bold rounded-lg border transition-all ${
+                selectedCategory?.toLowerCase() === 'legislation'
+                  ? 'bg-[#0b3b60] text-white border-[#0b3b60] shadow-sm'
+                  : 'bg-white text-slate-700 border-slate-300 hover:bg-slate-50'
+              }`}
+            >
+              All Legislation
+            </Link>
+            <Link 
+              href="/updates?category=Constitutional Amendments"
+              className={`px-4 py-2 text-xs font-bold rounded-lg border transition-all flex items-center gap-1.5 ${
+                selectedCategory?.toLowerCase().includes('amendment')
+                  ? 'bg-[#0b3b60] text-white border-[#0b3b60] shadow-sm'
+                  : 'bg-white text-slate-700 border-slate-300 hover:bg-slate-50'
+              }`}
+            >
+              <Layers className="w-3.5 h-3.5" />
+              Constitutional Amendments
+            </Link>
+            <Link 
+              href="/updates?category=Ordinary Laws"
+              className={`px-4 py-2 text-xs font-bold rounded-lg border transition-all flex items-center gap-1.5 ${
+                selectedCategory?.toLowerCase().includes('ordinary')
+                  ? 'bg-[#0b3b60] text-white border-[#0b3b60] shadow-sm'
+                  : 'bg-white text-slate-700 border-slate-300 hover:bg-slate-50'
+              }`}
+            >
+              <Gavel className="w-3.5 h-3.5" />
+              Ordinary Laws
+            </Link>
+          </div>
+        )}
+
+        {selectedCategory && !isLegislationSection && (
           <div className="flex items-center justify-between bg-indigo-50/50 border border-indigo-100 rounded-xl px-5 py-3 mb-8 max-w-xl mx-auto">
             <span className="text-sm font-semibold text-slate-700">
-              Showing updates in category: <span className="text-indigo-700 font-bold uppercase">{selectedCategory}</span>
+              Showing category: <span className="text-indigo-700 font-bold uppercase">{selectedCategory}</span>
             </span>
             <Link 
               href="/updates"
@@ -96,7 +166,7 @@ function UpdatesContent() {
         {loading ? (
           <div className="flex flex-col items-center justify-center py-20 gap-3">
             <Loader2 className="w-8 h-8 text-indigo-600 animate-spin" />
-            <span className="text-sm font-bold text-slate-400">Loading current updates database...</span>
+            <span className="text-sm font-bold text-slate-400">Loading resources database...</span>
           </div>
         ) : (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -131,7 +201,7 @@ function UpdatesContent() {
 
                       {/* Content excerpt */}
                       <p className="text-slate-600 font-normal leading-relaxed text-xs sm:text-sm">
-                        {item.content ? item.content.slice(0, 160).replace(/<[^>]*>/g, '') + '…' : 'Click to view update details.'}
+                        {item.content ? item.content.slice(0, 160).replace(/<[^>]*>/g, '') + '…' : 'Click to view resource details.'}
                       </p>
                     </div>
                   </motion.div>
@@ -139,8 +209,8 @@ function UpdatesContent() {
               ))
             ) : (
               <div className="col-span-full flex flex-col items-center justify-center py-20 bg-white rounded-2xl border border-slate-100">
-                <h4 className="text-lg font-bold text-slate-900 mb-1">No Updates Found</h4>
-                <p className="text-slate-400 text-sm">Updates published inside the Admin Panel will immediately display here.</p>
+                <h4 className="text-lg font-bold text-slate-900 mb-1">No Entries Found</h4>
+                <p className="text-slate-400 text-sm">Entries published in this category will immediately display here.</p>
               </div>
             )}
           </div>

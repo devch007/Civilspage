@@ -36,8 +36,8 @@ export default async function DashboardPage() {
   ];
 
   const quickCategories = [
-    { title: 'Legislation', param: 'Legislation', icon: Gavel, desc: 'Acts, Parliamentary Bills & Enactments' },
     { title: 'Constitutional Amendments', param: 'Constitutional Amendments', icon: Layers, desc: 'Articles & Constitutional Changes' },
+    { title: 'Ordinary Laws', param: 'Ordinary Laws', icon: Gavel, desc: 'Acts, Parliamentary Bills & Enactments' },
     { title: 'Court Judgements', param: 'Court Judgements', icon: Scale, desc: 'Supreme Court & High Court Rulings' },
     { title: 'Policies & Programs', param: 'Policies %26 Programs', icon: FileCheck, desc: 'Government Schemes & Initiatives' },
     { title: 'Commissions & Committees', param: 'Commissions %26 Committees', icon: Award, desc: 'ARC, Sarkaria & National Reports' },
