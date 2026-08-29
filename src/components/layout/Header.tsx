@@ -353,17 +353,29 @@ export default function Header() {
                 onMouseEnter={() => setActiveDropdown('legislation')}
                 onMouseLeave={() => setActiveDropdown(null)}
               >
-                <button
-                  onClick={() => toggleDropdown('legislation')}
-                  className={`flex items-center gap-1 px-2.5 py-2.5 transition-colors border-b-2 ${
-                    pathname.includes('category=Legislation') || pathname.includes('category=Constitutional') || pathname.includes('category=Ordinary')
-                      ? 'bg-[#06243d] text-amber-300 border-amber-400 font-bold' 
-                      : 'border-transparent hover:bg-[#082e4e] hover:text-amber-200'
-                  }`}
-                >
-                  <span>Legislation</span>
-                  <ChevronDown className="w-3.5 h-3.5 ml-0.5 opacity-80 group-hover:rotate-180 transition-transform" />
-                </button>
+                <div className="flex items-center">
+                  <Link
+                    href="/updates?category=Constitutional Amendments"
+                    className={`block pl-2.5 pr-1 py-2.5 transition-colors border-b-2 ${
+                      pathname.includes('category=Legislation') || pathname.includes('category=Constitutional') || pathname.includes('category=Ordinary')
+                        ? 'bg-[#06243d] text-amber-300 border-amber-400 font-bold' 
+                        : 'border-transparent hover:bg-[#082e4e] hover:text-amber-200'
+                    }`}
+                  >
+                    Legislation
+                  </Link>
+                  <button
+                    onClick={() => toggleDropdown('legislation')}
+                    className={`pr-2 py-2.5 transition-colors border-b-2 ${
+                      pathname.includes('category=Legislation') || pathname.includes('category=Constitutional') || pathname.includes('category=Ordinary')
+                        ? 'bg-[#06243d] text-amber-300 border-amber-400 font-bold' 
+                        : 'border-transparent hover:bg-[#082e4e] hover:text-amber-200'
+                    }`}
+                    aria-label="Toggle Legislation Menu"
+                  >
+                    <ChevronDown className="w-3.5 h-3.5 opacity-80 group-hover:rotate-180 transition-transform" />
+                  </button>
+                </div>
 
                 {activeDropdown === 'legislation' && (
                   <div className="absolute left-0 top-full w-56 bg-white text-slate-800 rounded-b-md shadow-2xl border-t-2 border-amber-500 py-1 z-50 animate-in fade-in slide-in-from-top-1 duration-150">
@@ -433,30 +445,42 @@ export default function Header() {
                 onMouseEnter={() => setActiveDropdown('ethics')}
                 onMouseLeave={() => setActiveDropdown(null)}
               >
-                <button
-                  onClick={() => toggleDropdown('ethics')}
-                  className={`flex items-center gap-1 px-2.5 py-2.5 transition-colors border-b-2 ${
-                    pathname.includes('category=Ethical') || pathname.includes('ethics') 
-                      ? 'bg-[#06243d] text-amber-300 border-amber-400 font-bold' 
-                      : 'border-transparent hover:bg-[#082e4e] hover:text-amber-200'
-                  }`}
-                >
-                  <span>Ethics</span>
-                  <ChevronDown className="w-3.5 h-3.5 ml-0.5 opacity-80 group-hover:rotate-180 transition-transform" />
-                </button>
+                <div className="flex items-center">
+                  <Link
+                    href="/updates?category=Ethical Issues"
+                    className={`block pl-2.5 pr-1 py-2.5 transition-colors border-b-2 ${
+                      pathname.includes('category=Ethical') || pathname.includes('ethics') 
+                        ? 'bg-[#06243d] text-amber-300 border-amber-400 font-bold' 
+                        : 'border-transparent hover:bg-[#082e4e] hover:text-amber-200'
+                    }`}
+                  >
+                    Ethics
+                  </Link>
+                  <button
+                    onClick={() => toggleDropdown('ethics')}
+                    className={`pr-2 py-2.5 transition-colors border-b-2 ${
+                      pathname.includes('category=Ethical') || pathname.includes('ethics') 
+                        ? 'bg-[#06243d] text-amber-300 border-amber-400 font-bold' 
+                        : 'border-transparent hover:bg-[#082e4e] hover:text-amber-200'
+                    }`}
+                    aria-label="Toggle Ethics Menu"
+                  >
+                    <ChevronDown className="w-3.5 h-3.5 opacity-80 group-hover:rotate-180 transition-transform" />
+                  </button>
+                </div>
 
                 {activeDropdown === 'ethics' && (
-                  <div className="absolute left-0 top-full w-52 bg-white text-slate-800 rounded-b-md shadow-2xl border-t-2 border-amber-500 py-1 z-50 animate-in fade-in slide-in-from-top-1 duration-150">
+                  <div className="absolute left-0 top-full w-56 bg-white text-slate-800 rounded-b-md shadow-2xl border-t-2 border-amber-500 py-1 z-50 animate-in fade-in slide-in-from-top-1 duration-150">
                     <Link 
                       href="/updates?category=Ethical Issues" 
-                      className="flex items-center gap-2 px-4 py-2 text-xs hover:bg-slate-100 text-slate-700"
+                      className="flex items-center gap-2 px-4 py-2 text-xs hover:bg-slate-100 text-slate-700 font-medium"
                     >
                       <Sparkles className="w-3.5 h-3.5 text-indigo-600" />
                       Ethical Issues
                     </Link>
                     <Link 
                       href="/updates?category=Ethical Case Studies" 
-                      className="flex items-center gap-2 px-4 py-2 text-xs hover:bg-slate-100 text-slate-700"
+                      className="flex items-center gap-2 px-4 py-2 text-xs hover:bg-slate-100 text-slate-700 font-medium"
                     >
                       <Scale className="w-3.5 h-3.5 text-emerald-600" />
                       Ethical Case Studies

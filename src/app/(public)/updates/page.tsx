@@ -38,6 +38,10 @@ function UpdatesContent() {
     )
   );
 
+  const isEthicsSection = Boolean(
+    selectedCategory && selectedCategory.toLowerCase().includes('ethic')
+  );
+
   const filteredUpdates = updates.filter(item => {
     if (!selectedCategory) return true;
     const catLower = item.category.toLowerCase();
@@ -51,6 +55,15 @@ function UpdatesContent() {
     }
     if (selLower.includes('ordinary')) {
       return catLower.includes('ordinary') || (catLower.includes('legislat') && !catLower.includes('amendment'));
+    }
+    if (selLower.includes('ethic')) {
+      if (selLower.includes('issue')) {
+        return catLower.includes('issue') || catLower === 'ethics' || catLower.includes('ethic');
+      }
+      if (selLower.includes('case')) {
+        return catLower.includes('case') || catLower.includes('ethic');
+      }
+      return catLower.includes('ethic');
     }
     return catLower.includes(selLower);
   });
@@ -89,6 +102,9 @@ function UpdatesContent() {
     if (cat.toLowerCase().includes('amendment')) return 'Constitutional Amendments';
     if (cat.toLowerCase().includes('ordinary')) return 'Ordinary Laws';
     if (cat.toLowerCase() === 'legislation') return 'Legislation & Parliamentary Bills';
+    if (cat.toLowerCase().includes('ethical issues')) return 'Ethical Issues';
+    if (cat.toLowerCase().includes('ethical case studies')) return 'Ethical Case Studies';
+    if (cat.toLowerCase().includes('ethic')) return 'Ethics';
     return cat;
   };
 
@@ -110,7 +126,7 @@ function UpdatesContent() {
           </p>
         </div>
 
-        {/* Legislation Sub-Tabs: Constitutional Amendments & Ordinary Laws */}
+        {/* Legislation Sub-Tabs */}
         {isLegislationSection && (
           <div className="flex flex-wrap items-center justify-center gap-3 mb-8">
             <Link 
@@ -138,7 +154,35 @@ function UpdatesContent() {
           </div>
         )}
 
-        {selectedCategory && !isLegislationSection && (
+        {/* Ethics Sub-Tabs */}
+        {isEthicsSection && (
+          <div className="flex flex-wrap items-center justify-center gap-3 mb-8">
+            <Link 
+              href="/updates?category=Ethical Issues"
+              className={`px-5 py-2.5 text-xs font-bold rounded-xl border transition-all flex items-center gap-2 ${
+                selectedCategory?.toLowerCase().includes('issue') || selectedCategory?.toLowerCase() === 'ethics'
+                  ? 'bg-[#0b3b60] text-white border-[#0b3b60] shadow-sm'
+                  : 'bg-white text-slate-700 border-slate-300 hover:bg-slate-50'
+              }`}
+            >
+              <Sparkles className="w-3.5 h-3.5" />
+              Ethical Issues
+            </Link>
+            <Link 
+              href="/updates?category=Ethical Case Studies"
+              className={`px-5 py-2.5 text-xs font-bold rounded-xl border transition-all flex items-center gap-2 ${
+                selectedCategory?.toLowerCase().includes('case')
+                  ? 'bg-[#0b3b60] text-white border-[#0b3b60] shadow-sm'
+                  : 'bg-white text-slate-700 border-slate-300 hover:bg-slate-50'
+              }`}
+            >
+              <Scale className="w-3.5 h-3.5" />
+              Ethical Case Studies
+            </Link>
+          </div>
+        )}
+
+        {selectedCategory && !isLegislationSection && !isEthicsSection && (
           <div className="flex items-center justify-between bg-indigo-50/50 border border-indigo-100 rounded-xl px-5 py-3 mb-8 max-w-xl mx-auto">
             <span className="text-sm font-semibold text-slate-700">
               Showing category: <span className="text-indigo-700 font-bold uppercase">{selectedCategory}</span>
