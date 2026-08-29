@@ -68,17 +68,6 @@ export default function Footer() {
               Dedicated repository for in-depth analysis of Indian Constitution, statutory legislation, landmark judicial rulings, administrative governance, and GS-IV Ethics.
             </p>
 
-            {/* Mentor Badge Card */}
-            <div className="p-3.5 bg-gradient-to-r from-[#0c2642]/80 to-[#081f35]/90 border border-slate-700/60 rounded-xl shadow-inner space-y-1">
-              <div className="flex items-center gap-2">
-                <Award className="w-4 h-4 text-amber-400 shrink-0" />
-                <span className="text-xs font-bold text-white">Under the Guidance of Rajiv Ranjan Singh</span>
-              </div>
-              <p className="text-[11px] text-slate-400 pl-6 leading-normal">
-                Academician, Author & Governance Consultant with over 20 years of civil services mentorship.
-              </p>
-            </div>
-
             {/* Contact Coordinates */}
             <div className="pt-2 text-[11px] text-slate-400 space-y-1.5">
               <div className="flex items-center gap-2 hover:text-amber-300 transition-colors">
