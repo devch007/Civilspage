@@ -7,7 +7,7 @@ export default function GalleryMarquee() {
     <section id="gallery-marquee" className="py-10 bg-[#FAF9F6] border-b border-slate-200 overflow-hidden">
       <div className="max-w-7xl mx-auto px-4 sm:px-8 mb-6 text-center">
         <h2 className="text-xl sm:text-2xl font-black text-[#0b3b60] font-serif">
-          Academic Seminars & Interactive Sessions
+          Seminars & Interactive Sessions
         </h2>
       </div>
 
