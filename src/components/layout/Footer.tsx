@@ -97,7 +97,7 @@ export default function Footer() {
               Gazette Dispatch
             </h4>
             <p className="text-[11px] text-slate-300">
-              Receive notifications for newly published statutory briefs and committee analyses.
+              Receive notifications for newly published statutory briefs and committee analysis.
             </p>
 
             <form onSubmit={handleSubscribe} className="space-y-2">
