@@ -605,8 +605,7 @@ export default function Header() {
                   onClick={() => toggleDropdown('mobile-legislation')}
                   className="w-full flex items-center justify-between px-3 py-2 rounded-md hover:bg-slate-50 text-slate-800 font-semibold"
                 >
-                  <span className="flex items-center gap-2">
-                    <Gavel className="w-4 h-4 text-[#0b3b60]" />
+                  <span>
                     Legislation
                   </span>
                   <ChevronDown className={`w-4 h-4 transition-transform ${activeDropdown === 'mobile-legislation' ? 'rotate-180' : ''}`} />
