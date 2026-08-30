@@ -17,9 +17,43 @@ const sourceSans3 = Source_Sans_3({
 });
 
 export const metadata: Metadata = {
-  title: 'CivilsPage - Master UPSC with Expert Guidance',
+  metadataBase: new URL('https://www.civilspage.com'),
+  title: {
+    default: 'CivilsPage - Master UPSC with Expert Guidance',
+    template: '%s | CivilsPage',
+  },
   description: 'Empowering the next generation of civil servants with structured study materials, direct expert strategies, and responsive learning interfaces.',
-  keywords: 'UPSC, Civil Services Examination, IAS preparation, IPS exam, Rajiv Ranjan Singh, UPSC PYQs, Current Affairs',
+  keywords: 'UPSC, Civil Services Examination, IAS preparation, IPS exam, Rajiv Ranjan Singh, UPSC PYQs, Current Affairs, Governance, Ethics',
+  authors: [{ name: 'Rajiv Ranjan Singh' }],
+  creator: 'CivilsPage',
+  publisher: 'CivilsPage',
+  openGraph: {
+    type: 'website',
+    locale: 'en_IN',
+    url: 'https://www.civilspage.com',
+    siteName: 'CivilsPage',
+    title: 'CivilsPage - Master UPSC with Expert Guidance',
+    description: 'Empowering the next generation of civil servants with structured study materials, direct expert strategies, and responsive learning interfaces.',
+    images: [
+      {
+        url: '/logo.png',
+        width: 500,
+        height: 500,
+        alt: 'CivilsPage Official Logo - Learn • Aspire • Achieve',
+      },
+    ],
+  },
+  twitter: {
+    card: 'summary',
+    title: 'CivilsPage - Master UPSC with Expert Guidance',
+    description: 'Empowering the next generation of civil servants with structured study materials, direct expert strategies, and responsive learning interfaces.',
+    images: ['/logo.png'],
+  },
+  icons: {
+    icon: '/logo.png',
+    shortcut: '/logo.png',
+    apple: '/logo.png',
+  },
 };
 
 export default function RootLayout({
