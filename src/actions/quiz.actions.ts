@@ -15,6 +15,7 @@ const quizSchema = z.object({
   optionD: z.string().min(1),
   correctAnswer: z.number().int().min(0).max(3),
   explanation: z.string().optional(),
+  examType: z.string().default('Preliminary Examination'),
   active: z.boolean().default(true),
 });
 

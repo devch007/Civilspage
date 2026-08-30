@@ -10,12 +10,14 @@ export const quizzes = pgTable('quizzes', {
   optionD: text('option_d').notNull(),
   correctAnswer: integer('correct_answer').notNull(), // 0-3 index
   explanation: text('explanation'),
+  examType: text('exam_type').notNull().default('Preliminary Examination'),
   active: boolean('active').notNull().default(true),
   createdAt: timestamp('created_at', { withTimezone: true }).notNull().defaultNow(),
   updatedAt: timestamp('updated_at', { withTimezone: true }).notNull().defaultNow(),
 }, (t) => [
   index('quizzes_subject_idx').on(t.subject),
   index('quizzes_active_idx').on(t.active),
+  index('quizzes_exam_type_idx').on(t.examType),
 ]);
 
 export type Quiz = typeof quizzes.$inferSelect;

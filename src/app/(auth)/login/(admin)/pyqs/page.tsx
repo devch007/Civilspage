@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useState, useEffect, useRef } from 'react';
-import { Plus, Trash2, Loader2, CheckCircle, X, FileText, Tag, Pencil } from 'lucide-react';
+import { Plus, Trash2, Loader2, CheckCircle, X, FileText, Tag, Pencil, GraduationCap, Filter } from 'lucide-react';
 
 interface PyqPdf {
   id: string;
@@ -10,10 +10,25 @@ interface PyqPdf {
   pdf_url: string;
   subject?: string;
   year?: number;
+  exam_type?: string;
   created_at: string;
 }
 
-const SUBJECTS = ['Indian Polity', 'Indian Economy', 'History', 'Geography', 'Environment', 'Science & Technology', 'Ethics', 'General Studies', 'CSAT'];
+const EXAM_TYPES = ['Preliminary Examination', 'Main Examination'];
+
+const SUBJECTS = [
+  'General Studies',
+  'Indian Polity',
+  'Indian Economy',
+  'History',
+  'Geography',
+  'Environment',
+  'Science & Technology',
+  'Ethics',
+  'CSAT',
+  'Essay',
+  'Optional Subject'
+];
 
 // ─── PDF Upload Widget ──────────────────────────────────────────────────────
 function PdfUpload({ onUploaded, currentUrl }: { onUploaded: (url: string) => void; currentUrl?: string }) {
@@ -110,11 +125,13 @@ export default function PYQsPage() {
   const [submitting, setSubmitting] = useState(false);
   const [tick, setTick] = useState(0);
   const [editingId, setEditingId] = useState<string | null>(null);
+  const [filterExam, setFilterExam] = useState<'All' | 'Preliminary Examination' | 'Main Examination'>('All');
 
   // Form state
   const [title, setTitle] = useState('');
   const [tagsInput, setTagsInput] = useState('');
   const [pdfUrl, setPdfUrl] = useState('');
+  const [examType, setExamType] = useState('Preliminary Examination');
   const [subject, setSubject] = useState('General Studies');
   const [year, setYear] = useState(new Date().getFullYear().toString());
 
@@ -131,6 +148,7 @@ export default function PYQsPage() {
     setTitle('');
     setTagsInput('');
     setPdfUrl('');
+    setExamType('Preliminary Examination');
     setSubject('General Studies');
     setYear(new Date().getFullYear().toString());
     setEditingId(null);
@@ -141,6 +159,7 @@ export default function PYQsPage() {
     setTitle(p.title);
     setTagsInput(p.tags ? p.tags.join(', ') : '');
     setPdfUrl(p.pdf_url);
+    setExamType(p.exam_type || 'Preliminary Examination');
     setSubject(p.subject || 'General Studies');
     setYear(p.year ? p.year.toString() : new Date().getFullYear().toString());
   }
@@ -157,7 +176,7 @@ export default function PYQsPage() {
       const res = await fetch(url, {
         method,
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ title, tags, pdfUrl, subject, year }),
+        body: JSON.stringify({ title, tags, pdfUrl, subject, year, examType }),
       });
       if (!res.ok) throw new Error((await res.json()).error);
       resetForm();
@@ -173,70 +192,105 @@ export default function PYQsPage() {
     setTick(t => t + 1);
   }
 
+  const filteredPdfs = pdfs.filter(p => {
+    if (filterExam === 'All') return true;
+    return (p.exam_type || 'Preliminary Examination') === filterExam;
+  });
+
   return (
     <div className="space-y-6">
       <div>
-        <h1 className="text-2xl font-bold text-slate-900">PYQs</h1>
-        <p className="text-slate-500 text-sm mt-1">{loading ? '...' : `${pdfs.length} PDF${pdfs.length !== 1 ? 's' : ''} uploaded`} · all served via Cloudflare R2</p>
+        <h1 className="text-2xl font-bold text-slate-900">PYQs Database</h1>
+        <p className="text-slate-500 text-sm mt-1">{loading ? '...' : `${pdfs.length} PDF${pdfs.length !== 1 ? 's' : ''} uploaded`} · Categorized by Preliminary & Main Examination</p>
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
         {/* ── List ─────────────────────────────────── */}
-        <div className="bg-white border border-slate-100 rounded-xl overflow-hidden">
-          <div className="px-5 py-4 border-b border-slate-50">
+        <div className="bg-white border border-slate-100 rounded-xl overflow-hidden shadow-xs flex flex-col">
+          <div className="px-5 py-3.5 border-b border-slate-100 flex flex-wrap items-center justify-between gap-2">
             <h2 className="font-semibold text-slate-800 text-sm">Uploaded PYQ PDFs</h2>
+            {/* Filter Pills */}
+            <div className="flex items-center gap-1 bg-slate-100 p-1 rounded-lg text-xs font-medium">
+              {(['All', 'Preliminary Examination', 'Main Examination'] as const).map(tab => (
+                <button
+                  key={tab}
+                  onClick={() => setFilterExam(tab)}
+                  className={`px-2.5 py-1 rounded-md transition-all ${
+                    filterExam === tab
+                      ? 'bg-white text-indigo-700 shadow-xs font-bold'
+                      : 'text-slate-500 hover:text-slate-800'
+                  }`}
+                >
+                  {tab === 'Preliminary Examination' ? 'Prelims' : tab === 'Main Examination' ? 'Mains' : 'All'}
+                </button>
+              ))}
+            </div>
           </div>
-          <div className="divide-y divide-slate-50 max-h-[580px] overflow-y-auto">
+
+          <div className="divide-y divide-slate-50 max-h-[620px] overflow-y-auto flex-1">
             {loading && <p className="text-center py-10 text-slate-400 text-sm">Loading...</p>}
-            {!loading && pdfs.length === 0 && (
+            {!loading && filteredPdfs.length === 0 && (
               <div className="text-center py-14">
                 <FileText className="w-10 h-10 text-slate-200 mx-auto mb-3" />
-                <p className="text-slate-400 text-sm font-medium">No PYQ PDFs yet.</p>
-                <p className="text-slate-300 text-xs mt-1">Upload your first PDF →</p>
+                <p className="text-slate-400 text-sm font-medium">No PYQ PDFs found for this category.</p>
+                <p className="text-slate-300 text-xs mt-1">Upload your PDF on the right →</p>
               </div>
             )}
-            {pdfs.map(p => (
-              <div key={p.id} className="px-5 py-4 flex items-start gap-3">
-                <div className="p-2 bg-indigo-50 rounded-lg flex-shrink-0">
-                  <FileText className="w-4 h-4 text-indigo-600" />
-                </div>
-                <div className="flex-1 min-w-0">
-                  <p className="text-sm font-semibold text-slate-900 truncate">{p.title}</p>
-                  <div className="flex flex-wrap items-center gap-1.5 mt-1.5">
-                    {p.subject && (
-                      <span className="text-[10px] px-2 py-0.5 bg-indigo-50 text-indigo-700 rounded-full font-medium">{p.subject}</span>
-                    )}
-                    {p.year && (
-                      <span className="text-[10px] px-2 py-0.5 bg-slate-100 text-slate-500 rounded-full">{p.year}</span>
-                    )}
-                    {p.tags.map(tag => (
-                      <span key={tag} className="text-[10px] px-2 py-0.5 bg-amber-50 text-amber-700 rounded-full flex items-center gap-0.5">
-                        <Tag className="w-2.5 h-2.5" />{tag}
-                      </span>
-                    ))}
+            {filteredPdfs.map(p => {
+              const isMains = (p.exam_type || '').includes('Main');
+              return (
+                <div key={p.id} className="px-5 py-4 flex items-start gap-3 hover:bg-slate-50/50 transition-colors">
+                  <div className={`p-2 rounded-lg flex-shrink-0 ${isMains ? 'bg-purple-50 text-purple-600' : 'bg-blue-50 text-blue-600'}`}>
+                    <FileText className="w-4 h-4" />
                   </div>
-                  <a href={p.pdf_url} target="_blank" rel="noreferrer"
-                    className="text-[10px] text-indigo-500 hover:underline mt-1 block">
-                    📄 View PDF
-                  </a>
+                  <div className="flex-1 min-w-0">
+                    <div className="flex items-center gap-2 flex-wrap">
+                      <p className="text-sm font-semibold text-slate-900 truncate">{p.title}</p>
+                    </div>
+
+                    <div className="flex flex-wrap items-center gap-1.5 mt-1.5">
+                      {/* Exam Category Badge */}
+                      <span className={`text-[10px] px-2 py-0.5 rounded-full font-bold uppercase tracking-wider ${
+                        isMains ? 'bg-purple-100 text-purple-800 border border-purple-200' : 'bg-blue-100 text-blue-800 border border-blue-200'
+                      }`}>
+                        {p.exam_type || 'Preliminary Examination'}
+                      </span>
+
+                      {p.subject && (
+                        <span className="text-[10px] px-2 py-0.5 bg-indigo-50 text-indigo-700 rounded-full font-medium">{p.subject}</span>
+                      )}
+                      {p.year && (
+                        <span className="text-[10px] px-2 py-0.5 bg-slate-100 text-slate-600 rounded-full">{p.year}</span>
+                      )}
+                      {p.tags && p.tags.map(tag => (
+                        <span key={tag} className="text-[10px] px-2 py-0.5 bg-amber-50 text-amber-700 rounded-full flex items-center gap-0.5">
+                          <Tag className="w-2.5 h-2.5" />{tag}
+                        </span>
+                      ))}
+                    </div>
+                    <a href={p.pdf_url} target="_blank" rel="noreferrer"
+                      className="text-[11px] text-indigo-600 hover:underline mt-1.5 inline-block font-medium">
+                      📄 View PDF File
+                    </a>
+                  </div>
+                  <div className="flex items-center gap-1 flex-shrink-0">
+                    <button onClick={() => handleEdit(p)}
+                      className="p-1.5 text-slate-400 hover:text-indigo-600 hover:bg-indigo-50 rounded-lg transition-all" title="Edit">
+                      <Pencil className="w-4 h-4" />
+                    </button>
+                    <button onClick={() => del(p.id)}
+                      className="p-1.5 text-slate-400 hover:text-red-500 hover:bg-red-50 rounded-lg transition-all" title="Delete">
+                      <Trash2 className="w-4 h-4" />
+                    </button>
+                  </div>
                 </div>
-                <div className="flex items-center gap-1 flex-shrink-0">
-                  <button onClick={() => handleEdit(p)}
-                    className="p-1.5 text-slate-300 hover:text-indigo-600 hover:bg-indigo-50 rounded-lg transition-all" title="Edit">
-                    <Pencil className="w-4 h-4" />
-                  </button>
-                  <button onClick={() => del(p.id)}
-                    className="p-1.5 text-slate-300 hover:text-red-500 hover:bg-red-50 rounded-lg transition-all" title="Delete">
-                    <Trash2 className="w-4 h-4" />
-                  </button>
-                </div>
-              </div>
-            ))}
+              );
+            })}
           </div>
         </div>
 
         {/* ── Upload / Edit Form ───────────────────────────── */}
-        <div className="bg-white border border-slate-100 rounded-xl p-5">
+        <div className="bg-white border border-slate-100 rounded-xl p-5 shadow-xs">
           <div className="flex items-center justify-between mb-4">
             <h2 className="font-semibold text-slate-800 text-sm">
               {editingId ? 'Edit PYQ PDF' : 'Upload PYQ PDF'}
@@ -253,8 +307,30 @@ export default function PYQsPage() {
               <input
                 value={title} onChange={e => setTitle(e.target.value)} required
                 className="w-full px-3 py-2.5 border border-slate-200 rounded-lg text-sm focus:border-indigo-400 focus:outline-none"
-                placeholder="e.g. UPSC Prelims 2024 GS Paper 1"
+                placeholder="e.g. UPSC Prelims 2024 GS Paper 1 or GS 4 Ethics Mains 2023"
               />
+            </div>
+
+            {/* Exam Category Selector */}
+            <div>
+              <label className="block text-xs font-semibold text-slate-600 mb-1.5">Exam Category *</label>
+              <div className="grid grid-cols-2 gap-2">
+                {EXAM_TYPES.map(type => (
+                  <button
+                    key={type}
+                    type="button"
+                    onClick={() => setExamType(type)}
+                    className={`py-2 px-3 rounded-lg border text-xs font-semibold flex items-center justify-center gap-1.5 transition-all ${
+                      examType === type
+                        ? 'border-indigo-600 bg-indigo-50 text-indigo-700 shadow-2xs'
+                        : 'border-slate-200 bg-slate-50/50 text-slate-600 hover:border-slate-300'
+                    }`}
+                  >
+                    <GraduationCap className="w-3.5 h-3.5" />
+                    {type}
+                  </button>
+                ))}
+              </div>
             </div>
 
             <PdfUpload onUploaded={setPdfUrl} currentUrl={pdfUrl} />

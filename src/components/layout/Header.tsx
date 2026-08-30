@@ -315,7 +315,7 @@ export default function Header() {
         </div>
 
         {/* 4. Primary Deep Navy Navigation Bar - Centered Main Items */}
-        <nav className="bg-[#0b3b60] text-white border-b-2 border-amber-500 shadow-inner hidden lg:block overflow-x-auto scrollbar-none">
+        <nav className="bg-[#0b3b60] text-white border-b-2 border-amber-500 shadow-inner hidden lg:block relative z-40">
           <div className="max-w-7xl mx-auto px-4 flex items-center justify-center">
             <ul className="flex items-center justify-center text-[11.5px] font-semibold tracking-normal flex-nowrap whitespace-nowrap mx-auto">
               {/* Home */}
@@ -362,28 +362,31 @@ export default function Header() {
                     Legislation
                   </Link>
                   <button
+                    type="button"
                     onClick={() => toggleDropdown('legislation')}
-                    className={`pr-2 py-2.5 transition-colors border-b-2 ${pathname.includes('category=Legislation') || pathname.includes('category=Constitutional') || pathname.includes('category=Ordinary')
+                    className={`pr-2 py-2.5 transition-colors border-b-2 cursor-pointer ${pathname.includes('category=Legislation') || pathname.includes('category=Constitutional') || pathname.includes('category=Ordinary')
                       ? 'bg-[#06243d] text-amber-300 border-amber-400 font-bold'
                       : 'border-transparent hover:bg-[#082e4e] hover:text-amber-200'
                       }`}
                     aria-label="Toggle Legislation Menu"
                   >
-                    <ChevronDown className="w-3.5 h-3.5 opacity-80 group-hover:rotate-180 transition-transform" />
+                    <ChevronDown className={`w-3.5 h-3.5 opacity-80 transition-transform ${activeDropdown === 'legislation' ? 'rotate-180 text-amber-300' : 'group-hover:rotate-180'}`} />
                   </button>
                 </div>
 
                 {activeDropdown === 'legislation' && (
-                  <div className="absolute left-0 top-full w-56 bg-white text-slate-800 rounded-b-md shadow-2xl border-t-2 border-amber-500 py-1 z-50 animate-in fade-in slide-in-from-top-1 duration-150">
+                  <div className="absolute left-0 top-full w-56 bg-white text-slate-800 rounded-b-lg shadow-2xl border-t-2 border-amber-500 py-1.5 z-50 animate-in fade-in slide-in-from-top-1 duration-150">
                     <Link
                       href="/updates?category=Constitutional Amendments"
-                      className="block px-4 py-2 text-xs hover:bg-slate-100 text-slate-700 font-medium"
+                      onClick={() => setActiveDropdown(null)}
+                      className="block px-4 py-2 text-xs hover:bg-slate-100 text-slate-700 hover:text-[#0b3b60] font-medium transition-colors"
                     >
                       Constitutional Amendments
                     </Link>
                     <Link
                       href="/updates?category=Ordinary Laws"
-                      className="block px-4 py-2 text-xs hover:bg-slate-100 text-slate-700 font-medium"
+                      onClick={() => setActiveDropdown(null)}
+                      className="block px-4 py-2 text-xs hover:bg-slate-100 text-slate-700 hover:text-[#0b3b60] font-medium transition-colors"
                     >
                       Ordinary Laws
                     </Link>
@@ -447,28 +450,31 @@ export default function Header() {
                     Ethics
                   </Link>
                   <button
+                    type="button"
                     onClick={() => toggleDropdown('ethics')}
-                    className={`pr-2 py-2.5 transition-colors border-b-2 ${pathname.includes('category=Ethical') || pathname.includes('ethics')
+                    className={`pr-2 py-2.5 transition-colors border-b-2 cursor-pointer ${pathname.includes('category=Ethical') || pathname.includes('ethics')
                       ? 'bg-[#06243d] text-amber-300 border-amber-400 font-bold'
                       : 'border-transparent hover:bg-[#082e4e] hover:text-amber-200'
                       }`}
                     aria-label="Toggle Ethics Menu"
                   >
-                    <ChevronDown className="w-3.5 h-3.5 opacity-80 group-hover:rotate-180 transition-transform" />
+                    <ChevronDown className={`w-3.5 h-3.5 opacity-80 transition-transform ${activeDropdown === 'ethics' ? 'rotate-180 text-amber-300' : 'group-hover:rotate-180'}`} />
                   </button>
                 </div>
 
                 {activeDropdown === 'ethics' && (
-                  <div className="absolute left-0 top-full w-56 bg-white text-slate-800 rounded-b-md shadow-2xl border-t-2 border-amber-500 py-1 z-50 animate-in fade-in slide-in-from-top-1 duration-150">
+                  <div className="absolute left-0 top-full w-56 bg-white text-slate-800 rounded-b-lg shadow-2xl border-t-2 border-amber-500 py-1.5 z-50 animate-in fade-in slide-in-from-top-1 duration-150">
                     <Link
                       href="/updates?category=Ethical Issues"
-                      className="block px-4 py-2 text-xs hover:bg-slate-100 text-slate-700 font-medium"
+                      onClick={() => setActiveDropdown(null)}
+                      className="block px-4 py-2 text-xs hover:bg-slate-100 text-slate-700 hover:text-[#0b3b60] font-medium transition-colors"
                     >
                       Ethical Issues
                     </Link>
                     <Link
                       href="/updates?category=Ethical Case Studies"
-                      className="block px-4 py-2 text-xs hover:bg-slate-100 text-slate-700 font-medium"
+                      onClick={() => setActiveDropdown(null)}
+                      className="block px-4 py-2 text-xs hover:bg-slate-100 text-slate-700 hover:text-[#0b3b60] font-medium transition-colors"
                     >
                       Ethical Case Studies
                     </Link>
@@ -476,40 +482,55 @@ export default function Header() {
                 )}
               </li>
 
-              {/* Practice & Tests Dropdown */}
+              {/* Practice Tests Dropdown */}
               <li
                 className="relative group"
                 onMouseEnter={() => setActiveDropdown('practice')}
                 onMouseLeave={() => setActiveDropdown(null)}
               >
-                <button
-                  onClick={() => toggleDropdown('practice')}
-                  className={`flex items-center gap-1 px-2.5 py-2.5 transition-colors border-b-2 ${pathname.startsWith('/pyqs') || pathname.includes('mock')
-                    ? 'bg-[#06243d] text-amber-300 border-amber-400 font-bold'
-                    : 'border-transparent hover:bg-[#082e4e] hover:text-amber-200'
-                    }`}
-                >
-                  <span>Practice Tests</span>
-                  <ChevronDown className="w-3.5 h-3.5 ml-0.5 opacity-80 group-hover:rotate-180 transition-transform" />
-                </button>
+                <div className="flex items-center">
+                  <Link
+                    href="/pyqs"
+                    className={`block pl-2.5 pr-1 py-2.5 transition-colors border-b-2 ${pathname.startsWith('/pyqs') || pathname.includes('mock')
+                      ? 'bg-[#06243d] text-amber-300 border-amber-400 font-bold'
+                      : 'border-transparent hover:bg-[#082e4e] hover:text-amber-200'
+                      }`}
+                  >
+                    Practice Tests
+                  </Link>
+                  <button
+                    type="button"
+                    onClick={() => toggleDropdown('practice')}
+                    className={`pr-2 py-2.5 transition-colors border-b-2 cursor-pointer ${pathname.startsWith('/pyqs') || pathname.includes('mock')
+                      ? 'bg-[#06243d] text-amber-300 border-amber-400 font-bold'
+                      : 'border-transparent hover:bg-[#082e4e] hover:text-amber-200'
+                      }`}
+                    aria-label="Toggle Practice Tests Menu"
+                  >
+                    <ChevronDown className={`w-3.5 h-3.5 opacity-80 transition-transform ${activeDropdown === 'practice' ? 'rotate-180 text-amber-300' : 'group-hover:rotate-180'}`} />
+                  </button>
+                </div>
 
                 {activeDropdown === 'practice' && (
-                  <div className="absolute left-0 top-full w-52 bg-white text-slate-800 rounded-b-md shadow-2xl border-t-2 border-amber-500 py-1 z-50 animate-in fade-in slide-in-from-top-1 duration-150">
+                  <div className="absolute left-0 top-full w-56 bg-white text-slate-800 rounded-b-lg shadow-2xl border-t-2 border-amber-500 py-1.5 z-50 animate-in fade-in slide-in-from-top-1 duration-150">
                     <Link
                       href="/pyqs"
-                      className="block px-4 py-2 text-xs hover:bg-slate-100 text-slate-700 font-medium"
+                      onClick={() => setActiveDropdown(null)}
+                      className="block px-4 py-2 text-xs hover:bg-slate-100 text-slate-700 hover:text-[#0b3b60] font-medium transition-colors"
                     >
-                      Previous Years Questions
+                      Previous Years Questions (PYQs)
                     </Link>
                     <Link
-                      href={getHomeLink('#mock-test')}
-                      className="block px-4 py-2 text-xs hover:bg-slate-100 text-slate-700 font-medium"
+                      href="/mock-tests"
+                      onClick={() => setActiveDropdown(null)}
+                      className="block px-4 py-2 text-xs hover:bg-slate-100 text-slate-700 hover:text-[#0b3b60] font-medium transition-colors"
                     >
                       Mock Tests
                     </Link>
                     <Link
                       href="/updates?category=Model Answers"
-                      className="block px-4 py-2 text-xs hover:bg-slate-100 text-slate-700 font-medium"
+                      onClick={() => setActiveDropdown(null)}
+                      className="block px-4 py-2 text-xs hover:bg-slate-100 text-slate-700 hover:text-[#0b3b60] font-medium transition-colors"
                     >
                       Model Answers
                     </Link>
@@ -781,7 +802,7 @@ export default function Header() {
                           Previous Years Questions
                         </Link>
                         <Link
-                          href={getHomeLink('#mock-test')}
+                          href="/mock-tests"
                           className="block px-3 py-2 text-slate-600 hover:text-[#0b3b60] hover:bg-white rounded-lg font-medium transition-all"
                           onClick={() => setMobileMenuOpen(false)}
                         >
