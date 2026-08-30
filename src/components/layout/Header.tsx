@@ -528,7 +528,7 @@ export default function Header() {
                       Mock Tests
                     </Link>
                     <Link
-                      href="/updates?category=Model Answers"
+                      href="/model-answers"
                       onClick={() => setActiveDropdown(null)}
                       className="block px-4 py-2 text-xs hover:bg-slate-100 text-slate-700 hover:text-[#0b3b60] font-medium transition-colors"
                     >
@@ -809,7 +809,7 @@ export default function Header() {
                           Mock Tests
                         </Link>
                         <Link
-                          href="/updates?category=Model Answers"
+                          href="/model-answers"
                           className="block px-3 py-2 text-slate-600 hover:text-[#0b3b60] hover:bg-white rounded-lg font-medium transition-all"
                           onClick={() => setMobileMenuOpen(false)}
                         >
