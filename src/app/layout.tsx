@@ -56,6 +56,7 @@ export const metadata: Metadata = {
   },
 };
 
+import Script from 'next/script';
 import JsonLdSchema from '@/components/seo/JsonLdSchema';
 
 export default function RootLayout({
@@ -73,6 +74,21 @@ export default function RootLayout({
         <JsonLdSchema />
       </head>
       <body className="min-h-full flex flex-col text-[#0F172A] selection:bg-[#4F46E5] selection:text-white font-sans">
+        {/* Google tag (gtag.js) */}
+        <Script
+          src="https://www.googletagmanager.com/gtag/js?id=G-GR0EKCQY7S"
+          strategy="afterInteractive"
+        />
+        <Script id="google-analytics" strategy="afterInteractive">
+          {`
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+
+            gtag('config', 'G-GR0EKCQY7S');
+          `}
+        </Script>
+
         {children}
       </body>
     </html>
