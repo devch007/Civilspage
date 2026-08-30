@@ -1,13 +1,17 @@
 import { NextResponse } from 'next/server';
 import { db } from '@/db';
 import { currentAffairs } from '@/db/schema';
-import { desc } from 'drizzle-orm';
+import { desc, eq } from 'drizzle-orm';
 import { requireAdmin } from '@/lib/auth';
 
 export async function GET() {
   try {
     await requireAdmin();
-    const rows = await db.select().from(currentAffairs).orderBy(desc(currentAffairs.date));
+    const rows = await db
+      .select()
+      .from(currentAffairs)
+      .where(eq(currentAffairs.isArchived, false))
+      .orderBy(desc(currentAffairs.date));
     return NextResponse.json(rows);
   } catch {
     return NextResponse.json([], { status: 200 });

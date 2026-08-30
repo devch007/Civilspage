@@ -1,7 +1,7 @@
 import { NextResponse } from 'next/server';
 import { db } from '@/db';
 import { currentAffairs } from '@/db/schema';
-import { desc, eq } from 'drizzle-orm';
+import { desc, eq, and } from 'drizzle-orm';
 
 export async function GET(request: Request) {
   try {
@@ -11,7 +11,7 @@ export async function GET(request: Request) {
     let query = db
       .select()
       .from(currentAffairs)
-      .where(eq(currentAffairs.published, true))
+      .where(and(eq(currentAffairs.published, true), eq(currentAffairs.isArchived, false)))
       .orderBy(desc(currentAffairs.date))
       .$dynamic();
 

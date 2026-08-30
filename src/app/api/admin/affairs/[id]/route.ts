@@ -46,8 +46,16 @@ export async function DELETE(
   try {
     await requireAdmin();
     const { id } = await params;
-    await db.delete(currentAffairs).where(eq(currentAffairs.id, id));
-    return NextResponse.json({ success: true });
+    await db
+      .update(currentAffairs)
+      .set({
+        isArchived: true,
+        archivedAt: new Date(),
+        published: false,
+        updatedAt: new Date(),
+      })
+      .where(eq(currentAffairs.id, id));
+    return NextResponse.json({ success: true, archived: true });
   } catch (err: any) {
     return NextResponse.json({ error: err.message }, { status: 500 });
   }

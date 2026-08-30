@@ -1,7 +1,8 @@
 'use client';
 
 import React, { useState, useEffect, useRef } from 'react';
-import { Plus, Trash2, Upload, Image, FileText, X, Loader2, CheckCircle, Pencil, Filter, Check, Tag } from 'lucide-react';
+import Link from 'next/link';
+import { Plus, Trash2, Upload, Image, FileText, X, Loader2, CheckCircle, Pencil, Filter, Check, Tag, Archive } from 'lucide-react';
 import RichTextEditor from '@/components/ui/RichTextEditor';
 
 interface Affair {
@@ -306,7 +307,7 @@ export default function CurrentNewsViewsPage() {
   }
 
   async function handleDelete(id: string) {
-    if (!confirm('Delete this entry?')) return;
+    if (!confirm('Move this entry to Archives? (You can restore it anytime from the Archives panel)')) return;
     await fetch(`/api/admin/affairs/${id}`, { method: 'DELETE' });
     if (editingId === id) resetForm();
     setSuccess((s) => !s);
@@ -332,8 +333,15 @@ export default function CurrentNewsViewsPage() {
           </p>
         </div>
         <div className="flex items-center gap-2">
-          <span className="px-3 py-1.5 bg-white/10 backdrop-blur-sm rounded-xl text-xs font-bold text-amber-300 border border-white/15">
-            {affairs.length} Total Entries
+          <Link
+            href="/login/archives"
+            className="flex items-center gap-1.5 px-3.5 py-2 bg-amber-400 hover:bg-amber-300 text-slate-950 font-bold rounded-xl text-xs shadow-xs transition-colors"
+          >
+            <Archive className="w-3.5 h-3.5 text-slate-950" />
+            <span>View Archives</span>
+          </Link>
+          <span className="px-3 py-2 bg-white/10 backdrop-blur-sm rounded-xl text-xs font-bold text-slate-200 border border-white/15">
+            {affairs.length} Active Entries
           </span>
         </div>
       </div>

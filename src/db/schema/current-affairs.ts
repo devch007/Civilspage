@@ -12,11 +12,14 @@ export const currentAffairs = pgTable('current_affairs', {
   date: date('date').notNull(),
   category: text('category').notNull().default('General'),
   published: boolean('published').notNull().default(false),
+  isArchived: boolean('is_archived').notNull().default(false),
+  archivedAt: timestamp('archived_at', { withTimezone: true }),
   createdAt: timestamp('created_at', { withTimezone: true }).notNull().defaultNow(),
   updatedAt: timestamp('updated_at', { withTimezone: true }).notNull().defaultNow(),
 }, (t) => [
   index('ca_date_idx').on(t.date),
   index('ca_category_idx').on(t.category),
+  index('ca_is_archived_idx').on(t.isArchived),
   uniqueIndex('ca_slug_idx').on(t.slug),
 ]);
 
