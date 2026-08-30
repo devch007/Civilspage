@@ -1,4 +1,4 @@
-import { headers } from 'next/headers';
+import { headers, cookies } from 'next/headers';
 import { db } from '@/db';
 import { auditLogs } from '@/db/schema';
 import { getUserProfile } from '@/lib/auth';
@@ -15,6 +15,10 @@ export type AuditAction =
   | 'lesson.created' | 'lesson.deleted'
   // PYQs
   | 'pyq.created' | 'pyq.updated' | 'pyq.deleted'
+  // Mock Tests
+  | 'mock_test.created' | 'mock_test.updated' | 'mock_test.deleted'
+  // Model Answers
+  | 'model_answer.created' | 'model_answer.updated' | 'model_answer.deleted'
   // Quizzes
   | 'quiz.created' | 'quiz.deleted' | 'quiz.activated' | 'quiz.deactivated'
   // Categories & Tags
@@ -27,7 +31,9 @@ export type AuditAction =
   // Files
   | 'file.uploaded' | 'file.deleted'
   // Auth
-  | 'auth.login' | 'auth.logout';
+  | 'auth.login' | 'auth.logout'
+  // Settings
+  | 'settings.updated';
 
 export interface AuditOptions {
   action: AuditAction;
@@ -35,46 +41,82 @@ export interface AuditOptions {
   resourceId?: string;
   resourceTitle?: string;
   metadata?: Record<string, unknown>;
+  userEmail?: string;
+  userName?: string;
+  userRole?: string;
+  ipAddress?: string;
+  userAgent?: string;
 }
 
 /**
- * Call this inside any Server Action to record the action.
- * Captures user info from session, IP from request headers.
- * Never throws — audit failures are silent to not block main flow.
+ * Call this inside Server Actions or API routes to record an audit log.
+ * Resolves user from Supabase session OR admin cookie session.
  */
 export async function logAudit(options: AuditOptions): Promise<void> {
   try {
-    const [headersList, userProfile] = await Promise.all([
-      headers(),
-      getUserProfile(),
-    ]);
+    let email = options.userEmail;
+    let name = options.userName;
+    let role = options.userRole;
+    let ip = options.ipAddress;
+    let userAgent = options.userAgent;
 
-    if (!userProfile) return; // Not authenticated — skip
+    // Extract headers and cookies if not explicitly passed
+    try {
+      const [headersList, cookieStore] = await Promise.all([
+        headers(),
+        cookies()
+      ]);
 
-    // Best-effort IP extraction
-    const ip =
-      headersList.get('x-forwarded-for')?.split(',')[0]?.trim() ??
-      headersList.get('x-real-ip') ??
-      headersList.get('cf-connecting-ip') ?? // Cloudflare
-      'unknown';
+      if (!ip) {
+        ip =
+          headersList.get('x-forwarded-for')?.split(',')[0]?.trim() ??
+          headersList.get('x-real-ip') ??
+          headersList.get('cf-connecting-ip') ??
+          '127.0.0.1';
+      }
 
-    const userAgent = headersList.get('user-agent') ?? 'unknown';
+      if (!userAgent) {
+        userAgent = headersList.get('user-agent') ?? 'Browser';
+      }
+
+      // Check Supabase session first
+      const profile = await getUserProfile();
+      if (profile) {
+        email = profile.email;
+        name = profile.name ?? 'Rajiv Ranjan Singh';
+        role = profile.role;
+      } else {
+        // Check admin session cookie
+        const adminSession = cookieStore.get('civilspage_admin_session')?.value;
+        if (adminSession) {
+          email = 'rajivranjansingh@civilspage.com';
+          name = 'Rajiv Ranjan Singh';
+          role = 'super_admin';
+        }
+      }
+    } catch {
+      // Background or API context
+    }
+
+    if (!email) {
+      email = 'rajivranjansingh@civilspage.com';
+      name = 'Rajiv Ranjan Singh';
+      role = 'super_admin';
+    }
 
     await db.insert(auditLogs).values({
-      userId: userProfile.id,
-      userEmail: userProfile.email,
-      userName: userProfile.name ?? null,
-      userRole: userProfile.role,
+      userEmail: email,
+      userName: name ?? 'Rajiv Ranjan Singh',
+      userRole: role ?? 'super_admin',
       action: options.action,
       resourceType: options.resourceType,
       resourceId: options.resourceId ?? null,
       resourceTitle: options.resourceTitle ?? null,
-      ipAddress: ip,
-      userAgent,
+      ipAddress: ip || '127.0.0.1',
+      userAgent: userAgent || 'Admin Console',
       metadata: options.metadata ?? null,
     });
   } catch (err) {
-    // Silent fail — audit must never block the main operation
     console.error('[Audit] Failed to log action:', err);
   }
 }
@@ -82,7 +124,7 @@ export async function logAudit(options: AuditOptions): Promise<void> {
 /**
  * Fetch audit logs for the admin page.
  */
-export async function getAuditLogs(limit = 100, resourceType?: string) {
+export async function getAuditLogs(limit = 200, resourceType?: string) {
   const { desc, eq } = await import('drizzle-orm');
 
   const query = db
@@ -96,57 +138,4 @@ export async function getAuditLogs(limit = 100, resourceType?: string) {
     : query;
 }
 
-/**
- * Human-readable label for an action.
- */
-export function actionLabel(action: string): string {
-  const labels: Record<string, string> = {
-    'blog.created': 'Created Blog',
-    'blog.updated': 'Updated Blog',
-    'blog.deleted': 'Deleted Blog',
-    'blog.published': 'Published Blog',
-    'blog.unpublished': 'Unpublished Blog',
-    'current_affair.created': 'Added Current Affair',
-    'current_affair.updated': 'Updated Current Affair',
-    'current_affair.deleted': 'Deleted Current Affair',
-    'note.uploaded': 'Uploaded Note',
-    'note.deleted': 'Deleted Note',
-    'course.created': 'Created Course',
-    'course.updated': 'Updated Course',
-    'course.deleted': 'Deleted Course',
-    'lesson.created': 'Added Lesson',
-    'lesson.deleted': 'Deleted Lesson',
-    'pyq.created': 'Added PYQ',
-    'pyq.updated': 'Updated PYQ',
-    'pyq.deleted': 'Deleted PYQ',
-    'quiz.created': 'Added Quiz Question',
-    'quiz.deleted': 'Deleted Quiz Question',
-    'quiz.activated': 'Activated Quiz Question',
-    'quiz.deactivated': 'Deactivated Quiz Question',
-    'category.created': 'Created Category',
-    'category.deleted': 'Deleted Category',
-    'tag.created': 'Created Tag',
-    'tag.deleted': 'Deleted Tag',
-    'comment.approved': 'Approved Comment',
-    'comment.rejected': 'Rejected Comment',
-    'user.role_changed': 'Changed User Role',
-    'user.invited': 'Invited User',
-    'user.deleted': 'Deleted User',
-    'file.uploaded': 'Uploaded File to R2',
-    'file.deleted': 'Deleted File from R2',
-    'auth.login': 'Logged In',
-    'auth.logout': 'Logged Out',
-  };
-  return labels[action] ?? action;
-}
-
-/**
- * Color class for action badges.
- */
-export function actionColor(action: string): string {
-  if (action.includes('deleted') || action.includes('rejected')) return 'bg-red-50 text-red-700';
-  if (action.includes('created') || action.includes('uploaded') || action.includes('invited')) return 'bg-emerald-50 text-emerald-700';
-  if (action.includes('published') || action.includes('activated') || action.includes('approved')) return 'bg-indigo-50 text-indigo-700';
-  if (action.includes('updated') || action.includes('changed')) return 'bg-amber-50 text-amber-700';
-  return 'bg-slate-100 text-slate-600';
-}
+export { actionLabel, actionColor } from '@/lib/audit-helpers';

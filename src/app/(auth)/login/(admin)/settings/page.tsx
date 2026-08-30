@@ -1,36 +1,50 @@
-export default function SettingsPage() {
+import postgres from 'postgres';
+import SettingsClient from './_components/SettingsClient';
+import { Settings as SettingsIcon } from 'lucide-react';
+
+export default async function SettingsPage() {
+  let stats = {
+    pyqs: 0,
+    mocks: 0,
+    modelAnswers: 0,
+    currentAffairs: 0,
+    auditLogs: 0,
+  };
+
+  try {
+    const sql = postgres(process.env.DATABASE_URL!, { prepare: false });
+    const [p, m, a, c, l] = await Promise.all([
+      sql`SELECT COUNT(*)::int as count FROM pyq_pdfs`.catch(() => [{ count: 0 }]),
+      sql`SELECT COUNT(*)::int as count FROM mock_test_pdfs`.catch(() => [{ count: 0 }]),
+      sql`SELECT COUNT(*)::int as count FROM model_answer_pdfs`.catch(() => [{ count: 0 }]),
+      sql`SELECT COUNT(*)::int as count FROM current_affairs`.catch(() => [{ count: 0 }]),
+      sql`SELECT COUNT(*)::int as count FROM audit_logs`.catch(() => [{ count: 0 }]),
+    ]);
+
+    stats = {
+      pyqs: p[0]?.count || 0,
+      mocks: m[0]?.count || 0,
+      modelAnswers: a[0]?.count || 0,
+      currentAffairs: c[0]?.count || 0,
+      auditLogs: l[0]?.count || 0,
+    };
+  } catch (err) {
+    console.error('Failed to fetch settings diagnostics:', err);
+  }
+
   return (
-    <div className="max-w-2xl space-y-6">
+    <div className="space-y-6">
       <div>
-        <h1 className="text-2xl font-bold text-slate-900">Settings</h1>
-        <p className="text-slate-500 text-sm mt-1">Manage portal configuration</p>
+        <h1 className="text-2xl font-bold text-slate-900 flex items-center gap-2.5">
+          <SettingsIcon className="w-7 h-7 text-indigo-600" />
+          <span>System &amp; Portal Settings</span>
+        </h1>
+        <p className="text-slate-500 text-sm mt-1">
+          Manage administrator profile, security credentials, Cloudflare R2 storage, and database services.
+        </p>
       </div>
 
-      <div className="bg-white border border-slate-100 rounded-xl p-6 space-y-5">
-        <h2 className="font-semibold text-slate-800 text-sm uppercase tracking-wider">Portal Info</h2>
-        <div>
-          <label className="block text-sm font-medium text-slate-700 mb-1.5">Portal Name</label>
-          <input defaultValue="CivilsPage UPSC Academy" className="w-full px-4 py-3 border border-slate-200 rounded-xl text-sm focus:border-indigo-400 focus:outline-none" />
-        </div>
-        <div>
-          <label className="block text-sm font-medium text-slate-700 mb-1.5">Support Email</label>
-          <input defaultValue="rajivranjansingh@civilspage.com" className="w-full px-4 py-3 border border-slate-200 rounded-xl text-sm focus:border-indigo-400 focus:outline-none" />
-        </div>
-      </div>
-
-      <div className="bg-white border border-slate-100 rounded-xl p-6 space-y-4">
-        <h2 className="font-semibold text-slate-800 text-sm uppercase tracking-wider">Supabase Project</h2>
-        <div className="grid grid-cols-2 gap-4 text-sm">
-          <div className="p-3 bg-slate-50 rounded-lg">
-            <p className="text-xs text-slate-400 font-medium mb-1">Project URL</p>
-            <p className="font-mono text-slate-700 text-xs break-all">aqczscppwjibyxaymdym.supabase.co</p>
-          </div>
-          <div className="p-3 bg-emerald-50 rounded-lg">
-            <p className="text-xs text-slate-400 font-medium mb-1">Status</p>
-            <p className="text-emerald-700 font-semibold text-xs">✓ Connected</p>
-          </div>
-        </div>
-      </div>
+      <SettingsClient stats={stats} />
     </div>
   );
 }

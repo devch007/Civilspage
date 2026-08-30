@@ -1,5 +1,6 @@
 import { NextResponse } from 'next/server';
 import postgres from 'postgres';
+import { logAudit } from '@/lib/audit';
 
 const sql = postgres(process.env.DATABASE_URL!, { prepare: false });
 
@@ -25,6 +26,15 @@ export async function POST(req: Request) {
       VALUES (${title}, ${tagsArr}, ${pdfUrl}, ${year ? parseInt(year) : null}, ${subject || 'Polity & Governance'})
       RETURNING *
     `;
+
+    await logAudit({
+      action: 'model_answer.created',
+      resourceType: 'model_answer',
+      resourceId: row.id,
+      resourceTitle: title,
+      metadata: { subject: row.subject, year: row.year, pdfUrl: row.pdf_url }
+    });
+
     return NextResponse.json(row);
   } catch (e: any) {
     return NextResponse.json({ error: e.message }, { status: 500 });

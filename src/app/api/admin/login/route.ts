@@ -34,6 +34,18 @@ export async function POST(request: Request) {
         maxAge: 60 * 60 * 24 // 24 hours
       });
 
+      try {
+        const { logAudit } = await import('@/lib/audit');
+        await logAudit({
+          action: 'auth.login',
+          resourceType: 'auth',
+          resourceTitle: 'Admin Session Login',
+          userEmail: email,
+          userName: 'Rajiv Ranjan Singh',
+          userRole: 'super_admin'
+        });
+      } catch {}
+
       return response;
     }
 
