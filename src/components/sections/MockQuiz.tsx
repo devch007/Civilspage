@@ -109,15 +109,18 @@ export default function MockQuiz() {
         </div>
 
         {/* Section Header */}
-        <div className="text-center max-w-2xl mx-auto mb-8">
+        <div className="text-center max-w-3xl mx-auto mb-10">
           <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-amber-50 border border-amber-200 text-amber-800 text-xs font-bold uppercase tracking-wider mb-2">
             <span>UPSC Mock Test Series</span>
           </div>
-          <h1 className="text-2xl sm:text-3xl lg:text-4xl font-black text-[#0b3b60] font-serif leading-snug">
+          <h1 className="text-2xl sm:text-3xl lg:text-4xl font-black text-[#0b3b60] font-serif leading-snug mb-3">
             {activeTab === 'Preliminary Examination' && 'Preliminary Examination Mock Tests'}
             {activeTab === 'Main Examination' && 'Main Examination Mock Tests'}
             {activeTab === 'All' && 'All Mock Tests & Practice Papers'}
           </h1>
+          <p className="text-slate-600 text-xs sm:text-sm leading-relaxed max-w-2xl mx-auto">
+            Test Papers have been designed by a panel of subject experts under the guidance of Rajiv Ranjan Singh so as to match the standard of examination conducted by UPSC. The sources of questions are classroom teaching, life situations, newspapers and other communication medium and test books. The objective is not only to evaluate your ability to recall memorised information but also the understanding of the subject. The extensive, in-depth and holistic discussion on the test paper in an interactive and participative environment is our hall mark.
+          </p>
         </div>
 
         <div className="max-w-4xl mx-auto">
