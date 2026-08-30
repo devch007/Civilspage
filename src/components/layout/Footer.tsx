@@ -68,7 +68,7 @@ export default function Footer() {
               </div>
               <div className="flex items-center gap-2 hover:text-amber-300 transition-colors">
                 <Phone className="w-3.5 h-3.5 text-amber-300 shrink-0" />
-                <a href="tel:+919811576540">+91 8318010306</a>
+                <a href="tel:+91 8318010306">+91 8318010306</a>
               </div>
               <div className="flex items-center gap-2">
                 <MapPin className="w-3.5 h-3.5 text-amber-300 shrink-0" />
@@ -93,13 +93,13 @@ export default function Footer() {
               <li>
                 <Link href="/updates?category=Ordinary Laws" className="text-slate-200 hover:text-amber-300 flex items-center gap-1.5 transition-colors group">
                   <ChevronRight className="w-3 h-3 text-amber-400/60 group-hover:text-amber-300 transition-colors" />
-                  <span>Ordinary Laws &amp; Acts</span>
+                  <span>Ordinary Laws</span>
                 </Link>
               </li>
               <li>
                 <Link href="/updates?category=Court Judgements" className="text-slate-200 hover:text-amber-300 flex items-center gap-1.5 transition-colors group">
                   <ChevronRight className="w-3 h-3 text-amber-400/60 group-hover:text-amber-300 transition-colors" />
-                  <span>Supreme Court Judgements</span>
+                  <span>Court Judgements</span>
                 </Link>
               </li>
               <li>
@@ -111,13 +111,13 @@ export default function Footer() {
               <li>
                 <Link href="/updates?category=Commissions %26 Committees" className="text-slate-200 hover:text-amber-300 flex items-center gap-1.5 transition-colors group">
                   <ChevronRight className="w-3 h-3 text-amber-400/60 group-hover:text-amber-300 transition-colors" />
-                  <span>Commissions &amp; Reports</span>
+                  <span>Commissions &amp; Committees</span>
                 </Link>
               </li>
               <li>
                 <Link href="/updates?category=Ethical Issues" className="text-slate-200 hover:text-amber-300 flex items-center gap-1.5 transition-colors group">
                   <ChevronRight className="w-3 h-3 text-amber-400/60 group-hover:text-amber-300 transition-colors" />
-                  <span>Ethical Issues &amp; Governance</span>
+                  <span>Ethical Issues</span>
                 </Link>
               </li>
               <li>
