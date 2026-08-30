@@ -4,7 +4,7 @@ import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import {
-  BarChart3, Newspaper, HelpCircle, Settings, Layout, LogOut, Shield, Menu, X, ChevronRight, Sparkles
+  BarChart3, Newspaper, HelpCircle, Settings, Layout, LogOut, Shield, Menu, X, ChevronRight, Sparkles, MessageSquareCheck
 } from 'lucide-react';
 
 interface AdminSidebarProps {
@@ -18,6 +18,7 @@ const navItems = [
   { href: '/login/pyqs', label: 'PYQs Database', icon: HelpCircle },
   { href: '/login/mock-tests', label: 'Mock Tests', icon: Sparkles },
   { href: '/login/model-answers', label: 'Model Answers', icon: Layout },
+  { href: '/login/resolved-queries', label: 'Resolved Queries', icon: MessageSquareCheck },
   { href: '/login/audit-log', label: 'Audit Log', icon: Shield },
   { href: '/login/settings', label: 'Settings', icon: Settings },
 ];
