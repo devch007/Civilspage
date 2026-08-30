@@ -18,7 +18,7 @@ interface ResolvedQuery {
 const CATEGORIES = [
   'Polity & Governance',
   'Ethics & Integrity',
-  'Mains Strategy',
+  'Strategy',
   'Prelims Approach',
   'Optional Subject',
   'General'

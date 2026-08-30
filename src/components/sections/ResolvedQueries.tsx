@@ -42,7 +42,7 @@ export default function ResolvedQueries() {
     loadQueries();
   }, []);
 
-  const categories = ['All', 'Polity & Governance', 'Ethics & Integrity', 'Mains Strategy', 'General'];
+  const categories = ['All', 'Polity & Governance', 'Ethics & Integrity', 'Strategy', 'Miscellaneous'];
 
   const filteredQueries = queries.filter((q) => {
     const matchesCat = activeCategory === 'All' || q.category.toLowerCase().includes(activeCategory.toLowerCase());
@@ -69,7 +69,7 @@ export default function ResolvedQueries() {
           </div>
 
           <h2 className="text-2xl sm:text-3xl lg:text-4xl font-black text-[#0b3b60] font-serif leading-tight">
-            Resolved Aspirant Queries
+            Resolved Queries
           </h2>
 
           <p className="text-slate-600 text-sm sm:text-base mt-2.5 leading-relaxed">
