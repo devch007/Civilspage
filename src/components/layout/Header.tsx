@@ -173,7 +173,7 @@ export default function Header() {
 
   return (
     <>
-      <header className="fixed top-0 left-0 w-full z-50 bg-white shadow-md transition-all">
+      <header className="relative w-full z-40 bg-white shadow-xs transition-all">
         {/* 1. National Tricolor Accent Bar */}
         <div className="h-[3px] w-full flex">
           <div className="w-1/3 bg-[#FF9933]"></div>
