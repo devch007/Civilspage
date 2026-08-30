@@ -110,7 +110,7 @@ export default function MockTestsAdminPage() {
   const [submitting, setSubmitting] = useState(false);
   const [tick, setTick] = useState(0);
   const [editingId, setEditingId] = useState<string | null>(null);
-  const [filterExam, setFilterExam] = useState<'All' | 'Preliminary Examination' | 'Main Examination'>('All');
+  const [filterExam, setFilterExam] = useState<'Preliminary Examination' | 'Main Examination'>('Preliminary Examination');
 
   // Form state
   const [title, setTitle] = useState('');
@@ -175,7 +175,6 @@ export default function MockTestsAdminPage() {
   }
 
   const filteredPdfs = pdfs.filter(p => {
-    if (filterExam === 'All') return true;
     return (p.exam_type || 'Preliminary Examination') === filterExam;
   });
 
@@ -193,7 +192,7 @@ export default function MockTestsAdminPage() {
             <h2 className="font-semibold text-slate-800 text-sm">Uploaded Mock Test PDFs</h2>
             {/* Filter Pills */}
             <div className="flex items-center gap-1 bg-slate-100 p-1 rounded-lg text-xs font-medium">
-              {(['All', 'Preliminary Examination', 'Main Examination'] as const).map(tab => (
+              {(['Preliminary Examination', 'Main Examination'] as const).map(tab => (
                 <button
                   key={tab}
                   onClick={() => setFilterExam(tab)}
@@ -203,7 +202,7 @@ export default function MockTestsAdminPage() {
                       : 'text-slate-500 hover:text-slate-800'
                   }`}
                 >
-                  {tab === 'Preliminary Examination' ? 'Prelims' : tab === 'Main Examination' ? 'Mains' : 'All'}
+                  {tab === 'Preliminary Examination' ? 'Prelims' : 'Mains'}
                 </button>
               ))}
             </div>

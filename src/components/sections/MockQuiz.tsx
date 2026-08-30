@@ -14,7 +14,7 @@ interface MockPdf {
   created_at: string;
 }
 
-type TabType = 'All' | 'Preliminary Examination' | 'Main Examination';
+type TabType = 'Preliminary Examination' | 'Main Examination';
 
 export default function MockQuiz() {
   const [pdfs, setPdfs] = useState<MockPdf[]>([]);
@@ -33,7 +33,6 @@ export default function MockQuiz() {
   const mainsCount = pdfs.filter(p => (p.exam_type || '').includes('Main')).length;
 
   const filteredPdfs = pdfs.filter(item => {
-    if (activeTab === 'All') return true;
     const itemExam = item.exam_type || 'Preliminary Examination';
     if (activeTab === 'Preliminary Examination') {
       return itemExam === 'Preliminary Examination' || !item.exam_type;
@@ -49,8 +48,8 @@ export default function MockQuiz() {
       <div className="container max-w-6xl mx-auto px-4 sm:px-6">
         
         {/* Selection Tabs Above Heading */}
-        <div className="max-w-xl mx-auto mb-8">
-          <div className="bg-white p-1.5 rounded-2xl border border-slate-200 shadow-sm flex items-center gap-1.5">
+        <div className="max-w-md mx-auto mb-8">
+          <div className="bg-white p-1.5 rounded-2xl border border-slate-200 shadow-sm flex items-center gap-2">
             {/* Preliminary Examination Tab */}
             <button
               onClick={() => setActiveTab('Preliminary Examination')}
@@ -86,25 +85,6 @@ export default function MockQuiz() {
                 {mainsCount}
               </span>
             </button>
-
-            {/* All Tests Tab */}
-            <button
-              onClick={() => setActiveTab('All')}
-              className={`py-3 px-3.5 rounded-xl font-bold text-xs sm:text-sm flex items-center justify-center gap-1.5 transition-all ${
-                activeTab === 'All'
-                  ? 'bg-[#0b3b60] text-white shadow-md'
-                  : 'text-slate-600 hover:text-slate-900 hover:bg-slate-50'
-              }`}
-              title="Show all Mock Tests"
-            >
-              <Layers className={`w-3.5 h-3.5 ${activeTab === 'All' ? 'text-amber-300' : 'text-slate-400'}`} />
-              <span className="hidden sm:inline">All</span>
-              <span className={`text-[10px] px-1.5 py-0.5 rounded-full font-extrabold ${
-                activeTab === 'All' ? 'bg-white/20 text-white' : 'bg-slate-100 text-slate-500'
-              }`}>
-                {pdfs.length}
-              </span>
-            </button>
           </div>
         </div>
 
@@ -116,7 +96,6 @@ export default function MockQuiz() {
           <h1 className="text-2xl sm:text-3xl lg:text-4xl font-black text-[#0b3b60] font-serif leading-snug mb-3">
             {activeTab === 'Preliminary Examination' && 'Preliminary Examination Mock Tests'}
             {activeTab === 'Main Examination' && 'Main Examination Mock Tests'}
-            {activeTab === 'All' && 'All Mock Tests & Practice Papers'}
           </h1>
           <p className="text-slate-600 text-xs sm:text-sm leading-relaxed max-w-2xl mx-auto">
             Test Papers have been designed by a panel of subject experts under the guidance of Rajiv Ranjan Singh so as to match the standard of examination conducted by UPSC. The sources of questions are classroom teaching, life situations, newspapers and other communication medium and test books. The objective is not only to evaluate your ability to recall memorised information but also the understanding of the subject. The extensive, in-depth and holistic discussion on the test paper in an interactive and participative environment is our hall mark.
