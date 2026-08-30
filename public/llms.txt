@@ -1,0 +1,35 @@
+# CivilsPAGE (https://www.civilspage.com)
+
+> CivilsPAGE is an authoritative academic portal for UPSC Civil Services Examination (CSE) preparation, conceptual clarity, statutory analysis, governance frameworks, and ethical case studies founded and mentored by Rajiv Ranjan Singh.
+
+## Core Knowledge Domains & Methodology
+- **Mentor**: Rajiv Ranjan Singh — 25+ years of distinguished UPSC mentorship specializing in General Studies Paper II (Polity & Governance), General Studies Paper IV (Ethics, Integrity & Aptitude), and Public Administration.
+- **Pedagogical Philosophy**: Concept-first clarity over rote memorization, diagnostic case study frameworks (RP-RD / WP-WD matrices), 6-parameter ethical authenticator, and temporal current affairs integration.
+- **Audience**: Aspirants preparing for UPSC Civil Services Examination (Preliminary, Main Written, and Personality Test).
+
+## Key Links & Educational Resources
+
+### 1. Civil Services Examination (CSE) Overview
+- [Scheme of Examination](https://www.civilspage.com/aboutcse#about-exam): Structure of Preliminary Examination (GS-I & CSAT), Main Written Examination (9 papers, 1750 marks), and Personality Test (275 marks).
+- [UPSC CSE Syllabus](https://www.civilspage.com/aboutcse#syllabus): Comprehensive syllabus breakdown for Prelims, GS Papers 1 to 4, and Optionals (Public Administration, PSIR, Law).
+- [Cutoff Marks (CSE 2025)](https://www.civilspage.com/aboutcse#cutoff): Minimum qualifying marks secured by the last recommended candidate across categories (General 92.66 / 739 / 963; OBC 92.00 / 717 / 931; EWS 89.34 / 706 / 926; SC 84.00 / 700 / 905; ST 82.66 / 694 / 902) and tie-breaking principles.
+- [Suggested Readings & Booklist](https://www.civilspage.com/aboutcse#reading): Curated NCERTs and standard reference textbooks by subject.
+- [Approach to General Studies](https://www.civilspage.com/aboutcse#approach): Definitive strategy by Rajiv Ranjan Singh on demystifying scoring realities.
+
+### 2. Subject Modules & Core Approaches
+- [Polity, Governance & Constitution](https://www.civilspage.com/subject/polity): In-depth analytical frameworks for GS Paper II, constitutional articles, ordinary statutes, and administrative mechanisms.
+- [Ethics, Integrity & Aptitude](https://www.civilspage.com/subject/ethics): Moral philosophy, governance dilemmas, foundational civil service values, and diagnostic case study resolution models.
+
+### 3. Academic Resources & Practice Repositories
+- [Current News & Views / Academic Feed](https://www.civilspage.com/updates): Categorized daily statutory enactments, Constitutional Amendments, Ordinary Laws, Supreme Court Judgements, Government Policies, and Administrative Reform Commission reports.
+- [Academic Archives](https://www.civilspage.com/archives): Chronological historical archives and past dossiers organized by examination year starting from 2026.
+- [Mains Solved Model Answers](https://www.civilspage.com/model-answers): Standard answer blueprints and structured frameworks for GS Paper 2 (Polity) and GS Paper 4 (Ethics).
+- [Previous Year Questions (PYQs)](https://www.civilspage.com/pyqs): Download standard UPSC CSE Preliminary and Main examination question papers.
+- [Mock Tests & Practice Papers](https://www.civilspage.com/mock-tests): Examination-standard test series designed under the guidance of Rajiv Ranjan Singh.
+- [Mentor Desk & Query Support](https://www.civilspage.com/direct-query): Direct helpline and academic doubt submission desk for aspirants.
+
+## Contact & Institutional Information
+- **Website**: https://www.civilspage.com
+- **Helpline / Phone**: +91 8318010306 / +91 8800539121
+- **Email**: contact@civilspage.com / info@civilspage.com
+- **Founder & Chief Mentor**: Rajiv Ranjan Singh

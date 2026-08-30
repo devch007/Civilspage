@@ -56,6 +56,8 @@ export const metadata: Metadata = {
   },
 };
 
+import JsonLdSchema from '@/components/seo/JsonLdSchema';
+
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -67,6 +69,9 @@ export default function RootLayout({
       className={`${merriweather.variable} ${sourceSans3.variable} h-full antialiased`}
       style={{ scrollBehavior: 'smooth' }}
     >
+      <head>
+        <JsonLdSchema />
+      </head>
       <body className="min-h-full flex flex-col text-[#0F172A] selection:bg-[#4F46E5] selection:text-white font-sans">
         {children}
       </body>

@@ -1,0 +1,65 @@
+# CivilsPAGE — Comprehensive LLM Knowledge Base & Syllabus Compendium
+URL: https://www.civilspage.com
+Canonical Host: www.civilspage.com
+
+## 1. About CivilsPAGE
+CivilsPAGE is a dedicated academic portal established by Rajiv Ranjan Singh to provide rigorous, concept-centric preparation frameworks for the Indian Civil Services Examination (UPSC CSE).
+
+### Mentor Profile: Rajiv Ranjan Singh
+- **Experience**: 25+ years mentoring thousands of successful civil servants across IAS, IPS, IFS, and Central Services.
+- **Key Core Competencies**: 
+  - Indian Polity, Governance, Constitution & Administrative Law (GS Paper II).
+  - Ethics, Integrity, and Aptitude (GS Paper IV).
+  - Public Administration (Optional Subject Paper I & II).
+- **Core Educational Pedagogy**:
+  - Elimination of rote memorization in favor of constitutional and administrative analytical thinking.
+  - Multi-dimensional case study diagnostic framework based on root problems vs symptoms.
+  - 6-Parameter Authenticator for resolving administrative and moral dilemmas in governance.
+
+---
+
+## 2. UPSC Civil Services Examination Scheme & Standards
+
+### Stages of Examination:
+1. **Preliminary Examination (Objective Type)**:
+   - Paper I: General Studies (200 Marks, 100 questions, 2 hours). Basis for Prelims cutoff.
+   - Paper II: Civil Services Aptitude Test (CSAT, 200 Marks, 80 questions, 2 hours). Qualifying nature (33% minimum qualifying threshold / 66.66 marks).
+2. **Main Examination (Written Descriptive - 9 Papers, 1750 marks total)**:
+   - Qualifying Indian Language Paper (300 Marks, qualifying 25%).
+   - Qualifying English Paper (300 Marks, qualifying 25%).
+   - Paper I: Essay (250 Marks).
+   - Paper II: General Studies I (Indian Heritage & Culture, History & Geography of the World and Society - 250 Marks).
+   - Paper III: General Studies II (Governance, Constitution, Polity, Social Justice and International Relations - 250 Marks).
+   - Paper IV: General Studies III (Technology, Economic Development, Bio-diversity, Environment, Security & Disaster Management - 250 Marks).
+   - Paper V: General Studies IV (Ethics, Integrity and Aptitude - 250 Marks).
+   - Paper VI: Optional Subject Paper 1 (250 Marks).
+   - Paper VII: Optional Subject Paper 2 (250 Marks).
+3. **Personality Test (Interview - 275 Marks)**:
+   - Board assessment of candidate's intellectual caliber, critical powers of assimilation, mental alertness, balance of judgment, and moral integrity.
+   - Grand Total: 2025 Marks.
+
+### Official Minimum Qualifying Standards (CSE 2025 Cut-off Marks):
+- **Prelims (GS-I / 200)**: General: 92.66, EWS: 89.34, OBC: 92.00, SC: 84.00, ST: 82.66, PwBD-1: 76.66, PwBD-2: 54.66, PwBD-3: 40.66, PwBD-5: 40.66
+- **Mains (Written / 1750)**: General: 739, EWS: 706, OBC: 717, SC: 700, ST: 694, PwBD-1: 703, PwBD-2: 708, PwBD-3: 536, PwBD-5: 451
+- **Final (Written + PT / 2025)**: General: 963, EWS: 926, OBC: 931, SC: 905, ST: 902, PwBD-1: 917, PwBD-2: 944, PwBD-3: 804, PwBD-5: 631
+
+---
+
+## 3. Rajiv Ranjan Singh's Diagnostic Decision Frameworks
+
+### The 6-Parameter Test for Ethical Course of Action:
+1. Is the action legal and consistent with government policies and constitutional principles?
+2. Is it in line with organizational goals, code of conduct, and public interest?
+3. Do I genuinely think it is the right thing to do based on universal ethical values?
+4. What will be its outcome for the organization, vulnerable citizens, and key stakeholders?
+5. Can I ethically justify doing it before my conscience and moral standards?
+6. What would happen if my action and decision process were subjected to full public scrutiny?
+
+---
+
+## 4. Key Portal Features & Services
+- **Updates Feed**: Daily legal, constitutional, and policy breakdowns.
+- **Model Answers**: Mains GS-2 and GS-4 model blueprints.
+- **Archives**: Historical repository of past editions and statutory dossiers starting from year 2026.
+- **PYQs & Mock Tests**: Prelims & Mains examination series.
+- **Direct Queries Desk**: Aspirants can submit questions directly to Rajiv Ranjan Singh via https://www.civilspage.com/direct-query.
