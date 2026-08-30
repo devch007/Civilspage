@@ -132,7 +132,6 @@ export default function PYQsPage() {
   const [tagsInput, setTagsInput] = useState('');
   const [pdfUrl, setPdfUrl] = useState('');
   const [examType, setExamType] = useState('Preliminary Examination');
-  const [subject, setSubject] = useState('General Studies');
   const [year, setYear] = useState(new Date().getFullYear().toString());
 
   useEffect(() => {
@@ -149,7 +148,6 @@ export default function PYQsPage() {
     setTagsInput('');
     setPdfUrl('');
     setExamType('Preliminary Examination');
-    setSubject('General Studies');
     setYear(new Date().getFullYear().toString());
     setEditingId(null);
   }
@@ -160,7 +158,6 @@ export default function PYQsPage() {
     setTagsInput(p.tags ? p.tags.join(', ') : '');
     setPdfUrl(p.pdf_url);
     setExamType(p.exam_type || 'Preliminary Examination');
-    setSubject(p.subject || 'General Studies');
     setYear(p.year ? p.year.toString() : new Date().getFullYear().toString());
   }
 
@@ -176,7 +173,7 @@ export default function PYQsPage() {
       const res = await fetch(url, {
         method,
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ title, tags, pdfUrl, subject, year, examType }),
+        body: JSON.stringify({ title, tags, pdfUrl, year, examType }),
       });
       if (!res.ok) throw new Error((await res.json()).error);
       resetForm();
@@ -355,22 +352,13 @@ export default function PYQsPage() {
               )}
             </div>
 
-            <div className="grid grid-cols-2 gap-3">
-              <div>
-                <label className="block text-xs font-semibold text-slate-600 mb-1">Subject</label>
-                <select value={subject} onChange={e => setSubject(e.target.value)}
-                  className="w-full px-3 py-2.5 border border-slate-200 rounded-lg text-sm bg-white focus:border-indigo-400 focus:outline-none">
-                  {SUBJECTS.map(s => <option key={s}>{s}</option>)}
-                </select>
-              </div>
-              <div>
-                <label className="block text-xs font-semibold text-slate-600 mb-1">Year</label>
-                <input
-                  type="number" value={year} onChange={e => setYear(e.target.value)}
-                  min="2000" max="2030"
-                  className="w-full px-3 py-2.5 border border-slate-200 rounded-lg text-sm focus:border-indigo-400 focus:outline-none"
-                />
-              </div>
+            <div>
+              <label className="block text-xs font-semibold text-slate-600 mb-1">Year</label>
+              <input
+                type="number" value={year} onChange={e => setYear(e.target.value)}
+                min="2000" max="2030"
+                className="w-full px-3 py-2.5 border border-slate-200 rounded-lg text-sm focus:border-indigo-400 focus:outline-none"
+              />
             </div>
 
             <button
