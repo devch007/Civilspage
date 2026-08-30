@@ -548,9 +548,6 @@ export default function Header() {
         </nav>
       </header>
 
-      {/* Spacer to push content down cleanly beneath fixed multi-tier header */}
-      <div className="h-[78px] lg:h-[124px]"></div>
-
       {/* 5. Enhanced Mobile Navigation Drawer */}
       <AnimatePresence>
         {mobileMenuOpen && (

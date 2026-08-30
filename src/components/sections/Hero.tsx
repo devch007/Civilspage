@@ -8,8 +8,8 @@ export default function Hero() {
     <section className="relative m-0 overflow-hidden bg-[#FAF9F6] border-b border-slate-200" id="hero">
       
       {/* Main Institutional Hero Banner */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-8 pt-12 sm:pt-16 pb-10 sm:pb-12">
-        <div className="text-center max-w-4xl mx-auto space-y-4 sm:space-y-5">
+      <div className="max-w-7xl mx-auto px-4 sm:px-8 pt-6 sm:pt-8 pb-6 sm:pb-7">
+        <div className="text-center max-w-4xl mx-auto space-y-3.5 sm:space-y-4">
           
           {/* Main Title Hero Section */}
           <motion.h1 
