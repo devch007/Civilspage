@@ -56,7 +56,6 @@ export const metadata: Metadata = {
   },
 };
 
-import Script from 'next/script';
 import JsonLdSchema from '@/components/seo/JsonLdSchema';
 
 export default function RootLayout({
@@ -72,23 +71,24 @@ export default function RootLayout({
     >
       <head>
         <JsonLdSchema />
+        {/* Google tag (gtag.js) */}
+        <script
+          async
+          src="https://www.googletagmanager.com/gtag/js?id=G-GR0EKCQY7S"
+        />
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `
+              window.dataLayer = window.dataLayer || [];
+              function gtag(){dataLayer.push(arguments);}
+              gtag('js', new Date());
+
+              gtag('config', 'G-GR0EKCQY7S');
+            `,
+          }}
+        />
       </head>
       <body className="min-h-full flex flex-col text-[#0F172A] selection:bg-[#4F46E5] selection:text-white font-sans">
-        {/* Google tag (gtag.js) */}
-        <Script
-          src="https://www.googletagmanager.com/gtag/js?id=G-GR0EKCQY7S"
-          strategy="afterInteractive"
-        />
-        <Script id="google-analytics" strategy="afterInteractive">
-          {`
-            window.dataLayer = window.dataLayer || [];
-            function gtag(){dataLayer.push(arguments);}
-            gtag('js', new Date());
-
-            gtag('config', 'G-GR0EKCQY7S');
-          `}
-        </Script>
-
         {children}
       </body>
     </html>
