@@ -38,12 +38,14 @@ const ALLOWED_TYPES = [...ALLOWED_IMAGE_TYPES, ...ALLOWED_PDF_TYPES];
 const MAX_FILE_SIZE = 50 * 1024 * 1024; // 50 MB
 
 // ── Folder mapping ────────────────────────────────────────────────────────────
-type UploadFolder =
+export type UploadFolder =
   | 'blogs'
   | 'current-affairs'
   | 'notes'
   | 'courses'
   | 'pyqs'
+  | 'mock-tests'
+  | 'model-answers'
   | 'avatars'
   | 'misc';
 

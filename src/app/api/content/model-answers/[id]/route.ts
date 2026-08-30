@@ -6,6 +6,12 @@ const sql = postgres(process.env.DATABASE_URL!, { prepare: false });
 
 export async function PUT(req: Request, { params }: { params: Promise<{ id: string }> }) {
   try {
+    const { verifyAdminSession } = await import('@/lib/admin-auth');
+    const isAuthed = await verifyAdminSession();
+    if (!isAuthed) {
+      return NextResponse.json({ error: 'Unauthorized. Admin access required.' }, { status: 401 });
+    }
+
     const { id } = await params;
     const { title, tags, pdfUrl, year, subject } = await req.json();
     if (!title?.trim()) return NextResponse.json({ error: 'Title required' }, { status: 400 });
@@ -36,6 +42,12 @@ export async function PUT(req: Request, { params }: { params: Promise<{ id: stri
 
 export async function DELETE(_req: Request, { params }: { params: Promise<{ id: string }> }) {
   try {
+    const { verifyAdminSession } = await import('@/lib/admin-auth');
+    const isAuthed = await verifyAdminSession();
+    if (!isAuthed) {
+      return NextResponse.json({ error: 'Unauthorized. Admin access required.' }, { status: 401 });
+    }
+
     const { id } = await params;
     const [existing] = await sql`SELECT title, pdf_url FROM model_answer_pdfs WHERE id = ${id}`;
     await sql`DELETE FROM model_answer_pdfs WHERE id = ${id}`;

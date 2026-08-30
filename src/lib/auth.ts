@@ -80,28 +80,40 @@ export async function getUserRole(): Promise<UserRole | null> {
 }
 
 /**
- * Require a valid Supabase auth session.
- * If the user has a session, let them through — don't block on DB availability.
+ * Require a valid Supabase auth session OR admin cookie session.
  */
 export async function requireAuth() {
   const user = await getAuthUser();
-  if (!user) {
-    redirect('/login');
-  }
-  return user;
+  if (user) return user;
+
+  try {
+    const { cookies } = await import('next/headers');
+    const cookieStore = await cookies();
+    const adminSession = cookieStore.get('civilspage_admin_session')?.value;
+    if (adminSession) {
+      const { verifyAdminSession } = await import('./admin-auth');
+      const isValid = await verifyAdminSession();
+      if (isValid) {
+        return {
+          id: '00000000-0000-0000-0000-000000000000',
+          email: 'rajivranjansingh@civilspage.com',
+          user_metadata: { full_name: 'Rajiv Ranjan Singh' },
+        } as any;
+      }
+    }
+  } catch {}
+
+  redirect('/login');
 }
 
 export async function requireRole(allowedRoles: UserRole[]) {
   const user = await requireAuth();
-  // If we can get a role from DB, check it — otherwise trust the auth session
   try {
     const role = await getUserRole();
     if (role && !allowedRoles.includes(role)) {
       redirect('/');
     }
-  } catch {
-    // DB unavailable — auth session is enough to proceed
-  }
+  } catch {}
   return user;
 }
 

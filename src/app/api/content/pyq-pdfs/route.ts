@@ -15,6 +15,12 @@ export async function GET() {
 
 export async function POST(req: Request) {
   try {
+    const { verifyAdminSession } = await import('@/lib/admin-auth');
+    const isAuthed = await verifyAdminSession();
+    if (!isAuthed) {
+      return NextResponse.json({ error: 'Unauthorized. Admin access required.' }, { status: 401 });
+    }
+
     const { title, tags, pdfUrl, subject, year, examType } = await req.json();
     if (!title?.trim()) return NextResponse.json({ error: 'Title required' }, { status: 400 });
     if (!pdfUrl?.trim()) return NextResponse.json({ error: 'PDF URL required' }, { status: 400 });

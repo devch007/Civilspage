@@ -32,6 +32,11 @@ export async function middleware(request: NextRequest) {
   // Refresh session — DO NOT remove (required by @supabase/ssr)
   const { data: { user } } = await supabase.auth.getUser();
 
+  // Also check admin session cookie
+  const adminCookie = request.cookies.get('civilspage_admin_session')?.value;
+  const hasAdminCookie = Boolean(adminCookie);
+
+  const isAuthenticated = Boolean(user) || hasAdminCookie;
   const { pathname } = request.nextUrl;
 
   // Redirect /admin/* → /login/* permanently
@@ -44,7 +49,7 @@ export async function middleware(request: NextRequest) {
   // Protect all /login/* sub-routes (except /login itself which shows the form)
   const isAdminSubRoute =
     pathname.startsWith('/login/') && pathname !== '/login';
-  if (isAdminSubRoute && !user) {
+  if (isAdminSubRoute && !isAuthenticated) {
     const loginUrl = request.nextUrl.clone();
     loginUrl.pathname = '/login';
     loginUrl.searchParams.set('next', pathname);
@@ -52,7 +57,7 @@ export async function middleware(request: NextRequest) {
   }
 
   // Redirect authenticated users from /login → /login/dashboard
-  if (pathname === '/login' && user) {
+  if (pathname === '/login' && isAuthenticated) {
     const dashboardUrl = request.nextUrl.clone();
     dashboardUrl.pathname = '/login/dashboard';
     return NextResponse.redirect(dashboardUrl);

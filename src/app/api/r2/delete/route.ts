@@ -1,13 +1,11 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { getSupabaseServerClient } from '@/lib/supabase/server';
+import { verifyAdminSession } from '@/lib/admin-auth';
 import { deleteFromR2 } from '@/lib/r2';
 
 export async function DELETE(request: NextRequest) {
-  // ── Auth + role check ───────────────────────────────────────────────────────
-  const supabase = await getSupabaseServerClient();
-  const { data: { user } } = await supabase.auth.getUser();
-  if (!user) {
-    return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
+  const isAuthed = await verifyAdminSession();
+  if (!isAuthed) {
+    return NextResponse.json({ error: 'Unauthorized. Admin session required.' }, { status: 401 });
   }
 
   try {
