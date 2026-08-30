@@ -14,7 +14,7 @@ interface ModelAnswerPdf {
   created_at: string;
 }
 
-type TabType = 'All' | 'Polity & Governance' | 'Ethics';
+type TabType = 'Polity & Governance' | 'Ethics';
 
 export default function ModelAnswersHub() {
   const [pdfs, setPdfs] = useState<ModelAnswerPdf[]>([]);
@@ -33,7 +33,6 @@ export default function ModelAnswersHub() {
   const ethicsCount = pdfs.filter(p => (p.subject || '').includes('Ethics')).length;
 
   const filteredPdfs = pdfs.filter(item => {
-    if (activeTab === 'All') return true;
     return (item.subject || 'Polity & Governance') === activeTab;
   });
 
@@ -42,8 +41,8 @@ export default function ModelAnswersHub() {
       <div className="container max-w-6xl mx-auto px-4 sm:px-6">
         
         {/* Selection Tabs Above Heading */}
-        <div className="max-w-xl mx-auto mb-8">
-          <div className="bg-white p-1.5 rounded-2xl border border-slate-200 shadow-sm flex items-center gap-1.5">
+        <div className="max-w-md mx-auto mb-8">
+          <div className="bg-white p-1.5 rounded-2xl border border-slate-200 shadow-sm flex items-center gap-2">
             {/* Polity & Governance Tab */}
             <button
               onClick={() => setActiveTab('Polity & Governance')}
@@ -79,25 +78,6 @@ export default function ModelAnswersHub() {
                 {ethicsCount}
               </span>
             </button>
-
-            {/* All Model Answers Tab */}
-            <button
-              onClick={() => setActiveTab('All')}
-              className={`py-3 px-3.5 rounded-xl font-bold text-xs sm:text-sm flex items-center justify-center gap-1.5 transition-all ${
-                activeTab === 'All'
-                  ? 'bg-[#0b3b60] text-white shadow-md'
-                  : 'text-slate-600 hover:text-slate-900 hover:bg-slate-50'
-              }`}
-              title="Show all Model Answers"
-            >
-              <Layers className={`w-3.5 h-3.5 ${activeTab === 'All' ? 'text-amber-300' : 'text-slate-400'}`} />
-              <span className="hidden sm:inline">All</span>
-              <span className={`text-[10px] px-1.5 py-0.5 rounded-full font-extrabold ${
-                activeTab === 'All' ? 'bg-white/20 text-white' : 'bg-slate-100 text-slate-500'
-              }`}>
-                {pdfs.length}
-              </span>
-            </button>
           </div>
         </div>
 
@@ -109,7 +89,6 @@ export default function ModelAnswersHub() {
           <h1 className="text-2xl sm:text-3xl lg:text-4xl font-black text-[#0b3b60] font-serif leading-snug">
             {activeTab === 'Polity & Governance' && 'Polity & Governance Model Answers'}
             {activeTab === 'Ethics' && 'Ethics, Integrity & Aptitude Model Answers'}
-            {activeTab === 'All' && 'All Solved Model Answers & Frameworks'}
           </h1>
         </div>
 

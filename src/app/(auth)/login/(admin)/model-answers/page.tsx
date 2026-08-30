@@ -110,7 +110,7 @@ export default function ModelAnswersAdminPage() {
   const [submitting, setSubmitting] = useState(false);
   const [tick, setTick] = useState(0);
   const [editingId, setEditingId] = useState<string | null>(null);
-  const [filterSubject, setFilterSubject] = useState<'All' | 'Polity & Governance' | 'Ethics'>('All');
+  const [filterSubject, setFilterSubject] = useState<'Polity & Governance' | 'Ethics'>('Polity & Governance');
 
   // Form state
   const [title, setTitle] = useState('');
@@ -175,7 +175,6 @@ export default function ModelAnswersAdminPage() {
   }
 
   const filteredPdfs = pdfs.filter(p => {
-    if (filterSubject === 'All') return true;
     return (p.subject || 'Polity & Governance') === filterSubject;
   });
 
@@ -196,7 +195,7 @@ export default function ModelAnswersAdminPage() {
             <h2 className="font-semibold text-slate-800 text-sm">Uploaded Model Answers</h2>
             {/* Filter Pills */}
             <div className="flex items-center gap-1 bg-slate-100 p-1 rounded-lg text-xs font-medium">
-              {(['All', 'Polity & Governance', 'Ethics'] as const).map(tab => (
+              {(['Polity & Governance', 'Ethics'] as const).map(tab => (
                 <button
                   key={tab}
                   onClick={() => setFilterSubject(tab)}
@@ -206,7 +205,7 @@ export default function ModelAnswersAdminPage() {
                       : 'text-slate-500 hover:text-slate-800'
                   }`}
                 >
-                  {tab === 'Polity & Governance' ? `Polity (${polityCount})` : tab === 'Ethics' ? `Ethics (${ethicsCount})` : `All (${pdfs.length})`}
+                  {tab === 'Polity & Governance' ? `Polity (${polityCount})` : `Ethics (${ethicsCount})`}
                 </button>
               ))}
             </div>
