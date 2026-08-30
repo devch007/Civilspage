@@ -24,7 +24,7 @@ function getYouTubeEmbedUrl(url: string) {
 export default function GalleryMarquee({
   videoUrl = 'https://www.youtube.com/watch?v=7ad__JvCcfY',
   title = 'Seminars & Interactive Sessions',
-  subtitle = 'Glimpses of offline seminars, alumni meets, classroom sessions & video lectures.'
+  subtitle = 'Glimpses of seminars, alumni meets, classroom sessions & lectures.'
 }: GalleryMarqueeProps) {
   const embedUrl = getYouTubeEmbedUrl(videoUrl);
 
