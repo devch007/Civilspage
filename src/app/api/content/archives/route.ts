@@ -9,11 +9,12 @@ export async function GET(request: Request) {
     const year = searchParams.get('year');
     const category = searchParams.get('category');
 
-    // Fetch all records from current_affairs
+    // Fetch only deleted/archived records from current_affairs
     const rows = await db
       .select()
       .from(currentAffairs)
-      .orderBy(desc(currentAffairs.date));
+      .where(eq(currentAffairs.isArchived, true))
+      .orderBy(desc(currentAffairs.archivedAt), desc(currentAffairs.date));
 
     let filtered = rows;
 

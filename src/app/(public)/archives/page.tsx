@@ -35,18 +35,17 @@ export default function ArchivesPublicPage() {
       .finally(() => setLoading(false));
   }, []);
 
-  // Compute all available years dynamically from data
+  // Compute all available years starting from 2026
   const availableYears = useMemo(() => {
-    const yearsSet = new Set<string>();
+    const yearsSet = new Set<string>(['2026']);
     entries.forEach((e) => {
       if (e.date) {
         const y = new Date(e.date).getFullYear();
-        if (!isNaN(y)) yearsSet.add(y.toString());
+        if (!isNaN(y) && y >= 2026) yearsSet.add(y.toString());
       }
     });
-    // Add default fallbacks if data is sparse
-    ['2026', '2025', '2024', '2023'].forEach((y) => yearsSet.add(y));
-    return ['All', ...Array.from(yearsSet).sort((a, b) => (b === 'All' ? 1 : Number(b) - Number(a)))];
+    const sortedYears = Array.from(yearsSet).sort((a, b) => Number(a) - Number(b));
+    return ['All', ...sortedYears];
   }, [entries]);
 
   // Compute all categories
@@ -228,22 +227,26 @@ export default function ArchivesPublicPage() {
         ) : filteredEntries.length === 0 ? (
           <div className="text-center py-20 bg-white rounded-2xl border border-slate-200/80 shadow-xs max-w-4xl mx-auto space-y-3 p-6">
             <div className="w-12 h-12 rounded-full bg-slate-100 text-slate-400 flex items-center justify-center mx-auto">
-              <Archive className="w-6 h-6" />
+              <Archive className="w-6 h-6 text-[#0b3b60]" />
             </div>
-            <h3 className="text-lg font-bold text-slate-800 font-serif">No Archived Records Found</h3>
-            <p className="text-xs sm:text-sm text-slate-500 max-w-md mx-auto">
-              No entries found matching year <span className="font-bold text-[#0b3b60]">"{selectedYear}"</span> and category filter.
+            <h3 className="text-lg font-bold text-slate-800 font-serif">No Archived Records</h3>
+            <p className="text-xs sm:text-sm text-slate-500 max-w-md mx-auto leading-relaxed">
+              {entries.length === 0
+                ? 'All published updates are active on the primary portal feeds. When content is archived or deleted from Current News & Views, it will be catalogued chronologically here.'
+                : `No archived records found matching year "${selectedYear}" and selected category.`}
             </p>
-            <button
-              onClick={() => {
-                setSelectedYear('All');
-                setSelectedCategory('All');
-                setSearchQuery('');
-              }}
-              className="mt-3 px-4 py-2 bg-[#0b3b60] text-white text-xs font-bold rounded-xl shadow-sm hover:bg-[#072842] transition-colors"
-            >
-              Reset Filters &amp; View All
-            </button>
+            {entries.length > 0 && (
+              <button
+                onClick={() => {
+                  setSelectedYear('All');
+                  setSelectedCategory('All');
+                  setSearchQuery('');
+                }}
+                className="mt-3 px-4 py-2 bg-[#0b3b60] text-white text-xs font-bold rounded-xl shadow-sm hover:bg-[#072842] transition-colors"
+              >
+                Reset Filters &amp; View All
+              </button>
+            )}
           </div>
         ) : (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-7xl mx-auto">
