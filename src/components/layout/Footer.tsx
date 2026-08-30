@@ -169,7 +169,7 @@ export default function Footer() {
               <li>
                 <Link href="/direct-query" className="text-slate-200 hover:text-amber-300 flex items-center gap-1.5 transition-colors group">
                   <ChevronRight className="w-3 h-3 text-amber-400/60 group-hover:text-amber-300 transition-colors" />
-                  <span>Address Queries</span>
+                  <span>Address Your Queries</span>
                 </Link>
               </li>
             </ul>

@@ -186,7 +186,7 @@ export default function ResolvedQueries() {
               <span>Have a Specific Preparation Doubt?</span>
             </h3>
             <p className="text-xs text-slate-200 max-w-xl leading-relaxed">
-              Submit your academic query directly to Mentor Rajiv Ranjan Singh for personalized strategy, syllabus clarity, and guidance.
+              Submit your academic queries directly to Mentor Rajiv Ranjan Singh for personalized strategy, syllabus clarity, and guidance.
             </p>
           </div>
 
@@ -194,7 +194,7 @@ export default function ResolvedQueries() {
             href="/direct-query"
             className="shrink-0 px-5 py-2.5 bg-amber-400 hover:bg-amber-300 text-[#0b3b60] font-black text-xs rounded-xl transition-all shadow-sm active:scale-95 uppercase tracking-wider flex items-center gap-1.5"
           >
-            <span>Address Your Query</span>
+            <span>Address Your Queries</span>
             <ArrowRight className="w-3.5 h-3.5 text-[#0b3b60]" />
           </Link>
         </div>

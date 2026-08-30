@@ -328,16 +328,16 @@ export default function AboutMentorPage() {
               viewport={{ once: true }}
             >
               <Sparkles className="w-7 h-7 text-amber-300 mb-3" />
-              <h3 className="text-xl font-black font-serif text-white">Direct Academic Query</h3>
+              <h3 className="text-xl font-black font-serif text-white">Direct Academic Queries</h3>
               <p className="text-xs text-slate-300 leading-relaxed mt-2">
-                Have a specific question regarding UPSC CSE preparation strategy, Optional selection, or Mains answer writing? Reach out directly through the academic portal.
+                Have specific questions regarding UPSC CSE preparation strategy, Optional selection, or Mains answer writing? Reach out directly through the academic portal.
               </p>
               
               <Link 
                 href="/direct-query" 
                 className="mt-5 w-full py-2.5 px-4 bg-amber-500 hover:bg-amber-400 text-[#0b3b60] font-black text-xs rounded-lg flex items-center justify-center gap-2 transition-all shadow-sm uppercase tracking-wider"
               >
-                <span>Submit Query to Rajiv Sir</span>
+                <span>Submit Queries to Rajiv Sir</span>
                 <ChevronRight className="w-4 h-4" />
               </Link>
             </motion.div>
