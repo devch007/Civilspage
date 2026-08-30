@@ -48,27 +48,49 @@ function UpdatesContent() {
 
   const filteredUpdates = updates.filter(item => {
     if (!selectedCategory) return true;
-    const catLower = item.category.toLowerCase();
-    const selLower = selectedCategory.toLowerCase();
+    const catLower = item.category.toLowerCase().trim();
+    const selLower = selectedCategory.toLowerCase().trim();
 
+    // 1. Direct exact match
+    if (catLower === selLower) return true;
+
+    // 2. Legislation grouping
     if (selLower === 'legislation') {
-      return catLower.includes('legislat') || catLower.includes('amendment') || catLower.includes('ordinary') || catLower.includes('law');
+      return catLower.includes('amendment') || catLower.includes('ordinary') || catLower.includes('law') || catLower.includes('legislat');
     }
     if (selLower.includes('amendment')) {
-      return catLower.includes('amendment') || catLower.includes('constitutional');
+      return catLower.includes('amendment') || (catLower.includes('constitutional') && !catLower.includes('ordinary'));
     }
     if (selLower.includes('ordinary')) {
-      return catLower.includes('ordinary') || (catLower.includes('legislat') && !catLower.includes('amendment'));
+      return catLower.includes('ordinary') || (catLower.includes('law') && !catLower.includes('amendment'));
     }
-    if (selLower.includes('ethic')) {
-      if (selLower.includes('issue')) {
-        return catLower.includes('issue') || catLower === 'ethics' || catLower.includes('ethic');
-      }
-      if (selLower.includes('case')) {
-        return catLower.includes('case') || catLower.includes('ethic');
-      }
+
+    // 3. Ethics grouping: Strict separation of Ethical Issues vs Ethical Case Studies
+    if (selLower.includes('case')) {
+      return catLower.includes('case');
+    }
+    if (selLower.includes('issue')) {
+      return catLower.includes('issue') || (catLower.includes('ethic') && !catLower.includes('case'));
+    }
+    if (selLower === 'ethics') {
       return catLower.includes('ethic');
     }
+
+    // 4. Court Judgements
+    if (selLower.includes('court') || selLower.includes('judgement')) {
+      return catLower.includes('court') || catLower.includes('judgement');
+    }
+
+    // 5. Policies & Programmes
+    if (selLower.includes('polic') || selLower.includes('program')) {
+      return catLower.includes('polic') || catLower.includes('program');
+    }
+
+    // 6. Commissions & Committees
+    if (selLower.includes('commission') || selLower.includes('committee')) {
+      return catLower.includes('commission') || catLower.includes('committee');
+    }
+
     return catLower.includes(selLower);
   });
 
@@ -95,10 +117,13 @@ function UpdatesContent() {
     if (lower.includes('commission') || lower.includes('committee')) {
       return "Authoritative summaries of administrative reform commissions, committee recommendations, and statutory reports.";
     }
-    if (lower.includes('ethic')) {
-      return "Applied analysis of public service ethics, governance dilemmas, moral philosophy, and diagnostic case studies.";
+    if (lower.includes('case')) {
+      return "Applied diagnostic case studies, ethical decision matrices, and administrative dilemma resolutions.";
     }
-    return `Structured updates, academic briefings, and analytical perspectives on ${cat}.`;
+    if (lower.includes('issue') || lower.includes('ethic')) {
+      return "Applied analysis of public service ethics, governance dilemmas, moral philosophy, and constitutional values.";
+    }
+    return "Authoritative study briefs and contemporary perspective analysis for Civil Services Examination.";
   };
 
   const getPageTitle = (cat: string | null) => {
@@ -106,9 +131,11 @@ function UpdatesContent() {
     if (cat.toLowerCase().includes('amendment')) return 'Constitutional Amendments';
     if (cat.toLowerCase().includes('ordinary')) return 'Ordinary Laws';
     if (cat.toLowerCase() === 'legislation') return 'Legislation & Parliamentary Bills';
-    if (cat.toLowerCase().includes('ethical issues')) return 'Ethical Issues';
-    if (cat.toLowerCase().includes('ethical case studies')) return 'Ethical Case Studies';
-    if (cat.toLowerCase().includes('ethic')) return 'Ethics';
+    if (cat.toLowerCase().includes('case')) return 'Ethical Case Studies';
+    if (cat.toLowerCase().includes('issue') || cat.toLowerCase() === 'ethics') return 'Ethical Issues';
+    if (cat.toLowerCase().includes('court') || cat.toLowerCase().includes('judgement')) return 'Court Judgements';
+    if (cat.toLowerCase().includes('polic') || cat.toLowerCase().includes('program')) return 'Policies & Programmes';
+    if (cat.toLowerCase().includes('commission') || cat.toLowerCase().includes('committee')) return 'Commissions & Committees';
     return cat;
   };
 
