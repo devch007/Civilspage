@@ -245,14 +245,14 @@ export default function Header() {
         </div>
 
         {/* 3. Institutional Identity Branding Banner */}
-        <div className="bg-white border-b border-slate-200/90 py-2 sm:py-2.5 px-4 sm:px-6">
+        <div className="bg-white border-b border-slate-200/90 pt-0.5 pb-1 sm:pt-1 sm:pb-1.5 px-4 sm:px-6">
           <div className="max-w-7xl mx-auto flex items-center justify-between gap-4">
 
-            <Link href="/" className="flex items-center group py-0.5" aria-label="CivilsPAGE Home">
+            <Link href="/" className="flex items-center group py-0 -my-0.5" aria-label="CivilsPAGE Home">
               <img
                 src="/logo_civilspage.png"
                 alt="CivilsPAGE - Learn • Aspire • Achieve"
-                className="h-16 sm:h-20 lg:h-24 w-auto object-contain transition-transform group-hover:scale-[1.02]"
+                className="h-20 sm:h-24 lg:h-28 w-auto object-contain transition-transform group-hover:scale-[1.02]"
               />
             </Link>
 
