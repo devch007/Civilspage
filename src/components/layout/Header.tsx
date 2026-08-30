@@ -245,22 +245,15 @@ export default function Header() {
         </div>
 
         {/* 3. Institutional Identity Branding Banner */}
-        <div className="bg-white border-b border-slate-200/90 py-3 px-4 sm:px-6">
+        <div className="bg-white border-b border-slate-200/90 py-2 sm:py-2.5 px-4 sm:px-6">
           <div className="max-w-7xl mx-auto flex items-center justify-between gap-4">
 
-            <Link href="/" className="flex items-center gap-3 group">
+            <Link href="/" className="flex items-center group py-0.5" aria-label="CivilsPAGE Home">
               <img
-                src="/emblem.png"
-                alt="National Emblem of India"
-                className="h-9 sm:h-11 lg:h-12 w-auto object-contain transition-transform group-hover:scale-105"
+                src="/logo_civilspage.png"
+                alt="CivilsPAGE - Learn • Aspire • Achieve"
+                className="h-16 sm:h-20 lg:h-24 w-auto object-contain transition-transform group-hover:scale-[1.02]"
               />
-              <div className="text-left">
-                <div className="flex items-center gap-2">
-                  <h1 className="text-2xl sm:text-3xl lg:text-4xl font-black tracking-wider text-[#0b3b60] leading-none font-serif">
-                    Civils PAGE
-                  </h1>
-                </div>
-              </div>
             </Link>
 
             {/* Right Search Action */}
@@ -588,18 +581,14 @@ export default function Header() {
               </div>
 
               {/* Drawer Top Header */}
-              <div className="bg-[#0b3b60] text-white p-4 flex items-center justify-between shrink-0 shadow-xs">
-                <div className="flex items-center gap-2.5">
+              <div className="bg-[#0b3b60] text-white p-3.5 flex items-center justify-between shrink-0 shadow-xs">
+                <Link href="/" onClick={() => setMobileMenuOpen(false)} className="flex items-center">
                   <img
-                    src="/emblem.png"
-                    alt="National Emblem of India"
-                    className="h-9 w-auto object-contain brightness-110"
+                    src="/logo_civilspage.png"
+                    alt="CivilsPAGE"
+                    className="h-12 w-auto object-contain bg-white rounded-lg p-1 shadow-2xs"
                   />
-                  <div>
-                    <h2 className="text-lg font-black tracking-wider text-white leading-tight font-serif">Civils PAGE</h2>
-                    <p className="text-[10px] text-amber-300 font-medium tracking-tight">Dedicated UPSC Resource Hub</p>
-                  </div>
-                </div>
+                </Link>
                 <button
                   onClick={() => setMobileMenuOpen(false)}
                   className="p-1.5 rounded-lg bg-white/10 hover:bg-white/20 text-white transition-colors"
