@@ -2,6 +2,7 @@
 
 import React, { useState, useEffect, useRef } from 'react';
 import { Plus, Trash2, Upload, Image, FileText, X, Loader2, CheckCircle, Pencil, Filter, Check, Tag } from 'lucide-react';
+import RichTextEditor from '@/components/ui/RichTextEditor';
 
 interface Affair {
   id: string;
@@ -516,12 +517,12 @@ export default function CurrentNewsViewsPage() {
             </div>
 
             <div>
-              <label className="block text-xs font-bold text-slate-700 mb-1">Detailed Content / Summary</label>
-              <textarea
-                value={content} onChange={(e) => setContent(e.target.value)}
-                rows={5}
-                className="w-full px-3 py-2.5 border border-slate-200 rounded-xl text-xs sm:text-sm focus:border-indigo-500 focus:ring-2 focus:ring-indigo-100 focus:outline-none resize-none leading-relaxed"
-                placeholder="Enter detailed analysis, key provisions, or judgements..."
+              <label className="block text-xs font-bold text-slate-700 mb-1.5">Detailed Content / Analysis (With Formatting)</label>
+              <RichTextEditor
+                value={content}
+                onChange={setContent}
+                placeholder="Enter detailed analysis, key provisions, landmark case citations, or judgements..."
+                rows={6}
               />
             </div>
 

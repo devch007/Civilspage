@@ -8,6 +8,7 @@ import {
   Bookmark, MessageSquare
 } from 'lucide-react';
 import FontSizeSlider from '@/components/ui/FontSizeSlider';
+import RichContentRenderer from '@/components/ui/RichContentRenderer';
 
 interface Affair {
   id: string;
@@ -134,7 +135,7 @@ export default function UpdateDetail({ params }: PageProps) {
               style={{ fontSize: `${fontSize}px`, lineHeight: `${Math.round(fontSize * 1.7)}px` }}
             >
               {update.content ? (
-                <p className="mb-4 whitespace-pre-wrap">{update.content}</p>
+                <RichContentRenderer content={update.content} />
               ) : (
                 <p className="mb-4 text-slate-500 italic">No detailed content available for this update.</p>
               )}

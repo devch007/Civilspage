@@ -261,7 +261,7 @@ function UpdatesContent() {
 
                       {/* Content excerpt */}
                       <p className="text-slate-600 font-normal leading-relaxed text-xs sm:text-sm">
-                        {item.content ? item.content.slice(0, 160).replace(/<[^>]*>/g, '') + '…' : 'Click to view resource details.'}
+                        {item.content ? item.content.replace(/<[^>]*>/g, '').replace(/[*#_~`>]/g, '').trim().slice(0, 160) + '…' : 'Click to view resource details.'}
                       </p>
                     </div>
                   </motion.div>
