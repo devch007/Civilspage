@@ -155,6 +155,12 @@ export default function Footer() {
                 </Link>
               </li>
               <li>
+                <Link href="/archives" className="text-slate-200 hover:text-amber-300 flex items-center gap-1.5 transition-colors group">
+                  <ChevronRight className="w-3 h-3 text-amber-400/60 group-hover:text-amber-300 transition-colors" />
+                  <span>Academic Archives</span>
+                </Link>
+              </li>
+              <li>
                 <Link href="/aboutcse" className="text-slate-200 hover:text-amber-300 flex items-center gap-1.5 transition-colors group">
                   <ChevronRight className="w-3 h-3 text-amber-400/60 group-hover:text-amber-300 transition-colors" />
                   <span>Scheme of Examination</span>
@@ -255,6 +261,8 @@ export default function Footer() {
             <Link href="/" className="hover:text-amber-300 transition-colors">Terms of Use</Link>
             <span className="text-slate-400">•</span>
             <Link href="/aboutcse#syllabus" className="hover:text-amber-300 transition-colors">Syllabus</Link>
+            <span className="text-slate-400">•</span>
+            <Link href="/archives" className="hover:text-amber-300 transition-colors">Archives</Link>
             <span className="text-slate-400">•</span>
             <Link href="/direct-query" className="hover:text-amber-300 transition-colors">Help &amp; Queries</Link>
 
