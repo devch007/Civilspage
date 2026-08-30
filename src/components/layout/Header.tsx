@@ -245,14 +245,14 @@ export default function Header() {
         </div>
 
         {/* 3. Institutional Identity Branding Banner */}
-        <div className="bg-white border-b border-slate-200/90 pt-0.5 pb-1 sm:pt-1 sm:pb-1.5 px-4 sm:px-6">
-          <div className="max-w-7xl mx-auto flex items-center justify-between gap-4">
+        <div className="bg-white border-b border-slate-200/90 pt-0.5 pb-1 sm:pt-1 sm:pb-1.5 px-3 sm:px-6">
+          <div className="max-w-7xl mx-auto flex items-center justify-between gap-2 sm:gap-4">
 
-            <Link href="/" className="flex items-center group py-0 -my-0.5" aria-label="CivilsPAGE Home">
+            <Link href="/" className="flex items-center group py-0 -my-1" aria-label="CivilsPAGE Home">
               <img
                 src="/logo_civilspage.png"
                 alt="CivilsPAGE - Learn • Aspire • Achieve"
-                className="h-20 sm:h-24 lg:h-28 w-auto object-contain transition-transform group-hover:scale-[1.02]"
+                className="h-24 sm:h-28 lg:h-32 w-auto object-contain transition-transform group-hover:scale-[1.02]"
               />
             </Link>
 
@@ -581,12 +581,12 @@ export default function Header() {
               </div>
 
               {/* Drawer Top Header */}
-              <div className="bg-[#0b3b60] text-white p-3.5 flex items-center justify-between shrink-0 shadow-xs">
+              <div className="bg-[#0b3b60] text-white p-3 sm:p-3.5 flex items-center justify-between shrink-0 shadow-xs">
                 <Link href="/" onClick={() => setMobileMenuOpen(false)} className="flex items-center">
                   <img
                     src="/logo_civilspage.png"
                     alt="CivilsPAGE"
-                    className="h-12 w-auto object-contain bg-white rounded-lg p-1 shadow-2xs"
+                    className="h-14 w-auto object-contain bg-white rounded-xl p-1.5 shadow-xs"
                   />
                 </Link>
                 <button
