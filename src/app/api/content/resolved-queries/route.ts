@@ -51,7 +51,7 @@ export async function POST(req: Request) {
 
     const [row] = await sql`
       INSERT INTO resolved_queries (question, answer, category, published)
-      VALUES (${question.trim()}, ${answer.trim()}, ${category || 'General'}, ${published ?? true})
+      VALUES (${question.trim()}, ${answer.trim()}, ${category || 'Miscellaneous'}, ${published ?? true})
       RETURNING *
     `;
 

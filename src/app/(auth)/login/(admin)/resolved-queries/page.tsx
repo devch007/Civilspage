@@ -21,7 +21,7 @@ const CATEGORIES = [
   'Strategy',
   'Prelims Approach',
   'Optional Subject',
-  'General'
+  'Miscellaneous'
 ];
 
 export default function AdminResolvedQueriesPage() {
@@ -71,7 +71,7 @@ export default function AdminResolvedQueriesPage() {
     setEditingId(q.id);
     setFormQuestion(q.question);
     setFormAnswer(q.answer);
-    setFormCategory(q.category || 'General');
+    setFormCategory(q.category || 'Miscellaneous');
     setFormPublished(q.published ?? true);
     setFeedback(null);
     setIsModalOpen(true);

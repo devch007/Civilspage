@@ -22,7 +22,7 @@ export async function PUT(req: Request, { params }: { params: Promise<{ id: stri
       UPDATE resolved_queries
       SET question = ${question.trim()}, 
           answer = ${answer.trim()}, 
-          category = ${category || 'General'}, 
+          category = ${category || 'Miscellaneous'}, 
           published = ${published ?? true},
           updated_at = NOW()
       WHERE id = ${id}
