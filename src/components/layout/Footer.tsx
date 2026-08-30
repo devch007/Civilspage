@@ -254,7 +254,7 @@ export default function Footer() {
             <span className="text-slate-400">•</span>
             <Link href="/" className="hover:text-amber-300 transition-colors">Terms of Use</Link>
             <span className="text-slate-400">•</span>
-            <Link href="/aboutcse" className="hover:text-amber-300 transition-colors">Academic Syllabus</Link>
+            <Link href="/aboutcse#syllabus" className="hover:text-amber-300 transition-colors">Syllabus</Link>
             <span className="text-slate-400">•</span>
             <Link href="/direct-query" className="hover:text-amber-300 transition-colors">Help &amp; Queries</Link>
 
