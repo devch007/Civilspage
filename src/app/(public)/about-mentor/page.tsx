@@ -298,23 +298,23 @@ export default function AboutMentorPage() {
               <div className="space-y-3">
                 <div className="rounded-xl overflow-hidden border border-slate-200 relative group">
                   <img 
-                    src="/mentor_whiteboard.png" 
-                    alt="Rajiv Ranjan Singh Classroom Session" 
+                    src="/gallery_civil_seminar.jpg" 
+                    alt="Civil Services Guidance Seminar" 
                     className="w-full h-44 object-cover group-hover:scale-105 transition-transform duration-300"
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent flex items-end p-3">
-                    <p className="text-white text-xs font-semibold">Interactive Analysis & Classroom Discourse</p>
+                    <p className="text-white text-xs font-semibold">Civil Services Guidance Seminars</p>
                   </div>
                 </div>
 
                 <div className="rounded-xl overflow-hidden border border-slate-200 relative group">
                   <img 
-                    src="/gallery_1.jpg" 
-                    alt="Guidance Seminar & Award Ceremony" 
+                    src="/gallery_alumni_meet.jpg" 
+                    alt="All India Alumni Meet & Felicitation" 
                     className="w-full h-36 object-cover group-hover:scale-105 transition-transform duration-300"
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent flex items-end p-3">
-                    <p className="text-white text-xs font-semibold">National Guidance Seminars & Felicitation</p>
+                    <p className="text-white text-xs font-semibold">All India Alumni Meet &amp; Felicitation</p>
                   </div>
                 </div>
               </div>

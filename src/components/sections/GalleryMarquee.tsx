@@ -61,13 +61,6 @@ export default function GalleryMarquee({
         alt="Academic Seminar Ceremony"
         className="h-52 sm:h-60 w-auto object-cover rounded-2xl shadow-sm border border-slate-200 hover:shadow-md transition-all duration-300"
       />
-
-      {/* 5. Whiteboard Guidance Session Photo */}
-      <img
-        src="/mentor_whiteboard.png"
-        alt="Whiteboard Interactive Guidance Session"
-        className="h-52 sm:h-60 w-auto object-cover rounded-2xl shadow-sm border border-slate-200 hover:shadow-md transition-all duration-300"
-      />
     </div>
   );
 
