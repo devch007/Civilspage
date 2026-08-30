@@ -35,7 +35,7 @@ import {
 } from 'lucide-react';
 import FontSizeSlider from '@/components/ui/FontSizeSlider';
 
-type TabType = 'about-exam' | 'syllabus' | 'reading' | 'approach' | 'polity' | 'ethics' | 'pubad';
+type TabType = 'about-exam' | 'syllabus' | 'cutoff' | 'reading' | 'approach' | 'polity' | 'ethics' | 'pubad';
 type SyllabusStage = 'prelims' | 'mains' | 'optionals';
 type OptionalChoice = 'pubad' | 'psir' | 'law';
 type PolityStage = 'gs2' | 'pubad' | 'ethics';
@@ -53,14 +53,20 @@ export default function AboutCse() {
       const hash = window.location.hash;
       if (hash === '#about-exam' || hash === '#about') {
         setActiveTab('about-exam');
-      } else if (hash === '#exam-plan' || hash === '#detailed-syllabus') {
+      } else if (hash === '#exam-plan' || hash === '#detailed-syllabus' || hash === '#syllabus') {
         setActiveTab('syllabus');
+      } else if (hash === '#cutoff' || hash === '#cutoff-marks' || hash === '#cut-off') {
+        setActiveTab('cutoff');
       } else if (hash === '#suggested-reading' || hash === '#reading') {
         setActiveTab('reading');
       } else if (hash === '#approach' || hash === '#approach-to-gs') {
         setActiveTab('approach');
       } else if (hash === '#polity' || hash === '#polity-approach' || hash === '#approach-to-polity') {
         setActiveTab('polity');
+      } else if (hash === '#ethics' || hash === '#approach-to-ethics') {
+        setActiveTab('ethics');
+      } else if (hash === '#pubad' || hash === '#approach-to-pubad') {
+        setActiveTab('pubad');
       }
     }
   }, []);
@@ -109,6 +115,16 @@ export default function AboutCse() {
               onClick={() => setActiveTab('syllabus')}
             >
               Syllabus
+            </button>
+            <button 
+              className={`px-4 py-2 text-xs font-bold rounded-lg border transition-all ${
+                activeTab === 'cutoff'
+                  ? 'bg-[#0b3b60] text-white border-[#0b3b60] shadow-sm'
+                  : 'bg-white text-slate-700 border-slate-300 hover:bg-slate-50'
+              }`}
+              onClick={() => setActiveTab('cutoff')}
+            >
+              Cutoff Marks
             </button>
             <button 
               className={`px-4 py-2 text-xs font-bold rounded-lg border transition-all ${
@@ -1233,6 +1249,274 @@ export default function AboutCse() {
 
               </div>
             )}
+
+          </motion.section>
+        )}
+
+        {/* CUTOFF MARKS TAB */}
+        {activeTab === 'cutoff' && (
+          <motion.section 
+            key="tab-cutoff" 
+            initial={{ opacity: 0, y: 15 }} 
+            animate={{ opacity: 1, y: 0 }} 
+            exit={{ opacity: 0, y: -15 }} 
+            transition={{ duration: 0.3 }}
+            className="space-y-8"
+          >
+            {/* Header Banner */}
+            <div className="bg-gradient-to-r from-[#0b3b60] to-[#124e7e] text-white p-6 sm:p-8 rounded-2xl shadow-md space-y-3">
+              <div className="flex items-center gap-2">
+                <span className="px-2.5 py-0.5 bg-amber-400 text-slate-950 font-black text-[10px] uppercase tracking-wider rounded font-mono">
+                  Official UPSC Qualifying Standards
+                </span>
+                <span className="text-xs text-amber-200 font-medium">UPSC CSE 2025</span>
+              </div>
+              <h2 className="text-2xl sm:text-3xl font-black font-serif text-white">
+                Civil Services Examination, 2025 – Minimum Qualifying Marks
+              </h2>
+              <p className="text-xs sm:text-sm text-slate-200 leading-relaxed max-w-3xl">
+                The minimum qualifying standards and cut-off marks secured by the last recommended candidate across Preliminary, Main Written Examination, and Final Selection stages.
+              </p>
+            </div>
+
+            {/* Quick Stat Summary Cards */}
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+              <div className="bg-white p-5 rounded-xl border border-slate-200 shadow-xs space-y-2">
+                <div className="flex items-center justify-between">
+                  <span className="text-[11px] font-bold uppercase tracking-wider text-slate-400">Stage I: Prelims (GS-I)</span>
+                  <span className="px-2 py-0.5 bg-blue-50 text-blue-700 text-xs font-extrabold rounded">Max: 200</span>
+                </div>
+                <div className="text-2xl sm:text-3xl font-black text-[#0b3b60] font-mono">
+                  92.66 <span className="text-xs font-sans text-slate-500 font-normal">(General)</span>
+                </div>
+                <p className="text-[11px] text-slate-500">
+                  OBC: 92.00 · EWS: 89.34 · SC: 84.00 · ST: 82.66
+                </p>
+              </div>
+
+              <div className="bg-white p-5 rounded-xl border border-slate-200 shadow-xs space-y-2">
+                <div className="flex items-center justify-between">
+                  <span className="text-[11px] font-bold uppercase tracking-wider text-slate-400">Stage II: Mains (Written)</span>
+                  <span className="px-2 py-0.5 bg-purple-50 text-purple-700 text-xs font-extrabold rounded">Max: 1750</span>
+                </div>
+                <div className="text-2xl sm:text-3xl font-black text-[#0b3b60] font-mono">
+                  739 <span className="text-xs font-sans text-slate-500 font-normal">(General)</span>
+                </div>
+                <p className="text-[11px] text-slate-500">
+                  OBC: 717 · EWS: 706 · SC: 700 · ST: 694
+                </p>
+              </div>
+
+              <div className="bg-white p-5 rounded-xl border border-slate-200 shadow-xs space-y-2">
+                <div className="flex items-center justify-between">
+                  <span className="text-[11px] font-bold uppercase tracking-wider text-slate-400">Stage III: Final (Written + PT)</span>
+                  <span className="px-2 py-0.5 bg-emerald-50 text-emerald-700 text-xs font-extrabold rounded">Max: 2025</span>
+                </div>
+                <div className="text-2xl sm:text-3xl font-black text-[#0b3b60] font-mono">
+                  963 <span className="text-xs font-sans text-slate-500 font-normal">(General)</span>
+                </div>
+                <p className="text-[11px] text-slate-500">
+                  OBC: 931 · EWS: 926 · SC: 905 · ST: 902
+                </p>
+              </div>
+            </div>
+
+            {/* Official Minimum Qualifying Marks Table */}
+            <div className="bg-white rounded-2xl border border-slate-200 shadow-xs overflow-hidden">
+              <div className="px-6 py-4 border-b border-slate-100 bg-slate-50/70 flex flex-wrap items-center justify-between gap-2">
+                <div>
+                  <h3 className="font-bold text-sm sm:text-base text-[#0b3b60] font-serif">
+                    Minimum Qualifying Standards Secured by the Last Recommended Candidate
+                  </h3>
+                  <p className="text-xs text-slate-500">
+                    Category-wise minimum marks threshold at various stages of Civil Services Examination 2025
+                  </p>
+                </div>
+                <span className="px-2.5 py-1 bg-amber-100 text-amber-900 text-xs font-bold rounded-lg font-mono">
+                  CSE 2025 Official Cut-off
+                </span>
+              </div>
+
+              <div className="overflow-x-auto">
+                <table className="w-full text-left text-xs border-collapse">
+                  <thead>
+                    <tr className="bg-[#0b3b60] text-white font-bold border-b border-slate-200 uppercase text-[11px] tracking-wider">
+                      <th className="py-3.5 px-4 font-bold">Examination</th>
+                      <th className="py-3.5 px-3 font-bold text-center">General</th>
+                      <th className="py-3.5 px-3 font-bold text-center">EWS</th>
+                      <th className="py-3.5 px-3 font-bold text-center">OBC</th>
+                      <th className="py-3.5 px-3 font-bold text-center">SC</th>
+                      <th className="py-3.5 px-3 font-bold text-center">ST</th>
+                      <th className="py-3.5 px-3 font-bold text-center">PwBD-1</th>
+                      <th className="py-3.5 px-3 font-bold text-center">PwBD-2</th>
+                      <th className="py-3.5 px-3 font-bold text-center">PwBD-3</th>
+                      <th className="py-3.5 px-3 font-bold text-center">PwBD-5</th>
+                    </tr>
+                  </thead>
+                  <tbody className="divide-y divide-slate-100 font-mono">
+                    <tr className="hover:bg-slate-50/80 transition-colors">
+                      <td className="py-3.5 px-4 font-sans font-bold text-slate-900 bg-slate-50/50 whitespace-nowrap">
+                        CS(Prelim)*
+                      </td>
+                      <td className="py-3.5 px-3 text-center font-bold text-[#0b3b60] bg-indigo-50/30">92.66</td>
+                      <td className="py-3.5 px-3 text-center text-slate-700">89.34</td>
+                      <td className="py-3.5 px-3 text-center font-semibold text-slate-800">92.00</td>
+                      <td className="py-3.5 px-3 text-center text-slate-700">84.00</td>
+                      <td className="py-3.5 px-3 text-center text-slate-700">82.66</td>
+                      <td className="py-3.5 px-3 text-center text-slate-700">76.66</td>
+                      <td className="py-3.5 px-3 text-center text-slate-700">54.66</td>
+                      <td className="py-3.5 px-3 text-center text-slate-700">40.66</td>
+                      <td className="py-3.5 px-3 text-center text-slate-700">40.66</td>
+                    </tr>
+                    <tr className="hover:bg-slate-50/80 transition-colors">
+                      <td className="py-3.5 px-4 font-sans font-bold text-slate-900 bg-slate-50/50 whitespace-nowrap">
+                        CS(Main)#
+                      </td>
+                      <td className="py-3.5 px-3 text-center font-bold text-[#0b3b60] bg-indigo-50/30">739</td>
+                      <td className="py-3.5 px-3 text-center text-slate-700">706</td>
+                      <td className="py-3.5 px-3 text-center font-semibold text-slate-800">717</td>
+                      <td className="py-3.5 px-3 text-center text-slate-700">700</td>
+                      <td className="py-3.5 px-3 text-center text-slate-700">694</td>
+                      <td className="py-3.5 px-3 text-center text-slate-700">703</td>
+                      <td className="py-3.5 px-3 text-center text-slate-700">708</td>
+                      <td className="py-3.5 px-3 text-center text-slate-700">536</td>
+                      <td className="py-3.5 px-3 text-center text-slate-700">451</td>
+                    </tr>
+                    <tr className="hover:bg-slate-50/80 transition-colors bg-amber-50/20">
+                      <td className="py-3.5 px-4 font-sans font-bold text-slate-900 bg-amber-50/40 whitespace-nowrap">
+                        CS(Final)
+                      </td>
+                      <td className="py-3.5 px-3 text-center font-bold text-[#0b3b60] bg-amber-100/40">963</td>
+                      <td className="py-3.5 px-3 text-center font-semibold text-slate-800">926</td>
+                      <td className="py-3.5 px-3 text-center font-semibold text-slate-800">931</td>
+                      <td className="py-3.5 px-3 text-center text-slate-700">905</td>
+                      <td className="py-3.5 px-3 text-center text-slate-700">902</td>
+                      <td className="py-3.5 px-3 text-center text-slate-700">917</td>
+                      <td className="py-3.5 px-3 text-center text-slate-700">944</td>
+                      <td className="py-3.5 px-3 text-center text-slate-700">804</td>
+                      <td className="py-3.5 px-3 text-center text-slate-700">631</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+
+              {/* Explanatory Footnotes */}
+              <div className="p-4 bg-slate-50/80 border-t border-slate-200 text-xs text-slate-600 space-y-2">
+                <p className="flex items-start gap-2">
+                  <span className="font-bold text-indigo-700 shrink-0">*</span>
+                  <span><strong>Prelims Qualifying Rule:</strong> Cut off marks on the basis of GS Paper-I only. GS Paper-II (CSAT) is of qualifying nature with 33% marks (66.66/200) as per Rule-15 of Civil Services Examination, 2025.</span>
+                </p>
+                <p className="flex items-start gap-2">
+                  <span className="font-bold text-indigo-700 shrink-0">#</span>
+                  <span><strong>Mains Evaluation Threshold:</strong> Subject to 10% marks in each of the seven competitive papers i.e. Essay, GS-I, GS-II, GS-III, GS-IV, Optional-I and Optional-II.</span>
+                </p>
+              </div>
+            </div>
+
+            {/* Tie-Breaking Principles */}
+            <div className="bg-white rounded-2xl border border-slate-200 shadow-xs p-6 sm:p-8 space-y-4">
+              <div className="flex items-center gap-2 border-b border-slate-100 pb-3">
+                <Scale className="w-5 h-5 text-[#0b3b60]" />
+                <h3 className="text-lg font-bold font-serif text-[#0b3b60]">
+                  Principles for Resolution of Tie Cases
+                </h3>
+              </div>
+              <p className="text-xs sm:text-sm text-slate-600 leading-relaxed">
+                Wherever two or more candidates have secured equal aggregate marks in CSE Exam 2025, the tie(s) have been resolved in accordance with the principles approved by the Commission, viz:
+              </p>
+
+              <div className="space-y-3 pt-1">
+                <div className="flex items-start gap-3 p-3.5 rounded-xl bg-slate-50 border border-slate-200/70">
+                  <span className="flex-shrink-0 w-6 h-6 rounded-full bg-[#0b3b60] text-white flex items-center justify-center font-bold text-xs">
+                    i
+                  </span>
+                  <p className="text-xs sm:text-sm text-slate-700 leading-relaxed">
+                    If the marks in aggregate (Final Marks) are equal, the Candidate securing more marks in the <strong>Compulsory<span className="text-indigo-600 font-bold">@</span> (Common) Papers</strong> of written examination (<em>Paper-I: Essay, Paper-II: GS-I, Paper-III: GS-II, Paper-IV: GS-III, Paper-V: GS-IV</em>) and the <strong>Personality Test</strong> put together has been ranked higher.
+                  </p>
+                </div>
+
+                <div className="flex items-start gap-3 p-3.5 rounded-xl bg-slate-50 border border-slate-200/70">
+                  <span className="flex-shrink-0 w-6 h-6 rounded-full bg-[#0b3b60] text-white flex items-center justify-center font-bold text-xs">
+                    ii
+                  </span>
+                  <p className="text-xs sm:text-sm text-slate-700 leading-relaxed">
+                    If the marks at (i) above are equal, then the candidate securing more marks in the <strong>Compulsory<span className="text-indigo-600 font-bold">@</span> (Common) Papers</strong> of written examination (<em>Paper-I: Essay, Paper-II: GS-I, Paper-III: GS-II, Paper-IV: GS-III, Paper-V: GS-IV put together</em>) has been ranked higher.
+                  </p>
+                </div>
+
+                <div className="flex items-start gap-3 p-3.5 rounded-xl bg-slate-50 border border-slate-200/70">
+                  <span className="flex-shrink-0 w-6 h-6 rounded-full bg-[#0b3b60] text-white flex items-center justify-center font-bold text-xs">
+                    iii
+                  </span>
+                  <p className="text-xs sm:text-sm text-slate-700 leading-relaxed">
+                    If the marks at (i) &amp; (ii) above are also equal, the candidate <strong>Senior in age</strong> has been ranked higher.
+                  </p>
+                </div>
+              </div>
+
+              <div className="p-3 bg-amber-50/70 border border-amber-200 rounded-xl text-xs text-amber-900">
+                <strong>@ Compulsory Papers Definition:</strong> Compulsory Papers include Essay, General Studies-I, General Studies-II, General Studies-III and General Studies-IV.
+              </div>
+            </div>
+
+            {/* Categories & PwBD Descriptions */}
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              {/* Category Abbreviations */}
+              <div className="bg-white rounded-2xl border border-slate-200 shadow-xs p-6 space-y-3">
+                <h4 className="font-bold text-sm font-serif text-[#0b3b60] border-b border-slate-100 pb-2">
+                  Category Nomenclature
+                </h4>
+                <div className="divide-y divide-slate-100 text-xs">
+                  <div className="py-2.5 flex justify-between">
+                    <span className="font-bold text-slate-900">GENERAL</span>
+                    <span className="text-slate-600">General Category</span>
+                  </div>
+                  <div className="py-2.5 flex justify-between">
+                    <span className="font-bold text-slate-900">EWS</span>
+                    <span className="text-slate-600">Economically Weaker Section</span>
+                  </div>
+                  <div className="py-2.5 flex justify-between">
+                    <span className="font-bold text-slate-900">OBC</span>
+                    <span className="text-slate-600">Other Backward Classes</span>
+                  </div>
+                  <div className="py-2.5 flex justify-between">
+                    <span className="font-bold text-slate-900">SC</span>
+                    <span className="text-slate-600">Scheduled Castes</span>
+                  </div>
+                  <div className="py-2.5 flex justify-between">
+                    <span className="font-bold text-slate-900">ST</span>
+                    <span className="text-slate-600">Scheduled Tribes</span>
+                  </div>
+                </div>
+              </div>
+
+              {/* PwBD Classifications */}
+              <div className="bg-white rounded-2xl border border-slate-200 shadow-xs p-6 space-y-3">
+                <h4 className="font-bold text-sm font-serif text-[#0b3b60] border-b border-slate-100 pb-2">
+                  PwBD Category Breakdown
+                </h4>
+                <div className="divide-y divide-slate-100 text-xs">
+                  <div className="py-2 flex flex-col gap-0.5">
+                    <span className="font-bold text-indigo-900">PwBD-1</span>
+                    <span className="text-slate-600 leading-relaxed">
+                      Locomotor disability including cerebral palsy, leprosy cured, dwarfism, acid attack victims and muscular dystrophy
+                    </span>
+                  </div>
+                  <div className="py-2 flex flex-col gap-0.5">
+                    <span className="font-bold text-indigo-900">PwBD-2</span>
+                    <span className="text-slate-600">Blindness and low vision</span>
+                  </div>
+                  <div className="py-2 flex flex-col gap-0.5">
+                    <span className="font-bold text-indigo-900">PwBD-3</span>
+                    <span className="text-slate-600">Deaf and Hard of hearing</span>
+                  </div>
+                  <div className="py-2 flex flex-col gap-0.5">
+                    <span className="font-bold text-indigo-900">PwBD-5</span>
+                    <span className="text-slate-600">Multiple disabilities</span>
+                  </div>
+                </div>
+              </div>
+            </div>
 
           </motion.section>
         )}
