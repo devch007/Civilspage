@@ -128,7 +128,7 @@ export default function AboutCse() {
               }`}
               onClick={() => setActiveTab('approach')}
             >
-              Approach to GS
+              Approach to General Studies
             </button>
             <button 
               className={`px-4 py-2 text-xs font-bold rounded-lg border transition-all ${
@@ -1618,7 +1618,7 @@ export default function AboutCse() {
                 <span className="text-xs text-amber-200 font-medium">By Rajiv Ranjan Singh</span>
               </div>
               <h2 className="text-2xl sm:text-3xl font-black font-serif text-white">
-                An Approach to GS: Orientation & Methodology
+                An Approach to General Studies: Orientation & Methodology
               </h2>
               <p className="text-xs sm:text-sm text-slate-200 leading-relaxed max-w-3xl">
                 A definitive strategic blueprint for mastering General Studies — demystifying scoring realities, cognitive pipelines, temporal current affairs integration, and answer-crafting discipline.
